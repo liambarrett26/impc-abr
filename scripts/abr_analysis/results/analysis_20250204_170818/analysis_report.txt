@@ -1,0 +1,548 @@
+ABR Analysis Report
+=================
+
+Overall Statistics
+-----------------
+Total genes analyzed: 6749
+Bowl et al. genes: 67
+
+
+ALL ANALYSIS
+------------
+Total significant genes: 709
+Found in Bowl et al.: 54
+Novel candidates: 655
+Missed from Bowl et al.: 13
+
+Found in Bowl et al.:
+Aak1                	Acsl4               	Adgrb1              
+Adgrv1              	Ahsg                	Ankrd11             
+Atp2b1              	Baiap2l2            	Ccdc88c             
+Cib2                	Cimap1d             	Clrn1               
+Col9a2              	Dnase1              	Duoxa2              
+Elmod1              	Emb                 	Eps8l1              
+Ewsr1               	Gga1                	Gipc3               
+Gpr152              	Gpr50               	Ikzf5               
+Il1r2               	Ildr1               	Klc2                
+Klhl18              	Marveld2            	Med28               
+Minar2              	Mpdz                	Myh1                
+Myo7a               	Nedd4l              	Nin                 
+Nptn                	Ocm                 	Otoa                
+Phf6                	Pramel17            	Slc4a10             
+Slc5a5              	Spns2               	Srrm4               
+Tmem30b             	Tmtc4               	Tox                 
+Tprn                	Tram2               	Ube2g1              
+Ush1c               	Wdtc1               	Zfp719              
+
+Novel candidates:
+1700003F12Rik       	4933405L10Rik       	Aars2               
+Abca2               	Abcc8               	Abhd4               
+Abhd6               	Acat1               	Actl6b              
+Acyp1               	Adad2               	Adamts15            
+Adarb1              	Adcy6               	Adipor1             
+Adora1              	Aff3                	Agap1               
+Ahrr                	Akap8l              	Akr1c12             
+Alg1                	Angel2              	Ankrd13b            
+Ankrd24             	Ankrd44             	Ankrd53             
+Ap4e1               	Apbb3               	Arf3                
+Arhgap21            	Arhgap36            	Arhgef10l           
+Arsk                	Arv1                	Asb5                
+Asf1b               	Ash1l               	Asic1               
+Atf6b               	Atg2b               	Atg4a               
+Atg4b               	Atg4c               	Atg4d               
+Atp7a               	Atp8b1              	Atxn7l3             
+B230219D22Rik       	B2m                 	BC049715            
+Bap1                	Bbof1               	Bcl2l13             
+Bcorl1              	Bicral              	Bloc1s6             
+Blvrb               	Bnip1               	Bod1                
+Bola2               	Brcc3dc             	Brd2                
+Btbd7               	Btbd8               	Bysl                
+C2cd2l              	C4bp                	C9orf72             
+Cabp2               	Cacna2d1            	Cad                 
+Camkv               	Camsap3             	Carm1               
+Cbln3               	Ccbe1               	Ccdc117             
+Ccdc124             	Ccdc166             	Ccdc191             
+Ccdc83              	Cckar               	Cdc37               
+Cdc37l1             	Cdc42ep5            	Cdca5               
+Cdk12               	Cdk14               	Cdk8                
+Cdkn1a              	Cdkn2aip            	Cep128              
+Cep135              	Cep250              	Cep85l              
+Ces1f               	Ces2c               	Cfap45              
+Cfdp1               	Chd1                	Chd6                
+Chfr                	Chrnd               	Chst12              
+Chsy1               	Cidec               	Cimip2b             
+Clcf1               	Clec16a             	Clec3a              
+Clpp                	Clptm1l             	Clrn2               
+Cmtm7               	Cnih2               	Cntnap5b            
+Col9a3              	Cox4i1              	Cpa5                
+Crisp3              	Crtac1              	Cryzl2              
+Csf3r               	Csnk1g3             	Ctf2                
+Ctif                	Ctsm                	Ctu2                
+Cxcl3               	Cxxc4               	Cyb5d1              
+Cyp17a1             	Cyp3a41b            	D630023F18Rik       
+D6Wsu163e           	Daam2               	Dbil5               
+Dbn1                	Dcaf15              	Dcaf6               
+Dclk3               	Dctd                	Dctpp1              
+Ddah1               	Defb43              	Dennd6b             
+Depdc1a             	Disc1               	Dlat                
+Dlgap2              	Dmtf1l              	Dnaja4              
+Dnajb14             	Dnajb4              	Dnajc14             
+Dnase1l2            	Dnmbp               	Dpp8                
+Dpp9                	Dpyd                	Dtl                 
+Dtnbp1              	Dusp7               	Ebf1                
+Eea1                	Eef2kmt             	Efhb                
+Eif2s1              	Eif4b               	Elavl1              
+Elavl2              	Elfn1               	Elmo3               
+Emc3                	Emc4                	Emilin2             
+Emx1                	Eng                 	Enpep               
+Enpp1               	Ensa                	Epb41l1             
+Epc2                	Epn3                	Ergic1              
+Erlec1              	Espnl               	Etfa                
+Exoc3l2             	Eya4                	Fads3               
+Fads6               	Fam185a             	Fam24b              
+Fancl               	Fbrs                	Fbxl12              
+Fbxl15              	Fbxl19              	Fbxl5               
+Fbxl8               	Fbxo10              	Fbxo15              
+Fbxo24              	Fbxo25              	Fbxo27              
+Fbxo28              	Fbxo33              	Fbxo36              
+Fbxo38              	Fbxo48              	Fer1l4              
+Fgf7                	Fkbp5               	Fnbp1l              
+Fnip1               	Fntb                	Frmd3               
+Fuca1               	Fus                 	Gas2l2              
+Gatad2b             	Gde1                	Gimap6              
+Gm14569             	Gm5447              	Gm5547              
+Gng12               	Golph3              	Gpbp1               
+Gpr150              	Gpr156              	Gpx4                
+Grxcr1              	Gsdma3              	Gsdmd               
+Gstt1               	Gtf2a1l             	Gtf2h3              
+Gtpbp2              	Gulp1               	Gzf1                
+H1f0                	H1f10               	Haao                
+Hacd3               	Hars2               	Haus4               
+Helq                	Hemk1               	Herc4               
+Hmgcs1              	Hnrnpd              	Hnrnpdl             
+Hnrnph1             	Hnrnph2             	Hnrnpm              
+Hnrnpr              	Homer2              	Hoxc11              
+Hs3st3a1            	Hsd17b1             	Hspa5               
+Hspb3               	Hspb9               	Htr4                
+Ifng                	Ift56               	Il10ra              
+Il6ra               	Ing5                	Ints6l              
+Ipo4                	Iqcf1               	Iqgap2              
+Irgq                	Irx6                	Isg20               
+Ist1                	Isy1                	Iws1                
+Izumo1r             	Jazf1               	Kcna7               
+Kcne1               	Kcnn1               	Kcnt2               
+Kcnv1               	Kctd11              	Kctd15              
+Kctd9               	Kdm1a               	Kdm2b               
+Kdm5a               	Kdm8                	Kics2               
+Kif13a              	Klhdc7b             	Klhdc8b             
+Klhl34              	Klhl5               	Klk11               
+Klk5                	Kmt2c               	Krt1                
+Krt25               	Krt33a              	Krtap29-1           
+Krtcap2             	Lcorl               	Ldhal6b             
+Ldhb                	Ldlr                	Lelp1               
+Lhcgr               	Lipm                	Lkaaear1            
+Lmtk2               	Loxl1               	Lpcat2              
+Lrrc4b              	Lsm14a              	Ltv1                
+Luc7l               	Lypd2               	Lypd6b              
+Mag                 	Mageh1              	Man2b2              
+Mapk13              	Mcidas              	Med25               
+Mettl5              	Mfsd4b4             	Mgrn1               
+Mical3              	Mir143              	Mir145a             
+Mir204              	Mir28a              	Mir96               
+Mkrn2               	Mob4                	Mphosph8            
+Mreg                	Mroh2b              	Mrpl39              
+Msantd3             	Msi2                	Muc5b               
+Myo10               	Myo1d               	Myo3a               
+Myo6                	Myom2               	Myzap               
+Naa10               	Nadk2               	Necap2              
+Nek2                	Nelfcd              	Nemp1               
+Nfil3               	Nherf4              	Nhsl1               
+Npcd                	Nsl1                	Nt5e                
+Nup62cl             	Nwd2                	Nxn                 
+Oprl1               	Osbpl8              	Otog                
+Otogl               	Otud1               	Otud3               
+Oxsm                	P2rx5               	P2rx7               
+Pak1ip1             	Pank2               	Panx2               
+Pappa               	Parg                	Parp1               
+Parp12              	Pax5                	Pcdh20              
+Pcdhb3              	Pcdhb9              	Pcnx4               
+Pcp4l1              	Pcx                 	Pcyox1l             
+Pdcd6ip             	Pdxp                	Peak1               
+Peli1               	Pepd                	Pfas                
+Pfdn1               	Pfkfb2              	Pgc                 
+Pgpep1              	Phf3                	Phf8                
+Pigm                	Pjvk                	Pkhd1l1             
+Pla2g5              	Pla2g7              	Plbd2               
+Plcb4               	Pld3                	Plekhf2             
+Plscr5              	Pmel                	Poc1b               
+Pom121l2            	Pop7                	Pou2af3             
+Ppfia3              	Ppia                	Ppox                
+Ppp1cb              	Ppp1r12b            	Ppp1r14a            
+Ppp1r14d            	Ppp1r1a             	Ppp2r2a             
+Ppp2r2c             	Ppp2r5c             	Ppp2r5d             
+Ppp2r5e             	Prdm5               	Prkab1              
+Prkacb              	Prmt9               	Prss12              
+Prss21              	Prss36              	Psen1               
+Pspc1               	Ptchd1              	Ptma                
+Ptprd               	Qsox1               	Rab10               
+Rab11fip3           	Rab39b              	Rab3il1             
+Rab3ip              	Rab9                	Rabggta             
+Ramac               	Rap1gap2            	Rapgef5             
+Rasal2              	Rbbp4               	Rbm11               
+Rbm22               	Rcor3               	Relch               
+Rell1               	Rfxap               	Rgl1                
+Rhox13              	Rnd2                	Rnf10               
+Rnf123              	Rnf144b             	Rnf166              
+Rnf222              	Rnf4                	Rpain               
+Rprd2               	Rrbp1               	Rtl10               
+Rtn4rl2             	Rufy3               	Rxfp2               
+Ryr1                	Sall3               	Sap30               
+Satb1               	Satb2               	Sbf1                
+Scamp2              	Scg5                	Scin                
+Scn4a               	Scrib               	Sec62               
+Secisbp2l           	Serpinb13           	Serpine3            
+Setd5               	Sfxn3               	Sh3bp5              
+Sh3gl2              	Sh3rf3              	Shank1              
+Shank3              	Shfl                	Skida1              
+Sla2                	Slbp                	Slc15a1             
+Slc17a8             	Slc22a15            	Slc22a4             
+Slc37a1             	Slc3a1              	Slc4a1ap            
+Slc52a2             	Slco6c1             	Smarca2             
+Smc6                	Smg9                	Snd1                
+Snx25               	Sorcs2              	Sox14               
+Sox21               	Spast               	Speer4f1            
+Speg                	Spred1              	Srek1               
+Srsf7               	Ssh2                	Sstr5               
+Stim2               	Strn4               	Stx17               
+Sun1                	Sun2                	Syce1l              
+Syncrip             	Syt4                	Taar3               
+Taar8a              	Tacr3               	Taf13               
+Tbl1xr1             	Tdrkh               	Tdrp                
+Tent4a              	Tfec                	Tg                  
+Thap12              	Thra                	Tigd3               
+Timm50              	Tktl2               	Tle4                
+Tmco6               	Tmem108             	Tmem145             
+Tmem169             	Tmem33              	Tmem51              
+Tmprss2             	Tnfrsf11b           	Tnfrsf1a            
+Tnip1               	Tomm20              	Tomm70a             
+Tomt                	Topors              	Tpd52l1             
+Trappc11            	Trim10              	Trim35              
+Trim37              	Trim71              	Triobp              
+Trpm3               	Tspan7              	Tspan9              
+Tssk4               	Ttbk1               	Ttc7                
+Tti1                	Ttyh2               	Tubb4b              
+Tvp23b              	Twist2              	Tyk2                
+U2af1               	U2af2               	U2surp              
+Ube2d3              	Ube2h               	Ube2i               
+Ube2n               	Ube2w               	Ube3c               
+Ubxn10              	Umodl1              	Unc119b             
+Unkl                	Urm1                	Usp11               
+Usp13               	Usp15               	Usp26               
+Usp30               	Usp32               	Usp37               
+Usp39               	Usp43               	Usp46               
+Usp53               	Vav2                	Vps13b              
+Wdr4                	Wdr41               	Wdr45               
+Wdr6                	Wdr89               	Xbp1                
+Xpo4                	Xrcc5               	Ydjc                
+Yod1                	Zbtb16              	Zbtb41              
+Zc2hc1a             	Zc3h7a              	Zc3h8               
+Zcchc12             	Zcchc3              	Zdhhc19             
+Zdhhc2              	Zdhhc23             	Zdhhc3              
+Zdhhc5              	Zfand3              	Zfp28               
+Zfp286              	Zfp423              	Zfp438              
+Zfp445              	Zfp469              	Zfp474              
+Zfp512b             	Zfp597              	Zfp652              
+Zhx3                	Zmat4               	Znhit2              
+Zscan12             
+
+Missed from Bowl et al.:
+Acvr2a              	Ap3m2               	Ap3s1               
+Ccdc92              	Cyb5r2              	Gata2               
+Nfatc3              	Nisch               	Ppm1a               
+Sema3f              	Ube2b               	Vti1a               
+Zcchc14             
+
+
+MALE ANALYSIS
+-------------
+Total significant genes: 316
+Found in Bowl et al.: 26
+Novel candidates: 290
+Missed from Bowl et al.: 41
+
+Found in Bowl et al.:
+Aak1                	Adgrb1              	Baiap2l2            
+Cimap1d             	Duoxa2              	Gipc3               
+Gpr152              	Ikzf5               	Ildr1               
+Klc2                	Klhl18              	Minar2              
+Mpdz                	Myh1                	Myo7a               
+Nin                 	Ocm                 	Otoa                
+Slc5a5              	Spns2               	Srrm4               
+Tprn                	Tram2               	Ube2g1              
+Ush1c               	Zfp719              
+
+Novel candidates:
+2510009E07Rik       	Abca2               	Abcc8               
+Abhd4               	Acat1               	Acot2               
+Acyp1               	Adipor1             	Aff3                
+Agap1               	Akap8l              	Aldh1l1             
+Angptl3             	Ankrd13b            	Ankrd24             
+Ankrd44             	Ap4e1               	Arf3                
+Arhgap21            	Arsk                	Arv1                
+Asf1b               	Aspa                	Atg2b               
+Atp7a               	Atp8b1              	Bap1                
+Bltp1               	Blvrb               	Brd3                
+Btbd7               	C4bp                	Cabp2               
+Cbln3               	Ccdc166             	Cdca5               
+Cdk12               	Cdkn2aip            	Cep128              
+Cep135              	Cep250              	Ces1f               
+Cfdp1               	Chd1                	Cidec               
+Clcf1               	Clec16a             	Clec3a              
+Clpp                	Clrn2               	Cpa4                
+Crisp3              	Cyb5d1              	Cyp4f39             
+D630023F18Rik       	Daam2               	Dbn1                
+Dclk3               	Ddah1               	Depdc1a             
+Dlat                	Dmtf1l              	Dnajb11             
+Dnajb14             	Dnajc14             	Dnase1l2            
+Dock9               	Dpyd                	Dync1li1            
+Efhb                	Elavl1              	Elavl2              
+Emilin2             	Enpep               	Enpp1               
+Ensa                	Epgn                	Ergic1              
+Espnl               	Fads3               	Fam204a             
+Fbxo33              	Fer1l4              	Fhod1               
+Fnip1               	Frmd3               	Fshr                
+Fuca1               	Garre1              	Gm5447              
+Gpbp1               	Gpr150              	Grxcr1              
+Gsdmd               	Gtf2h3              	Gtpbp2              
+Gulp1               	Haus4               	Hbs1l               
+Helq                	Hemk1               	Hmgcs1              
+Homer2              	Hspa5               	Hspb3               
+Hspb9               	Ift56               	Ing5                
+Iqcf1               	Ist1                	Isy1                
+Izumo1r             	Jakmip3             	Kcna7               
+Kcne1               	Kcnn1               	Kctd15              
+Kdm1a               	Kdm2b               	Klhdc8b             
+Klhl34              	Klhl5               	Klk5                
+Krt33a              	Krtcap2             	Lcorl               
+Ldhal6b             	Ldhb                	Ldlr                
+Lkaaear1            	Lpcat2              	Lrrc4b              
+Lsm14a              	Lysmd1              	Mag                 
+Mageh1              	Man2b2              	Mapk13              
+Mcidas              	Mettl5              	Mfsd4b4             
+Mgrn1               	Mir145a             	Mir96               
+Mkrn2               	Mob4                	Mphosph8            
+Mroh2b              	Mrpl18              	Mrpl39              
+Myh13               	Myo10               	Myo1d               
+Myo3a               	Naa10               	Nadk2               
+Nek2                	Nemp1               	Npcd                
+Nup62cl             	Nxn                 	Orc1                
+Osbpl8              	Otog                	Otogl               
+Otub1               	Otud3               	P2rx7               
+P4ha3               	Pank2               	Panx2               
+Pax5                	Pcyox1l             	Pdxp                
+Peak1               	Peli3               	Pepd                
+Pfdn1               	Pgc                 	Pgpep1              
+Phf3                	Phf8                	Pjvk                
+Plbd2               	Plekhf2             	Plscr5              
+Ppfia3              	Ppox                	Ppp2r5e             
+Prkab1              	Prss12              	Pspc1               
+Ptchd1              	Rab10               	Rab11fip3           
+Rab3il1             	Ramac               	Rap1gap2            
+Rasal2              	Rassf8              	Rcan3               
+Relch               	Rell1               	Rhox13              
+Rlim                	Rnd2                	Rnf10               
+Rnf4                	Rrbp1               	Rsad1               
+Rufy3               	Rxfp2               	Sap30               
+Scamp2              	Scrn1               	Secisbp2l           
+Selenok             	Setd5               	Sfxn3               
+Sh3bp5              	Sh3rf3              	Sla2                
+Slbp                	Slc1a3              	Smc6                
+Smg9                	Snd1                	Speg                
+Sqle                	Srek1               	Ssh2                
+Stx17               	Sun1                	Sun2                
+Syce1l              	Syne2               	Tbl1xr1             
+Tent4a              	Tg                  	Thap12              
+Thra                	Tigd3               	Tmco6               
+Tmem33              	Tmem79              	Tmprss2             
+Tomm20              	Tomm70a             	Trappc11            
+Trim10              	Trim37              	Triobp              
+Tspan7              	Tspyl1              	Tstd1               
+Ttc32               	Tvp23b              	Tyk2                
+U2af1               	U2af2               	Ubap2               
+Ube2n               	Ube3c               	Ubxn10              
+Unkl                	Usp26               	Usp30               
+Usp32               	Usp37               	Usp53               
+Vkorc1l1            	Wdr45               	Wdr89               
+Xpnpep1             	Xrcc5               	Ydjc                
+Ywhab               	Zc3h7a              	Zdhhc19             
+Zfp267              	Zfp280c             	Zfp286              
+Zfp423              	Zfp512b             	Zfp597              
+Zfp652              	Zfp786              	Zfp940              
+Zmat4               	Zscan12             
+
+Missed from Bowl et al.:
+Acsl4               	Acvr2a              	Adgrv1              
+Ahsg                	Ankrd11             	Ap3m2               
+Ap3s1               	Atp2b1              	Ccdc88c             
+Ccdc92              	Cib2                	Clrn1               
+Col9a2              	Cyb5r2              	Dnase1              
+Elmod1              	Emb                 	Eps8l1              
+Ewsr1               	Gata2               	Gga1                
+Gpr50               	Il1r2               	Marveld2            
+Med28               	Nedd4l              	Nfatc3              
+Nisch               	Nptn                	Phf6                
+Ppm1a               	Pramel17            	Sema3f              
+Slc4a10             	Tmem30b             	Tmtc4               
+Tox                 	Ube2b               	Vti1a               
+Wdtc1               	Zcchc14             
+
+
+FEMALE ANALYSIS
+---------------
+Total significant genes: 315
+Found in Bowl et al.: 23
+Novel candidates: 292
+Missed from Bowl et al.: 44
+
+Found in Bowl et al.:
+Aak1                	Acsl4               	Adgrb1              
+Ankrd11             	Baiap2l2            	Cimap1d             
+Ewsr1               	Gipc3               	Il1r2               
+Klc2                	Minar2              	Mpdz                
+Myh1                	Myo7a               	Nedd4l              
+Ocm                 	Otoa                	Phf6                
+Slc5a5              	Tprn                	Tram2               
+Wdtc1               	Zfp719              
+
+Novel candidates:
+0610040J01Rik       	4933405L10Rik       	4933430I17Rik       
+Abhd4               	Ablim2              	Actl6b              
+Adad2               	Adora1              	Aff3                
+Ahrr                	Alpk3               	Ankrd13b            
+Ankrd24             	Ap4e1               	Arhgap21            
+Arv1                	Atp8b1              	Bahd1               
+Bap1                	Bclaf1              	Bhlhe40             
+Blvrb               	Bola2               	Brcc3dc             
+Btbd7               	Btbd8               	Bysl                
+C2cd2l              	Cabp2               	Camsap3             
+Ccdc191             	Cckar               	Cdc37l1             
+Cdk14               	Cdk4                	Cep128              
+Ces1f               	Ces2c               	Cfap45              
+Chst12              	Cidec               	Clec16a             
+Clec3a              	Clptm1l             	Clrn2               
+Cmya5               	Cnih2               	Cntnap5b            
+Col9a3              	Cpa5                	Crisp3              
+Cryzl2              	Csnk1g3             	Ctif                
+Cxxc4               	D630045J12Rik       	D6Wsu163e           
+Dbn1                	Dctpp1              	Dennd6b             
+Dlgap2              	Dnaja4              	Dnajb4              
+Dnajc14             	Dnase1l2            	Dpp8                
+Dtnbp1              	Dusp15              	Dusp7               
+Eea1                	Eef2kmt             	Efhb                
+Emc3                	Enpp1               	Epb41l1             
+Espnl               	Exoc3l2             	Exoc4               
+Fads3               	Fam185a             	Fam24b              
+Fbxl19              	Fbxo25              	Fbxo48              
+Fkbp5               	Fnbp1l              	Fuca1               
+Gatad2b             	Gimap6              	Gm14569             
+Gm5547              	Golph3              	Grxcr1              
+Gsdmd               	Gstt1               	Gulp1               
+Gzf1                	H1f10               	Hars2               
+Hilpda              	Hmgcs1              	Hnrnpd              
+Homer2              	Hsd17b1             	Hsd17b4             
+Hspa5               	Iffo2               	Il10ra              
+Il3ra               	Ints6l              	Irgq                
+Irx6                	Isg20               	Iws1                
+Kcne1               	Kctd11              	Kctd9               
+Kdm8                	Klhdc8b             	Klk11               
+Klk14               	Klk5                	Knl1                
+Krt25               	Krtap29-1           	Krtcap2             
+Lamp5               	Ldlr                	Lipm                
+Loxl1               	Lpcat2              	Lrig3               
+Lrrc4b              	Lsm14a              	Lypd6b              
+Mag                 	Mcidas              	Med10               
+Med25               	Mettl5              	Mgrn1               
+Mical3              	Mir143              	Mir320              
+Mir96               	Mkrn2               	Mpzl2               
+Mroh2b              	Mrpl3               	Msantd3             
+Myo1d               	Myo3a               	Myzap               
+Nacc1               	Nek2                	Nelfcd              
+Nherf4              	Nub1                	Nwd2                
+Nxn                 	Osbpl8              	Oscp1               
+Otog                	Otogl               	Otud3               
+P2rx5               	P2rx7               	Pak1ip1             
+Pank2               	Parp1               	Pax7                
+Pcdhb3              	Pcdhb9              	Pcnx4               
+Pcp4l1              	Pcx                 	Pcyox1l             
+Peli1               	Pfas                	Pgm1                
+Phf10               	Phf3                	Phf8                
+Pjvk                	Pla2g5              	Pla2g7              
+Pld3                	Plekhf2             	Plscr5              
+Pola2               	Pom121l2            	Ppp1r12b            
+Ppp2r5e             	Prdm5               	Prkab1              
+Prkacb              	Prmt9               	Prrc2c              
+Prss21              	Prss36              	Prss47              
+Psen1               	Ptprd               	Qsox1               
+Rab10               	Rab11fip3           	Rab39b              
+Rab3il1             	Rab3ip              	Ramac               
+Rap1gap2            	Rasal3              	Rbm11               
+Rbm22               	Rcor3               	Relch               
+Rell1               	Rgs20               	Rhox13              
+Rnf10               	Rnf123              	Rnf144b             
+Rnf168              	Rpain               	Rprd2               
+Rrbp1               	Sall3               	Sap30               
+Satb1               	Scamp2              	Sdha                
+Sec62               	Slc15a1             	Slc22a15            
+Slc37a1             	Slc4a1ap            	Slco6c1             
+Smarca2             	Smim17              	Sorcs2              
+Sox14               	Srsf7               	Ssh2                
+Syncrip             	Taar8a              	Tacr3               
+Tcaf2               	Tdrkh               	Thra                
+Tmco6               	Tmem108             	Tmem169             
+Tmem63a             	Tmprss2             	Tnfrsf11b           
+Tpd52l1             	Trim16              	Trim37              
+Triobp              	Trpm3               	Ttbk1               
+Ttc7                	Tvp23b              	U2af1               
+Unkl                	Usp11               	Usp26               
+Usp30               	Usp32               	Usp35               
+Usp53               	Vps13b              	Wdr4                
+Wdr41               	Wdr45               	Xpo4                
+Xrcc5               	Zbtb41              	Zc2hc1a             
+Zc3h7a              	Zc3h8               	Zcchc3              
+Zdhhc5              	Zfand3              	Zfp28               
+Zfp438              	Zfp445              	Zfp512b             
+Zfp638              	Zfp652              	Zmat4               
+Znhit2              
+
+Missed from Bowl et al.:
+Acvr2a              	Adgrv1              	Ahsg                
+Ap3m2               	Ap3s1               	Atp2b1              
+Ccdc88c             	Ccdc92              	Cib2                
+Clrn1               	Col9a2              	Cyb5r2              
+Dnase1              	Duoxa2              	Elmod1              
+Emb                 	Eps8l1              	Gata2               
+Gga1                	Gpr152              	Gpr50               
+Ikzf5               	Ildr1               	Klhl18              
+Marveld2            	Med28               	Nfatc3              
+Nin                 	Nisch               	Nptn                
+Ppm1a               	Pramel17            	Sema3f              
+Slc4a10             	Spns2               	Srrm4               
+Tmem30b             	Tmtc4               	Tox                 
+Ube2b               	Ube2g1              	Ush1c               
+Vti1a               	Zcchc14             
+
+
+Sample Size Statistics
+--------------------
+
+ALL:
+Mean mutants per gene: 6.4
+Mean controls per gene: 1375.6
+
+MALE:
+Mean mutants per gene: 4.5
+Mean controls per gene: 996.0
+
+FEMALE:
+Mean mutants per gene: 4.5
+Mean controls per gene: 1033.0
