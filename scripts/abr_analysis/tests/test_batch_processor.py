@@ -44,9 +44,9 @@ def format_gene_list(genes, columns=3):
 def run_batch_analysis(data_path, output_dir="results/multivariate"):
     """Run full batch analysis and save results."""
     # Get paths to gene lists (two directories up in docs/)
-    docs_dir = Path(__file__).parent.parent.parent.parent / "docs"
-    confirmed_genes_path = docs_dir / "multivariate_confirmed_deafness_genes.txt"
-    candidate_genes_path = docs_dir / "multivariate_candidate_deafness_genes.txt"
+    data_dir = Path(__file__).parent.parent.parent.parent / "data"
+    confirmed_genes_path = data_dir / "multivariate_confirmed_deafness_genes.txt"
+    candidate_genes_path = data_dir / "multivariate_candidate_deafness_genes.txt"
 
     # Create output directory with timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

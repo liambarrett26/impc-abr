@@ -67,13 +67,13 @@ def run_batch_bayesian_analysis(data_path, output_dir="results/bayes", min_bf=3.
 
     # Get paths to confirmed and candidate gene lists
     # These are in the docs/ directory (two levels up from abr_analysis)
-    docs_dir = Path(PACKAGE_DIR).parent / "docs"
-    confirmed_genes_path = docs_dir / "multivariate_confirmed_deafness_genes.txt"
-    candidate_genes_path = docs_dir / "multivariate_candidate_deafness_genes.txt"
+    data_dir = Path(PACKAGE_DIR).parent / "data"
+    confirmed_genes_path = data_dir / "multivariate_confirmed_deafness_genes.txt"
+    candidate_genes_path = data_dir / "multivariate_candidate_deafness_genes.txt"
 
     # Compare with confirmed and candidate genes
     if not confirmed_genes_path.exists() or not candidate_genes_path.exists():
-        print(f"Warning: Gene list files not found at {docs_dir}")
+        print(f"Warning: Gene list files not found at {data_dir}")
         print("Expected files: multivariate_confirmed_deafness_genes.txt, multivariate_candidate_deafness_genes.txt")
         comparisons = None
     else:
