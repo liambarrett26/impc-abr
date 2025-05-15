@@ -383,7 +383,10 @@ def test_on_sample_genes(data_path, gene_list=None, output_dir="results/bayes"):
 
 if __name__ == "__main__":
     # Path to your data
-    DATA_PATH = "../../../data/processed/abr_1000_lines.csv"
+    # If you want to trials on a few observations then use:
+    #DATA_PATH = "../../../data/processed/abr_1000_lines.csv"
+    # Else, use:
+    DATA_PATH = "../../../data/processed/abr_full_data.csv"
 
     # To test on just a few genes:
     #test_on_sample_genes(DATA_PATH)
