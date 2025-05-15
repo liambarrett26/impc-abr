@@ -67,7 +67,7 @@ def run_batch_bayesian_analysis(data_path, output_dir="results/bayes", min_bf=3.
 
     # Get paths to confirmed and candidate gene lists
     # These are in the docs/ directory (two levels up from abr_analysis)
-    data_dir = Path(PACKAGE_DIR).parent / "data"
+    data_dir = Path(PACKAGE_DIR).parent.parent / "data"
     confirmed_genes_path = data_dir / "multivariate_confirmed_deafness_genes.txt"
     candidate_genes_path = data_dir / "multivariate_candidate_deafness_genes.txt"
 
