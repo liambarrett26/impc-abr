@@ -383,15 +383,15 @@ def test_on_sample_genes(data_path, gene_list=None, output_dir="results/bayes"):
 
 if __name__ == "__main__":
     # Path to your data
-    DATA_PATH = "../../../data/processed/abr_full_data.csv"
+    DATA_PATH = "../../../data/processed/abr_1000_lines.csv"
 
     # To test on just a few genes:
-    test_on_sample_genes(DATA_PATH)
+    #test_on_sample_genes(DATA_PATH)
 
     # Or run the full analysis:
-    #try:
-    #    results, comparisons, output_dir = run_batch_bayesian_analysis(data_path)
-    #    print("\nTest completed successfully!")
-    #except Exception as e:
-    #    print(f"\nError during test: {e}")
-    #    raise
+    try:
+        results, comparisons, output_dir = run_batch_bayesian_analysis(DATA_PATH)
+        print("\nTest completed successfully!")
+    except Exception as e:
+        print(f"\nError during test: {e}")
+        raise
