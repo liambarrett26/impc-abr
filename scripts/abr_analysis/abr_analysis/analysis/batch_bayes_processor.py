@@ -434,95 +434,119 @@ class GeneBayesianAnalyzer:
         plt.figure(figsize=(10, 6))
         bfs = self.gene_summary['all_bayes_factor'].replace([np.inf, -np.inf], np.nan).dropna()
 
-        # Log transform for better visualization
-        log_bfs = np.log10(bfs + 0.1)  # Add small constant to handle zeros
+        if not bfs.empty:
+            # Log transform for better visualization
+            log_bfs = np.log10(bfs + 0.1)  # Add small constant to handle zeros
 
-        sns.histplot(log_bfs, kde=True)
-        plt.axvline(x=np.log10(3), color='r', linestyle='--', label='BF=3')
-        plt.axvline(x=np.log10(10), color='g', linestyle='--', label='BF=10')
-        plt.axvline(x=np.log10(100), color='b', linestyle='--', label='BF=100')
+            sns.histplot(log_bfs, kde=True)
+            plt.axvline(x=np.log10(3), color='r', linestyle='--', label='BF=3')
+            plt.axvline(x=np.log10(10), color='g', linestyle='--', label='BF=10')
+            plt.axvline(x=np.log10(100), color='b', linestyle='--', label='BF=100')
 
-        plt.xlabel('log10(Bayes Factor)')
-        plt.ylabel('Count')
-        plt.title('Distribution of Bayes Factors')
-        plt.legend()
-        plt.savefig(visuals_dir / 'bayes_factor_distribution.png')
+            plt.xlabel('log10(Bayes Factor)')
+            plt.ylabel('Count')
+            plt.title('Distribution of Bayes Factors')
+            plt.legend()
+            plt.savefig(visuals_dir / 'bayes_factor_distribution.png')
         plt.close()
 
         # 2. Evidence Classification Pie Chart
         plt.figure(figsize=(10, 6))
         evidence_counts = self.gene_summary['all_evidence'].value_counts()
-        plt.pie(evidence_counts, labels=evidence_counts.index, autopct='%1.1f%%')
-        plt.title('Distribution of Evidence Levels')
-        plt.savefig(visuals_dir / 'evidence_classification.png')
+
+        if not evidence_counts.empty:
+            plt.pie(evidence_counts, labels=evidence_counts.index, autopct='%1.1f%%')
+            plt.title('Distribution of Evidence Levels')
+            plt.savefig(visuals_dir / 'evidence_classification.png')
         plt.close()
 
         # 3. Sex Comparison Plot
         plt.figure(figsize=(10, 6))
-        male_sig = self.gene_summary['male_bayes_factor'] > min_bf
-        female_sig = self.gene_summary['female_bayes_factor'] > min_bf
 
-        venn_data = {
-            'Male Only': sum(male_sig & ~female_sig),
-            'Female Only': sum(female_sig & ~male_sig),
-            'Both': sum(male_sig & female_sig)
-        }
+        # Check if we have male and female data
+        has_male_data = 'male_bayes_factor' in self.gene_summary.columns and not self.gene_summary['male_bayes_factor'].isna().all()
+        has_female_data = 'female_bayes_factor' in self.gene_summary.columns and not self.gene_summary['female_bayes_factor'].isna().all()
 
-        plt.pie(venn_data.values(), labels=venn_data.keys(), autopct='%1.1f%%')
-        plt.title(f'Sex-specific Genes (BF > {min_bf})')
-        plt.savefig(visuals_dir / 'sex_comparison.png')
+        if has_male_data and has_female_data:
+            male_sig = self.gene_summary['male_bayes_factor'] > min_bf
+            female_sig = self.gene_summary['female_bayes_factor'] > min_bf
+
+            # Make sure we don't have NaN values
+            male_sig = male_sig.fillna(False)
+            female_sig = female_sig.fillna(False)
+
+            venn_data = {
+                'Male Only': sum(male_sig & ~female_sig),
+                'Female Only': sum(female_sig & ~male_sig),
+                'Both': sum(male_sig & female_sig)
+            }
+
+            # Check if we have any data to plot
+            if sum(venn_data.values()) > 0:
+                plt.pie(venn_data.values(), labels=venn_data.keys(), autopct='%1.1f%%')
+                plt.title(f'Sex-specific Genes (BF > {min_bf})')
+                plt.savefig(visuals_dir / 'sex_comparison.png')
         plt.close()
 
         # 4. Effect Size Distribution
         plt.figure(figsize=(12, 6))
         sig_genes = self.gene_summary[self.gene_summary['all_bayes_factor'] > min_bf]
 
-        # Calculate mean effect size across frequencies
-        effect_cols = [col for col in sig_genes.columns if col.startswith('all_effect_')]
-        sig_genes['mean_effect'] = sig_genes[effect_cols].mean(axis=1)
+        if not sig_genes.empty:
+            # Calculate mean effect size across frequencies
+            effect_cols = [col for col in sig_genes.columns if col.startswith('all_effect_')]
 
-        sns.histplot(data=sig_genes, x='mean_effect', bins=20)
-        plt.xlabel('Mean Effect Size (dB)')
-        plt.title(f'Effect Size Distribution (BF > {min_bf})')
-        plt.savefig(visuals_dir / 'effect_size_distribution.png')
+            if effect_cols:  # Only proceed if we have effect columns
+                sig_genes['mean_effect'] = sig_genes[effect_cols].mean(axis=1)
+
+                sns.histplot(data=sig_genes, x='mean_effect', bins=20)
+                plt.xlabel('Mean Effect Size (dB)')
+                plt.title(f'Effect Size Distribution (BF > {min_bf})')
+                plt.savefig(visuals_dir / 'effect_size_distribution.png')
         plt.close()
 
         # 5. Center Comparison
         plt.figure(figsize=(12, 6))
         # Group by center and count significant genes
         center_counts = {}
-        for _, row in self.gene_summary[self.gene_summary['all_bayes_factor'] > min_bf].iterrows():
-            center = row.get('all_center')
-            if not pd.isna(center):
-                center_counts[center] = center_counts.get(center, 0) + 1
+        sig_genes_with_center = self.gene_summary[(self.gene_summary['all_bayes_factor'] > min_bf) & 
+                                                (~self.gene_summary['all_center'].isna())]
 
-        centers = list(center_counts.keys())
-        counts = list(center_counts.values())
+        if not sig_genes_with_center.empty:
+            for _, row in sig_genes_with_center.iterrows():
+                center = row.get('all_center')
+                if not pd.isna(center):
+                    center_counts[center] = center_counts.get(center, 0) + 1
 
-        plt.bar(centers, counts)
-        plt.title(f'Genes with BF > {min_bf} by Center')
-        plt.xticks(rotation=45)
-        plt.ylabel('Number of Genes')
-        plt.tight_layout()
-        plt.savefig(visuals_dir / 'center_comparison.png')
+            if center_counts:  # Only proceed if we have centers with counts
+                centers = list(center_counts.keys())
+                counts = list(center_counts.values())
+
+                plt.bar(centers, counts)
+                plt.title(f'Genes with BF > {min_bf} by Center')
+                plt.xticks(rotation=45)
+                plt.ylabel('Number of Genes')
+                plt.tight_layout()
+                plt.savefig(visuals_dir / 'center_comparison.png')
         plt.close()
 
         # 6. Create gene-specific visualizations
         print("\nGenerating gene-specific visualizations...")
-        significant_genes = self.gene_summary[self.gene_summary['all_bayes_factor'] > min_bf]['gene_symbol'].tolist()
+        significant_genes = self.gene_summary[self.gene_summary['all_bayes_factor'] > min_bf]['gene_symbol'].dropna().tolist()
 
         # Create visualizations for all significant genes
         for gene in tqdm(significant_genes, desc="Creating gene visualizations", unit="gene"):
             self.create_gene_visualization(gene, output_dir, 'all')
 
         # Also create visualizations for sex-specific significant genes
-        male_sig_genes = self.gene_summary[self.gene_summary['male_bayes_factor'] > min_bf]['gene_symbol'].tolist()
-        female_sig_genes = self.gene_summary[self.gene_summary['female_bayes_factor'] > min_bf]['gene_symbol'].tolist()
+        if has_male_data:
+            male_sig_genes = self.gene_summary[self.gene_summary['male_bayes_factor'] > min_bf]['gene_symbol'].dropna().tolist()
+            for gene in tqdm(male_sig_genes, desc="Creating male-specific visualizations", unit="gene"):
+                if gene not in significant_genes:  # Avoid duplicates
+                    self.create_gene_visualization(gene, output_dir, 'male')
 
-        for gene in tqdm(male_sig_genes, desc="Creating male-specific visualizations", unit="gene"):
-            if gene not in significant_genes:  # Avoid duplicates
-                self.create_gene_visualization(gene, output_dir, 'male')
-
-        for gene in tqdm(female_sig_genes, desc="Creating female-specific visualizations", unit="gene"):
-            if gene not in significant_genes and gene not in male_sig_genes:  # Avoid duplicates
-                self.create_gene_visualization(gene, output_dir, 'female')
+        if has_female_data:
+            female_sig_genes = self.gene_summary[self.gene_summary['female_bayes_factor'] > min_bf]['gene_symbol'].dropna().tolist()
+            for gene in tqdm(female_sig_genes, desc="Creating female-specific visualizations", unit="gene"):
+                if gene not in significant_genes and gene not in (male_sig_genes if has_male_data else []):  # Avoid duplicates
+                    self.create_gene_visualization(gene, output_dir, 'female')
