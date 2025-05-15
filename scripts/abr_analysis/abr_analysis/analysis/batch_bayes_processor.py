@@ -471,7 +471,7 @@ class GeneBayesianAnalyzer:
             male_sig = self.gene_summary['male_bayes_factor'] > min_bf
             female_sig = self.gene_summary['female_bayes_factor'] > min_bf
 
-            # Make sure we don't have NaN values
+            # Fill NaN values with False for boolean comparisons
             male_sig = male_sig.fillna(False)
             female_sig = female_sig.fillna(False)
 
@@ -481,11 +481,17 @@ class GeneBayesianAnalyzer:
                 'Both': sum(male_sig & female_sig)
             }
 
-            # Check if we have any data to plot
-            if sum(venn_data.values()) > 0:
+            # Check if we have any data to plot AND all categories have data
+            if sum(venn_data.values()) > 0 and all(count > 0 for count in venn_data.values()):
                 plt.pie(venn_data.values(), labels=venn_data.keys(), autopct='%1.1f%%')
                 plt.title(f'Sex-specific Genes (BF > {min_bf})')
-                plt.savefig(visuals_dir / 'sex_comparison.png')
+                plt.savefig(output_dir / 'sex_comparison.png')
+            elif sum(venn_data.values()) > 0:
+                # Filter out zero counts before making pie chart
+                non_zero_data = {k: v for k, v in venn_data.items() if v > 0}
+                plt.pie(non_zero_data.values(), labels=non_zero_data.keys(), autopct='%1.1f%%')
+                plt.title(f'Sex-specific Genes (BF > {min_bf})')
+                plt.savefig(output_dir / 'sex_comparison.png')
         plt.close()
 
         # 4. Effect Size Distribution

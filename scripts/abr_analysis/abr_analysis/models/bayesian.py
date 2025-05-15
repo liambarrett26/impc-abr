@@ -272,19 +272,9 @@ class BayesianABRAnalysis:
         return spec
 
     def save_model(self, directory):
-        """Save the model trace and specifications to the given directory.
-        
-        Parameters:
-        -----------
-        directory : str or Path
-            Directory where model should be saved
-        
-        Returns:
-        --------
-        bool
-            True if successful, False otherwise
-        """
+        """Save the model trace and specifications to the given directory."""
         if not hasattr(self, 'trace') or self.trace is None:
+            print(f"Warning: No trace to save for model in directory {directory}")
             return False
 
         directory = Path(directory)
@@ -292,15 +282,20 @@ class BayesianABRAnalysis:
 
         try:
             # Save trace
-            self.trace.to_netcdf(directory / "trace.nc")
+            trace_path = directory / "trace.nc"
+            self.trace.to_netcdf(trace_path)
+            print(f"Successfully saved model trace to {trace_path}")
 
             # Save model specifications
             spec = self.get_model_specification()
-            with open(directory / "model_spec.json", "w", encoding="utf-8") as f:
+            spec_path = directory / "model_spec.json"
+            with open(spec_path, "w", encoding="utf-8") as f:
                 json.dump(spec, f, indent=2)
+            print(f"Successfully saved model specifications to {spec_path}")
 
             # Create README.md
-            with open(directory / "README.md", "w", encoding="utf-8") as f:
+            readme_path = directory / "README.md"
+            with open(readme_path, "w", encoding="utf-8") as f:
                 f.write("# Bayesian ABR Analysis Model\n\n")
                 f.write("## Probability of Hearing Loss\n")
                 f.write(f"- Mean: {spec['parameters']['p_hearing_loss']['mean']:.3f}\n")
@@ -314,8 +309,11 @@ class BayesianABRAnalysis:
                     f.write(f"### {freq} kHz\n")
                     f.write(f"- Mean shift: {values['mean']:.2f} dB\n")
                     f.write(f"- 95% HDI: [{values['hdi_3%']:.2f}, {values['hdi_97%']:.2f}] dB\n\n")
+            print(f"Successfully saved model README to {readme_path}")
 
             return True
         except Exception as e:
-            print(f"Error saving model: {str(e)}")
+            print(f"Error saving model to {directory}: {str(e)}")
+            import traceback
+            traceback.print_exc()
             return False
