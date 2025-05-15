@@ -1,14 +1,41 @@
+#!/bin/env python
+# -*- coding: utf-8 -*-
 # abr_analysis/models/bayesian.py
-import numpy as np
-from scipy import stats
-import pymc as pm
-import arviz as az
-import seaborn as sns
-import matplotlib.pyplot as plt
+
+"""
+Bayesian analysis module for Auditory Brainstem Response (ABR) data.
+
+This module implements a Bayesian statistical approach to analyse ABR profiles,
+treating them as multivariate observations rather than individual frequency measurements.
+It provides tools for fitting models, calculating evidence for hearing loss,
+and visualising results with appropriate uncertainty quantification.
+
+Author: Liam Barrett
+Version: 1.0.1
+"""
+
+
 from pathlib import Path
 import json
+import numpy as np
+import pymc as pm
+import arviz as az
+import matplotlib.pyplot as plt
 
 class BayesianABRAnalysis:
+    """
+    Bayesian model for analysing Auditory Brainstem Response (ABR) data.
+    
+    This class implements a mixture model approach that compares ABR profiles
+    from mutant mice against control distributions. It estimates the probability
+    of hearing loss and quantifies the evidence using Bayes factors, while also
+    characterising the pattern and magnitude of hearing threshold shifts.
+    
+    Attributes:
+        model: PyMC model object
+        trace: Inference data containing posterior samples
+        freq_cols: Column names for frequency measurements
+    """
     def __init__(self):
         self.model = None
         self.trace = None
@@ -22,16 +49,16 @@ class BayesianABRAnalysis:
 
         with pm.Model() as self.model:
             # Prior for control mean
-            control_mean = pm.Normal('control_mean', 
+            control_mean = pm.Normal('control_mean',
                                    mu=np.mean(control_profiles, axis=0),
                                    sigma=10,
                                    shape=n_dims)
 
             # Prior for control standard deviation (one per dimension)
-            control_sd = pm.HalfNormal('control_sd', 
+            control_sd = pm.HalfNormal('control_sd',
                                      sigma=10,
                                      shape=n_dims)
-            
+
             # Control covariance matrix with diagonal dominance
             # Not currently implemented
             #control_cov = pm.LKJCholeskyCov(
@@ -108,7 +135,7 @@ class BayesianABRAnalysis:
 
     def get_summary_statistics(self):
         """Get summary statistics from the posterior."""
-        summary = az.summary(self.trace, 
+        summary = az.summary(self.trace,
                            var_names=['p_hearing_loss', 'hl_shift'])
         return summary
 
@@ -207,17 +234,17 @@ class BayesianABRAnalysis:
             f"95% HDI: [{ci_lower:.3f}, {ci_upper:.3f}]"
         )
 
-        ax.text(0.5, 0.5, txt, 
+        ax.text(0.5, 0.5, txt,
                 ha='center', va='center',
                 transform=ax.transAxes,
                 bbox=dict(facecolor='white', alpha=0.8))
         ax.axis('off')
-    
+
     def get_model_specification(self):
         """Return a dictionary with model specifications for documentation."""
         if not hasattr(self, 'trace') or self.trace is None:
             return {"error": "Model has not been fitted yet"}
-        
+
         summary = self.get_summary_statistics()
         spec = {
             "model_type": "Bayesian ABR Analysis",
@@ -232,7 +259,7 @@ class BayesianABRAnalysis:
             "frequencies": self.freq_cols,
             "hearing_loss_shifts": {}
         }
-        
+
         # Add effect sizes for each frequency
         for i, freq in enumerate(self.freq_cols):
             freq_name = freq.split()[0]
@@ -241,7 +268,7 @@ class BayesianABRAnalysis:
                 "hdi_3%": float(summary.loc[f'hl_shift[{i}]', 'hdi_3%']),
                 "hdi_97%": float(summary.loc[f'hl_shift[{i}]', 'hdi_97%'])
             }
-        
+
         return spec
 
     def save_model(self, directory):
@@ -259,34 +286,35 @@ class BayesianABRAnalysis:
         """
         if not hasattr(self, 'trace') or self.trace is None:
             return False
-        
+
         directory = Path(directory)
         directory.mkdir(parents=True, exist_ok=True)
-        
+
         try:
             # Save trace
             self.trace.to_netcdf(directory / "trace.nc")
-            
+
             # Save model specifications
-            import json
             spec = self.get_model_specification()
-            with open(directory / "model_spec.json", "w") as f:
+            with open(directory / "model_spec.json", "w", encoding="utf-8") as f:
                 json.dump(spec, f, indent=2)
-            
+
             # Create README.md
-            with open(directory / "README.md", "w") as f:
+            with open(directory / "README.md", "w", encoding="utf-8") as f:
                 f.write("# Bayesian ABR Analysis Model\n\n")
-                f.write(f"## Probability of Hearing Loss\n")
+                f.write("## Probability of Hearing Loss\n")
                 f.write(f"- Mean: {spec['parameters']['p_hearing_loss']['mean']:.3f}\n")
-                f.write(f"- 95% HDI: [{spec['parameters']['p_hearing_loss']['hdi_3%']:.3f}, {spec['parameters']['p_hearing_loss']['hdi_97%']:.3f}]\n\n")
+                hdi_low = spec['parameters']['p_hearing_loss']['hdi_3%']
+                hdi_high = spec['parameters']['p_hearing_loss']['hdi_97%']
+                f.write(f"- 95% HDI: [{hdi_low:.3f}, {hdi_high:.3f}]\n\n")
                 f.write(f"## Bayes Factor: {spec['parameters']['bayes_factor']:.2f}\n\n")
                 f.write("## Frequency-specific Hearing Loss Shifts\n")
-                
+
                 for freq, values in spec["hearing_loss_shifts"].items():
                     f.write(f"### {freq} kHz\n")
                     f.write(f"- Mean shift: {values['mean']:.2f} dB\n")
                     f.write(f"- 95% HDI: [{values['hdi_3%']:.2f}, {values['hdi_97%']:.2f}] dB\n\n")
-            
+
             return True
         except Exception as e:
             print(f"Error saving model: {str(e)}")

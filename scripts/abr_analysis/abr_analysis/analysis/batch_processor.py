@@ -1,4 +1,26 @@
+#!/bin/env python
+# -*- coding: utf-8 -*-
 # abr_analysis/analysis/batch_processor.py
+
+"""
+Batch processing module for multivariate Auditory Brainstem Response (ABR) analysis.
+
+This module implements a pipeline for analysing large sets of ABR data through
+multivariate statistical methods. It handles data loading, control matching,
+statistical testing, and result visualization for multiple genes simultaneously.
+The analysis treats ABR profiles as multivariate observations and applies
+robust multivariate Gaussian models to identify significant hearing phenotypes.
+
+The module supports:
+- Batch processing of all genes in a dataset
+- Sex-specific analyses
+- Multiple test correction using FDR
+- Comparison with known and candidate hearing loss genes
+- Automated visualization generation for significant results
+
+Author: Liam Barrett
+Version: 1.0.1
+"""
 
 from pathlib import Path
 
@@ -28,55 +50,57 @@ class GeneBatchAnalyzer:
         self.control_profiles = {}
         self.gene_metadata = {}
 
-    def analyze_gene(self, gene_data, sex_filter=None):
-        """Analyze a single gene using our multivariate distribution model."""
+    def analyze_gene_group(self, group_info, sex_filter=None):
+        """Analyze a single experimental group using our multivariate distribution model."""
         try:
+            # Get the experimental data
+            gene_data = group_info['data']
+
             # Apply sex filter if specified
             if sex_filter:
                 gene_data = gene_data[gene_data['sex'] == sex_filter]
 
             # Check if we have any data after filtering
-            if len(gene_data) == 0:
+            if len(gene_data) < 3:  # Minimum of 3 mutant animals
                 return None
-
-            # Get metadata for control matching
-            ko_metadata = {
-                'phenotyping_center': gene_data['phenotyping_center'].iloc[0],
-                'genetic_background': gene_data['genetic_background'].iloc[0],
-                'pipeline_name': gene_data['pipeline_name'].iloc[0],
-                'metadata_Equipment manufacturer': gene_data['metadata_Equipment manufacturer'].iloc[0],
-                'metadata_Equipment model': gene_data['metadata_Equipment model'].iloc[0]
-            }
-
-            # Store metadata for later use in visualizations
-            gene_symbol = gene_data['gene_symbol'].iloc[0]
-            analysis_key = f"{gene_symbol}_{sex_filter if sex_filter else 'all'}"
-            self.gene_metadata[analysis_key] = ko_metadata
 
             # Find matching controls
             try:
-                controls = self.matcher.find_matching_controls(ko_metadata)
-            except ValueError:  # Not enough controls
-                return None
-  
-            if sex_filter:
-                controls = controls[controls['sex'] == sex_filter]
+                control_groups = self.matcher.find_matching_controls(group_info)
+
+                # Get appropriate controls based on sex filter
+                if sex_filter:
+                    controls = control_groups[sex_filter]
+                else:
+                    controls = control_groups['all']
+
                 if len(controls) < 20:  # Minimum control requirement
                     return None
+            except ValueError:  # Not enough controls
+                return None
+
+            # Store metadata for later use in visualizations
+            gene_symbol = gene_data['gene_symbol'].iloc[0]
+            allele_symbol = group_info['allele_symbol']
+            zygosity = group_info['zygosity']
+            center = group_info['phenotyping_center']
+
+            group_key = f"{gene_symbol}_{allele_symbol}_{zygosity}_{center}_{sex_filter if sex_filter else 'all'}"
+            self.gene_metadata[group_key] = group_info['metadata']
 
             # Extract profiles
             control_profiles = self.matcher.get_control_profiles(controls, self.freq_cols)
             mutant_profiles = gene_data[self.freq_cols].values.astype(float)
 
             # Store profiles for later visualization
-            self.control_profiles[analysis_key] = controls
-            self.mutant_profiles[analysis_key] = gene_data
+            self.control_profiles[group_key] = controls
+            self.mutant_profiles[group_key] = gene_data
 
             # Remove any profiles with NaN values
             control_profiles_clean = control_profiles[~np.any(np.isnan(control_profiles), axis=1)]
             mutant_profiles_clean = mutant_profiles[~np.any(np.isnan(mutant_profiles), axis=1)]
 
-            # Check minimum sample sizes
+            # Check minimum sample sizes again after removing NaN values
             if len(mutant_profiles_clean) < 3 or len(control_profiles_clean) < 20:
                 return None
 
@@ -119,15 +143,19 @@ class GeneBatchAnalyzer:
                 'mutant_log_probs': mutant_log_probs,
                 'control_log_probs': control_log_probs,
                 'mutant_distances': mutant_distances,
-                'control_distances': control_distances
+                'control_distances': control_distances,
+                'allele_symbol': allele_symbol,
+                'zygosity': zygosity,
+                'center': center,
+                'group_key': group_key
             }
 
-        except Exception as e:
-            print(f"Warning: Error analyzing gene{f' ({sex_filter})' if sex_filter else ''}: {str(e)}")
+        except (ValueError, KeyError, AttributeError, TypeError, IndexError, RuntimeError) as e:
+            print(f"Warning: Error analysing gene group {gene_symbol} ({allele_symbol}, {zygosity}, {center}){f', {sex_filter}' if sex_filter else ''}: {str(e)}")
             return None
 
     def analyze_all_genes(self):
-        """Analyze all genes in the dataset."""
+        """Analyze all genes in the dataset, grouping by allele+zygosity+center."""
         mutants = self.data[self.data['biological_sample_group'] == 'experimental']
         genes = mutants['gene_symbol'].unique()
         genes = genes[~pd.isna(genes)]  # Remove NaN values
@@ -139,38 +167,53 @@ class GeneBatchAnalyzer:
 
         for gene in pbar:
             pbar.set_postfix_str(f"Current gene: {gene}")
-            gene_data = mutants[mutants['gene_symbol'] == gene]
 
-            # Analyze for all data, males only, and females only
-            analyses = {
-                'all': self.analyze_gene(gene_data),
-                'male': self.analyze_gene(gene_data, 'male'),
-                'female': self.analyze_gene(gene_data, 'female')
-            }
+            # Find all experimental groups for this gene
+            experimental_groups = self.matcher.find_experimental_groups(gene)
 
-            result = {
-                'gene_symbol': gene,
-                'center': gene_data['phenotyping_center'].iloc[0],
-                'background': gene_data['genetic_background'].iloc[0]
-            }
+            if not experimental_groups:
+                continue  # Skip if no valid groups
 
-            # Record results
-            for analysis_type, analysis in analyses.items():
-                if analysis:
-                    for key, value in analysis.items():
-                        # Skip storing large arrays in the main results dataframe
-                        if key not in ['mutant_log_probs', 'control_log_probs', 
-                                     'mutant_distances', 'control_distances']:
-                            result[f'{analysis_type}_{key}'] = value
-                else:
-                    metrics = ['p_value', 'test_statistic', 'n_mutants', 'n_controls',
-                             'mean_mutant_logprob', 'std_mutant_logprob',
-                             'mean_mutant_distance', 'mean_control_logprob',
-                             'std_control_logprob', 'mean_control_distance']
-                    for metric in metrics:
-                        result[f'{analysis_type}_{metric}'] = np.nan
+            # Analyze each experimental group
+            for group_info in experimental_groups:
+                # Analyze for all data, males only, and females only
+                analyses = {
+                    'all': self.analyze_gene_group(group_info),
+                    'male': self.analyze_gene_group(group_info, 'male'),
+                    'female': self.analyze_gene_group(group_info, 'female')
+                }
 
-            results.append(result)
+                # Only create result if at least one analysis succeeded
+                if not any(analyses.values()):
+                    continue
+
+                result = {
+                    'gene_symbol': gene,
+                    'allele_symbol': group_info['allele_symbol'],
+                    'zygosity': group_info['zygosity'],
+                    'center': group_info['phenotyping_center'],
+                    'background': group_info['metadata']['genetic_background'],
+                    'group_id': f"{gene}_{group_info['allele_symbol']}_{group_info['zygosity']}_{group_info['phenotyping_center']}"
+                }
+
+                # Record results
+                for analysis_type, analysis in analyses.items():
+                    if analysis:
+                        for key, value in analysis.items():
+                            # Skip storing large arrays and redundant info in the main results dataframe
+                            if key not in ['mutant_log_probs', 'control_log_probs',
+                                        'mutant_distances', 'control_distances',
+                                        'allele_symbol', 'zygosity', 'center', 'group_key']:
+                                result[f'{analysis_type}_{key}'] = value
+                    else:
+                        metrics = ['p_value', 'test_statistic', 'n_mutants', 'n_controls',
+                                'mean_mutant_logprob', 'std_mutant_logprob',
+                                'mean_mutant_distance', 'mean_control_logprob',
+                                'std_control_logprob', 'mean_control_distance']
+                        for metric in metrics:
+                            result[f'{analysis_type}_{metric}'] = np.nan
+
+                results.append(result)
 
         self.results = pd.DataFrame(results)
 
@@ -186,126 +229,101 @@ class GeneBatchAnalyzer:
 
     def create_gene_visualization(self, gene, output_dir, analysis_type='all', q_threshold=0.01):
         """Create visualizations for a specific gene."""
+        # Get all rows for this gene
+        gene_rows = self.results[self.results['gene_symbol'] == gene]
+
+        if gene_rows.empty:
+            return
+
+        # Create gene directory
         gene_dir = output_dir / 'visuals' / gene
         gene_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Get gene data
-        gene_row = self.results[self.results['gene_symbol'] == gene].iloc[0]
-        analysis_key = f"{gene}_{analysis_type}"
-        
-        # Skip if we don't have the required data
-        if analysis_key not in self.mutant_profiles or analysis_key not in self.control_profiles:
-            return
-                
-        mutant_data = self.mutant_profiles[analysis_key]
-        control_data = self.control_profiles[analysis_key]
-        
-        # 1. Profile Comparison
-        try:
-            plt.figure(figsize=(12, 6))
-            
-            # Plot 1: Profile Comparison
-            plt.subplot(1, 2, 1)
-            x = np.arange(len(self.freq_cols))
-            plt.errorbar(x, control_data[self.freq_cols].mean(), 
-                        yerr=control_data[self.freq_cols].std(), 
-                        label='Controls', fmt='o-')
-            plt.errorbar(x, mutant_data[self.freq_cols].mean(), 
-                        yerr=mutant_data[self.freq_cols].std(), 
-                        label=gene, fmt='o-')
-            plt.xticks(x, [col.split()[0] for col in self.freq_cols], rotation=45)
-            plt.ylabel('ABR Threshold (dB SPL)')
-            plt.title(f'ABR Profiles - {gene}')
-            plt.legend()
-            
-            # Get clean profiles for log probability calculation
-            mutant_profiles = mutant_data[self.freq_cols].values.astype(float)
-            control_profiles = self.matcher.get_control_profiles(control_data, self.freq_cols)
-            
-            # Remove NaN values
-            mutant_profiles = mutant_profiles[~np.any(np.isnan(mutant_profiles), axis=1)]
-            control_profiles = control_profiles[~np.any(np.isnan(control_profiles), axis=1)]
-            
-            if len(mutant_profiles) >= 3 and len(control_profiles) >= 20:
-                # Fit model and calculate log probs directly
-                model = RobustMultivariateGaussian()
-                model.fit(control_profiles)
-                
-                # Calculate log probabilities
-                mutant_log_probs = [model.score(profile) for profile in mutant_profiles]
-                control_log_probs = [model.score(profile) for profile in control_profiles]
-                
-                # Plot 2: Log Probabilities
-                plt.subplot(1, 2, 2)
-                plt.hist(control_log_probs, bins=20, alpha=0.5, 
-                        label='Controls', density=True)
-                plt.hist(mutant_log_probs, bins=20, alpha=0.5, 
-                        label=gene, density=True)
-                plt.xlabel('Log Probability')
-                plt.ylabel('Density')
-                plt.title('Distribution of Log Probabilities')
-                plt.legend()
-            
-            plt.tight_layout()
-            plt.savefig(gene_dir / f'{gene}_profiles_{analysis_type}.png')
-            plt.close()
-        except Exception as e:
-            print(f"Error creating profile visualization for {gene}: {e}")
 
-        # 2. Create gene-specific multivariate evidence plot
-        try:
-            plt.figure(figsize=(10, 6))
-            
-            # Plot all genes
-            p_values = self.results['all_p_value'].replace([np.inf, -np.inf], np.nan)
-            # Handle zero values
-            p_values = np.maximum(p_values, 1e-300)  # Set minimum to a very small number instead of zero
-            x_vals = -np.log10(p_values)
-            y_vals = np.abs(self.results['all_test_statistic'])
-            
-            # Remove infinite values
-            mask = ~(np.isnan(x_vals) | np.isnan(y_vals))
-            plt.scatter(x_vals[mask], y_vals[mask], alpha=0.3, color='gray', label='Other Genes')
-            
-            # Plot significant points
-            significant = self.results['all_q_value'] < q_threshold
-            sig_mask = significant & mask
-            if np.any(sig_mask):
-                plt.scatter(
-                    x_vals[sig_mask],
-                    y_vals[sig_mask],
-                    color='blue',
-                    alpha=0.5,
-                    label='Significant Genes'
-                )
-            
-            # Highlight this gene
-            gene_idx = self.results[self.results['gene_symbol'] == gene].index[0]
-            if mask[gene_idx]:
-                plt.scatter(
-                    x_vals[gene_idx],
-                    y_vals[gene_idx],
-                    color='red',
-                    s=100,
-                    label=gene
-                )
-                plt.annotate(
-                    gene,
-                    (x_vals[gene_idx], y_vals[gene_idx]),
-                    xytext=(10, 10),
-                    textcoords='offset points',
-                    fontsize=12,
-                    fontweight='bold'
-                )
-            
-            plt.xlabel('-log10(p-value)')
-            plt.ylabel('|Test Statistic|')
-            plt.title(f'Multivariate Evidence for Hearing Loss - {gene}')
-            plt.legend()
-            plt.savefig(gene_dir / f'{gene}_evidence.png')
-            plt.close()
-        except Exception as e:
-            print(f"Error creating evidence visualization for {gene}: {e}")
+        # Create a visualization for each group
+        for _, gene_row in gene_rows.iterrows():
+            allele = gene_row['allele_symbol']
+            zygosity = gene_row['zygosity']
+            center = gene_row['center']
+
+            # Skip if no significant result for the requested analysis type
+            if pd.isna(gene_row[f'{analysis_type}_q_value']) or gene_row[f'{analysis_type}_q_value'] >= q_threshold:
+                continue
+
+            # Construct the group key
+            group_key = f"{gene}_{allele}_{zygosity}_{center}_{analysis_type}"
+
+            # Skip if we don't have the required data
+            if group_key not in self.mutant_profiles and f"{gene}_{allele}_{zygosity}_{center}_all" not in self.mutant_profiles:
+                continue
+
+            # Use the specific analysis type data if available, otherwise fall back to 'all'
+            if group_key in self.mutant_profiles:
+                mutant_data = self.mutant_profiles[group_key]
+                control_data = self.control_profiles[group_key]
+            else:
+                fallback_key = f"{gene}_{allele}_{zygosity}_{center}_all"
+                mutant_data = self.mutant_profiles[fallback_key]
+                control_data = self.control_profiles[fallback_key]
+
+                # Filter by sex if needed
+                if analysis_type in ['male', 'female']:
+                    mutant_data = mutant_data[mutant_data['sex'] == analysis_type]
+                    control_data = control_data[control_data['sex'] == analysis_type]
+
+                    # Skip if not enough data after filtering
+                    if len(mutant_data) < 3 or len(control_data) < 20:
+                        continue
+
+            try:
+                plt.figure(figsize=(12, 6))
+
+                # Plot 1: Profile Comparison
+                plt.subplot(1, 2, 1)
+                x = np.arange(len(self.freq_cols))
+                plt.errorbar(x, control_data[self.freq_cols].mean(),
+                            yerr=control_data[self.freq_cols].std(),
+                            label='Controls', fmt='o-')
+                plt.errorbar(x, mutant_data[self.freq_cols].mean(),
+                            yerr=mutant_data[self.freq_cols].std(),
+                            label=gene, fmt='o-')
+                plt.xticks(x, [col.split()[0] for col in self.freq_cols], rotation=45)
+                plt.ylabel('ABR Threshold (dB SPL)')
+                plt.title(f'{gene} ({allele}, {zygosity}, {center})')
+                plt.legend()
+
+                # Get clean profiles for log probability calculation
+                mutant_profiles = mutant_data[self.freq_cols].values.astype(float)
+                control_profiles = self.matcher.get_control_profiles(control_data, self.freq_cols)
+
+                # Remove NaN values
+                mutant_profiles = mutant_profiles[~np.any(np.isnan(mutant_profiles), axis=1)]
+                control_profiles = control_profiles[~np.any(np.isnan(control_profiles), axis=1)]
+
+                if len(mutant_profiles) >= 3 and len(control_profiles) >= 20:
+                    # Fit model and calculate log probs directly
+                    model = RobustMultivariateGaussian()
+                    model.fit(control_profiles)
+
+                    # Calculate log probabilities
+                    mutant_log_probs = [model.score(profile) for profile in mutant_profiles]
+                    control_log_probs = [model.score(profile) for profile in control_profiles]
+
+                    # Plot 2: Log Probabilities
+                    plt.subplot(1, 2, 2)
+                    plt.hist(control_log_probs, bins=20, alpha=0.5,
+                            label='Controls', density=True)
+                    plt.hist(mutant_log_probs, bins=20, alpha=0.5,
+                            label=gene, density=True)
+                    plt.xlabel('Log Probability')
+                    plt.ylabel('Density')
+                    plt.title('Distribution of Log Probabilities')
+                    plt.legend()
+
+                plt.tight_layout()
+                plt.savefig(gene_dir / f'{gene}_{allele}_{zygosity}_{center}_{analysis_type}.png')
+                plt.close()
+            except (ValueError, IOError, KeyError, AttributeError, TypeError, IndexError, RuntimeError) as e:
+                print(f"Error creating visualisation for {gene} ({allele}, {zygosity}, {center}, {analysis_type}): {e}")
 
     def create_visualizations(self, output_dir='.', q_threshold=0.01):
         """Create visualizations of the results."""
@@ -316,7 +334,7 @@ class GeneBatchAnalyzer:
         # 1. Global Multivariate Evidence Plot
         plt.figure(figsize=(10, 6))
 
-        # Use test_statistic instead of all_statistic
+        # Use test_statistic
         x_vals = -np.log10(self.results['all_p_value'].replace([np.inf, -np.inf], np.nan))
         y_vals = np.abs(self.results['all_test_statistic'])
 
@@ -371,41 +389,50 @@ class GeneBatchAnalyzer:
 
         # 4. Center Comparison
         plt.figure(figsize=(12, 6))
-        center_counts = self.results[significant].groupby('center').size()
+        # Count unique gene symbols for each center to avoid double-counting groups
+        center_counts = self.results[significant].groupby(['center', 'gene_symbol']).size().reset_index()
+        center_counts = center_counts.groupby('center').size()
         center_counts.plot(kind='bar')
         plt.title('Significant Genes by Center')
         plt.xticks(rotation=45)
         plt.tight_layout()
         plt.savefig(visuals_dir / 'center_comparison.png')
         plt.close()
-        
-        # 5. Create gene-specific visualizations
+
+        # 5. Allele Comparison
+        plt.figure(figsize=(12, 6))
+        # Count unique gene symbols for each allele to avoid double-counting groups
+        allele_counts = self.results[significant].groupby(['allele_symbol', 'gene_symbol']).size().reset_index()
+        allele_counts = allele_counts.groupby('allele_symbol').size().sort_values(ascending=False).head(20)
+        allele_counts.plot(kind='bar')
+        plt.title('Top 20 Significant Alleles')
+        plt.xticks(rotation=90)
+        plt.tight_layout()
+        plt.savefig(visuals_dir / 'allele_comparison.png')
+        plt.close()
+
+        # 6. Create gene-specific visualizations
         print("\nGenerating gene-specific visualizations...")
-        significant_genes = self.results[self.results['all_q_value'] < q_threshold]['gene_symbol'].tolist()
-        
+        # Get unique genes with significant results (using any analysis type)
+        significant_genes = set()
+        for analysis_type in ['all', 'male', 'female']:
+            sig_genes = self.results[self.results[f'{analysis_type}_q_value'] < q_threshold]['gene_symbol'].unique()
+            significant_genes.update(sig_genes)
+
         # Create visualizations for all significant genes
         for gene in tqdm(significant_genes, desc="Creating gene visualizations", unit="gene"):
-            self.create_gene_visualization(gene, output_dir, 'all', q_threshold)
-            
-        # Also create visualizations for sex-specific significant genes
-        male_sig_genes = self.results[self.results['male_q_value'] < q_threshold]['gene_symbol'].tolist()
-        female_sig_genes = self.results[self.results['female_q_value'] < q_threshold]['gene_symbol'].tolist()
-        
-        for gene in tqdm(male_sig_genes, desc="Creating male-specific visualizations", unit="gene"):
-            if gene not in significant_genes:  # Avoid duplicates
-                self.create_gene_visualization(gene, output_dir, 'male', q_threshold)
-                
-        for gene in tqdm(female_sig_genes, desc="Creating female-specific visualizations", unit="gene"):
-            if gene not in significant_genes and gene not in male_sig_genes:  # Avoid duplicates
-                self.create_gene_visualization(gene, output_dir, 'female', q_threshold)
+            # Create for each analysis type
+            for analysis_type in ['all', 'male', 'female']:
+                self.create_gene_visualization(gene, output_dir, analysis_type, q_threshold)
 
     def compare_with_bowl(self, bowl_genes, q_threshold=0.01):
         """Compare results with Bowl et al. genes."""
-        significant_genes = {
-            'all': set(self.results[self.results['all_q_value'] < q_threshold]['gene_symbol']),
-            'male': set(self.results[self.results['male_q_value'] < q_threshold]['gene_symbol']),
-            'female': set(self.results[self.results['female_q_value'] < q_threshold]['gene_symbol'])
-        }
+        # Create sets of significant genes for each analysis type
+        significant_genes = {}
+        for analysis_type in ['all', 'male', 'female']:
+            # Get unique gene symbols with significant q-values
+            sig_genes = set(self.results[self.results[f'{analysis_type}_q_value'] < q_threshold]['gene_symbol'])
+            significant_genes[analysis_type] = sig_genes
 
         bowl_genes = set(bowl_genes)
 
@@ -415,6 +442,48 @@ class GeneBatchAnalyzer:
                 'found_in_bowl': bowl_genes & sig_genes,
                 'novel': sig_genes - bowl_genes,
                 'missed_from_bowl': bowl_genes - sig_genes
+            }
+
+        return comparisons
+
+    def compare_with_known_genes(self,
+                                 confirmed_genes_path,
+                                 candidate_genes_path,
+                                 q_threshold=0.01):
+        """
+        Compare results with confirmed and candidate deafness genes.
+        
+        Parameters:
+            confirmed_genes_path (str): Path to the confirmed deafness genes file
+            candidate_genes_path (str): Path to the candidate deafness genes file
+            q_threshold (float): Significance threshold for q-values
+            
+        Returns:
+            dict: Comparison results for each analysis type
+        """
+        # Load confirmed and candidate gene lists
+        with open(confirmed_genes_path, 'r', encoding='utf-8') as f:
+            confirmed_genes = set(line.strip() for line in f if line.strip())
+
+        with open(candidate_genes_path, 'r', encoding='utf-8') as f:
+            candidate_genes = set(line.strip() for line in f if line.strip())
+
+        # Create sets of significant genes for each analysis type
+        significant_genes = {}
+        for analysis_type in ['all', 'male', 'female']:
+            # Get unique gene symbols with significant q-values
+            sig_genes = set(self.results[self.results[f'{analysis_type}_q_value'] < q_threshold]['gene_symbol'])
+            significant_genes[analysis_type] = sig_genes
+
+        # Generate comparison results
+        comparisons = {}
+        for analysis_type, sig_genes in significant_genes.items():
+            comparisons[analysis_type] = {
+                'found_in_confirmed': confirmed_genes & sig_genes,
+                'found_in_candidate': candidate_genes & sig_genes,
+                'novel': sig_genes - confirmed_genes - candidate_genes,
+                'missed_confirmed': confirmed_genes - sig_genes,
+                'missed_candidate': candidate_genes - sig_genes
             }
 
         return comparisons
