@@ -72,13 +72,6 @@ def main():
 
     args = parser.parse_args()
 
-    # Load reference genes if specified
-    reference_genes = None
-    if args.reference_genes and os.path.exists(args.reference_genes):
-        with open(args.reference_genes, 'r', encoding='utf-8') as f:
-            reference_genes = set(line.strip() for line in f if line.strip())
-        print(f"Loaded {len(reference_genes)} reference genes from {args.reference_genes}")
-
     print(f"Starting parallel Bayesian analysis with {args.processes if args.processes else 'auto'} processes")
     start_time = time.time()
 
@@ -92,7 +85,8 @@ def main():
 
     # Create summary visualizations with reference genes if provided
     if results_df is not None:
-        create_visualizations(results_df, output_dir, reference_genes, args.min_bf)
+        create_visualizations(results_df, output_dir, './data/multivariate_confirmed_deafness_genes.txt',
+                              './data/multivariate_candidate_deafness_genes.txt', args.min_bf)
 
     total_time = time.time() - start_time
     print(f"Analysis completed in {total_time:.2f} seconds")

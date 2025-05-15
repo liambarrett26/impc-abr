@@ -1,4 +1,0 @@
-gene_symbol,allele_symbol,zygosity,center,bayes_factor,p_hearing_loss,hdi_lower,hdi_upper,n_mutants,n_controls,analysis_key,sex_filter,effect_6kHz-evoked,effect_12kHz-evoked,effect_18kHz-evoked,effect_24kHz-evoked,effect_30kHz-evoked
-Adgrv1,Adgrv1<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,3.4767767207610523,0.624,0.318,0.899,4,569,Adgrv1_Adgrv1<tm1.1(KOMP)Vlcg>_homozygote_UC Davis,all,38.845,45.613,54.427,47.794,32.413
-Nptn,Nptn<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,3.2964554242749733,0.624,0.308,0.897,4,858,Nptn_Nptn<tm1b(EUCOMM)Hmgu>_homozygote_MRC Harwell,all,32.879,35.77,38.126,34.013,28.921
-Abca2,Abca2<em1(IMPC)J>,homozygote,JAX,0.008445733013992185,0.169,0.011,0.357,8,2541,Abca2_Abca2<em1(IMPC)J>_homozygote_JAX,all,16.639,29.721,33.085,21.379,24.518
