@@ -1,5 +1,7 @@
 # Results
 /results/**
+/scripts/abr_clustering/results/**
+/scripts/abr_clustering/results/gene_results/**
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
