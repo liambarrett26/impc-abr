@@ -20,7 +20,7 @@ version: 1.0.0
 """
 
 # Import key classes for easier access
-from .dimensionality.pca import AudiogramPCA, AudiogramPatternAnalyzer
+from .dimensionality.pca import AudiogramPCA
 
 # Package metadata
 __version__ = '1.0.0'
