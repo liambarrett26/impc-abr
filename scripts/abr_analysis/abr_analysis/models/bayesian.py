@@ -25,12 +25,12 @@ import matplotlib.pyplot as plt
 class BayesianABRAnalysis:
     """
     Bayesian model for analysing Auditory Brainstem Response (ABR) data.
-    
+
     This class implements a mixture model approach that compares ABR profiles
     from mutant mice against control distributions. It estimates the probability
     of hearing loss and quantifies the evidence using Bayes factors, while also
     characterising the pattern and magnitude of hearing threshold shifts.
-    
+
     Attributes:
         model: PyMC model object
         trace: Inference data containing posterior samples
