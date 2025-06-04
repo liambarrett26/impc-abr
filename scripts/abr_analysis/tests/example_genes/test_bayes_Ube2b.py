@@ -20,7 +20,7 @@ def test_bayesian_Ube2b_analysis():
     print("Loading and preparing data...")
 
     # Initialize data loader
-    data_path = "/Volumes/IMPC/abr_full_data.csv"
+    data_path = "/Users/liambarrett/github/impc-abr/data/processed/abr_full_data.csv"
     loader = ABRDataLoader(data_path)
     data = loader.load_data()
 
