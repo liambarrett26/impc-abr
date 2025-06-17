@@ -1,684 +1,667 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """
-Enhanced ABR Analysis Pipeline with GMM Clustering
+Complete pipeline for audiometric phenotype discovery using GMM clustering.
 
-This script implements a comprehensive pipeline for PCA and GMM clustering analysis
-of audiograms from the IMPC ABR dataset. It handles data loading, PCA computation,
-GMM clustering, and comprehensive visualizations.
-
-author: Liam Barrett
-version: 1.1.0
+This module orchestrates the entire analysis pipeline from data loading
+through final results generation and visualization.
 """
 
-from pathlib import Path
-import argparse
-import pandas as pd
 import numpy as np
-from tqdm import tqdm
-import matplotlib.pyplot as plt
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
+import pandas as pd
+from pathlib import Path
+import logging
+import argparse
+import json
+import pickle
+from datetime import datetime
+from typing import Dict, Any, Optional
+import warnings
 
-# Import from existing IMPC ABR modules
-from abr_analysis.data.loader import ABRDataLoader
-from abr_analysis.data.matcher import ControlMatcher
+# Import pipeline components
+from loader import IMPCABRLoader, load_impc_data
+from preproc import ABRPreprocessor, create_default_config, preprocess_abr_data
+from gmm import AudiometricGMM, create_default_gmm_config, GMMConfig
+from analysis import analyze_gmm_results, AudiometricAnalyzer
 
-# Import analysis modules
-from abr_clustering.dimensionality.pca import AudiogramPCA
-from abr_clustering.clustering.gmm import AudiogramGMM, select_optimal_clusters
-
-
-def create_output_dirs(output_dir):
-    """Create necessary output directories."""
-    base_dir = Path(output_dir)
-
-    # Create subdirectories
-    dirs = [
-        base_dir,
-        base_dir / 'pca_results',
-        base_dir / 'cluster_results',
-        base_dir / 'gene_results',
-        base_dir / 'gene_results' / 'individual_reports',
-        base_dir / 'figures'
-    ]
-
-    for d in dirs:
-        d.mkdir(exist_ok=True, parents=True)
-
-    return base_dir
+# Suppress warnings for cleaner output
+warnings.filterwarnings('ignore', category=UserWarning)
+warnings.filterwarnings('ignore', category=FutureWarning)
 
 
-def load_and_process_data(data_path, min_mutants=3, min_controls=20):
+class AudiometricPhenotypePipeline:
     """
-    Load and process ABR data for analysis.
+    Complete pipeline for discovering audiometric phenotypes in IMPC data.
 
-    Parameters:
-        data_path (str): Path to the ABR data file.
-        min_mutants (int): Minimum number of mutant mice required per gene.
-        min_controls (int): Minimum number of control mice required.
-
-    Returns:
-        dict: Processed data, including mutant profiles, gene metadata, etc.
+    Integrates data loading, preprocessing, clustering, and analysis into
+    a single cohesive workflow with comprehensive logging and result tracking.
     """
-    print(f"Loading data from {data_path}...")
-    loader = ABRDataLoader(data_path)
-    data = loader.load_data()
-    matcher = ControlMatcher(data)
-    freq_cols = loader.get_frequencies()
 
-    # Identify experimental groups
-    mutants = data[data['biological_sample_group'] == 'experimental']
-    genes = mutants['gene_symbol'].unique()
-    genes = genes[~pd.isna(genes)]  # Remove NaN values
+    def __init__(self,
+                 output_dir: str = "results",
+                 log_level: str = "INFO",
+                 random_state: int = 42):
+        """
+        Initialize the pipeline.
 
-    print(f"Found {len(genes)} unique genes with experimental data")
+        Args:
+            output_dir: Directory for all output files
+            log_level: Logging level (DEBUG, INFO, WARNING, ERROR)
+            random_state: Random seed for reproducibility
+        """
+        self.output_dir = Path(output_dir)
+        self.output_dir.mkdir(exist_ok=True)
+        self.random_state = random_state
 
-    # Initialize storage
-    mutant_profiles = []
-    gene_labels = []
-    gene_metadata = []
-    failed_genes = []
+        # Setup logging
+        self._setup_logging(log_level)
 
-    # Process each gene
-    print("Processing genes and extracting audiograms...")
-    for gene in tqdm(genes):
-        # Find all experimental groups for this gene
-        exp_groups = matcher.find_experimental_groups(gene)
+        # Pipeline components
+        self.loader: Optional[IMPCABRLoader] = None
+        self.preprocessor: Optional[ABRPreprocessor] = None
+        self.gmm_model: Optional[AudiometricGMM] = None
+        self.analyzer: Optional[AudiometricAnalyzer] = None
 
-        if not exp_groups:
-            failed_genes.append((gene, "No experimental groups found"))
-            continue
+        # Data storage
+        self.raw_data: Optional[pd.DataFrame] = None
+        self.experimental_groups: Optional[Dict] = None
+        self.normalized_data: Optional[np.ndarray] = None
+        self.cluster_labels: Optional[np.ndarray] = None
+        self.cluster_probabilities: Optional[np.ndarray] = None
 
-        # Process each experimental group
-        for group in exp_groups:
-            try:
-                # Find matching controls
-                controls = matcher.find_matching_controls(group)
+        # Results storage
+        self.analysis_results: Optional[Dict[str, Any]] = None
+        self.visualization_files: Optional[Dict[str, str]] = None
 
-                # Extract profiles
-                control_profiles = matcher.get_control_profiles(controls['all'], freq_cols)
-                mutant_group_profiles = matcher.get_experimental_profiles(group, freq_cols)
+        # Pipeline configuration
+        self.config = {
+            'pipeline_version': '1.0.0',
+            'created_at': datetime.now().isoformat(),
+            'random_state': random_state,
+            'output_dir': str(output_dir)
+        }
 
-                # Check sample sizes
-                if len(mutant_group_profiles) < min_mutants:
-                    failed_genes.append((gene, f"Too few mutants: {len(mutant_group_profiles)} < {min_mutants}"))
-                    continue
+        self.logger.info(f"Initialized AudiometricPhenotypePipeline in {output_dir}")
 
-                if len(control_profiles) < min_controls:
-                    failed_genes.append((gene, f"Too few controls: {len(control_profiles)} < {min_controls}"))
-                    continue
+    def _setup_logging(self, log_level: str):
+        """Setup comprehensive logging for the pipeline."""
+        log_file = self.output_dir / "pipeline.log"
 
-                # Remove any profiles with NaN values
-                mutant_group_profiles = mutant_group_profiles[~np.isnan(mutant_group_profiles).any(axis=1)]
+        # Create logger
+        self.logger = logging.getLogger('AudiometricPipeline')
+        self.logger.setLevel(getattr(logging, log_level.upper()))
 
-                if len(mutant_group_profiles) < min_mutants:
-                    failed_genes.append((gene, f"Too few valid mutants after NaN removal: {len(mutant_group_profiles)} < {min_mutants}"))
-                    continue
+        # Clear existing handlers
+        self.logger.handlers.clear()
 
-                # Add to the collection
-                mutant_profiles.append(mutant_group_profiles)
-                gene_labels.extend([gene] * len(mutant_group_profiles))
-
-                # Store metadata for this group
-                group_info = {
-                    'gene_symbol': gene,
-                    'center': group.get('phenotyping_center', 'Unknown'),
-                    'zygosity': group.get('zygosity', 'Unknown'),
-                    'n_mutants': len(mutant_group_profiles),
-                    'n_controls': len(control_profiles)
-                }
-                gene_metadata.extend([group_info] * len(mutant_group_profiles))
-
-            except Exception as e:
-                failed_genes.append((gene, str(e)))
-
-    # Combine all profiles
-    if not mutant_profiles:
-        raise ValueError("No valid mutant profiles found after processing")
-
-    all_mutant_profiles = np.vstack(mutant_profiles)
-    gene_labels = np.array(gene_labels)
-
-    print(f"Successfully processed {len(set(gene_labels))} genes with {len(all_mutant_profiles)} total audiograms")
-    print(f"Failed to process {len(failed_genes)} genes")
-
-    return {
-        'all_mutant_profiles': all_mutant_profiles,
-        'gene_labels': gene_labels,
-        'gene_metadata': gene_metadata,
-        'freq_cols': freq_cols,
-        'failed_genes': failed_genes
-    }
-
-
-def perform_pca_analysis(processed_data, n_components=5, output_dir=None, create_plots=True):
-    """
-    Perform PCA analysis on audiogram data.
-
-    Parameters:
-        processed_data (dict): Processed data from load_and_process_data.
-        n_components (int): Number of principal components to compute.
-        output_dir (Path): Output directory for figures.
-        create_plots (bool): Whether to create visualization plots.
-
-    Returns:
-        dict: PCA results, including transformed data.
-    """
-    print(f"\nPerforming PCA analysis with {n_components} components...")
-
-    # Extract data
-    all_mutant_profiles = processed_data['all_mutant_profiles']
-    freq_cols = processed_data['freq_cols']
-
-    # Initialize and fit PCA
-    pca = AudiogramPCA(n_components=n_components)
-    pca_coords = pca.fit_transform(all_mutant_profiles, freq_cols)
-
-    # Save the model
-    if output_dir:
-        model_path = output_dir / 'pca_results' / 'pca_model.pkl'
-        pca.save_model(model_path)
-        print(f"PCA model saved to {model_path}")
-
-        # Save PCA coordinates
-        coords_path = output_dir / 'pca_results' / 'pca_coordinates.csv'
-        coords_df = pd.DataFrame(pca_coords, columns=[f'PC{i+1}' for i in range(n_components)])
-        coords_df['gene_symbol'] = processed_data['gene_labels']
-        coords_df.to_csv(coords_path, index=False)
-        print(f"PCA coordinates saved to {coords_path}")
-
-    # Generate visualizations if requested
-    if create_plots and output_dir:
-        fig_dir = output_dir / 'figures'
-
-        # Create the requested plots
-        print("Creating PCA visualization plots...")
-
-        # 1. Explained variance plot
-        pca.plot_explained_variance(save_path=fig_dir / 'explained_variance.png')
-
-        # 2. Component loadings plot
-        pca.plot_components(save_path=fig_dir / 'pca_components.png')
-
-        # 3. Component audiogram effects plot
-        pca.plot_component_audiograms(save_path=fig_dir / 'component_effects.png')
-
-        # 4. PCA scatter plot
-        plt.figure(figsize=(10, 8))
-        plt.scatter(pca_coords[:, 0], pca_coords[:, 1], alpha=0.6, s=30)
-        plt.xlabel(f'PC1 ({pca.explained_variance_ratio[0]:.2%} variance)')
-        plt.ylabel(f'PC2 ({pca.explained_variance_ratio[1]:.2%} variance)')
-        plt.title('PCA Scatter Plot of Audiograms')
-        plt.grid(True, alpha=0.3)
-        plt.tight_layout()
-        plt.savefig(fig_dir / 'pca_scatter.png', dpi=300, bbox_inches='tight')
-        plt.close()
-
-        # 5. Extreme audiograms along each principal component
-        for i in range(n_components):
-            pca.plot_extreme_audiograms(all_mutant_profiles, pca_coords,
-                                       component=i+1, n_examples=5,
-                                       save_path=fig_dir / f'extreme_audiograms_pc{i+1}.png')
-
-    return {
-        'pca': pca,
-        'pca_coords': pca_coords
-    }
-
-
-def perform_gmm_clustering(processed_data, n_clusters=None, max_clusters=10,
-                          use_pca=False, pca_components=3, output_dir=None, create_plots=True):
-    """
-    Perform GMM clustering analysis on audiogram data.
-
-    Parameters:
-        processed_data (dict): Processed data from load_and_process_data.
-        n_clusters (int, optional): Number of clusters. If None, will be determined automatically.
-        max_clusters (int): Maximum number of clusters to test for optimal selection.
-        use_pca (bool): Whether to use PCA preprocessing for clustering.
-        pca_components (int): Number of PCA components if using PCA.
-        output_dir (Path): Output directory for results.
-        create_plots (bool): Whether to create visualization plots.
-
-    Returns:
-        dict: GMM clustering results.
-    """
-    print("\nPerforming GMM clustering analysis...")
-
-    # Extract data
-    all_mutant_profiles = processed_data['all_mutant_profiles']
-    gene_labels = processed_data['gene_labels']
-    freq_cols = processed_data['freq_cols']
-
-    # Select optimal number of clusters if not specified
-    if n_clusters is None:
-        print("Determining optimal number of clusters...")
-        optimal_n_clusters, scores_df = select_optimal_clusters(
-            all_mutant_profiles, max_clusters=max_clusters, metric='bic'
+        # Create formatters
+        detailed_formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s'
         )
-        print(f"Optimal number of clusters: {optimal_n_clusters}")
-        n_clusters = optimal_n_clusters
+        simple_formatter = logging.Formatter(
+            '%(asctime)s - %(levelname)s - %(message)s'
+        )
 
-        # Save cluster selection results
-        if output_dir:
-            scores_path = output_dir / 'cluster_results' / 'cluster_selection_scores.csv'
-            scores_df.to_csv(scores_path, index=False)
+        # File handler
+        file_handler = logging.FileHandler(log_file)
+        file_handler.setLevel(logging.DEBUG)
+        file_handler.setFormatter(detailed_formatter)
+        self.logger.addHandler(file_handler)
 
-            # Plot cluster selection metrics
-            if create_plots:
-                _, axes = plt.subplots(2, 2, figsize=(12, 10))
+        # Console handler
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(getattr(logging, log_level.upper()))
+        console_handler.setFormatter(simple_formatter)
+        self.logger.addHandler(console_handler)
 
-                # BIC
-                axes[0, 0].plot(scores_df['n_clusters'], scores_df['bic'], 'b-o')
-                axes[0, 0].set_title('BIC Score')
-                axes[0, 0].set_xlabel('Number of Clusters')
-                axes[0, 0].set_ylabel('BIC')
-                axes[0, 0].grid(True, alpha=0.3)
+        self.logger.info(f"Logging initialized - Level: {log_level}, Log file: {log_file}")
 
-                # AIC
-                axes[0, 1].plot(scores_df['n_clusters'], scores_df['aic'], 'r-o')
-                axes[0, 1].set_title('AIC Score')
-                axes[0, 1].set_xlabel('Number of Clusters')
-                axes[0, 1].set_ylabel('AIC')
-                axes[0, 1].grid(True, alpha=0.3)
+    def load_data(self,
+                  data_path: str,
+                  min_mutants: int = 3,
+                  min_controls: int = 20) -> 'AudiometricPhenotypePipeline':
+        """
+        Load and filter IMPC ABR data.
 
-                # Silhouette Score
-                axes[1, 0].plot(scores_df['n_clusters'], scores_df['silhouette_score'], 'g-o')
-                axes[1, 0].set_title('Silhouette Score')
-                axes[1, 0].set_xlabel('Number of Clusters')
-                axes[1, 0].set_ylabel('Silhouette Score')
-                axes[1, 0].grid(True, alpha=0.3)
+        Args:
+            data_path: Path to IMPC data file
+            min_mutants: Minimum mutant mice per experimental group
+            min_controls: Minimum control mice per group
 
-                # Log Likelihood
-                axes[1, 1].plot(scores_df['n_clusters'], scores_df['log_likelihood'], 'm-o')
-                axes[1, 1].set_title('Log Likelihood')
-                axes[1, 1].set_xlabel('Number of Clusters')
-                axes[1, 1].set_ylabel('Log Likelihood')
-                axes[1, 1].grid(True, alpha=0.3)
+        Returns:
+            Self for method chaining
+        """
+        self.logger.info(f"Loading data from {data_path}")
 
-                plt.tight_layout()
-                plt.savefig(output_dir / 'figures' / 'cluster_selection_metrics.png',
-                           dpi=300, bbox_inches='tight')
-                plt.close()
+        try:
+            # Initialize loader
+            self.loader = IMPCABRLoader(data_path)
 
-    # Fit GMM model
-    print(f"Fitting GMM with {n_clusters} clusters...")
-    gmm = AudiogramGMM(
-        n_clusters=n_clusters,
-        use_pca=use_pca,
-        pca_components=pca_components
+            # Load and prepare data
+            self.raw_data, self.experimental_groups = self.loader.load_and_prepare(
+                min_mutants=min_mutants,
+                min_controls=min_controls
+            )
+
+            # Update configuration
+            self.config.update({
+                'data_path': str(data_path),
+                'min_mutants': min_mutants,
+                'min_controls': min_controls,
+                'total_mice': len(self.raw_data),
+                'experimental_groups': len(self.experimental_groups) if self.experimental_groups else 0
+            })
+
+            self.logger.info(f"Data loading complete: {len(self.raw_data)} mice, "
+                           f"{len(self.experimental_groups) if self.experimental_groups else 0} experimental groups")
+
+        except Exception as e:
+            self.logger.error(f"Data loading failed: {e}")
+            raise
+
+        return self
+
+    def preprocess_data(self,
+                       preproc_config: Optional[Dict] = None) -> 'AudiometricPhenotypePipeline':
+        """
+        Preprocess ABR data with normalization and batch correction.
+
+        Args:
+            preproc_config: Custom preprocessing configuration
+
+        Returns:
+            Self for method chaining
+        """
+        if self.raw_data is None:
+            raise ValueError("Data must be loaded before preprocessing")
+
+        self.logger.info("Starting data preprocessing")
+
+        try:
+            # Create preprocessing configuration
+            if preproc_config is None:
+                config = create_default_config()
+            else:
+                config = create_default_config()
+                for key, value in preproc_config.items():
+                    if hasattr(config, key):
+                        setattr(config, key, value)
+
+            # Initialize and fit preprocessor
+            self.preprocessor = ABRPreprocessor(config)
+            self.normalized_data = self.preprocessor.fit_transform(self.raw_data)
+
+            # Update configuration
+            self.config.update({
+                'preprocessing': {
+                    'normalization_range': config.target_range,
+                    'grouping_columns': config.grouping_columns,
+                    'center_threshold': config.center_threshold,
+                    'output_shape': self.normalized_data.shape
+                }
+            })
+
+            self.logger.info(f"Preprocessing complete: {self.normalized_data.shape} normalized features")
+
+        except Exception as e:
+            self.logger.error(f"Preprocessing failed: {e}")
+            raise
+
+        return self
+
+    def fit_clustering(self,
+                      gmm_config: Optional[Dict] = None) -> 'AudiometricPhenotypePipeline':
+        """
+        Fit GMM clustering model with model selection.
+
+        Args:
+            gmm_config: Custom GMM configuration parameters
+
+        Returns:
+            Self for method chaining
+        """
+        if self.normalized_data is None:
+            raise ValueError("Data must be preprocessed before clustering")
+
+        self.logger.info("Starting GMM clustering")
+
+        try:
+            # Create GMM configuration
+            if gmm_config is None:
+                config = create_default_gmm_config(random_state=self.random_state)
+            else:
+                # Don't pass random_state if it's already in gmm_config
+                if 'random_state' not in gmm_config:
+                    gmm_config['random_state'] = self.random_state
+                config = create_default_gmm_config(**gmm_config)
+
+            # Initialize and fit GMM
+            self.gmm_model = AudiometricGMM(config)
+            self.gmm_model.fit(self.normalized_data)
+
+            # Get predictions
+            self.cluster_labels = self.gmm_model.predict(self.normalized_data)
+            self.cluster_probabilities = self.gmm_model.predict_proba(self.normalized_data)
+
+            # Get model metrics
+            metrics = self.gmm_model.get_metrics()
+
+            # Update configuration
+            self.config.update({
+                'clustering': {
+                    'n_components_range': config.n_components_range,
+                    'covariance_types': config.covariance_types,
+                    'n_init': config.n_init,
+                    'n_bootstrap': config.n_bootstrap,
+                    'best_n_components': metrics.n_components,
+                    'best_covariance_type': metrics.covariance_type,
+                    'bic_score': metrics.bic,
+                    'aic_score': metrics.aic,
+                    'silhouette_score': metrics.silhouette,
+                    'stability_score': metrics.stability_score
+                }
+            })
+
+            self.logger.info(f"Clustering complete: {metrics.n_components} clusters identified")
+            self.logger.info(f"Best model metrics: BIC={metrics.bic:.2f}, "
+                           f"Silhouette={metrics.silhouette:.3f}, "
+                           f"Stability={metrics.stability_score:.3f}")
+
+        except Exception as e:
+            self.logger.error(f"Clustering failed: {e}")
+            raise
+
+        return self
+
+    def analyze_results(self) -> 'AudiometricPhenotypePipeline':
+        """
+        Perform comprehensive analysis of clustering results.
+
+        Returns:
+            Self for method chaining
+        """
+        if self.cluster_labels is None:
+            raise ValueError("Clustering must be completed before analysis")
+
+        self.logger.info("Starting results analysis")
+
+        try:
+            # Get original data for interpretable visualizations
+            abr_columns = [
+                '6kHz-evoked ABR Threshold',
+                '12kHz-evoked ABR Threshold',
+                '18kHz-evoked ABR Threshold',
+                '24kHz-evoked ABR Threshold',
+                '30kHz-evoked ABR Threshold'
+            ]
+
+            original_data = self.raw_data[abr_columns].values
+
+            # Perform comprehensive analysis
+            self.analysis_results, self.visualization_files = analyze_gmm_results(
+                normalized_data=self.normalized_data,
+                cluster_labels=self.cluster_labels,
+                cluster_probabilities=self.cluster_probabilities,
+                metadata=self.raw_data,
+                original_data=original_data,
+                output_dir=str(self.output_dir)
+            )
+
+            # Update configuration with analysis summary
+            self.config.update({
+                'analysis': {
+                    'n_clusters_final': self.analysis_results['n_clusters'],
+                    'total_samples_analyzed': self.analysis_results['summary_statistics']['total_samples'],
+                    'avg_assignment_confidence': self.analysis_results['summary_statistics']['avg_assignment_confidence'],
+                    'cluster_patterns': {
+                        str(cid): char.pattern_type
+                        for cid, char in self.analysis_results['cluster_characteristics'].items()
+                    },
+                    'visualization_files': list(self.visualization_files.keys())
+                }
+            })
+
+            self.logger.info(f"Analysis complete: {len(self.visualization_files)} files generated")
+
+        except Exception as e:
+            self.logger.error(f"Analysis failed: {e}")
+            raise
+
+        return self
+
+    def save_results(self, save_models: bool = True) -> Dict[str, str]:
+        """
+        Save all pipeline results and models.
+
+        Args:
+            save_models: Whether to save fitted models (preprocessor, GMM)
+
+        Returns:
+            Dictionary mapping result types to file paths
+        """
+        self.logger.info("Saving pipeline results")
+
+        saved_files = {}
+
+        try:
+            # Save configuration
+            config_path = self.output_dir / "pipeline_config.json"
+            with open(config_path, 'w') as f:
+                json.dump(self.config, f, indent=2, default=str)
+            saved_files['config'] = str(config_path)
+
+            # Save analysis results
+            if self.analysis_results:
+                results_path = self.output_dir / "analysis_results.json"
+                # Convert numpy arrays to lists for JSON serialization
+                serializable_results = self._make_json_serializable(self.analysis_results)
+                with open(results_path, 'w') as f:
+                    json.dump(serializable_results, f, indent=2, default=str)
+                saved_files['analysis_results'] = str(results_path)
+
+            # Save cluster assignments
+            if self.cluster_labels is not None:
+                assignments_path = self.output_dir / "cluster_assignments.csv"
+                assignments_df = pd.DataFrame({
+                    'sample_index': range(len(self.cluster_labels)),
+                    'cluster_label': self.cluster_labels,
+                    'max_probability': self.cluster_probabilities.max(axis=1),
+                    'assignment_confidence': self.cluster_probabilities.max(axis=1)
+                })
+
+                # Add individual cluster probabilities
+                n_clusters = self.cluster_probabilities.shape[1]
+                for i in range(n_clusters):
+                    assignments_df[f'cluster_{i}_prob'] = self.cluster_probabilities[:, i]
+
+                assignments_df.to_csv(assignments_path, index=False)
+                saved_files['cluster_assignments'] = str(assignments_path)
+
+            # Save processed data
+            if self.normalized_data is not None:
+                processed_data_path = self.output_dir / "normalized_data.csv"
+                feature_names = [f'normalized_{freq}kHz' for freq in [6, 12, 18, 24, 30]]
+                processed_df = pd.DataFrame(self.normalized_data, columns=feature_names)
+                processed_df.to_csv(processed_data_path, index=False)
+                saved_files['normalized_data'] = str(processed_data_path)
+
+            # Save models if requested
+            if save_models:
+                if self.preprocessor:
+                    preprocessor_path = self.output_dir / "preprocessor.pkl"
+                    with open(preprocessor_path, 'wb') as f:
+                        pickle.dump(self.preprocessor, f)
+                    saved_files['preprocessor_model'] = str(preprocessor_path)
+
+                if self.gmm_model:
+                    gmm_path = self.output_dir / "gmm_model.pkl"
+                    with open(gmm_path, 'wb') as f:
+                        pickle.dump(self.gmm_model, f)
+                    saved_files['gmm_model'] = str(gmm_path)
+
+            # Add visualization files
+            if self.visualization_files:
+                saved_files.update(self.visualization_files)
+
+            # Create summary file
+            summary_path = self.output_dir / "pipeline_summary.txt"
+            self._create_pipeline_summary(summary_path, saved_files)
+            saved_files['pipeline_summary'] = str(summary_path)
+
+            self.logger.info(f"Results saved: {len(saved_files)} files in {self.output_dir}")
+
+        except Exception as e:
+            self.logger.error(f"Failed to save results: {e}")
+            raise
+
+        return saved_files
+
+    def _make_json_serializable(self, obj):
+        """Convert numpy arrays and other non-serializable objects for JSON."""
+        if isinstance(obj, dict):
+            return {key: self._make_json_serializable(value) for key, value in obj.items()}
+        elif isinstance(obj, list):
+            return [self._make_json_serializable(item) for item in obj]
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif hasattr(obj, '__dict__'):
+            # Handle custom objects like ClusterCharacteristics
+            return self._make_json_serializable(obj.__dict__)
+        else:
+            return obj
+
+    def _create_pipeline_summary(self, summary_path: Path, saved_files: Dict[str, str]):
+        """Create a human-readable summary of the pipeline execution."""
+        with open(summary_path, 'w') as f:
+            f.write("=" * 80 + "\n")
+            f.write("AUDIOMETRIC PHENOTYPE DISCOVERY PIPELINE SUMMARY\n")
+            f.write("=" * 80 + "\n\n")
+
+            f.write(f"Execution Date: {self.config['created_at']}\n")
+            f.write(f"Pipeline Version: {self.config['pipeline_version']}\n")
+            f.write(f"Output Directory: {self.config['output_dir']}\n\n")
+
+            # Data summary
+            f.write("DATA LOADING\n")
+            f.write("-" * 40 + "\n")
+            f.write(f"Input file: {self.config.get('data_path', 'N/A')}\n")
+            f.write(f"Total mice: {self.config.get('total_mice', 'N/A')}\n")
+            f.write(f"Experimental groups: {self.config.get('experimental_groups', 'N/A')}\n")
+            f.write(f"Min mutants per group: {self.config.get('min_mutants', 'N/A')}\n")
+            f.write(f"Min controls per group: {self.config.get('min_controls', 'N/A')}\n\n")
+
+            # Preprocessing summary
+            if 'preprocessing' in self.config:
+                f.write("PREPROCESSING\n")
+                f.write("-" * 40 + "\n")
+                prep = self.config['preprocessing']
+                f.write(f"Normalization range: {prep.get('normalization_range', 'N/A')}\n")
+                f.write(f"Technical grouping: {len(prep.get('grouping_columns', []))} variables\n")
+                f.write(f"Output shape: {prep.get('output_shape', 'N/A')}\n\n")
+
+            # Clustering summary
+            if 'clustering' in self.config:
+                f.write("CLUSTERING\n")
+                f.write("-" * 40 + "\n")
+                clust = self.config['clustering']
+                f.write(f"Components tested: {clust.get('n_components_range', 'N/A')}\n")
+                f.write(f"Covariance types: {clust.get('covariance_types', 'N/A')}\n")
+                f.write(f"Best model: {clust.get('best_n_components', 'N/A')} components, ")
+                f.write(f"{clust.get('best_covariance_type', 'N/A')} covariance\n")
+                f.write(f"BIC score: {clust.get('bic_score', 'N/A'):.2f}\n")
+                f.write(f"Silhouette score: {clust.get('silhouette_score', 'N/A'):.3f}\n")
+                f.write(f"Stability score: {clust.get('stability_score', 'N/A'):.3f}\n\n")
+
+            # Analysis summary
+            if 'analysis' in self.config:
+                f.write("ANALYSIS RESULTS\n")
+                f.write("-" * 40 + "\n")
+                anal = self.config['analysis']
+                f.write(f"Final clusters: {anal.get('n_clusters_final', 'N/A')}\n")
+                f.write(f"Samples analyzed: {anal.get('total_samples_analyzed', 'N/A')}\n")
+                f.write(f"Avg assignment confidence: {anal.get('avg_assignment_confidence', 'N/A'):.3f}\n")
+
+                patterns = anal.get('cluster_patterns', {})
+                if patterns:
+                    f.write("Identified patterns:\n")
+                    for cluster_id, pattern in patterns.items():
+                        f.write(f"  Cluster {cluster_id}: {pattern}\n")
+                f.write("\n")
+
+            # Output files
+            f.write("OUTPUT FILES\n")
+            f.write("-" * 40 + "\n")
+            for file_type, file_path in saved_files.items():
+                f.write(f"{file_type}: {file_path}\n")
+
+            f.write("\n" + "=" * 80 + "\n")
+
+    def run_complete_pipeline(self,
+                            data_path: str,
+                            min_mutants: int = 3,
+                            min_controls: int = 20,
+                            preproc_config: Optional[Dict] = None,
+                            gmm_config: Optional[Dict] = None,
+                            save_models: bool = True) -> Dict[str, str]:
+        """
+        Run the complete pipeline from data loading to results generation.
+
+        Args:
+            data_path: Path to IMPC data file
+            min_mutants: Minimum mutant mice per experimental group
+            min_controls: Minimum control mice per group
+            preproc_config: Custom preprocessing configuration
+            gmm_config: Custom GMM configuration
+            save_models: Whether to save fitted models
+
+        Returns:
+            Dictionary mapping result types to file paths
+        """
+        self.logger.info("Starting complete audiometric phenotype discovery pipeline")
+
+        try:
+            # Execute pipeline steps
+            (self.load_data(data_path, min_mutants, min_controls)
+             .preprocess_data(preproc_config)
+             .fit_clustering(gmm_config)
+             .analyze_results())
+
+            # Save all results
+            saved_files = self.save_results(save_models)
+
+            self.logger.info("Pipeline execution completed successfully")
+            return saved_files
+
+        except Exception as e:
+            self.logger.error(f"Pipeline execution failed: {e}")
+            raise
+
+
+def create_argument_parser():
+    """Create command-line argument parser for the pipeline."""
+    parser = argparse.ArgumentParser(
+        description="Audiometric Phenotype Discovery Pipeline",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
-    gmm.fit(all_mutant_profiles, freq_cols)
 
-    # Calculate clustering metrics
-    metrics = gmm.calculate_metrics(all_mutant_profiles)
-    print(f"Clustering metrics: Silhouette={metrics['silhouette_score']:.3f}, "
-          f"BIC={metrics['bic']:.1f}")
+    # Required arguments
+    parser.add_argument(
+        'data_path',
+        type=str,
+        help='Path to IMPC ABR data file'
+    )
 
-    # Analyze cluster patterns
-    cluster_analysis = gmm.analyze_cluster_patterns()
-    print("\nCluster Analysis:")
-    print(cluster_analysis[['cluster_id', 'cluster_size', 'pattern_type', 'severity']].to_string(index=False))
+    # Optional arguments
+    parser.add_argument(
+        '--output-dir', '-o',
+        type=str,
+        default='results',
+        help='Output directory for results'
+    )
 
-    # Get gene-cluster mapping
-    gene_cluster_mapping = gmm.get_gene_cluster_mapping(gene_labels)
+    parser.add_argument(
+        '--min-mutants',
+        type=int,
+        default=3,
+        help='Minimum mutant mice per experimental group'
+    )
 
-    # Save results
-    if output_dir:
-        # Save GMM model
-        model_path = output_dir / 'cluster_results' / 'gmm_model.pkl'
-        gmm.save_model(model_path)
-        print(f"GMM model saved to {model_path}")
+    parser.add_argument(
+        '--min-controls',
+        type=int,
+        default=20,
+        help='Minimum control mice per experimental group'
+    )
 
-        # Save cluster analysis
-        analysis_path = output_dir / 'cluster_results' / 'cluster_summary.csv'
-        cluster_analysis.to_csv(analysis_path, index=False)
+    parser.add_argument(
+        '--min-components',
+        type=int,
+        default=3,
+        help='Minimum number of GMM components to test'
+    )
 
-        # Save gene-cluster mapping
-        mapping_path = output_dir / 'gene_results' / 'gene_cluster_mapping.csv'
-        gene_cluster_mapping.to_csv(mapping_path, index=False)
+    parser.add_argument(
+        '--max-components',
+        type=int,
+        default=12,
+        help='Maximum number of GMM components to test'
+    )
 
-        # Create gene summary with cluster information
-        gene_summary = create_gene_summary(gene_cluster_mapping, cluster_analysis)
-        summary_path = output_dir / 'gene_results' / 'gene_summary.csv'
-        gene_summary.to_csv(summary_path, index=False)
+    parser.add_argument(
+        '--n-bootstrap',
+        type=int,
+        default=100,
+        help='Number of bootstrap iterations for stability assessment'
+    )
 
-    # Generate visualizations if requested
-    if create_plots and output_dir:
-        fig_dir = output_dir / 'figures'
+    parser.add_argument(
+        '--random-state',
+        type=int,
+        default=42,
+        help='Random seed for reproducibility'
+    )
 
-        print("Creating GMM visualization plots...")
+    parser.add_argument(
+        '--log-level',
+        type=str,
+        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'],
+        default='INFO',
+        help='Logging level'
+    )
 
-        # 1. Cluster audiograms
-        gmm.plot_cluster_audiograms(save_path=fig_dir / 'cluster_audiograms.png')
+    parser.add_argument(
+        '--no-save-models',
+        action='store_true',
+        help='Do not save fitted models (preprocessor, GMM)'
+    )
 
-        # 2. Cluster scatter plot
-        gmm.plot_cluster_scatter(all_mutant_profiles, save_path=fig_dir / 'cluster_scatter.png')
+    return parser
 
-        # 3. Pattern distributions
-        plot_pattern_distributions(cluster_analysis,
-                                 save_path=fig_dir / 'pattern_distributions.png')
 
-        # 4. Gene distributions by cluster
-        plot_gene_distributions(gene_cluster_mapping,
-                              save_path=fig_dir / 'gene_cluster_distribution.png')
+def main():
+    """Main entry point for command-line execution."""
+    parser = create_argument_parser()
+    args = parser.parse_args()
 
-        # 5. Create individual gene reports for top genes by cluster
-        create_individual_gene_reports(gene_cluster_mapping, all_mutant_profiles,
-                                     freq_cols, output_dir)
-
-    return {
-        'gmm': gmm,
-        'cluster_analysis': cluster_analysis,
-        'gene_cluster_mapping': gene_cluster_mapping,
-        'metrics': metrics
+    # Create GMM configuration from arguments
+    gmm_config = {
+        'n_components_range': (args.min_components, args.max_components),
+        'n_bootstrap': args.n_bootstrap,
+        'random_state': args.random_state
     }
 
-
-def create_gene_summary(gene_cluster_mapping, cluster_analysis):
-    """Create a comprehensive gene summary with cluster information."""
-
-    # Group by gene and get cluster statistics
-    gene_stats = gene_cluster_mapping.groupby('gene_symbol').agg({
-        'cluster_id': ['count', lambda x: x.mode().iloc[0] if len(x.mode()) > 0 else x.iloc[0]],
-        'max_probability': ['mean', 'min', 'max']
-    }).round(3)
-
-    # Flatten column names
-    gene_stats.columns = ['_'.join(col).strip() for col in gene_stats.columns]
-    gene_stats = gene_stats.rename(columns={
-        'cluster_id_count': 'n_audiograms',
-        'cluster_id_<lambda_0>': 'most_common_cluster',  # Fixed lambda name
-        'max_probability_mean': 'mean_cluster_probability',
-        'max_probability_min': 'min_cluster_probability',
-        'max_probability_max': 'max_cluster_probability'
-    })
-
-    # Add cluster pattern information
-    cluster_info = cluster_analysis.set_index('cluster_id')[['pattern_type', 'severity']]
-    gene_stats = gene_stats.join(cluster_info, on='most_common_cluster')
-
-    # Calculate cluster diversity (entropy)
-    def calculate_cluster_entropy(gene_data):
-        cluster_counts = gene_data['cluster_id'].value_counts(normalize=True)
-        entropy = -np.sum(cluster_counts * np.log2(cluster_counts + 1e-10))
-        return entropy
-
-    entropy_scores = gene_cluster_mapping.groupby('gene_symbol').apply(calculate_cluster_entropy)
-    gene_stats['cluster_entropy'] = entropy_scores
-
-    # Reset index to make gene_symbol a column
-    gene_stats = gene_stats.reset_index()
-
-    # Sort by number of audiograms (descending)
-    gene_stats = gene_stats.sort_values('n_audiograms', ascending=False)
-
-    return gene_stats
-
-
-def plot_pattern_distributions(cluster_analysis, save_path=None):
-    """Plot distributions of hearing loss patterns."""
-
-    fig, axes = plt.subplots(2, 2, figsize=(15, 12))
-
-    # 1. Cluster sizes
-    axes[0, 0].bar(cluster_analysis['cluster_id'], cluster_analysis['cluster_percentage'])
-    axes[0, 0].set_title('Cluster Size Distribution')
-    axes[0, 0].set_xlabel('Cluster ID')
-    axes[0, 0].set_ylabel('Percentage of Audiograms')
-    axes[0, 0].grid(True, alpha=0.3)
-
-    # 2. Pattern types
-    pattern_counts = cluster_analysis['pattern_type'].value_counts()
-    axes[0, 1].pie(pattern_counts.values, labels=pattern_counts.index, autopct='%1.1f%%')
-    axes[0, 1].set_title('Hearing Loss Pattern Types')
-
-    # 3. Severity distribution
-    severity_counts = cluster_analysis['severity'].value_counts()
-    axes[1, 0].bar(severity_counts.index, severity_counts.values)
-    axes[1, 0].set_title('Hearing Loss Severity Distribution')
-    axes[1, 0].set_ylabel('Number of Clusters')
-    axes[1, 0].tick_params(axis='x', rotation=45)
-    axes[1, 0].grid(True, alpha=0.3)
-
-    # 4. Mean threshold by cluster
-    axes[1, 1].bar(cluster_analysis['cluster_id'], cluster_analysis['mean_threshold'])
-    axes[1, 1].set_title('Mean Threshold by Cluster')
-    axes[1, 1].set_xlabel('Cluster ID')
-    axes[1, 1].set_ylabel('Mean Threshold (dB SPL)')
-    axes[1, 1].grid(True, alpha=0.3)
-
-    plt.tight_layout()
-
-    if save_path:
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        plt.close()
-
-    return fig
-
-
-def plot_gene_distributions(gene_cluster_mapping, save_path=None):
-    """Plot gene distribution across clusters."""
-
-    fig, axes = plt.subplots(1, 2, figsize=(15, 6))
-
-    # 1. Number of genes per cluster
-    genes_per_cluster = gene_cluster_mapping.groupby('cluster_id')['gene_symbol'].nunique()
-    axes[0].bar(genes_per_cluster.index, genes_per_cluster.values)
-    axes[0].set_title('Number of Genes per Cluster')
-    axes[0].set_xlabel('Cluster ID')
-    axes[0].set_ylabel('Number of Unique Genes')
-    axes[0].grid(True, alpha=0.3)
-
-    # 2. Gene cluster probability distribution
-    axes[1].hist(gene_cluster_mapping['max_probability'], bins=20, alpha=0.7, edgecolor='black')
-    axes[1].set_title('Distribution of Maximum Cluster Probabilities')
-    axes[1].set_xlabel('Maximum Cluster Probability')
-    axes[1].set_ylabel('Frequency')
-    axes[1].grid(True, alpha=0.3)
-
-    plt.tight_layout()
-
-    if save_path:
-        plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        plt.close()
-
-    return fig
-
-
-def create_individual_gene_reports(gene_cluster_mapping, all_mutant_profiles, freq_cols, output_dir):
-    """Create individual reports for genes with the most audiograms in each cluster."""
-
-    # Find top genes per cluster (by number of audiograms)
-    top_genes_per_cluster = (gene_cluster_mapping.groupby(['cluster_id', 'gene_symbol'])
-                           .size()
-                           .reset_index(name='count')
-                           .sort_values(['cluster_id', 'count'], ascending=[True, False])
-                           .groupby('cluster_id')
-                           .head(3))  # Top 3 genes per cluster
-
-    report_dir = output_dir / 'gene_results' / 'individual_reports'
-
-    print(f"Creating individual gene reports for {len(top_genes_per_cluster)} gene-cluster combinations...")
-
-    for _, row in top_genes_per_cluster.iterrows():
-        gene = row['gene_symbol']
-
-        # Get gene data
-        gene_mask = gene_cluster_mapping['gene_symbol'] == gene
-        gene_data = gene_cluster_mapping[gene_mask]
-        gene_audiograms = all_mutant_profiles[gene_mask]
-
-        # Create gene-specific directory
-        gene_dir = report_dir / gene
-        gene_dir.mkdir(exist_ok=True)
-
-        # Create visualizations
-        create_gene_visualizations(gene, gene_data, gene_audiograms, freq_cols, gene_dir)
-
-        # Create summary report
-        create_gene_summary_report(gene, gene_data, gene_dir)
-
-
-def create_gene_visualizations(gene, gene_data, gene_audiograms, freq_cols, gene_dir):
-    """Create visualizations for a specific gene."""
-
-    # 1. Audiogram plot
-    _, ax = plt.subplots(figsize=(10, 6))
-
-    # Plot individual audiograms
-    for i, audiogram in enumerate(gene_audiograms):
-        cluster_id = gene_data.iloc[i]['cluster_id']
-        alpha = 0.3 + 0.4 * gene_data.iloc[i]['max_probability']  # Alpha based on probability
-        ax.plot(freq_cols, audiogram, alpha=alpha, color=f'C{cluster_id}', linewidth=1)
-
-    # Plot mean audiogram
-    mean_audiogram = np.mean(gene_audiograms, axis=0)
-    ax.plot(freq_cols, mean_audiogram, 'k-', linewidth=3, label='Mean')
-
-    ax.set_xlabel('Frequency')
-    ax.set_ylabel('Threshold (dB SPL)')
-    ax.set_title(f'{gene} - Audiograms (n={len(gene_audiograms)})')
-    ax.legend()
-    ax.grid(True, alpha=0.3)
-    plt.tight_layout()
-    plt.savefig(gene_dir / f'{gene}_audiograms.png', dpi=300, bbox_inches='tight')
-    plt.close()
-
-    # 2. Cluster distribution
-    _, ax = plt.subplots(figsize=(8, 6))
-    cluster_counts = gene_data['cluster_id'].value_counts().sort_index()
-    ax.bar(cluster_counts.index, cluster_counts.values)
-    ax.set_xlabel('Cluster ID')
-    ax.set_ylabel('Number of Audiograms')
-    ax.set_title(f'{gene} - Cluster Distribution')
-    ax.grid(True, alpha=0.3)
-    plt.tight_layout()
-    plt.savefig(gene_dir / f'{gene}_clusters.png', dpi=300, bbox_inches='tight')
-    plt.close()
-
-    # 3. PCA projection (if available)
-    if len(gene_audiograms) > 1:
-        scaler = StandardScaler()
-        audiograms_scaled = scaler.fit_transform(gene_audiograms)
-        pca = PCA(n_components=min(2, len(gene_audiograms)-1))
-        gene_pca_coords = pca.fit_transform(audiograms_scaled)
-
-        _, ax = plt.subplots(figsize=(8, 6))
-
-        if gene_pca_coords.shape[1] >= 2:
-            scatter = ax.scatter(gene_pca_coords[:, 0], gene_pca_coords[:, 1],
-                               c=gene_data['cluster_id'], cmap='Set1', s=50, alpha=0.7)
-            ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.2%} variance)')
-            ax.set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.2%} variance)')
-            plt.colorbar(scatter, label='Cluster ID')
-        else:
-            ax.scatter(gene_pca_coords[:, 0], np.zeros_like(gene_pca_coords[:, 0]),
-                      c=gene_data['cluster_id'], cmap='Set1', s=50, alpha=0.7)
-            ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.2%} variance)')
-            ax.set_ylabel('PC2')
-
-        ax.set_title(f'{gene} - PCA Projection')
-        ax.grid(True, alpha=0.3)
-        plt.tight_layout()
-        plt.savefig(gene_dir / f'{gene}_pca.png', dpi=300, bbox_inches='tight')
-        plt.close()
-
-
-def create_gene_summary_report(gene, gene_data, gene_dir):
-    """Create a text summary report for a gene."""
-
-    report_path = gene_dir / f'{gene}_summary.txt'
-
-    with open(report_path, 'w', encoding='utf-8') as f:
-        f.write(f"Gene Summary Report: {gene}\n")
-        f.write("=" * 50 + "\n\n")
-
-        f.write(f"Number of audiograms: {len(gene_data)}\n")
-        f.write("Cluster distribution:\n")
-
-        cluster_counts = gene_data['cluster_id'].value_counts().sort_index()
-        for cluster_id, count in cluster_counts.items():
-            percentage = count / len(gene_data) * 100
-            f.write(f"  Cluster {cluster_id}: {count} ({percentage:.1f}%)\n")
-
-        f.write("\nCluster probability statistics:\n")
-        f.write(f"  Mean max probability: {gene_data['max_probability'].mean():.3f}\n")
-        f.write(f"  Min max probability: {gene_data['max_probability'].min():.3f}\n")
-        f.write(f"  Max max probability: {gene_data['max_probability'].max():.3f}\n")
-
-
-def main(data_path, output_dir, n_components=5, n_clusters=None, max_clusters=10,
-         use_pca_for_clustering=False, pca_components=3, create_plots=True):
-    """
-    Run the enhanced ABR analysis pipeline with PCA and GMM clustering.
-
-    Parameters:
-        data_path (str): Path to the ABR data file.
-        output_dir (str): Output directory for results.
-        n_components (int): Number of principal components for PCA.
-        n_clusters (int, optional): Number of clusters for GMM.
-        max_clusters (int): Maximum clusters to test for optimal selection.
-        use_pca_for_clustering (bool): Whether to use PCA preprocessing for clustering.
-        pca_components (int): Number of PCA components for clustering.
-        create_plots (bool): Whether to create visualization plots.
-    """
-    # Create output directories
-    output_dir = create_output_dirs(output_dir)
-
-    # Load and process data
-    processed_data = load_and_process_data(data_path)
-
-    # Perform PCA analysis
-    pca_results = perform_pca_analysis(processed_data, n_components, output_dir, create_plots)
-
-    # Perform GMM clustering analysis
-    gmm_results = perform_gmm_clustering(
-        processed_data,
-        n_clusters=n_clusters,
-        max_clusters=max_clusters,
-        use_pca=use_pca_for_clustering,
-        pca_components=pca_components,
-        output_dir=output_dir,
-        create_plots=create_plots
+    # Initialize and run pipeline
+    pipeline = AudiometricPhenotypePipeline(
+        output_dir=args.output_dir,
+        log_level=args.log_level,
+        random_state=args.random_state
     )
 
-    print(f"\nAnalysis complete. Results saved to {output_dir}")
-    print(f"Found {gmm_results['cluster_analysis']['cluster_id'].nunique()} distinct hearing loss patterns")
-    print(f"Processed {len(set(processed_data['gene_labels']))} unique genes")
+    try:
+        saved_files = pipeline.run_complete_pipeline(
+            data_path=args.data_path,
+            min_mutants=args.min_mutants,
+            min_controls=args.min_controls,
+            gmm_config=gmm_config,
+            save_models=not args.no_save_models
+        )
+
+        print("\n" + "="*60)
+        print("PIPELINE EXECUTION COMPLETED SUCCESSFULLY")
+        print("="*60)
+        print(f"Results saved to: {args.output_dir}")
+        print(f"Total files generated: {len(saved_files)}")
+        print(f"See {args.output_dir}/pipeline_summary.txt for detailed results")
+
+    except Exception as e:
+        print(f"\nPipeline execution failed: {e}")
+        print(f"Check {args.output_dir}/pipeline.log for detailed error information")
+        return 1
+
+    return 0
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Enhanced ABR Analysis Pipeline with GMM Clustering")
-
-    parser.add_argument("--data", "-d", type=str, required=True,
-                       help="Path to the ABR data file")
-    parser.add_argument("--output", "-o", type=str, default="./output",
-                       help="Output directory for results")
-    parser.add_argument("--pca-components", type=int, default=5,
-                       help="Number of principal components for PCA")
-    parser.add_argument("--clusters", "-c", type=int, default=None,
-                       help="Number of clusters for GMM (auto-select if not specified)")
-    parser.add_argument("--max-clusters", type=int, default=10,
-                       help="Maximum number of clusters to test for auto-selection")
-    parser.add_argument("--use-pca-clustering", action="store_true",
-                       help="Use PCA preprocessing for clustering")
-    parser.add_argument("--pca-clustering-components", type=int, default=3,
-                       help="Number of PCA components for clustering preprocessing")
-    parser.add_argument("--no-plots", action="store_true",
-                       help="Skip creating visualization plots")
-
-    args = parser.parse_args()
-
-    main(
-        args.data,
-        args.output,
-        args.pca_components,
-        args.clusters,
-        args.max_clusters,
-        args.use_pca_clustering,
-        args.pca_clustering_components,
-        not args.no_plots
-    )
+    exit(main())
