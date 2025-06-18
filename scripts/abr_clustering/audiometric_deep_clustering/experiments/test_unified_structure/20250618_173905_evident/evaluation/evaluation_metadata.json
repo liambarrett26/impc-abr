@@ -1,0 +1,33 @@
+{
+  "evaluation_type": "post_training_analysis",
+  "checkpoint_path": "experiments/test_unified_structure/20250618_173905_evident/checkpoints/pretrain/best_pretrain.pt",
+  "experiment_info": {
+    "experiment_name": "test_unified_structure",
+    "run_id": "20250618_173905_evident",
+    "detected": true
+  },
+  "evaluation_timestamp": "2025-06-18T17:40:42.523156",
+  "command_line_args": {
+    "checkpoint": "experiments/test_unified_structure/20250618_173905_evident/checkpoints/pretrain/best_pretrain.pt",
+    "config": "config/training_config.yaml",
+    "model_config": "config/model_config.yaml",
+    "data_path": null,
+    "split": "test",
+    "batch_size": 512,
+    "device": "auto",
+    "skip_clustering_metrics": false,
+    "skip_phenotype_analysis": true,
+    "skip_gene_enrichment": true,
+    "skip_visualizations": true,
+    "known_hearing_genes": null,
+    "gene_sets": null,
+    "output_dir": "experiments",
+    "experiment_name": "test_unified_structure",
+    "run_id": "20250618_173905_evident",
+    "save_embeddings": true,
+    "save_predictions": false,
+    "log_level": "INFO",
+    "log_dir": null,
+    "seed": 42
+  }
+}

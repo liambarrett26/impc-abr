@@ -53,8 +53,8 @@ class FrequencyAttention(nn.Module):
         self.k_projection = nn.Linear(head_dim * num_heads, head_dim * num_heads)
         self.v_projection = nn.Linear(head_dim * num_heads, head_dim * num_heads)
 
-        # Output projection
-        self.output_projection = nn.Linear(head_dim * num_heads, input_dim)
+        # Output projection (project back to single feature per token)
+        self.output_projection = nn.Linear(head_dim * num_heads, 1)
 
         # Positional encoding for frequencies
         if use_positional_encoding:

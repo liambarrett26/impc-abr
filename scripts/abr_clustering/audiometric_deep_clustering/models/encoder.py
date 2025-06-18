@@ -154,13 +154,13 @@ class FrequencyAttention(nn.Module):
         self.num_heads = num_heads
         self.scale = head_dim ** -0.5
 
-        # Attention projections
-        self.q_projection = nn.Linear(input_dim, head_dim * num_heads)
-        self.k_projection = nn.Linear(input_dim, head_dim * num_heads)
-        self.v_projection = nn.Linear(input_dim, head_dim * num_heads)
+        # Attention projections (working with single values per frequency)
+        self.q_projection = nn.Linear(1, head_dim * num_heads)
+        self.k_projection = nn.Linear(1, head_dim * num_heads)
+        self.v_projection = nn.Linear(1, head_dim * num_heads)
 
-        # Output projection
-        self.output_projection = nn.Linear(head_dim * num_heads, input_dim)
+        # Output projection (back to single value per frequency)
+        self.output_projection = nn.Linear(head_dim * num_heads, 1)
 
         # Dropout
         self.attention_dropout = nn.Dropout(dropout)

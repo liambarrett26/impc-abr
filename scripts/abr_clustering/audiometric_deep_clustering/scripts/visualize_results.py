@@ -83,10 +83,12 @@ def parse_arguments() -> argparse.Namespace:
                        help='Column name for mouse IDs')
     
     # Output
-    parser.add_argument('--output-dir', type=str, default='visualization_outputs',
-                       help='Directory for visualization outputs')
+    parser.add_argument('--output-dir', type=str, default='experiments',
+                       help='Base experiments directory (should match training/evaluation)')
     parser.add_argument('--experiment-name', type=str,
-                       help='Name of experiment (for organizing outputs)')
+                       help='Name of experiment (auto-detect from embeddings path if not provided)')
+    parser.add_argument('--run-id', type=str,
+                       help='Specific run ID to visualize (auto-detect from embeddings path if not provided)')
     
     # Logging
     parser.add_argument('--log-level', type=str, default='INFO',
@@ -98,25 +100,84 @@ def parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def setup_output_directories(args: argparse.Namespace) -> Dict[str, Path]:
-    """Setup output directories for different types of visualizations."""
-    base_dir = Path(args.output_dir)
+def detect_experiment_info_from_embeddings(embeddings_path: str, args: argparse.Namespace) -> Dict[str, str]:
+    """Auto-detect experiment information from embeddings path."""
+    from datetime import datetime
     
-    if args.experiment_name:
-        base_dir = base_dir / args.experiment_name
+    embeddings_path = Path(embeddings_path)
+    
+    # Try to extract from organized experiment structure
+    # Expected: experiments/{experiment_name}/{run_id}/evaluation/embeddings/... or experiments/{experiment_name}/{run_id}/embeddings/...
+    if embeddings_path.parts and len(embeddings_path.parts) >= 4:
+        try:
+            path_parts = embeddings_path.parts
+            if 'experiments' in path_parts:
+                exp_idx = path_parts.index('experiments')
+                if exp_idx + 2 < len(path_parts):
+                    experiment_name = path_parts[exp_idx + 1]
+                    run_id = path_parts[exp_idx + 2]
+                    
+                    # Override args if not provided
+                    if not args.experiment_name:
+                        args.experiment_name = experiment_name
+                    if not args.run_id:
+                        args.run_id = run_id
+                        
+                    return {
+                        'experiment_name': args.experiment_name,
+                        'run_id': args.run_id,
+                        'detected': True
+                    }
+        except:
+            pass
+    
+    # Fallback: generate visualization-specific info
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+    if not args.experiment_name:
+        args.experiment_name = "visualization"
+    if not args.run_id:
+        args.run_id = f"viz_{timestamp}"
+        
+    return {
+        'experiment_name': args.experiment_name,
+        'run_id': args.run_id,
+        'detected': False
+    }
+
+
+def setup_output_directories(args: argparse.Namespace, experiment_info: Dict[str, str]) -> Dict[str, Path]:
+    """Setup output directories within the experiment structure."""
+    
+    # Use the same experiment structure as training and evaluation
+    base_dir = Path(args.output_dir) / experiment_info['experiment_name'] / experiment_info['run_id']
     
     directories = {
         'base': base_dir,
-        'static': base_dir / 'static_plots',
-        'interactive': base_dir / 'interactive_plots',
-        'cluster_analysis': base_dir / 'cluster_analysis',
-        'audiograms': base_dir / 'audiogram_patterns',
-        'reports': base_dir / 'reports'
+        'static': base_dir / 'visualizations' / 'static_plots',
+        'interactive': base_dir / 'visualizations' / 'interactive_plots',
+        'cluster_analysis': base_dir / 'visualizations' / 'cluster_analysis',
+        'audiograms': base_dir / 'visualizations' / 'audiogram_patterns',
+        'reports': base_dir / 'visualizations' / 'reports'
     }
     
     # Create directories
     for dir_path in directories.values():
         dir_path.mkdir(parents=True, exist_ok=True)
+    
+    # Save visualization metadata
+    import json
+    from datetime import datetime
+    metadata = {
+        'visualization_type': 'post_training_analysis',
+        'embeddings_path': str(args.embeddings),
+        'experiment_info': experiment_info,
+        'visualization_timestamp': datetime.now().isoformat(),
+        'command_line_args': vars(args)
+    }
+    
+    with open(base_dir / 'visualizations' / 'visualization_metadata.json', 'w') as f:
+        json.dump(metadata, f, indent=2, default=str)
     
     return directories
 
@@ -504,8 +565,11 @@ def main():
     # Parse arguments
     args = parse_arguments()
     
-    # Setup output directories
-    output_dirs = setup_output_directories(args)
+    # Detect experiment info from embeddings path
+    experiment_info = detect_experiment_info_from_embeddings(args.embeddings, args)
+    
+    # Setup output directories within experiment structure
+    output_dirs = setup_output_directories(args, experiment_info)
     
     # Setup logging
     logger = setup_logging(

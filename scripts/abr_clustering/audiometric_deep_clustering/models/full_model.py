@@ -153,9 +153,15 @@ class ContrastiveVAEDEC(nn.Module):
             for batch in dataloader:
                 if isinstance(batch, dict):
                     x = batch['features']
+                elif isinstance(batch, (list, tuple)):
+                    x = batch[0]  # Extract tensor from tuple/list
                 else:
                     x = batch
 
+                # Move tensor to the same device as the model
+                device = next(self.parameters()).device
+                x = x.to(device)
+                
                 z = self.encode(x)
                 latent_representations.append(z)
 
@@ -298,6 +304,8 @@ class ContrastiveVAEDEC(nn.Module):
             for batch in dataloader:
                 if isinstance(batch, dict):
                     x = batch['features']
+                elif isinstance(batch, (list, tuple)):
+                    x = batch[0]  # Extract tensor from tuple/list
                 else:
                     x = batch
 

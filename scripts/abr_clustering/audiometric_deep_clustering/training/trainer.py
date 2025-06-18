@@ -17,10 +17,10 @@ import time
 import json
 from datetime import datetime
 
-from .pretrain import VAEPretrainer
-from .finetune import JointTrainer
-from ..models.full_model import ContrastiveVAEDEC
-from ..losses.combined_loss import MultiObjectiveLoss
+from training.pretrain import VAEPretrainer
+from training.finetune import JointTrainer
+from models.full_model import ContrastiveVAEDEC
+from losses.combined_loss import MultiObjectiveLoss
 
 logger = logging.getLogger(__name__)
 

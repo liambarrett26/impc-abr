@@ -208,7 +208,7 @@ class ClusteringLayer(nn.Module):
             self.history_idx += 1
         else:
             # Shift buffer and add new entry
-            self.assignment_history[:-1] = self.assignment_history[1:]
+            self.assignment_history[:-1] = self.assignment_history[1:].clone()
             self.assignment_history[-1] = cluster_freq
 
     def get_cluster_statistics(self, z: torch.Tensor) -> Dict[str, torch.Tensor]:
@@ -242,7 +242,7 @@ class ClusteringLayer(nn.Module):
                     distances = torch.norm(cluster_points - center, dim=1)
                     intra_cluster_distances.append(distances.mean())
                 else:
-                    intra_cluster_distances.append(torch.tensor(0.0))
+                    intra_cluster_distances.append(torch.tensor(0.0, device=z.device, dtype=z.dtype))
 
             # Inter-cluster distances
             inter_cluster_distances = torch.norm(

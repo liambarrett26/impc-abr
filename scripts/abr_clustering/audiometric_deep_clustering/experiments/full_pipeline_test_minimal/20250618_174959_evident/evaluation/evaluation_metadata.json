@@ -1,0 +1,33 @@
+{
+  "evaluation_type": "post_training_analysis",
+  "checkpoint_path": "experiments/full_pipeline_test_minimal/20250618_174959_evident/checkpoints/joint/best_joint.pt",
+  "experiment_info": {
+    "experiment_name": "full_pipeline_test_minimal",
+    "run_id": "20250618_174959_evident",
+    "detected": true
+  },
+  "evaluation_timestamp": "2025-06-18T17:50:51.954442",
+  "command_line_args": {
+    "checkpoint": "experiments/full_pipeline_test_minimal/20250618_174959_evident/checkpoints/joint/best_joint.pt",
+    "config": "config/training_config.yaml",
+    "model_config": "config/model_config.yaml",
+    "data_path": null,
+    "split": "test",
+    "batch_size": 512,
+    "device": "auto",
+    "skip_clustering_metrics": false,
+    "skip_phenotype_analysis": true,
+    "skip_gene_enrichment": true,
+    "skip_visualizations": false,
+    "known_hearing_genes": null,
+    "gene_sets": null,
+    "output_dir": "experiments",
+    "experiment_name": "full_pipeline_test_minimal",
+    "run_id": "20250618_174959_evident",
+    "save_embeddings": true,
+    "save_predictions": true,
+    "log_level": "INFO",
+    "log_dir": null,
+    "seed": 42
+  }
+}

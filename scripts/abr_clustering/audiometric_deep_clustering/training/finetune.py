@@ -16,7 +16,7 @@ from pathlib import Path
 import time
 import numpy as np
 
-from .callbacks import CallbackManager, EarlyStopping, ModelCheckpoint, LossMonitor
+from training.callbacks import CallbackManager, EarlyStopping, ModelCheckpoint, LossMonitor
 
 logger = logging.getLogger(__name__)
 
@@ -45,19 +45,19 @@ class JointTrainer:
         # Set model to joint training stage
         self.model.set_training_stage('joint')
 
+        # Training parameters
+        self.joint_epochs = config['training']['training_stages']['stage3_joint']['epochs']
+        self.warmup_epochs = config['training']['training_stages']['stage3_joint']['warmup_epochs']
+
         # Initialize optimizer and scheduler
         self.optimizer = self._create_optimizer()
         self.scheduler = self._create_scheduler()
-
-        # Training parameters
-        self.joint_epochs = config['training_stages']['stage3_joint']['epochs']
-        self.warmup_epochs = config['training_stages']['stage3_joint']['warmup_epochs']
         self.current_epoch = 0
         self.best_loss = float('inf')
         self.starting_epoch = 0
 
         # Clustering update management
-        self.cluster_update_interval = config['clustering']['update_interval']
+        self.cluster_update_interval = config['model']['clustering']['update_interval']
         self.last_cluster_update = -1
 
         # Loss component tracking
@@ -85,7 +85,7 @@ class JointTrainer:
 
     def _create_optimizer(self) -> optim.Optimizer:
         """Create optimizer for joint training."""
-        optimizer_config = self.config['optimizer']
+        optimizer_config = self.config['training']['optimizer']
 
         # Potentially different learning rate for joint training
         joint_lr = optimizer_config.get('joint_lr', optimizer_config['lr'])
@@ -93,43 +93,43 @@ class JointTrainer:
         if optimizer_config['type'].lower() == 'adam':
             return optim.Adam(
                 self.model.parameters(),
-                lr=joint_lr,
-                betas=optimizer_config['betas'],
-                eps=optimizer_config['eps'],
-                weight_decay=optimizer_config['weight_decay']
+                lr=float(joint_lr),
+                betas=list(optimizer_config['betas']),
+                eps=float(optimizer_config['eps']),
+                weight_decay=float(optimizer_config['weight_decay'])
             )
         elif optimizer_config['type'].lower() == 'adamw':
             return optim.AdamW(
                 self.model.parameters(),
-                lr=joint_lr,
-                betas=optimizer_config['betas'],
-                eps=optimizer_config['eps'],
-                weight_decay=optimizer_config['weight_decay']
+                lr=float(joint_lr),
+                betas=list(optimizer_config['betas']),
+                eps=float(optimizer_config['eps']),
+                weight_decay=float(optimizer_config['weight_decay'])
             )
         else:
             raise ValueError(f"Unsupported optimizer: {optimizer_config['type']}")
 
     def _create_scheduler(self) -> Optional[Any]:
         """Create learning rate scheduler for joint training."""
-        scheduler_config = self.config['scheduler']
+        scheduler_config = self.config['training']['scheduler']
 
         if scheduler_config['type'] == 'cosine_annealing':
             return optim.lr_scheduler.CosineAnnealingLR(
                 self.optimizer,
                 T_max=self.joint_epochs,
-                eta_min=scheduler_config['eta_min']
+                eta_min=float(scheduler_config['eta_min'])
             )
         elif scheduler_config['type'] == 'step':
             return optim.lr_scheduler.StepLR(
                 self.optimizer,
-                step_size=scheduler_config['step_size'],
-                gamma=scheduler_config['gamma']
+                step_size=int(scheduler_config['step_size']),
+                gamma=float(scheduler_config['gamma'])
             )
         elif scheduler_config['type'] == 'reduce_on_plateau':
             return optim.lr_scheduler.ReduceLROnPlateau(
                 self.optimizer,
-                patience=scheduler_config['patience'],
-                factor=scheduler_config['factor'],
+                patience=int(scheduler_config['patience']),
+                factor=float(scheduler_config['factor']),
                 mode='min'
             )
         else:
@@ -141,15 +141,15 @@ class JointTrainer:
 
         # Early stopping
         early_stopping = EarlyStopping(
-            patience=self.config['training']['early_stopping']['patience'],
-            min_delta=self.config['training']['early_stopping']['min_delta'],
+            patience=int(self.config['training']['training']['early_stopping']['patience']),
+            min_delta=float(self.config['training']['training']['early_stopping']['min_delta']),
             monitor='val_total_loss'
         )
         callbacks.append(early_stopping)
 
         # Loss monitoring
         loss_monitor = LossMonitor(
-            log_frequency=self.config['logging']['log_every_n_steps']
+            log_frequency=int(self.config['training']['logging']['log_every_n_steps'])
         )
         callbacks.append(loss_monitor)
 
@@ -314,10 +314,10 @@ class JointTrainer:
             total_loss.backward()
 
             # Gradient clipping
-            if self.config['training']['grad_clip_norm'] > 0:
+            if self.config['training']['training']['grad_clip_norm'] > 0:
                 torch.nn.utils.clip_grad_norm_(
                     self.model.parameters(),
-                    self.config['training']['grad_clip_norm']
+                    self.config['training']['training']['grad_clip_norm']
                 )
 
             self.optimizer.step()

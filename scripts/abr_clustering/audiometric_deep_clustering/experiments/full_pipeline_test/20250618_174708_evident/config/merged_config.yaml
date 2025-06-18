@@ -1,0 +1,205 @@
+model:
+  architecture:
+    bias_init: zeros
+    gradient_clipping: 1.0
+    residual_connections: false
+    use_layer_norm: false
+    use_spectral_norm: false
+    weight_init: xavier_uniform
+  clustering:
+    alpha: 1.0
+    cluster_init: kmeans
+    num_clusters: 12
+    tolerance: 0.001
+    update_interval: 50
+  contrastive:
+    augmentation:
+      dropout_prob: 0.1
+      magnitude_scale: 0.1
+      noise_std: 0.05
+    projection_dim: 64
+    temperature: 0.5
+  data:
+    abr_features: 6
+    audiometric_indices:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    categorical_indices:
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+    - 15
+    continuous_indices:
+    - 6
+    - 7
+    - 16
+    - 17
+    metadata_features: 10
+    pca_features: 2
+    total_features: 18
+  decoder:
+    activation: relu
+    dropout_rate: 0.2
+    hidden_dims:
+    - 16
+    - 32
+    - 64
+    output_activation: linear
+    use_batch_norm: true
+  encoder:
+    abr_encoder:
+      hidden_dim: 16
+      use_batch_norm: true
+    activation: relu
+    attention:
+      dropout: 0.1
+      enabled: true
+      head_dim: 8
+      num_heads: 2
+    dropout_rate: 0.2
+    hidden_dims:
+    - 64
+    - 32
+    - 16
+    metadata_encoder:
+      embedding_dims:
+        genetic_background: 8
+        phenotyping_center: 12
+        sex: 4
+        zygosity: 4
+      hidden_dim: 24
+  latent:
+    beta: 1.0
+    latent_dim: 10
+    max_logvar: 10
+    min_logvar: -10
+  loss_weights:
+    clustering: 1.0
+    contrastive: 0.5
+    frequency_smoothness: 0.1
+    kl_divergence: 1.0
+    phenotype_consistency: 0.3
+    reconstruction: 1.0
+    reconstruction_weights:
+      abr: 2.0
+      metadata: 1.0
+      pca: 1.5
+training:
+  dataset:
+    batch_size: 512
+    data_path: /home/liamb/impc-abr/data/processed/abr_full_data.csv
+    num_workers: 4
+    pin_memory: true
+    random_seed: 42
+    shuffle: true
+    test_split: 0.1
+    train_split: 0.8
+    val_split: 0.1
+  evaluation:
+    compute_ari: true
+    compute_nmi: true
+    compute_silhouette: true
+    evaluate_every_n_epochs: 5
+    gene_enrichment_analysis: true
+    phenotype_characterization: true
+    plot_attention_maps: true
+    plot_latent_space: true
+    plot_reconstructions: true
+  hardware:
+    accelerator: gpu
+    benchmark: true
+    deterministic: false
+    find_unused_parameters: false
+    gpus: 1
+    gradient_checkpointing: false
+    precision: 16
+  hyperparameter_search:
+    enabled: false
+    num_trials: 20
+    pruning: true
+    search_space:
+      beta:
+      - 0.5
+      - 1.0
+      - 2.0
+      latent_dim:
+      - 8
+      - 10
+      - 12
+      - 16
+      lr:
+      - 0.0001
+      - 0.001
+      - 0.01
+      num_clusters:
+      - 8
+      - 10
+      - 12
+      - 15
+      temperature:
+      - 0.1
+      - 0.5
+      - 1.0
+  logging:
+    experiment_name: contrastive_vae_dec_abr
+    log_attention_weights: true
+    log_dir: logs
+    log_embeddings: true
+    log_every_n_steps: 100
+    log_histograms: false
+    save_dir: checkpoints
+    use_tensorboard: true
+    use_wandb: false
+    wandb_entity: null
+    wandb_project: audiometric_clustering
+  optimizer:
+    betas:
+    - 0.9
+    - 0.999
+    eps: 1e-8
+    lr: 0.001
+    type: adam
+    weight_decay: 1e-5
+  scheduler:
+    T_max: 200
+    eta_min: 1e-6
+    type: cosine_annealing
+  training:
+    accumulate_grad_batches: 1
+    check_val_every_n_epoch: 1
+    early_stopping:
+      min_delta: 1e-4
+      mode: min
+      monitor: val_total_loss
+      patience: 20
+    grad_clip_norm: 1.0
+    max_epochs: 5
+    monitor_checkpoint: val_total_loss
+    save_last: true
+    save_top_k: 3
+    val_check_interval: 1.0
+  training_stages:
+    stage1_pretrain:
+      epochs: 50
+      objectives:
+      - reconstruction
+      - kl_divergence
+    stage2_cluster_init:
+      kmeans_iterations: 300
+    stage3_joint:
+      epochs: 150
+      objectives:
+      - reconstruction
+      - kl_divergence
+      - clustering
+      - contrastive
+      - phenotype_consistency
+      warmup_epochs: 10

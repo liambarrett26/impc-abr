@@ -15,10 +15,10 @@ import sys
 # Add parent directory to path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from losses.reconstruction import create_reconstruction_loss, MSELoss, HuberLoss, WeightedMSELoss
-from losses.vae_loss import VAELoss, BetaScheduler, create_vae_loss
-from losses.clustering_loss import DECLoss, AuxiliaryClusteringLoss, create_clustering_loss
-from losses.contrastive import InfoNCELoss, TripletLoss, create_contrastive_loss
+from losses.reconstruction import create_reconstruction_loss, FeatureWeightedMSE, ABRPatternLoss, PerceptualABRLoss, AdaptiveReconstructionLoss
+from losses.vae_loss import ELBOLoss, BetaScheduler, create_vae_loss
+from losses.clustering_loss import DECLoss, AuxiliaryClustering, create_clustering_loss
+from losses.contrastive import InfoNCELoss, AdaptiveContrastiveLoss, create_contrastive_loss
 from losses.combined_loss import MultiObjectiveLoss, create_combined_loss
 
 
@@ -47,47 +47,58 @@ class TestReconstructionLosses(unittest.TestCase):
             }
         }
     
-    def test_mse_loss(self):
-        """Test MSE reconstruction loss."""
-        loss_fn = MSELoss()
-        loss = loss_fn(self.reconstructed, self.original)
+    def test_feature_weighted_mse_loss(self):
+        """Test feature-weighted MSE reconstruction loss."""
+        feature_weights = {'abr': 2.0, 'metadata': 1.0, 'pca': 1.5}
+        loss_fn = FeatureWeightedMSE(feature_weights)
+        loss_dict = loss_fn(self.reconstructed, self.original)
         
-        # Check loss is scalar and positive
-        self.assertEqual(loss.shape, ())
-        self.assertGreaterEqual(loss.item(), 0)
+        # Check loss dict structure
+        self.assertIn('total_loss', loss_dict)
+        self.assertIn('abr_loss', loss_dict)
+        self.assertIn('metadata_loss', loss_dict)
+        self.assertIn('pca_loss', loss_dict)
+        
+        # Check loss is positive
+        self.assertGreaterEqual(loss_dict['total_loss'].mean().item(), 0)
         
         # Test perfect reconstruction gives zero loss
         perfect_recon = self.original.clone()
-        zero_loss = loss_fn(perfect_recon, self.original)
-        self.assertAlmostEqual(zero_loss.item(), 0, places=6)
+        zero_loss_dict = loss_fn(perfect_recon, self.original)
+        self.assertAlmostEqual(zero_loss_dict['total_loss'].mean().item(), 0, places=6)
     
-    def test_huber_loss(self):
-        """Test Huber reconstruction loss."""
-        loss_fn = HuberLoss(delta=1.0)
-        loss = loss_fn(self.reconstructed, self.original)
+    def test_abr_pattern_loss(self):
+        """Test ABR pattern reconstruction loss."""
+        loss_fn = ABRPatternLoss(pattern_weight=0.1)
+        # Only pass ABR features (first 6 columns)
+        abr_reconstructed = self.reconstructed[:, :6]
+        abr_original = self.original[:, :6]
+        loss_dict = loss_fn(abr_reconstructed, abr_original)
         
-        self.assertEqual(loss.shape, ())
-        self.assertGreaterEqual(loss.item(), 0)
+        self.assertIn('total_loss', loss_dict)
+        self.assertGreaterEqual(loss_dict['total_loss'].mean().item(), 0)
     
-    def test_weighted_mse_loss(self):
-        """Test weighted MSE loss."""
-        weights = torch.tensor([2.0] * 6 + [1.0] * 10 + [1.5] * 2)  # ABR, metadata, PCA weights
-        loss_fn = WeightedMSELoss(weights)
+    def test_adaptive_reconstruction_loss(self):
+        """Test adaptive reconstruction loss."""
+        loss_fn = AdaptiveReconstructionLoss(self.config)
+        loss_dict = loss_fn(self.reconstructed, self.original, epoch=10)
         
-        loss = loss_fn(self.reconstructed, self.original)
-        
-        self.assertEqual(loss.shape, ())
-        self.assertGreaterEqual(loss.item(), 0)
+        self.assertIn('total_loss', loss_dict)
+        self.assertIn('mse_component', loss_dict)
+        self.assertIn('pattern_component', loss_dict)
+        self.assertIn('perceptual_component', loss_dict)
+        self.assertGreaterEqual(loss_dict['total_loss'].mean().item(), 0)
     
     def test_reconstruction_loss_factory(self):
         """Test reconstruction loss factory function."""
-        # Test MSE loss creation
-        mse_loss = create_reconstruction_loss(self.config, loss_type='mse')
-        self.assertIsInstance(mse_loss, MSELoss)
-        
         # Test weighted MSE loss creation
-        weighted_loss = create_reconstruction_loss(self.config, loss_type='weighted_mse')
-        self.assertIsInstance(weighted_loss, WeightedMSELoss)
+        weighted_loss = create_reconstruction_loss(self.config)
+        self.assertIsInstance(weighted_loss, AdaptiveReconstructionLoss)
+        
+        # Test pattern loss creation
+        pattern_config = {**self.config, 'reconstruction_loss_type': 'pattern'}
+        pattern_loss = create_reconstruction_loss(pattern_config)
+        self.assertIsInstance(pattern_loss, ABRPatternLoss)
 
 
 class TestVAELoss(unittest.TestCase):
@@ -113,7 +124,7 @@ class TestVAELoss(unittest.TestCase):
     def test_vae_loss_computation(self):
         """Test VAE loss computation."""
         reconstruction_loss = create_reconstruction_loss(self.config)
-        vae_loss = VAELoss(self.config, reconstruction_loss)
+        vae_loss = ELBOLoss(reconstruction_loss)
         
         losses = vae_loss(self.reconstructed, self.original, self.mu, self.logvar)
         
@@ -127,19 +138,21 @@ class TestVAELoss(unittest.TestCase):
     def test_kl_divergence_computation(self):
         """Test KL divergence computation."""
         reconstruction_loss = create_reconstruction_loss(self.config)
-        vae_loss = VAELoss(self.config, reconstruction_loss)
+        vae_loss = ELBOLoss(reconstruction_loss)
         
-        # Test KL divergence calculation
-        kl_loss = vae_loss.compute_kl_divergence(self.mu, self.logvar)
+        # Test KL divergence calculation via the kl_loss component
+        kl_losses = vae_loss.kl_loss(self.mu, self.logvar)
         
+        self.assertIn('kl_loss', kl_losses)
+        kl_loss = kl_losses['kl_loss']
         self.assertEqual(kl_loss.shape, ())
         self.assertGreaterEqual(kl_loss.item(), 0)  # KL divergence is non-negative
         
         # Test that standard normal distribution gives zero KL
         zero_mu = torch.zeros_like(self.mu)
         zero_logvar = torch.zeros_like(self.logvar)
-        zero_kl = vae_loss.compute_kl_divergence(zero_mu, zero_logvar)
-        self.assertAlmostEqual(zero_kl.item(), 0, places=5)
+        zero_kl_losses = vae_loss.kl_loss(zero_mu, zero_logvar)
+        self.assertAlmostEqual(zero_kl_losses['kl_loss'].item(), 0, places=5)
     
     def test_beta_scheduler(self):
         """Test beta parameter scheduling."""
@@ -180,10 +193,12 @@ class TestClusteringLoss(unittest.TestCase):
     
     def test_dec_loss(self):
         """Test DEC clustering loss."""
-        dec_loss = DECLoss(self.config)
+        dec_loss = DECLoss(alpha=1.0)
         
-        # Compute target distribution
-        p = dec_loss.compute_target_distribution(self.q)
+        # Create target distribution (sharper version of q)
+        q_normalized = self.q / self.q.sum(dim=1, keepdim=True)
+        p = q_normalized ** 2 / (q_normalized ** 2).sum(dim=0, keepdim=True)
+        p = p / p.sum(dim=1, keepdim=True)
         
         # Test target distribution properties
         self.assertEqual(p.shape, self.q.shape)
@@ -192,33 +207,61 @@ class TestClusteringLoss(unittest.TestCase):
         p_sums = torch.sum(p, dim=1)
         self.assertTrue(torch.allclose(p_sums, torch.ones(self.batch_size), atol=1e-5))
         
-        # Compute DEC loss
-        loss = dec_loss.compute_dec_loss(self.q, p)
-        self.assertEqual(loss.shape, ())
-        self.assertGreaterEqual(loss.item(), 0)
+        # Compute DEC loss using forward method
+        loss_dict = dec_loss(self.q, p)
+        
+        # Check required loss components
+        self.assertIn('dec_loss', loss_dict)
+        self.assertEqual(loss_dict['dec_loss'].shape, ())
+        self.assertGreaterEqual(loss_dict['dec_loss'].item(), 0)
     
     def test_auxiliary_clustering_loss(self):
         """Test auxiliary clustering losses."""
-        aux_loss = AuxiliaryClusteringLoss(self.config)
+        aux_loss = AuxiliaryClustering(
+            num_clusters=self.num_clusters,
+            balance_weight=0.1,
+            separation_weight=0.1,
+            compactness_weight=0.1
+        )
         
-        # Test cluster separation loss
-        sep_loss = aux_loss.cluster_separation_loss(self.latent_z, self.cluster_centers)
-        self.assertEqual(sep_loss.shape, ())
+        # Test forward method with all required inputs
+        loss_dict = aux_loss(self.latent_z, self.q, self.cluster_centers)
         
-        # Test cluster compactness loss
-        comp_loss = aux_loss.cluster_compactness_loss(self.latent_z, self.q, self.cluster_centers)
-        self.assertEqual(comp_loss.shape, ())
+        # Check required loss components
+        self.assertIn('auxiliary_loss', loss_dict)
+        self.assertIn('balance_loss', loss_dict)
+        self.assertIn('separation_loss', loss_dict)
+        self.assertIn('compactness_loss', loss_dict)
+        
+        # Check loss shapes and values
+        for key in ['auxiliary_loss', 'balance_loss', 'separation_loss', 'compactness_loss']:
+            self.assertEqual(loss_dict[key].shape, ())
+            self.assertTrue(torch.isfinite(loss_dict[key]))
     
     def test_clustering_loss_factory(self):
         """Test clustering loss factory function."""
-        clustering_loss = create_clustering_loss(self.config)
+        # Need complete config for AdaptiveClusteringLoss
+        full_config = {
+            'clustering': {
+                'num_clusters': self.num_clusters,
+                'alpha': 1.0,
+                'update_interval': 50
+            },
+            'clustering_warmup_epochs': 100
+        }
+        clustering_loss = create_clustering_loss(full_config)
         
         # Test forward pass
         abr_features = torch.randn(self.batch_size, 6)
         gene_labels = torch.randint(0, 5, (self.batch_size,))
         
+        # Create target distribution for DEC loss
+        q_normalized = self.q / self.q.sum(dim=1, keepdim=True)
+        p = q_normalized ** 2 / (q_normalized ** 2).sum(dim=0, keepdim=True)
+        p = p / p.sum(dim=1, keepdim=True)
+        
         losses = clustering_loss(
-            self.latent_z, self.q, self.q, self.cluster_centers,
+            self.latent_z, self.q, p, self.cluster_centers,
             abr_features, gene_labels, epoch=10
         )
         
@@ -245,24 +288,27 @@ class TestContrastiveLoss(unittest.TestCase):
         """Test InfoNCE contrastive loss."""
         infonce_loss = InfoNCELoss(temperature=0.5)
         
-        loss = infonce_loss(self.anchor_features, self.positive_features)
+        loss_dict = infonce_loss(self.anchor_features, self.positive_features)
         
-        self.assertEqual(loss.shape, ())
-        self.assertGreaterEqual(loss.item(), 0)
-    
-    def test_triplet_loss(self):
-        """Test triplet contrastive loss."""
-        negative_features = torch.randn(self.batch_size, self.feature_dim)
-        triplet_loss = TripletLoss(margin=1.0)
-        
-        loss = triplet_loss(self.anchor_features, self.positive_features, negative_features)
-        
-        self.assertEqual(loss.shape, ())
-        self.assertGreaterEqual(loss.item(), 0)
+        # Check that we get a dictionary with loss components
+        self.assertIsInstance(loss_dict, dict)
+        self.assertIn('infonce_loss', loss_dict)
+        self.assertEqual(loss_dict['infonce_loss'].shape, ())
+        self.assertGreaterEqual(loss_dict['infonce_loss'].item(), 0)
     
     def test_contrastive_loss_factory(self):
         """Test contrastive loss factory function."""
-        contrastive_loss = create_contrastive_loss(self.config)
+        # Need complete config for AdaptiveContrastiveLoss
+        full_config = {
+            'contrastive': {
+                'temperature': 0.5,
+                'negative_sampling': 'random',
+                'hard_negative_ratio': 0.2
+            },
+            'contrastive_warmup_epochs': 50,
+            'loss_weights': {'contrastive': 1.0}
+        }
+        contrastive_loss = create_contrastive_loss(full_config)
         
         # Test forward pass
         abr_features = torch.randn(self.batch_size, 6)
@@ -289,8 +335,18 @@ class TestMultiObjectiveLoss(unittest.TestCase):
         self.config = {
             'data': {'abr_features': 6, 'metadata_features': 10, 'pca_features': 2},
             'latent': {'beta': 1.0},
-            'clustering': {'num_clusters': self.num_clusters, 'alpha': 1.0},
-            'contrastive': {'temperature': 0.5},
+            'clustering': {
+                'num_clusters': self.num_clusters,
+                'alpha': 1.0,
+                'update_interval': 50
+            },
+            'contrastive': {
+                'temperature': 0.5,
+                'negative_sampling': 'random',
+                'hard_negative_ratio': 0.2
+            },
+            'clustering_warmup_epochs': 100,
+            'contrastive_warmup_epochs': 50,
             'loss_weights': {
                 'reconstruction': 1.0,
                 'kl_divergence': 1.0,
@@ -425,8 +481,18 @@ class TestLossNumericalStability(unittest.TestCase):
         self.config = {
             'data': {'abr_features': 6, 'metadata_features': 10, 'pca_features': 2},
             'latent': {'beta': 1.0},
-            'clustering': {'num_clusters': 2, 'alpha': 1.0},
-            'contrastive': {'temperature': 0.5},
+            'clustering': {
+                'num_clusters': 2,
+                'alpha': 1.0,
+                'update_interval': 50
+            },
+            'contrastive': {
+                'temperature': 0.5,
+                'negative_sampling': 'random',
+                'hard_negative_ratio': 0.2
+            },
+            'clustering_warmup_epochs': 100,
+            'contrastive_warmup_epochs': 50,
             'loss_weights': {
                 'reconstruction': 1.0, 'kl_divergence': 1.0, 'clustering': 1.0,
                 'contrastive': 1.0, 'reconstruction_weights': {'abr': 1.0, 'metadata': 1.0, 'pca': 1.0}

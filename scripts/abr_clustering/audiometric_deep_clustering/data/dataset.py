@@ -302,11 +302,8 @@ def create_abr_dataset(data_path: str,
     # Load data
     data = pd.read_csv(data_path)
 
-    # Extract features and labels
-    raw_features = data[feature_columns].values
-
-    # Preprocess features
-    processed_features = preprocessor(raw_features)
+    # Preprocess features using the full DataFrame
+    processed_features = preprocessor.fit_transform(data)
 
     # Extract gene labels if available
     gene_labels = None

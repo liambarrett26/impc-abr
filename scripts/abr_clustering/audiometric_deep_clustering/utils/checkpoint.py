@@ -369,7 +369,7 @@ def load_checkpoint(model: nn.Module,
         raise FileNotFoundError(f"Checkpoint not found: {filepath}")
     
     try:
-        checkpoint = torch.load(filepath, map_location=map_location)
+        checkpoint = torch.load(filepath, map_location=map_location, weights_only=False)
         
         # Load model state
         if 'model_state_dict' in checkpoint:

@@ -1,0 +1,37 @@
+{
+  "clustering": {
+    "error": "insufficient_clusters",
+    "n_clusters": 1
+  },
+  "gene_coherence": {
+    "mean_gene_purity": 0.0058018101647714084,
+    "std_gene_purity": 0.0,
+    "mean_gene_span": 1.0,
+    "genes_in_single_cluster": 1.0
+  },
+  "phenotype_coherence": {
+    "mean_pattern_coherence": 0.49994692769776405,
+    "mean_severity_coherence": 0.6263904217300205,
+    "mean_frequency_separation": 0.0,
+    "proportion_flat_loss": 1.0,
+    "proportion_high_freq_loss": 0.0,
+    "proportion_low_freq_loss": 0.0,
+    "proportion_mixed_loss": 0.0
+  },
+  "reconstruction": {
+    "reconstruction_mse": "0.71177024",
+    "reconstruction_rmse": "0.84366477",
+    "reconstruction_mae": "0.578315",
+    "abr_reconstruction_mse": "0.97436017",
+    "abr_reconstruction_mae": "0.7409147",
+    "mean_feature_correlation": "0.27514607"
+  },
+  "latent_space": {
+    "active_dimensions": "10",
+    "latent_capacity": 1.0,
+    "latent_mean_norm": "1.046039",
+    "latent_mean_std": "0.08859632",
+    "latent_mean_distance": 0.44907629221122586,
+    "latent_distance_std": 0.33858340131570447
+  }
+}

@@ -158,8 +158,13 @@ class ABRShift(BaseAugmentation):
         augmented = features.clone()
 
         # Apply shift only to ABR features (indices 0-5)
-        shift = torch.uniform(-self.max_shift, self.max_shift, (6,))
-        augmented[:6] += shift
+        shift = torch.zeros(6).uniform_(-self.max_shift, self.max_shift)
+        if augmented.dim() == 1:
+            # Single sample
+            augmented[:6] += shift
+        else:
+            # Batch of samples
+            augmented[:, :6] += shift
 
         return augmented
 
@@ -196,7 +201,7 @@ class MetadataJitter(BaseAugmentation):
         for idx in continuous_indices:
             if idx < len(features):
                 jitter = torch.randn(1) * self.jitter_strength
-                augmented[idx] += jitter
+                augmented[idx] += jitter.item()
 
         return augmented
 

@@ -9,20 +9,15 @@ from setuptools import setup, find_packages
 from pathlib import Path
 
 # Read the README file
-readme_file = Path(__file__).parent / "README.md"
-if readme_file.exists():
-    with open(readme_file, "r", encoding="utf-8") as f:
-        long_description = f.read()
-else:
-    long_description = "ContrastiveVAE-DEC for audiometric phenotype discovery"
+long_description = "ContrastiveVAE-DEC for audiometric phenotype discovery"
 
 # Read requirements
 requirements_file = Path(__file__).parent / "requirements.txt"
 if requirements_file.exists():
     with open(requirements_file, "r", encoding="utf-8") as f:
         requirements = [
-            line.strip() 
-            for line in f 
+            line.strip()
+            for line in f
             if line.strip() and not line.startswith("#")
         ]
 else:
@@ -44,7 +39,7 @@ else:
 # Development dependencies
 dev_requirements = [
     "pytest>=7.0.0",
-    "pytest-cov>=4.0.0", 
+    "pytest-cov>=4.0.0",
     "black>=22.0.0",
     "flake8>=5.0.0",
     "mypy>=0.971",
@@ -73,7 +68,7 @@ optional_requirements = {
     ],
     "all": [
         "wandb>=0.13.0",
-        "tensorboard>=2.10.0", 
+        "tensorboard>=2.10.0",
         "mlflow>=1.28.0",
         "optuna>=3.0.0",
         "ray[tune]>=2.0.0"
@@ -83,17 +78,7 @@ optional_requirements = {
 setup(
     name="audiometric-deep-clustering",
     version="1.0.0",
-    author="IMPC ABR Clustering Research Team",
-    author_email="", # Add email if needed
-    description="ContrastiveVAE-DEC for audiometric phenotype discovery in mouse genetic data",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/impc/audiometric-deep-clustering",  # Update with actual repository
-    project_urls={
-        "Bug Reports": "https://github.com/impc/audiometric-deep-clustering/issues",
-        "Source": "https://github.com/impc/audiometric-deep-clustering",
-        "Documentation": "https://audiometric-deep-clustering.readthedocs.io/",
-    },
+    author="Liam Barrett",
     packages=find_packages(exclude=["tests", "tests.*", "notebooks", "scripts"]),
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -103,89 +88,20 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9", 
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Operating System :: OS Independent",
     ],
     python_requires=">=3.8",
     install_requires=requirements,
-    extras_require={
-        "dev": dev_requirements,
-        **optional_requirements
-    },
-    entry_points={
-        "console_scripts": [
-            "audiometric-train=scripts.train:main",
-            "audiometric-evaluate=scripts.evaluate:main", 
-            "audiometric-infer=scripts.infer:main",
-            "audiometric-visualize=scripts.visualize_results:main",
-        ],
-    },
     package_data={
         "audiometric_deep_clustering": [
             "config/*.yaml",
             "config/*.yml",
         ],
-    },
-    include_package_data=True,
-    zip_safe=False,
-    
-    # Keywords for PyPI search
-    keywords=[
-        "deep learning",
-        "clustering", 
-        "variational autoencoder",
-        "contrastive learning",
-        "bioinformatics",
-        "phenotype discovery",
-        "mouse genetics",
-        "audiometry",
-        "IMPC"
-    ],
-    
-    # Additional metadata
-    platforms=["any"],
-    license="MIT",
-    
-    # Testing configuration
-    test_suite="tests",
-    tests_require=dev_requirements,
-    
-    # Custom commands
-    cmdclass={},
-    
-    # Configuration for different installation scenarios
-    options={
-        "build_scripts": {
-            "executable": "/usr/bin/env python",
-        },
-    },
+    }
 )
-
-# Post-installation message
-print("""
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                    ContrastiveVAE-DEC Installation Complete                 ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║                                                                              ║
-║  Thank you for installing ContrastiveVAE-DEC for audiometric phenotype      ║
-║  discovery! This package provides state-of-the-art deep learning tools      ║
-║  for clustering and analyzing audiometric data from mouse genetic studies.  ║
-║                                                                              ║
-║  Quick Start:                                                                ║
-║    1. Train a model: audiometric-train --config config/training_config.yaml ║
-║    2. Evaluate results: audiometric-evaluate --checkpoint path/to/model.ckpt║
-║    3. Generate visualizations: audiometric-visualize --embeddings path.npz  ║
-║                                                                              ║
-║  Documentation: See README.md and CLAUDE.md for detailed usage instructions ║
-║  Configuration: Check config/ directory for example configurations          ║
-║  Examples: Explore notebooks/ directory for usage examples                  ║
-║                                                                              ║
-║  For support and issues: https://github.com/impc/audiometric-deep-clustering║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-""")
 
 # Verification that key dependencies are available
 try:

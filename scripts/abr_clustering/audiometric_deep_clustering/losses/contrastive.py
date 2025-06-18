@@ -85,7 +85,7 @@ class InfoNCELoss(nn.Module):
         if negative_features is not None:
             negative_sim_mean = negative_sim.mean()
         else:
-            negative_sim_mean = negative_sim[~mask.unsqueeze(1).expand_as(negative_sim)].mean()
+            negative_sim_mean = negative_sim[~mask].mean()
 
         return {
             'infonce_loss': infonce_loss,

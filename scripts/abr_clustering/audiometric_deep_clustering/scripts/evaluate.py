@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Dict, Any, Optional, List
 import logging
 import json
+from datetime import datetime
 
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
@@ -26,13 +27,92 @@ from utils.logging import setup_logging
 from utils.checkpoint import load_checkpoint
 from models.full_model import create_model
 from data.dataset import create_abr_dataset
-from data.dataloader import create_dataloaders
-from data.preprocessor import ABRPreprocessor
+from data.dataloader import create_data_module
+from data.preprocessor import ABRFeaturePreprocessor
 from evaluation.metrics import compute_comprehensive_metrics
 from evaluation.visualization import create_comprehensive_visualization_report
 from evaluation.phenotype_analysis import perform_comprehensive_phenotype_analysis
 from evaluation.gene_enrichment import perform_comprehensive_gene_enrichment_analysis, get_default_hearing_gene_sets
 
+
+def detect_experiment_info_from_checkpoint(checkpoint_path: str, args: argparse.Namespace) -> Dict[str, str]:
+    """Auto-detect experiment information from checkpoint path."""
+    from datetime import datetime
+    
+    checkpoint_path = Path(checkpoint_path)
+    
+    # Try to extract from organized experiment structure
+    # Expected: experiments/{experiment_name}/{run_id}/checkpoints/...
+    if checkpoint_path.parts and len(checkpoint_path.parts) >= 4:
+        try:
+            path_parts = checkpoint_path.parts
+            if 'experiments' in path_parts:
+                exp_idx = path_parts.index('experiments')
+                if exp_idx + 2 < len(path_parts):
+                    experiment_name = path_parts[exp_idx + 1]
+                    run_id = path_parts[exp_idx + 2]
+                    
+                    # Override args if not provided
+                    if not args.experiment_name:
+                        args.experiment_name = experiment_name
+                    if not args.run_id:
+                        args.run_id = run_id
+                        
+                    return {
+                        'experiment_name': args.experiment_name,
+                        'run_id': args.run_id,
+                        'detected': True
+                    }
+        except:
+            pass
+    
+    # Fallback: generate evaluation-specific info
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+    if not args.experiment_name:
+        args.experiment_name = "evaluation"
+    if not args.run_id:
+        args.run_id = f"eval_{timestamp}"
+        
+    return {
+        'experiment_name': args.experiment_name,
+        'run_id': args.run_id,
+        'detected': False
+    }
+
+def setup_evaluation_directories(args: argparse.Namespace, experiment_info: Dict[str, str]) -> Dict[str, Path]:
+    """Setup evaluation directories within the experiment structure."""
+    
+    # Use the same experiment structure as training
+    base_dir = Path(args.output_dir) / experiment_info['experiment_name'] / experiment_info['run_id']
+    
+    directories = {
+        'base': base_dir,
+        'embeddings': base_dir / 'evaluation' / 'embeddings',
+        'metrics': base_dir / 'evaluation' / 'metrics', 
+        'visualizations': base_dir / 'evaluation' / 'visualizations',
+        'analysis': base_dir / 'evaluation' / 'analysis',
+        'logs': base_dir / 'evaluation' / 'logs'
+    }
+    
+    # Create directories
+    for dir_path in directories.values():
+        dir_path.mkdir(parents=True, exist_ok=True)
+    
+    # Save evaluation metadata
+    import json
+    metadata = {
+        'evaluation_type': 'post_training_analysis',
+        'checkpoint_path': str(args.checkpoint),
+        'experiment_info': experiment_info,
+        'evaluation_timestamp': datetime.now().isoformat(),
+        'command_line_args': vars(args)
+    }
+    
+    with open(base_dir / 'evaluation' / 'evaluation_metadata.json', 'w') as f:
+        json.dump(metadata, f, indent=2, default=str)
+    
+    return directories
 
 def parse_arguments() -> argparse.Namespace:
     """Parse command line arguments."""
@@ -77,10 +157,12 @@ def parse_arguments() -> argparse.Namespace:
                        help='Path to JSON file with gene sets for enrichment analysis')
     
     # Output
-    parser.add_argument('--output-dir', type=str, default='evaluation_outputs',
-                       help='Directory for evaluation outputs')
+    parser.add_argument('--output-dir', type=str, default='experiments',
+                       help='Base experiments directory (should match training)')
     parser.add_argument('--experiment-name', type=str,
-                       help='Name of experiment (for organizing outputs)')
+                       help='Name of experiment (auto-detect from checkpoint if not provided)')
+    parser.add_argument('--run-id', type=str,
+                       help='Specific run ID to evaluate (auto-detect from checkpoint if not provided)')
     parser.add_argument('--save-embeddings', action='store_true',
                        help='Save latent embeddings to file')
     parser.add_argument('--save-predictions', action='store_true',
@@ -134,28 +216,6 @@ def setup_device(device_arg: str) -> torch.device:
     return device
 
 
-def setup_output_directories(args: argparse.Namespace) -> Dict[str, Path]:
-    """Setup output directories."""
-    base_dir = Path(args.output_dir)
-    
-    if args.experiment_name:
-        base_dir = base_dir / args.experiment_name
-    
-    directories = {
-        'base': base_dir,
-        'metrics': base_dir / 'metrics',
-        'visualizations': base_dir / 'visualizations',
-        'analysis': base_dir / 'analysis',
-        'embeddings': base_dir / 'embeddings',
-        'logs': base_dir / 'logs'
-    }
-    
-    # Create directories
-    for dir_path in directories.values():
-        dir_path.mkdir(parents=True, exist_ok=True)
-    
-    return directories
-
 
 def load_model_and_data(args: argparse.Namespace, config: Dict[str, Any],
                        device: torch.device) -> Dict[str, Any]:
@@ -175,11 +235,9 @@ def load_model_and_data(args: argparse.Namespace, config: Dict[str, Any],
     logging.info(f"Loaded model from checkpoint (epoch {checkpoint_data['epoch']})")
     
     # Setup preprocessor
-    preprocessor = ABRPreprocessor(
-        normalize=True,
-        add_pca=True,
-        n_pca_components=config['model']['data']['pca_features']
-    )
+    from data.preprocessor import create_default_config
+    preprocessor_config = create_default_config()
+    preprocessor = ABRFeaturePreprocessor(preprocessor_config)
     
     # Create dataset
     dataset = create_abr_dataset(
@@ -189,21 +247,32 @@ def load_model_and_data(args: argparse.Namespace, config: Dict[str, Any],
         mode='eval'
     )
     
-    # Create data loaders
-    dataloaders = create_dataloaders(
-        dataset=dataset,
-        train_ratio=config['training']['dataset']['train_split'],
-        val_ratio=config['training']['dataset']['val_split'],
-        test_ratio=config['training']['dataset']['test_split'],
-        batch_size=args.batch_size,
-        num_workers=4,
-        pin_memory=True,
-        seed=config['training']['dataset']['random_seed']
-    )
+    # Create data module and get specific split
+    data_module = create_data_module(config['training']['dataset'])
+    data_module.setup(config['training']['dataset']['data_path'])
+    
+    if args.split == 'train':
+        dataloader = data_module.train_dataloader()
+    elif args.split == 'val':
+        dataloader = data_module.val_dataloader()
+    elif args.split == 'test':
+        dataloader = data_module.test_dataloader()
+    else:  # all
+        dataloaders = {
+            'train': data_module.train_dataloader(),
+            'val': data_module.val_dataloader(),
+            'test': data_module.test_dataloader()
+        }
+    
+    # Handle single vs multiple dataloaders
+    if args.split == 'all':
+        eval_dataloaders = dataloaders
+    else:
+        eval_dataloaders = {args.split: dataloader}
     
     return {
         'model': model,
-        'dataloaders': dataloaders,
+        'dataloaders': eval_dataloaders,
         'preprocessor': preprocessor,
         'checkpoint_data': checkpoint_data
     }
@@ -439,14 +508,21 @@ def generate_evaluation_report(clustering_metrics: Dict[str, Any],
         
         if 'clustering' in clustering_metrics:
             clustering = clustering_metrics['clustering']
-            report_lines.append(f"Silhouette Score: {clustering.get('silhouette_score', 'N/A'):.3f}")
-            report_lines.append(f"Calinski-Harabasz Index: {clustering.get('calinski_harabasz_score', 'N/A'):.2f}")
-            report_lines.append(f"Davies-Bouldin Index: {clustering.get('davies_bouldin_score', 'N/A'):.3f}")
+            silhouette = clustering.get('silhouette_score', 'N/A')
+            calinski = clustering.get('calinski_harabasz_score', 'N/A')
+            davies = clustering.get('davies_bouldin_score', 'N/A')
+            
+            report_lines.append(f"Silhouette Score: {silhouette:.3f}" if isinstance(silhouette, (int, float)) else f"Silhouette Score: {silhouette}")
+            report_lines.append(f"Calinski-Harabasz Index: {calinski:.2f}" if isinstance(calinski, (int, float)) else f"Calinski-Harabasz Index: {calinski}")
+            report_lines.append(f"Davies-Bouldin Index: {davies:.3f}" if isinstance(davies, (int, float)) else f"Davies-Bouldin Index: {davies}")
         
         if 'reconstruction' in clustering_metrics:
             recon = clustering_metrics['reconstruction']
-            report_lines.append(f"Reconstruction MSE: {recon.get('reconstruction_mse', 'N/A'):.4f}")
-            report_lines.append(f"Feature Correlation: {recon.get('mean_feature_correlation', 'N/A'):.3f}")
+            recon_mse = recon.get('reconstruction_mse', 'N/A')
+            feat_corr = recon.get('mean_feature_correlation', 'N/A')
+            
+            report_lines.append(f"Reconstruction MSE: {recon_mse:.4f}" if isinstance(recon_mse, (int, float)) else f"Reconstruction MSE: {recon_mse}")
+            report_lines.append(f"Feature Correlation: {feat_corr:.3f}" if isinstance(feat_corr, (int, float)) else f"Feature Correlation: {feat_corr}")
         
         report_lines.append("")
     
@@ -491,15 +567,18 @@ def main():
     # Parse arguments
     args = parse_arguments()
     
-    # Setup output directories
-    output_dirs = setup_output_directories(args)
+    # Detect experiment info from checkpoint path
+    experiment_info = detect_experiment_info_from_checkpoint(args.checkpoint, args)
+    
+    # Setup output directories within experiment structure
+    output_dirs = setup_evaluation_directories(args, experiment_info)
     
     # Setup logging
     log_dir = Path(args.log_dir) if args.log_dir else output_dirs['logs']
     logger = setup_logging(
         log_level=args.log_level,
         log_dir=log_dir,
-        experiment_name=args.experiment_name,
+        experiment_name=f"{experiment_info['experiment_name']}_{experiment_info['run_id']}_eval",
         console_output=True,
         file_output=True
     )

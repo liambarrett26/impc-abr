@@ -10,6 +10,8 @@ logging and monitoring.
 import argparse
 import sys
 import yaml
+import socket
+import shutil
 from pathlib import Path
 from typing import Dict, Any, Optional
 import logging
@@ -26,8 +28,8 @@ from utils.logging import setup_logging, TrainingLogger
 from utils.checkpoint import ModelCheckpoint, load_checkpoint
 from config import load_config
 from data.dataset import create_abr_dataset
-from data.dataloader import create_dataloaders
-from data.preprocessor import ABRPreprocessor
+from data.dataloader import create_data_module
+from data.preprocessor import ABRFeaturePreprocessor
 from models.full_model import create_model
 from losses.combined_loss import create_combined_loss
 from training.trainer import ContrastiveVAEDECTrainer
@@ -72,10 +74,12 @@ def parse_arguments() -> argparse.Namespace:
                        help='Resume from last checkpoint in checkpoint directory')
     
     # Output
-    parser.add_argument('--output-dir', type=str, default='outputs',
-                       help='Directory for outputs (logs, checkpoints, etc.)')
+    parser.add_argument('--output-dir', type=str, default='experiments',
+                       help='Base directory for experiments')
     parser.add_argument('--experiment-name', type=str,
-                       help='Name of experiment (for organizing outputs)')
+                       help='Name of experiment (auto-generated if not provided)')
+    parser.add_argument('--run-id', type=str,
+                       help='Unique run identifier (auto-generated if not provided)')
     parser.add_argument('--checkpoint-dir', type=str,
                        help='Directory for model checkpoints (overrides config)')
     
@@ -157,26 +161,101 @@ def setup_device(device_arg: str) -> torch.device:
     return device
 
 
-def setup_output_directories(args: argparse.Namespace) -> Dict[str, Path]:
-    """Setup output directories for logs, checkpoints, etc."""
-    base_dir = Path(args.output_dir)
+def create_experiment_info(args: argparse.Namespace) -> Dict[str, str]:
+    """Create experiment information with unique naming."""
+    from datetime import datetime
+    import socket
     
-    if args.experiment_name:
-        base_dir = base_dir / args.experiment_name
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    
+    # Auto-generate experiment name if not provided
+    if not args.experiment_name:
+        stage_info = []
+        if args.pretrain_only:
+            stage_info.append("pretrain")
+        elif args.joint_only:
+            stage_info.append("joint")
+        elif args.skip_pretrain:
+            stage_info.append("cluster_joint")
+        else:
+            stage_info.append("full_pipeline")
+        
+        epochs_info = f"{args.epochs}ep" if args.epochs else "default"
+        args.experiment_name = f"{'_'.join(stage_info)}_{epochs_info}"
+    
+    # Auto-generate run ID if not provided
+    if not args.run_id:
+        hostname = socket.gethostname()[:8]  # First 8 chars of hostname
+        args.run_id = f"{timestamp}_{hostname}"
+    
+    return {
+        'experiment_name': args.experiment_name,
+        'run_id': args.run_id,
+        'timestamp': timestamp
+    }
+
+def setup_output_directories(args: argparse.Namespace, experiment_info: Dict[str, str]) -> Dict[str, Path]:
+    """Setup organized output directories with experiment tracking."""
+    
+    # Create structured hierarchy: experiments/{experiment_name}/{run_id}/
+    base_dir = Path(args.output_dir) / experiment_info['experiment_name'] / experiment_info['run_id']
     
     directories = {
         'base': base_dir,
         'logs': base_dir / 'logs',
         'checkpoints': base_dir / 'checkpoints',
         'metrics': base_dir / 'metrics',
-        'visualizations': base_dir / 'visualizations'
+        'visualizations': base_dir / 'visualizations',
+        'config': base_dir / 'config'  # Save configs used for this run
     }
     
     # Create directories
     for dir_path in directories.values():
         dir_path.mkdir(parents=True, exist_ok=True)
     
+    # Save experiment metadata
+    import json
+    metadata = {
+        'experiment_name': experiment_info['experiment_name'],
+        'run_id': experiment_info['run_id'],
+        'timestamp': experiment_info['timestamp'],
+        'command_line_args': vars(args),
+        'hostname': socket.gethostname(),
+        'git_commit': _get_git_commit_hash()
+    }
+    
+    with open(base_dir / 'experiment_metadata.json', 'w') as f:
+        json.dump(metadata, f, indent=2, default=str)
+    
     return directories
+
+def save_experiment_configs(args: argparse.Namespace, config: Dict[str, Any], output_dirs: Dict[str, Path]):
+    """Save configuration files used for this experiment."""
+    config_dir = output_dirs['config']
+    
+    # Copy original config files
+    if Path(args.config).exists():
+        shutil.copy2(args.config, config_dir / 'training_config.yaml')
+    if Path(args.model_config).exists():
+        shutil.copy2(args.model_config, config_dir / 'model_config.yaml')
+    
+    # Save merged config as used by the training
+    with open(config_dir / 'merged_config.yaml', 'w') as f:
+        yaml.dump(config, f, default_flow_style=False, indent=2)
+    
+    # Save command line arguments
+    with open(config_dir / 'command_line_args.yaml', 'w') as f:
+        yaml.dump(vars(args), f, default_flow_style=False, indent=2)
+
+def _get_git_commit_hash() -> str:
+    """Get current git commit hash if available."""
+    try:
+        import subprocess
+        result = subprocess.run(['git', 'rev-parse', 'HEAD'], 
+                              capture_output=True, text=True, cwd=Path(__file__).parent.parent)
+        return result.stdout.strip() if result.returncode == 0 else 'unknown'
+    except:
+        return 'unknown'
 
 
 def load_data(config: Dict[str, Any], device: torch.device) -> Dict[str, DataLoader]:
@@ -185,31 +264,25 @@ def load_data(config: Dict[str, Any], device: torch.device) -> Dict[str, DataLoa
     model_config = config['model']
     
     # Setup preprocessor
-    preprocessor = ABRPreprocessor(
-        normalize=True,
-        add_pca=True,
-        n_pca_components=model_config['data']['pca_features']
-    )
+    from data.preprocessor import create_default_config
+    preprocessor_config = create_default_config()
+    preprocessor = ABRFeaturePreprocessor(preprocessor_config)
     
-    # Create datasets
-    dataset = create_abr_dataset(
-        data_path=training_config['dataset']['data_path'],
-        preprocessor=preprocessor,
-        feature_columns=None,  # Auto-detect from preprocessor
-        mode='train'
-    )
+    # Create data module and setup
+    data_module = create_data_module(training_config['dataset'])
+    data_module.setup(training_config['dataset']['data_path'])
     
-    # Create data splits and loaders
-    dataloaders = create_dataloaders(
-        dataset=dataset,
-        train_ratio=training_config['dataset']['train_split'],
-        val_ratio=training_config['dataset']['val_split'],
-        test_ratio=training_config['dataset']['test_split'],
-        batch_size=training_config['dataset']['batch_size'],
-        num_workers=training_config['dataset']['num_workers'],
-        pin_memory=training_config['dataset']['pin_memory'],
-        seed=training_config['dataset']['random_seed']
-    )
+    # Get individual dataloaders
+    train_dataloader = data_module.train_dataloader()
+    val_dataloader = data_module.val_dataloader()
+    test_dataloader = data_module.test_dataloader()
+    
+    # Package dataloaders for compatibility
+    dataloaders = {
+        'train': train_dataloader,
+        'val': val_dataloader,
+        'test': test_dataloader
+    }
     
     logging.info(f"Loaded datasets: train={len(dataloaders['train'].dataset)}, "
                 f"val={len(dataloaders['val'].dataset)}, "
@@ -237,18 +310,18 @@ def setup_model_and_training(config: Dict[str, Any], device: torch.device) -> Di
     if optimizer_config['type'].lower() == 'adam':
         optimizer = torch.optim.Adam(
             model.parameters(),
-            lr=optimizer_config['lr'],
-            betas=optimizer_config['betas'],
-            eps=optimizer_config['eps'],
-            weight_decay=optimizer_config['weight_decay']
+            lr=float(optimizer_config['lr']),
+            betas=list(optimizer_config['betas']),
+            eps=float(optimizer_config['eps']),
+            weight_decay=float(optimizer_config['weight_decay'])
         )
     elif optimizer_config['type'].lower() == 'adamw':
         optimizer = torch.optim.AdamW(
             model.parameters(),
-            lr=optimizer_config['lr'],
-            betas=optimizer_config['betas'],
-            eps=optimizer_config['eps'],
-            weight_decay=optimizer_config['weight_decay']
+            lr=float(optimizer_config['lr']),
+            betas=list(optimizer_config['betas']),
+            eps=float(optimizer_config['eps']),
+            weight_decay=float(optimizer_config['weight_decay'])
         )
     else:
         raise ValueError(f"Unsupported optimizer: {optimizer_config['type']}")
@@ -258,14 +331,14 @@ def setup_model_and_training(config: Dict[str, Any], device: torch.device) -> Di
     if scheduler_config['type'] == 'cosine_annealing':
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
             optimizer,
-            T_max=scheduler_config['T_max'],
-            eta_min=scheduler_config['eta_min']
+            T_max=int(scheduler_config['T_max']),
+            eta_min=float(scheduler_config['eta_min'])
         )
     elif scheduler_config['type'] == 'step':
         scheduler = torch.optim.lr_scheduler.StepLR(
             optimizer,
-            step_size=scheduler_config['step_size'],
-            gamma=scheduler_config['gamma']
+            step_size=int(scheduler_config['step_size']),
+            gamma=float(scheduler_config['gamma'])
         )
     else:
         scheduler = None
@@ -303,15 +376,16 @@ def main():
     # Parse arguments
     args = parse_arguments()
     
-    # Setup output directories
-    output_dirs = setup_output_directories(args)
+    # Create experiment information and directories
+    experiment_info = create_experiment_info(args)
+    output_dirs = setup_output_directories(args, experiment_info)
     
     # Setup logging
     log_dir = Path(args.log_dir) if args.log_dir else output_dirs['logs']
     logger = setup_logging(
         log_level=args.log_level,
         log_dir=log_dir,
-        experiment_name=args.experiment_name,
+        experiment_name=f"{experiment_info['experiment_name']}_{experiment_info['run_id']}",
         console_output=not args.no_console_log,
         file_output=True
     )
@@ -321,6 +395,9 @@ def main():
     
     # Load configurations
     config = load_configs(args)
+    
+    # Save configurations for this experiment
+    save_experiment_configs(args, config, output_dirs)
     
     # Setup device
     device = setup_device(args.device)
@@ -371,17 +448,6 @@ def main():
             checkpoint_data = resume_from_checkpoint(last_ckpt, model, optimizer, scheduler)
             start_epoch = checkpoint_data['epoch'] + 1
     
-    # Create trainer
-    trainer = ContrastiveVAEDECTrainer(
-        model=model,
-        optimizer=optimizer,
-        scheduler=scheduler,
-        loss_fn=loss_fn,
-        device=device,
-        checkpoint_callback=checkpoint_callback,
-        logger=training_logger
-    )
-    
     # Training stages
     training_stages = config['training']['training_stages']
     
@@ -389,12 +455,22 @@ def main():
         # Stage 1: VAE Pretraining (if not skipped)
         if not args.skip_pretrain and not args.joint_only:
             logger.info("Starting Stage 1: VAE Pretraining")
-            trainer.pretrain(
-                train_dataloader=dataloaders['train'],
-                val_dataloader=dataloaders['val'],
-                epochs=training_stages['stage1_pretrain']['epochs'],
-                start_epoch=start_epoch
+            from training.pretrain import VAEPretrainer
+            
+            # Set model to pretraining stage
+            model.set_training_stage('pretrain')
+            
+            # Create VAE pretrainer
+            pretrainer = VAEPretrainer(model, config, device)
+            
+            # Run pretraining
+            pretrain_results = pretrainer.pretrain(
+                train_loader=dataloaders['train'],
+                val_loader=dataloaders['val'],
+                save_dir=output_dirs['checkpoints'] / 'pretrain'
             )
+            
+            logger.info(f"Pretraining completed. Best loss: {pretrain_results['best_loss']:.4f}")
             
             if args.pretrain_only:
                 logger.info("Pretraining completed. Exiting as requested.")
@@ -403,36 +479,47 @@ def main():
         # Stage 2: Cluster Initialization
         if not args.pretrain_only:
             logger.info("Starting Stage 2: Cluster Initialization")
-            trainer.initialize_clusters(dataloaders['train'])
+            
+            # Set model to cluster initialization stage
+            model.set_training_stage('cluster_init')
+            
+            # Initialize clusters
+            model.initialize_clusters(dataloaders['train'])
+            logger.info("Cluster initialization completed")
         
         # Stage 3: Joint Training (if not pretrain-only)
         if not args.pretrain_only:
             logger.info("Starting Stage 3: Joint Training")
-            trainer.joint_train(
-                train_dataloader=dataloaders['train'],
-                val_dataloader=dataloaders['val'],
-                epochs=training_stages['stage3_joint']['epochs'],
-                warmup_epochs=training_stages['stage3_joint']['warmup_epochs']
+            from training.finetune import JointTrainer
+            
+            # Set model to joint training stage
+            model.set_training_stage('joint')
+            
+            # Create joint trainer (pass full config, not just training config)
+            joint_trainer = JointTrainer(model, config, device)
+            
+            # Run joint training
+            joint_results = joint_trainer.train(
+                train_loader=dataloaders['train'],
+                val_loader=dataloaders['val'],
+                save_dir=output_dirs['checkpoints'] / 'joint'
             )
+            
+            logger.info(f"Joint training completed. Best loss: {joint_results['best_loss']:.4f}")
         
         logger.info("Training completed successfully!")
         
         # Validation
         if args.validate:
             logger.info("Running validation evaluation")
-            val_results = trainer.evaluate(dataloaders['val'])
-            logger.info(f"Validation results: {val_results}")
+            # TODO: Implement validation evaluation
+            logger.info("Validation evaluation not yet implemented")
         
         # Testing
         if args.test:
             logger.info("Running test evaluation")
-            test_results = trainer.evaluate(dataloaders['test'])
-            logger.info(f"Test results: {test_results}")
-            
-            # Save test results
-            import json
-            with open(output_dirs['metrics'] / 'test_results.json', 'w') as f:
-                json.dump(test_results, f, indent=2)
+            # TODO: Implement test evaluation
+            logger.info("Test evaluation not yet implemented")
     
     except KeyboardInterrupt:
         logger.info("Training interrupted by user")

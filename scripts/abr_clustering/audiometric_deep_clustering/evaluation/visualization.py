@@ -294,7 +294,7 @@ class ClusterAnalysisVisualizer:
         return fig
 
     def plot_audiogram_patterns(self, cluster_labels: np.ndarray,
-                               abr_features: np.ndarray,
+                               abr_features: Optional[np.ndarray],
                                frequency_labels: List[str] = None,
                                save_path: Optional[Path] = None) -> plt.Figure:
         """
@@ -309,6 +309,14 @@ class ClusterAnalysisVisualizer:
         Returns:
             Matplotlib figure
         """
+        if abr_features is None:
+            # Create a dummy plot if no ABR features are available
+            fig, ax = plt.subplots(figsize=(8, 6))
+            ax.text(0.5, 0.5, 'No ABR features available for visualization', 
+                   ha='center', va='center', transform=ax.transAxes, fontsize=14)
+            ax.set_title('Audiogram Patterns')
+            return fig
+            
         if frequency_labels is None:
             frequency_labels = ['6kHz', '12kHz', '18kHz', '24kHz', '30kHz', 'Click']
 
@@ -408,8 +416,8 @@ class InteractiveVisualizer:
         # Prepare hover information
         hover_data = []
         for i in range(len(embeddings_2d)):
-            hover_info = f"Mouse: {mouse_ids[i] if mouse_ids else i}<br>"
-            hover_info += f"Cluster: {cluster_labels[i]}<br>"
+            hover_info = f"Mouse: {mouse_ids[i] if mouse_ids is not None else i}<br>"
+            hover_info += f"Cluster: {cluster_labels[i] if cluster_labels is not None else 'N/A'}<br>"
 
             if gene_labels is not None:
                 hover_info += f"Gene: {gene_labels[i]}<br>"

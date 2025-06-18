@@ -48,7 +48,7 @@ class VAEPretrainer:
         self.scheduler = self._create_scheduler()
 
         # Training parameters
-        self.pretrain_epochs = config['training_stages']['stage1_pretrain']['epochs']
+        self.pretrain_epochs = config['training']['training_stages']['stage1_pretrain']['epochs']
         self.current_epoch = 0
         self.best_loss = float('inf')
 
@@ -67,48 +67,48 @@ class VAEPretrainer:
 
     def _create_optimizer(self) -> optim.Optimizer:
         """Create optimizer for pretraining."""
-        optimizer_config = self.config['optimizer']
+        optimizer_config = self.config['training']['optimizer']
 
         if optimizer_config['type'].lower() == 'adam':
             return optim.Adam(
                 self.model.parameters(),
-                lr=optimizer_config['lr'],
-                betas=optimizer_config['betas'],
-                eps=optimizer_config['eps'],
-                weight_decay=optimizer_config['weight_decay']
+                lr=float(optimizer_config['lr']),
+                betas=list(optimizer_config['betas']),
+                eps=float(optimizer_config['eps']),
+                weight_decay=float(optimizer_config['weight_decay'])
             )
         elif optimizer_config['type'].lower() == 'adamw':
             return optim.AdamW(
                 self.model.parameters(),
-                lr=optimizer_config['lr'],
-                betas=optimizer_config['betas'],
-                eps=optimizer_config['eps'],
-                weight_decay=optimizer_config['weight_decay']
+                lr=float(optimizer_config['lr']),
+                betas=list(optimizer_config['betas']),
+                eps=float(optimizer_config['eps']),
+                weight_decay=float(optimizer_config['weight_decay'])
             )
         else:
             raise ValueError(f"Unsupported optimizer: {optimizer_config['type']}")
 
     def _create_scheduler(self) -> Optional[Any]:
         """Create learning rate scheduler."""
-        scheduler_config = self.config['scheduler']
+        scheduler_config = self.config['training']['scheduler']
 
         if scheduler_config['type'] == 'cosine_annealing':
             return optim.lr_scheduler.CosineAnnealingLR(
                 self.optimizer,
-                T_max=scheduler_config['T_max'],
-                eta_min=scheduler_config['eta_min']
+                T_max=int(scheduler_config['T_max']),
+                eta_min=float(scheduler_config['eta_min'])
             )
         elif scheduler_config['type'] == 'step':
             return optim.lr_scheduler.StepLR(
                 self.optimizer,
-                step_size=scheduler_config['step_size'],
-                gamma=scheduler_config['gamma']
+                step_size=int(scheduler_config['step_size']),
+                gamma=float(scheduler_config['gamma'])
             )
         elif scheduler_config['type'] == 'reduce_on_plateau':
             return optim.lr_scheduler.ReduceLROnPlateau(
                 self.optimizer,
-                patience=scheduler_config['patience'],
-                factor=scheduler_config['factor'],
+                patience=int(scheduler_config['patience']),
+                factor=float(scheduler_config['factor']),
                 mode='min'
             )
         else:
@@ -203,10 +203,10 @@ class VAEPretrainer:
             total_loss_batch.backward()
 
             # Gradient clipping
-            if self.config['training']['grad_clip_norm'] > 0:
+            if self.config['training']['training']['grad_clip_norm'] > 0:
                 torch.nn.utils.clip_grad_norm_(
                     self.model.parameters(),
-                    self.config['training']['grad_clip_norm']
+                    self.config['training']['training']['grad_clip_norm']
                 )
 
             self.optimizer.step()
