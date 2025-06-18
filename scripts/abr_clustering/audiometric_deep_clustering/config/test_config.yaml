@@ -1,0 +1,151 @@
+# Test configuration with minimal epochs for quick validation
+
+# =============================================================================
+# DATASET CONFIGURATION
+# =============================================================================
+dataset:
+  # Data loading
+  data_path: '/home/liamb/impc-abr/data/processed/abr_full_data.csv'
+
+  # Data splitting
+  train_split: 0.8               # Training data proportion
+  val_split: 0.1                 # Validation data proportion
+  test_split: 0.1                # Test data proportion
+  random_seed: 42                # Random seed for consistent splits
+
+  # Data loading settings
+  batch_size: 512                # Batch size for training
+  num_workers: 4                 # Number of data loading workers
+  pin_memory: true               # Pin memory for faster GPU transfer
+  shuffle: true                  # Shuffle training data
+
+# =============================================================================
+# OPTIMIZER CONFIGURATION
+# =============================================================================
+optimizer:
+  type: 'adam'
+  lr: 0.001
+  weight_decay: 1e-5
+  betas: [0.9, 0.999]
+  eps: 1e-8
+
+# =============================================================================
+# SCHEDULER CONFIGURATION
+# =============================================================================
+scheduler:
+  type: 'cosine_annealing'
+  T_max: 20                      # Reduced for test
+  eta_min: 1e-6
+
+# =============================================================================
+# TRAINING STAGES - MINIMAL FOR TESTING
+# =============================================================================
+training_stages:
+  stage1_pretrain:
+    epochs: 3                    # Minimal pretraining
+    objectives: ['reconstruction', 'kl_divergence']
+
+  stage2_cluster_init:
+    kmeans_iterations: 50        # Reduced iterations
+
+  stage3_joint:
+    epochs: 2                    # Minimal joint training
+    warmup_epochs: 1             # Single warmup epoch
+    objectives: ['reconstruction', 'kl_divergence', 'clustering', 'contrastive', 'phenotype_consistency']
+
+# =============================================================================
+# TRAINING CONTROL
+# =============================================================================
+training:
+  max_epochs: 5                  # Total maximum
+  early_stopping:
+    patience: 5
+    min_delta: 1e-4
+    monitor: 'val_total_loss'
+    mode: 'min'
+
+  # Gradient and optimization settings
+  grad_clip_norm: 1.0           # Gradient clipping norm
+  accumulate_grad_batches: 1    # Gradient accumulation
+
+  # Model checkpointing
+  save_top_k: 3                 # Save top 3 checkpoints
+  monitor_checkpoint: 'val_total_loss'  # Metric for best checkpoint
+  save_last: true               # Save the last checkpoint
+
+  # Validation settings
+  val_check_interval: 1.0       # Validate after each epoch
+  check_val_every_n_epoch: 1    # Validate every epoch
+
+# =============================================================================
+# LOGGING AND MONITORING
+# =============================================================================
+logging:
+  # Experiment naming
+  experiment_name: 'contrastive_vae_dec_abr'
+  log_dir: 'logs'
+  log_every_n_steps: 50         # Log every 50 steps
+
+  # Checkpointing
+  save_dir: 'checkpoints'
+
+  # External logging services
+  use_wandb: false              # Weights & Biases integration
+  wandb_project: 'audiometric_clustering'
+  wandb_entity: null            # Your wandb username/team
+
+  # TensorBoard logging
+  use_tensorboard: true
+  log_histograms: false
+  log_embeddings: true
+  log_attention_weights: true
+
+# =============================================================================
+# HARDWARE CONFIGURATION
+# =============================================================================
+hardware:
+  # GPU settings
+  gpus: 1                       # Number of GPUs to use
+  accelerator: 'gpu'            # Accelerator type
+  precision: 16                 # Mixed precision training
+
+  # Performance optimization
+  gradient_checkpointing: false # Memory optimization
+  find_unused_parameters: false # DDP optimization
+  deterministic: false          # Reproducibility vs speed tradeoff
+  benchmark: true               # CuDNN benchmark mode
+
+# =============================================================================
+# EVALUATION CONFIGURATION
+# =============================================================================
+evaluation:
+  # Evaluation frequency
+  evaluate_every_n_epochs: 2    # Evaluate every 2 epochs
+
+  # Evaluation metrics
+  compute_silhouette: true      # Clustering quality
+  compute_ari: true             # Adjusted Rand Index
+  compute_nmi: true             # Normalized Mutual Information
+
+  # Visualization
+  plot_latent_space: true       # t-SNE/UMAP plots
+  plot_attention_maps: true     # Attention visualization
+  plot_reconstructions: true    # Reconstruction quality
+
+  # Analysis
+  gene_enrichment_analysis: true        # Gene set enrichment
+  phenotype_characterization: true      # Biological interpretation
+
+# =============================================================================
+# HYPERPARAMETER SEARCH (DISABLED FOR TEST)
+# =============================================================================
+hyperparameter_search:
+  enabled: false
+  search_space:
+    lr: [0.0001, 0.001, 0.01]
+    latent_dim: [8, 10, 12, 16]
+    num_clusters: [8, 10, 12, 15]
+    beta: [0.5, 1.0, 2.0]
+    temperature: [0.1, 0.5, 1.0]
+  num_trials: 20
+  pruning: true

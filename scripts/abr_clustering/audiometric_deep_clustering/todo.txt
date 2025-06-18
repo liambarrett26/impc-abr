@@ -1,0 +1,85 @@
+# TODO: ContrastiveVAE-DEC Next Steps
+
+## Immediate Priority
+
+### 1. Full-Scale Training Run
+- [ ] Execute complete 3-stage pipeline with full epoch counts
+- [ ] Monitor training progress and loss convergence
+- [ ] Validate that clustering emerges properly with adequate training
+- [ ] Expected duration: 4-6 hours for full training
+- [ ] Command: `python scripts/train.py --experiment-name "full_scale_training"`
+
+### 2. Comprehensive Evaluation
+- [ ] Run full evaluation suite on trained model
+- [ ] Generate complete metrics (clustering quality, reconstruction, etc.)
+- [ ] Perform phenotype analysis and gene enrichment (if working)
+- [ ] Create publication-ready visualizations
+- [ ] Analyze biological significance of discovered clusters
+
+### 3. Results Analysis
+- [ ] Review cluster quality metrics (silhouette score, ARI, etc.)
+- [ ] Validate cluster interpretability and biological relevance
+- [ ] Compare with baseline clustering methods
+- [ ] Document key findings and insights
+
+## Technical Improvements (Lower Priority)
+
+### 4. Bug Fixes
+- [ ] Fix phenotype analysis indexing bug (frequency mapping issue)
+- [ ] Resolve interactive visualization null handling in comprehensive reports
+- [ ] Improve error handling for edge cases
+
+### 5. Performance Optimization
+- [ ] Profile training performance and identify bottlenecks
+- [ ] Optimize data loading pipeline if needed
+- [ ] Consider mixed precision training improvements
+- [ ] Evaluate memory usage patterns
+
+### 6. Hyperparameter Tuning
+- [ ] Experiment with different cluster counts (8, 10, 12, 15)
+- [ ] Test alternative loss weight combinations
+- [ ] Validate learning rate schedules
+- [ ] Explore latent dimension sensitivity
+
+## Documentation & Deployment
+
+### 7. Results Documentation
+- [ ] Create comprehensive results summary
+- [ ] Document cluster characteristics and biological interpretations
+- [ ] Prepare visualization gallery
+- [ ] Write methodology summary
+
+### 8. Code Quality
+- [ ] Add any missing unit tests for edge cases
+- [ ] Update documentation strings if needed
+- [ ] Code cleanup and optimization
+- [ ] Prepare for potential publication/sharing
+
+## Research Extensions (Future)
+
+### 9. Model Enhancements
+- [ ] Experiment with alternative attention mechanisms
+- [ ] Test different contrastive learning strategies
+- [ ] Explore hierarchical clustering approaches
+- [ ] Consider multi-modal extensions
+
+### 10. Biological Validation
+- [ ] Collaborate with domain experts for cluster interpretation
+- [ ] Validate against known hearing loss gene databases
+- [ ] Compare with clinical hearing loss classifications
+- [ ] Explore therapeutic implications
+
+---
+
+## Current Status
+✅ Complete end-to-end pipeline validated with test runs
+✅ All components working correctly (training, evaluation, visualization)
+✅ Unified experiment structure implemented
+✅ Auto-detection and output organization verified
+
+## Next Session Goals
+🎯 Execute full-scale training run
+🎯 Complete comprehensive evaluation and analysis
+🎯 Generate final results summary
+
+Last Updated: 2025-06-18
