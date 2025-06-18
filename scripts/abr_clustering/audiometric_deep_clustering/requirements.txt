@@ -1,0 +1,67 @@
+# ContrastiveVAE-DEC: Audiometric Phenotype Discovery
+# Core dependencies for the audiometric clustering project
+
+# Deep Learning Framework
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Scientific Computing
+numpy>=1.21.0
+scipy>=1.9.0
+scikit-learn>=1.1.0
+pandas>=1.5.0
+
+# Data Visualization
+matplotlib>=3.5.0
+seaborn>=0.11.0
+plotly>=5.10.0
+umap-learn>=0.5.3
+
+# Configuration and Utilities
+PyYAML>=6.0
+tqdm>=4.64.0
+pathlib2>=2.3.0
+
+# Statistical Analysis
+statsmodels>=0.13.0
+
+# Development and Testing
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=22.0.0
+flake8>=5.0.0
+mypy>=0.971
+
+# Optional: Accelerated Computing
+# Uncomment if using specific hardware acceleration
+# intel-extension-for-pytorch  # Intel CPU/GPU optimization
+# torch-geometric>=2.1.0      # For graph neural networks (if needed)
+
+# Optional: Experiment Tracking
+# wandb>=0.13.0               # Weights & Biases
+# tensorboard>=2.10.0         # TensorBoard logging
+# mlflow>=1.28.0              # MLflow experiment tracking
+
+# Optional: Hyperparameter Optimization
+# optuna>=3.0.0               # Hyperparameter optimization
+# ray[tune]>=2.0.0            # Distributed hyperparameter tuning
+
+# Optional: Distributed Training
+# torch-distributed>=0.1.0    # Distributed training utilities
+
+# System Dependencies (usually handled by conda/system package manager)
+# These are listed for reference but should be installed separately:
+# - CUDA Toolkit (if using GPU)
+# - cuDNN (if using GPU)
+# - Intel MKL (for CPU optimization)
+
+# Version constraints explanation:
+# - torch>=2.0.0: Required for torch.compile and latest features
+# - numpy>=1.21.0: Compatibility with torch 2.0+
+# - scikit-learn>=1.1.0: Modern API and performance improvements
+# - pandas>=1.5.0: Performance improvements and modern API
+# - matplotlib>=3.5.0: Modern plotting API and performance
+# - plotly>=5.10.0: Interactive visualization features
+# - umap-learn>=0.5.3: Stable UMAP implementation
+# - PyYAML>=6.0: Security fixes and performance improvements

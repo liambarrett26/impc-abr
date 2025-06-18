@@ -16,3 +16,4 @@ dependencies:
     - seaborn==0.13.2
     - statsmodels==0.14.4
     - tqdm==4.66.5
+    - torch==2.7.1+cu128
