@@ -103,6 +103,39 @@ Reconstruction + Multiple Losses
 2. **Stage 2: Cluster Initialization** - K-means on latent space
 3. **Stage 3: Joint Optimization** - All objectives (VAE + clustering + contrastive + phenotype consistency)
 
+## Contrastive Learning Strategy
+
+The model uses gene-based contrastive learning to improve phenotype separation:
+
+### Gene Symbol Grouping
+
+- **Gene symbols** (e.g., "Otoa", "Sun1") are used as the primary grouping factor for contrastive learning
+- **Positive pairs**: Mice from the same gene knockout line (same gene symbol)
+- **Negative pairs**: Mice from different gene knockout lines
+- **Control mice**: Mice without gene knockouts (gene_label = -1) are excluded from gene-based contrastive learning
+
+### Why Gene Symbol vs. Allele/Zygosity?
+
+The project uses **gene symbol** rather than more specific genetic annotations for several reasons:
+
+1. **Biological rationale**: Mice with knockouts in the same gene (e.g., all "Otoa" knockouts) are expected to show similar audiometric phenotypes regardless of:
+   - **Allelic variation**: Different alleles of the same gene typically produce similar hearing loss patterns
+   - **Zygosity**: Both heterozygous and homozygous knockouts of hearing genes often show similar phenotypes
+
+2. **Statistical power**: Gene symbol grouping provides larger sample sizes per group, enabling more stable contrastive learning
+
+3. **Phenotype discovery**: The goal is to discover audiometric phenotypes that correspond to gene function, not to distinguish between allelic variants
+
+### Implementation Details
+
+- **Positive pair sampling**: For each mouse, a positive pair is sampled from other mice with the same gene symbol
+- **Control handling**: Control mice (no gene knockout) use augmented versions of themselves as positive pairs
+- **Multi-objective contrastive loss**:
+  - **InfoNCE**: Standard contrastive loss with temperature scaling
+  - **Gene-aware loss**: Encourages within-gene similarity, discourages cross-gene similarity
+  - **Phenotype similarity**: Uses ABR pattern similarity to complement gene-based grouping
+- **Adaptive weighting**: Progressively increases contrastive loss importance during training
+
 ## Output Organization
 
 All outputs are organized in a unified experiment structure:
