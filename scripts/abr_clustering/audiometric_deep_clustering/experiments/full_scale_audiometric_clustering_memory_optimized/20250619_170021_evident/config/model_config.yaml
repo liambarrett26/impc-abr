@@ -1,0 +1,142 @@
+# ContrastiveVAE-DEC Model Architecture Configuration - MEMORY OPTIMIZED
+# Configuration for audiometric phenotype clustering with reduced GPU memory usage
+# Optimized for 32GB GPU (RTX 5090) with batch size 256 and gradient accumulation
+
+# =============================================================================
+# DATA SPECIFICATIONS
+# =============================================================================
+data:
+  # Input feature dimensions
+  abr_features: 6           # ABR thresholds (6, 12, 18, 24, 30 kHz + Click)
+  metadata_features: 10     # Age, weight, sex, zygosity, etc.
+  pca_features: 2           # PCA components from ABR data
+  total_features: 18        # Total input dimensions
+
+  # Feature groups for specialized processing
+  audiometric_indices: [0, 1, 2, 3, 4, 5]  # ABR threshold indices
+  continuous_indices: [6, 7, 16, 17]        # Age, weight, PCA components
+  categorical_indices: [8, 9, 10, 11, 12, 13, 14, 15]  # Metadata categories
+
+# =============================================================================
+# ENCODER ARCHITECTURE - MEMORY OPTIMIZED
+# =============================================================================
+encoder:
+  # Main encoder layers - REDUCED FOR MEMORY EFFICIENCY
+  hidden_dims: [128, 64, 32]   # Reduced from [256, 128, 64] - 50% reduction
+  dropout_rate: 0.2             # Dropout for regularization
+  activation: 'relu'            # Activation function
+
+  # Frequency-aware attention mechanism - REDUCED HEADS AND DIMENSIONS
+  attention:
+    enabled: true
+    head_dim: 16              # Reduced from 32 - 50% reduction
+    num_heads: 4              # Reduced from 8 - 50% reduction
+    dropout: 0.1              # Attention dropout rate
+
+  # Feature-specific encoders - REDUCED CAPACITY
+  abr_encoder:
+    hidden_dim: 32            # Reduced from 64 - 50% reduction
+    use_batch_norm: true      # Batch normalization
+
+  metadata_encoder:
+    hidden_dim: 48            # Reduced from 96 - 50% reduction
+    embedding_dims:           # Reduced embedding dimensions
+      sex: 4                  # Reduced from 8
+      zygosity: 4             # Reduced from 8
+      genetic_background: 8   # Reduced from 16
+      phenotyping_center: 12  # Reduced from 24
+
+# =============================================================================
+# LATENT SPACE CONFIGURATION - MODERATE REDUCTION
+# =============================================================================
+latent:
+  latent_dim: 24              # Reduced from 32 - 25% reduction (maintains capacity)
+  beta: 1.0                   # Beta parameter for beta-VAE (KL weight)
+
+  # Variational parameters
+  min_logvar: -10            # Minimum log variance (numerical stability)
+  max_logvar: 10             # Maximum log variance (prevent explosion)
+
+# =============================================================================
+# DECODER ARCHITECTURE - MATCHING ENCODER REDUCTION
+# =============================================================================
+decoder:
+  # Main decoder layers (reverse of encoder)
+  hidden_dims: [32, 64, 128]  # Reduced from [64, 128, 256] - 50% reduction
+  dropout_rate: 0.2           # Dropout for regularization
+  activation: 'relu'          # Activation function
+
+  # Output layer configuration
+  output_activation: 'linear'  # Linear output for continuous values
+  use_batch_norm: true        # Batch normalization
+
+# =============================================================================
+# CLUSTERING CONFIGURATION (DEC Component)
+# =============================================================================
+clustering:
+  num_clusters: 12           # Number of phenotype clusters to discover
+  cluster_init: 'kmeans'     # Cluster initialization method
+  alpha: 1.0                 # Degrees of freedom for t-distribution
+
+  # Cluster refinement - MORE FREQUENT UPDATES
+  update_interval: 10        # Update every 10 epochs
+  tolerance: 0.001           # Convergence tolerance
+
+  # Cluster optimization settings
+  min_cluster_size: 50       # Minimum samples per cluster to be valid
+  reassign_empty: false       # Reassign empty clusters to split largest cluster
+
+  # Alternative: Adaptive cluster updates
+  adaptive_update: true      # Enable adaptive update frequency
+  initial_update_interval: 5 # Start with frequent updates
+  max_update_interval: 20    # Gradually increase to this interval
+  update_decay: 0.1          # How quickly to increase interval
+
+# =============================================================================
+# CONTRASTIVE LEARNING - REDUCED PROJECTION DIMENSION
+# =============================================================================
+contrastive:
+  temperature: 0.5           # Temperature parameter for contrastive loss
+  projection_dim: 64         # Reduced from 128 - 50% reduction
+
+  # Data augmentation for contrastive pairs
+  augmentation:
+    noise_std: 0.05          # Gaussian noise standard deviation
+    dropout_prob: 0.1        # Feature dropout probability
+    magnitude_scale: 0.1     # Magnitude scaling factor
+
+# =============================================================================
+# LOSS FUNCTION WEIGHTS
+# =============================================================================
+loss_weights:
+  # Primary objectives
+  reconstruction: 1.0        # Reconstruction loss weight
+  kl_divergence: 1.0        # VAE KL divergence weight
+  clustering: 1.0           # DEC clustering loss weight
+  contrastive: 0.5          # Contrastive learning weight
+
+  # Regularization terms
+  phenotype_consistency: 0.3  # Same-gene mice similarity
+  frequency_smoothness: 0.1   # ABR frequency smoothness
+
+  # Feature-specific reconstruction weights
+  reconstruction_weights:
+    abr: 2.0                # Higher weight for ABR features
+    metadata: 1.0           # Standard weight for metadata
+    pca: 1.5                # Medium weight for PCA components
+
+# =============================================================================
+# ARCHITECTURAL CHOICES - MEMORY OPTIMIZATIONS
+# =============================================================================
+architecture:
+  # Network initialization
+  weight_init: 'xavier_uniform'  # Weight initialization method
+  bias_init: 'zeros'            # Bias initialization
+
+  # Normalization
+  use_layer_norm: false         # Layer normalization (alternative to batch norm)
+  use_spectral_norm: false      # Spectral normalization for stability
+
+  # Advanced features
+  residual_connections: false   # Skip connections in encoder/decoder
+  gradient_clipping: 1.0        # Gradient clipping value (0 to disable)

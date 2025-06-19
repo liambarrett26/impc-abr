@@ -2,12 +2,72 @@
 
 ## Immediate Priority
 
+Resolve issue with memory:
+```bash
+025-06-19 17:12:58 - audiometric_clustering - ERROR - train.py:585 - Training failed with error: CUDA out of memory. Tried to allocate 2.00 MiB. GPU 0 has a total capacity of 31.36 GiB of which 2.38 MiB is free. Including non-PyTorch memory, this process has 31.33 GiB memory in use. Of the allocated memory 30.71 GiB is allocated by PyTorch, and 23.06 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/home/liamb/impc-abr/scripts/abr_clustering/audiometric_deep_clustering/scripts/train.py", line 590, in <module>
+    main()
+  File "/home/liamb/impc-abr/scripts/abr_clustering/audiometric_deep_clustering/scripts/train.py", line 559, in main
+    joint_results = joint_trainer.train(
+                    ^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/impc-abr/scripts/abr_clustering/audiometric_deep_clustering/training/finetune.py", line 194, in train
+    train_metrics = self._train_epoch(train_loader, global_epoch)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/impc-abr/scripts/abr_clustering/audiometric_deep_clustering/training/finetune.py", line 309, in _train_epoch
+    losses = self.model.compute_losses(batch, return_individual=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/impc-abr/scripts/abr_clustering/audiometric_deep_clustering/models/full_model.py", line 241, in compute_losses
+    positive_latent = self.encode(batch['positive'])
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/impc-abr/scripts/abr_clustering/audiometric_deep_clustering/models/full_model.py", line 119, in encode
+    return self.encoder.encode(x)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/impc-abr/scripts/abr_clustering/audiometric_deep_clustering/models/encoder.py", line 392, in encode
+    output = self.forward(x)
+             ^^^^^^^^^^^^^^^
+  File "/home/liamb/impc-abr/scripts/abr_clustering/audiometric_deep_clustering/models/encoder.py", line 320, in forward
+    abr_encoded, attention_weights = self.abr_encoder(abr_features)
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/miniconda3/envs/impc_abr/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/miniconda3/envs/impc_abr/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/impc-abr/scripts/abr_clustering/audiometric_deep_clustering/models/encoder.py", line 73, in forward
+    abr_features, attention_weights = self.attention(abr_features)
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/miniconda3/envs/impc_abr/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1751, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/miniconda3/envs/impc_abr/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1762, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liamb/impc-abr/scripts/abr_clustering/audiometric_deep_clustering/models/encoder.py", line 196, in forward
+    scores = torch.matmul(q, k.transpose(-2, -1)) * self.scale
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.00 MiB. GPU 0 has a total capacity of 31.36 GiB of which 2.38 MiB is free. Including non-PyTorch memory, this process has 31.33 GiB memory in use. Of the allocated memory 30.71 GiB is allocated by PyTorch, and 23.06 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Training completed!
+Check experiments/ directory for results
+```
+
 ### 1. Full-Scale Training Run
-- [ ] Execute complete 3-stage pipeline with full epoch counts
-- [ ] Monitor training progress and loss convergence
-- [ ] Validate that clustering emerges properly with adequate training
-- [ ] Expected duration: 4-6 hours for full training
-- [ ] Command: `python scripts/train.py --experiment-name "full_scale_training"`
+- [X] Execute complete 3-stage pipeline with full epoch counts
+- [X] Monitor training progress and loss convergence
+- [X] Validate that clustering emerges properly with adequate training
+- [X] Expected duration: 4-6 hours for full training
+- [X] Command:
+
+```python
+python scripts/train.py \
+    --config config/training_config_memory_optimized.yaml \
+    --model-config config/model_config_memory_optimized.yaml \
+    --experiment-name "full_scale_audiometric_clustering_memory_optimized" \
+    --device auto \
+    --seed 42"`
+```
 
 ### 2. Comprehensive Evaluation
 - [ ] Run full evaluation suite on trained model

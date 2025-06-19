@@ -59,6 +59,9 @@ class ContrastiveVAEDEC(nn.Module):
         # Training stage tracking
         self.training_stage = 'pretrain'  # 'pretrain', 'cluster_init', 'joint'
         self.clusters_initialized = False
+        
+        # Memory optimization settings
+        self.use_gradient_checkpointing = config.get('architecture', {}).get('gradient_checkpointing', False)
 
         logger.info(f"Initialized ContrastiveVAE-DEC: "
                    f"latent_dim={self.latent_dim}, clusters={self.num_clusters}")
@@ -225,11 +228,23 @@ class ContrastiveVAEDEC(nn.Module):
                 clustering_loss = torch.tensor(0.0, device=x.device)
                 losses['clustering_loss'] = clustering_loss
 
-            # Add contrastive loss if positive pairs available
+            # Add contrastive loss if positive pairs available - MEMORY OPTIMIZED
             contrastive_loss = torch.tensor(0.0, device=x.device)
             if 'positive' in batch:
+                # Memory-efficient contrastive learning with gradient checkpointing
+                if hasattr(self, 'use_gradient_checkpointing') and self.use_gradient_checkpointing:
+                    # Use gradient checkpointing for memory efficiency
+                    from torch.utils.checkpoint import checkpoint
+                    positive_latent = checkpoint(self.encode, batch['positive'])
+                else:
+                    # Standard approach - encode positive samples to latent space only
+                    positive_latent = self.encode(batch['positive'])
+                
+                batch['positive_latent'] = positive_latent
+                
+                # Pass latent_z instead of already-projected features
                 contrastive_loss = self._compute_contrastive_loss(
-                    output['contrastive_features'], batch
+                    output['latent_z'], batch
                 )
                 losses['contrastive_loss'] = contrastive_loss
 
@@ -366,20 +381,34 @@ class ContrastiveProjectionHead(nn.Module):
 
     def compute_loss(self, features: torch.Tensor,
                     batch: Dict[str, torch.Tensor]) -> torch.Tensor:
-        """Compute InfoNCE contrastive loss."""
+        """Compute InfoNCE contrastive loss.
+        
+        Args:
+            features: Latent features (batch_size, latent_dim)
+            batch: Dictionary containing positive pairs
+        """
         if 'positive' not in batch:
             return torch.tensor(0.0, device=features.device)
 
-        # Project anchor and positive features
+        # Project anchor features (latent z)
         anchor_proj = self.project(features)
+        
+        # Get positive features - these are raw features that need encoding
         positive_features = batch['positive']
-
-        # Handle case where positive is already projected
-        if positive_features.shape[-1] == features.shape[-1]:
-            # Assume positive needs projection
-            positive_proj = self.project(positive_features)
+        
+        # Positive features need to be encoded to latent space first
+        # We'll need access to the encoder for this
+        # For now, we'll assume positive latent features are provided
+        if 'positive_latent' in batch:
+            positive_latent = batch['positive_latent']
+            positive_proj = self.project(positive_latent)
         else:
-            positive_proj = positive_features
+            # If positive features have same dim as anchor, assume they're already latent
+            if positive_features.shape[-1] == features.shape[-1]:
+                positive_proj = self.project(positive_features)
+            else:
+                # This shouldn't happen with proper data loading
+                raise ValueError(f"Positive features have wrong shape: {positive_features.shape} vs {features.shape}")
 
         # Compute similarities
         pos_sim = torch.sum(anchor_proj * positive_proj, dim=1) / self.temperature

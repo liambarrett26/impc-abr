@@ -1,0 +1,40 @@
+consensus_k: 12
+consensus_method: median
+k_range:
+- 6
+- 18
+metrics_used:
+- silhouette
+- davies_bouldin
+- calinski_harabasz
+- elbow
+optimal_k_per_metric:
+  calinski_harabasz: !!python/object/apply:numpy.core.multiarray.scalar
+  - &id001 !!python/object/apply:numpy.dtype
+    args:
+    - i8
+    - false
+    - true
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - !!binary |
+    EgAAAAAAAAA=
+  davies_bouldin: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    DwAAAAAAAAA=
+  elbow: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    CgAAAAAAAAA=
+  silhouette: !!python/object/apply:numpy.core.multiarray.scalar
+  - *id001
+  - !!binary |
+    BgAAAAAAAAA=

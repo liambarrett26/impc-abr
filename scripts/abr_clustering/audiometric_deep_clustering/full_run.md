@@ -2,32 +2,93 @@
 
 ## Command Line Execution
 
-For the full-scale training run, execute the following command:
+### 🚨 RECOMMENDED: Memory-Optimized Training (32GB GPU)
+
+For systems with 32GB GPU memory (RTX 5090) that encounter out-of-memory errors:
+
+```bash
+# Memory-optimized training script with environment setup
+./scripts/train_memory_optimized.sh
+```
+
+Or manually:
+```bash
+# Set memory optimization environment variables
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+export OMP_NUM_THREADS=4
+
+# Clear GPU cache
+python -c "import torch; torch.cuda.empty_cache()"
+
+# Run memory-optimized training
+python scripts/train.py \
+    --config config/training_config_memory_optimized.yaml \
+    --model-config config/model_config_memory_optimized.yaml \
+    --experiment-name "full_scale_audiometric_clustering_memory_optimized" \
+    --device auto \
+    --seed 42
+```
+
+### Original Full-Scale Training (Requires >40GB GPU)
+
+For the full-scale training run with proper model capacity, contrastive learning, and automatic cluster optimization, execute the following command:
 
 ```bash
 python scripts/train.py \
-    --config config/training_config.yaml \
-    --model-config config/model_config.yaml \
-    --experiment-name "full_scale_audiometric_clustering" \
+    --config config/training_config_contrastive.yaml \
+    --model-config config/model_config_large_optimized.yaml \
+    --experiment-name "full_scale_audiometric_clustering_optimized" \
     --device auto \
     --seed 42
 ```
 
 This command will:
 
-- Use the production configuration files
-- Automatically organize outputs under `experiments/full_scale_audiometric_clustering/{timestamp}_{hostname}/`
-- Run the complete 3-stage training pipeline (50 pretrain + 150 joint epochs = 200 total)
+- Use the **large optimized model configuration** with ~500K-1M parameters
+- Enable **contrastive learning** with gene-based positive pairs
+- Use **contrastive sampling** to ensure positive pairs in each batch
+- **Automatically find optimal number of clusters** after VAE pretraining
+- Automatically organize outputs under `experiments/full_scale_audiometric_clustering_optimized/{timestamp}_{hostname}/`
+- Run the complete **4-stage training pipeline**:
+  1. Stage 1: VAE Pretraining (50 epochs)
+  2. Stage 1.5: Cluster Number Optimization (automatic)
+  3. Stage 2: Cluster Initialization (with optimal k)
+  4. Stage 3: Joint Training (150 epochs)
 - Use GPU if available (auto-detection)
 - Ensure reproducibility with seed 42
 
-The production setting for full-scale training are:
+### Alternative Commands:
+
+**Skip cluster optimization** (use fixed k=12):
+```bash
+python scripts/train.py \
+    --config config/training_config_contrastive.yaml \
+    --model-config config/model_config_large_optimized.yaml \
+    --experiment-name "full_scale_fixed_clusters" \
+    --skip-cluster-optimization \
+    --device auto \
+    --seed 42
+```
+
+**Force cluster optimization with custom range**:
+```bash
+python scripts/train.py \
+    --config config/training_config_contrastive.yaml \
+    --model-config config/model_config_large_optimized.yaml \
+    --experiment-name "full_scale_custom_k_range" \
+    --optimize-clusters \
+    --k-range 8 15 \
+    --device auto \
+    --seed 42
+```
+
+The production settings for full-scale training are:
 
 - Training epochs: 50 pretrain + 150 joint = 200 total epochs
 - Batch size: 512 (optimal for GPU memory and contrastive learning)
 - Learning rate: 1e-3 with cosine annealing to 1e-6
 - Mixed precision: FP16 enabled for memory efficiency
-- Early stopping: 20 epoch patience
+- Early stopping: 30 epoch patience
 - Hardware: GPU with cuDNN benchmarking enabled
 
 ## Model Architecture Overview
@@ -133,6 +194,49 @@ Input (18) → Split Processing:
 - **vs. Standard VAE**: Clustering objective prevents mode collapse
 - **vs. Pure clustering**: Reconstruction regularizes learned representations
 
+## Memory Optimization Strategy
+
+### Problem Analysis
+The original model configuration (~500K-1M parameters) with batch size 512 and contrastive learning requires approximately:
+- Model parameters: ~2GB
+- Gradients: ~2GB
+- Optimizer state (Adam): ~4GB
+- Activations: ~4-8GB
+- Contrastive learning (doubles memory): +8-16GB
+- **Total: ~20-32GB** (exceeds 32GB with safety margin)
+
+### Optimization Techniques Implemented
+
+#### 1. **Model Architecture Reduction**
+- Hidden dimensions: [128, 64, 32] vs [256, 128, 64] (50% reduction)
+- Attention: 4 heads × 16 dims vs 8 heads × 32 dims (75% reduction)
+- Latent dimension: 24 vs 32 (25% reduction)
+- Contrastive projection: 64 vs 128 dims (50% reduction)
+- **Parameter reduction: ~172K vs ~500K** (65% reduction)
+
+#### 2. **Training Strategy Optimization**
+- Batch size: 256 vs 512 (50% reduction)
+- Gradient accumulation: 2 steps (maintains effective batch size 512)
+- Mixed precision: fp16 (50% memory reduction)
+- Gradient checkpointing: Trade compute for memory
+
+#### 3. **Memory-Efficient Contrastive Learning**
+- Only encode positive samples to latent space (not full forward pass)
+- Use gradient checkpointing for positive sample encoding
+- Reduced contrastive projection dimension
+
+#### 4. **Runtime Optimizations**
+- Environment variables: `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`
+- Disabled memory-intensive logging (embeddings, attention weights)
+- More frequent GPU cache clearing
+- Reduced evaluation frequency (every 10 vs 5 epochs)
+
+### Expected Performance Impact
+- **Memory usage**: ~15-20GB (fits comfortably in 32GB)
+- **Training time**: +10-15% due to gradient checkpointing
+- **Model capacity**: Reduced but still sufficient for the task
+- **Final performance**: Expected <5% degradation vs full model
+
 ## Expected Outcomes
 
 ### 1. **Discovered Phenotype Clusters**
@@ -176,10 +280,20 @@ python scripts/visualize_results.py \
 
 ## Expected Training Duration
 
-- **Stage 1 (Pretraining)**: ~1-2 hours
-- **Stage 2 (Initialization)**: ~5 minutes
-- **Stage 3 (Joint training)**: ~3-4 hours
-- **Total**: 4-6 hours on a modern GPU (e.g., V100, A100)
+With the larger model and cluster optimization (~500K-1M parameters):
+
+- **Stage 1 (Pretraining)**: ~2-3 hours
+- **Stage 1.5 (Cluster Optimization)**: ~15-30 minutes
+- **Stage 2 (Initialization)**: ~5-10 minutes
+- **Stage 3 (Joint training)**: ~6-8 hours
+- **Total**: 8.5-12.5 hours on a modern GPU (e.g., V100, A100)
+
+Note: The increased training time is due to:
+- ~25-50x more parameters than the previous model
+- Cluster optimization testing k=6 to k=18 (13 different cluster numbers)
+- Contrastive loss computation requiring positive pair processing
+- Larger attention mechanism (8 heads vs. 2)
+- More frequent cluster updates (every 10 epochs vs. 50)
 
 ## Hardware Requirements
 

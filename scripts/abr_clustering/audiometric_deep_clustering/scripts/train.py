@@ -106,6 +106,14 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument('--joint-only', action='store_true',
                        help='Run only joint training stage (requires pretrained model)')
     
+    # Cluster optimization
+    parser.add_argument('--optimize-clusters', action='store_true',
+                       help='Enable cluster number optimization (overrides config)')
+    parser.add_argument('--skip-cluster-optimization', action='store_true',
+                       help='Skip cluster optimization even if enabled in config')
+    parser.add_argument('--k-range', type=int, nargs=2, metavar=('MIN', 'MAX'),
+                       help='Range of cluster numbers to test (e.g., --k-range 6 18)')
+    
     # Validation and testing
     parser.add_argument('--validate', action='store_true',
                        help='Run validation after training')
@@ -273,7 +281,14 @@ def load_data(config: Dict[str, Any], device: torch.device) -> Dict[str, DataLoa
     data_module.setup(training_config['dataset']['data_path'])
     
     # Get individual dataloaders
-    train_dataloader = data_module.train_dataloader()
+    # Check if contrastive learning is enabled
+    use_contrastive = training_config['dataset'].get('use_contrastive', False)
+    use_contrastive_sampler = training_config['dataset'].get('use_contrastive_sampler', False)
+    
+    train_dataloader = data_module.train_dataloader(
+        use_contrastive=use_contrastive,
+        use_balanced_sampling=use_contrastive_sampler
+    )
     val_dataloader = data_module.val_dataloader()
     test_dataloader = data_module.test_dataloader()
     
@@ -475,6 +490,48 @@ def main():
             if args.pretrain_only:
                 logger.info("Pretraining completed. Exiting as requested.")
                 return
+        
+        # Stage 1.5: Cluster Number Optimization (if enabled)
+        if not args.pretrain_only:
+            cluster_opt_config = config['training'].get('training_stages', {}).get('cluster_optimization', {})
+            
+            # Apply CLI overrides
+            if args.optimize_clusters:
+                cluster_opt_config['enabled'] = True
+            elif args.skip_cluster_optimization:
+                cluster_opt_config['enabled'] = False
+            
+            if args.k_range:
+                cluster_opt_config['k_range'] = args.k_range
+            
+            if cluster_opt_config.get('enabled', False):
+                logger.info("Starting Stage 1.5: Cluster Number Optimization")
+                
+                from training.cluster_optimizer import ClusterOptimizer
+                optimizer = ClusterOptimizer(cluster_opt_config)
+                
+                # Find optimal number of clusters
+                optimal_k = optimizer.optimize(
+                    model=model,
+                    dataloader=dataloaders['train'],
+                    device=device,
+                    save_dir=output_dirs['base'] / 'cluster_optimization'
+                )
+                
+                # Update model configuration with optimal k
+                config['model']['clustering']['num_clusters'] = optimal_k
+                model.num_clusters = optimal_k
+                
+                # Reinitialize clustering layer with new k
+                from models.clustering_layer import ClusteringLayer
+                model.clustering_layer = ClusteringLayer(config['model']).to(device)
+                
+                logger.info(f"Cluster optimization completed. Using k={optimal_k}")
+                
+                # Save updated config for reference
+                import yaml
+                with open(output_dirs['config'] / 'optimized_model_config.yaml', 'w') as f:
+                    yaml.dump(config['model'], f, default_flow_style=False)
         
         # Stage 2: Cluster Initialization
         if not args.pretrain_only:
