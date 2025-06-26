@@ -92,17 +92,17 @@ def process_experimental_group(group_info, data_path, save_dir=None):
                 if save_dir:
                     # Find the model in the analyzer's cache
                     analysis_key = analysis['analysis_key']
-                    
+
                     # Create directories
                     model_dir = Path(save_dir) / "models" / gene
                     visuals_dir = Path(save_dir) / "visuals" / gene
                     model_dir.mkdir(parents=True, exist_ok=True)
                     visuals_dir.mkdir(parents=True, exist_ok=True)
-                    
+
                     # Sanitize allele name for filesystem
                     safe_allele = str(allele).replace('<', '').replace('>', '').replace('/', '_')
                     model_save_dir = model_dir / f"{safe_allele}_{zygosity}_{center}_{analysis_type}"
-                    
+
                     if analysis_key in analyzer.bayesian_models:
                         # DIRECT MODEL SAVING - Save immediately after creation
                         print(f"Saving model for {group_desc} ({analysis_type}) to {model_save_dir}")
@@ -110,21 +110,21 @@ def process_experimental_group(group_info, data_path, save_dir=None):
                             model_save_dir.mkdir(parents=True, exist_ok=True)
                             bayesian_model = analyzer.bayesian_models[analysis_key]
                             save_success = bayesian_model.save_model(model_save_dir)
-                            
+
                             if save_success:
                                 print(f"Successfully saved model for {group_desc} ({analysis_type})")
-                                
+
                                 # Also create visualization if significant (BF > 3)
                                 if analysis['bayes_factor'] > 3 and analysis_type == 'all':
                                     try:
                                         # Get control and mutant data
                                         control_data = analyzer.control_profiles[analysis_key]
                                         mutant_data = analyzer.mutant_profiles[analysis_key]
-                                        
+
                                         # Extract profiles
                                         control_profiles = analyzer.matcher.get_control_profiles(control_data, analyzer.freq_cols)
                                         group_info_for_extract = {'data': mutant_data}
-                                        
+
                                         if analysis_type in ['male', 'female']:
                                             mutant_profiles = analyzer.matcher.get_experimental_profiles(
                                                 group_info_for_extract, analyzer.freq_cols, analysis_type
@@ -133,18 +133,18 @@ def process_experimental_group(group_info, data_path, save_dir=None):
                                             mutant_profiles = analyzer.matcher.get_experimental_profiles(
                                                 group_info_for_extract, analyzer.freq_cols
                                             )
-                                        
+
                                         # Remove NaN values
                                         control_profiles = control_profiles[~np.any(np.isnan(control_profiles), axis=1)]
                                         mutant_profiles = mutant_profiles[~np.any(np.isnan(mutant_profiles), axis=1)]
-                                        
+
                                         # Create visualization
                                         fig = bayesian_model.plot_results(control_profiles, mutant_profiles, gene)
-                                        
+
                                         # Add group information to title
                                         fig.suptitle(f"{gene} - {allele} ({zygosity}) - {center} ({analysis_type})", fontsize=14)
                                         fig.tight_layout(rect=[0, 0, 1, 0.95])  # Make room for suptitle
-                                        
+
                                         # Save figure
                                         safe_filename = f"{gene}_{safe_allele}_{zygosity}_{center}_{analysis_type}_bayesian.png"
                                         fig.savefig(visuals_dir / safe_filename)
