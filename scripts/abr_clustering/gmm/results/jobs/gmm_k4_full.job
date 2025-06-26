@@ -1,0 +1,9 @@
+#!/bin/bash
+cd "/home/liamb/impc-abr/scripts/abr_clustering/gmm"
+python pipeline_parallel.py 4 full \
+    --shared-data-dir "shared_data" \
+    --output-dir "results" \
+    --n-bootstrap "100" \
+    --random-state "42" \
+    --log-level "INFO" \
+    

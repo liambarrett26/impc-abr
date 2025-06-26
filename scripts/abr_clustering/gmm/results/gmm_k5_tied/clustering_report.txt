@@ -1,0 +1,192 @@
+================================================================================
+AUDIOMETRIC PHENOTYPE CLUSTERING ANALYSIS REPORT
+================================================================================
+
+OVERVIEW
+----------------------------------------
+Total samples analyzed: 56326
+Number of clusters identified: 5
+Average assignment confidence: 0.946
+Silhouette score: 0.320
+
+CLUSTER CHARACTERISTICS
+----------------------------------------
+
+Cluster 0:
+  Size: 2504 samples (4.4%)
+  Pattern type: high_frequency_loss
+  Severity score: 0.389
+  Unique genes: 1317
+  Top genes: Agap1, Prkab1, Mkrn2
+  Mean profile: 6 kHz=40.7, 12 kHz=29.2, 18 kHz=28.7, 24 kHz=35.2, 30 kHz=80.6
+
+Cluster 1:
+  Size: 50764 samples (90.1%)
+  Pattern type: normal_flat
+  Severity score: 0.338
+  Unique genes: 6637
+  Top genes: Prkab1, Dbn1, Dnase1l2
+  Mean profile: 6 kHz=41.0, 12 kHz=31.5, 18 kHz=29.3, 24 kHz=37.4, 30 kHz=51.2
+
+Cluster 2:
+  Size: 1956 samples (3.5%)
+  Pattern type: moderate_flat
+  Severity score: 0.486
+  Unique genes: 1031
+  Top genes: Mettl5, Baiap2l2, Aak1
+  Mean profile: 6 kHz=56.6, 12 kHz=50.8, 18 kHz=56.3, 24 kHz=55.3, 30 kHz=69.0
+
+Cluster 3:
+  Size: 653 samples (1.2%)
+  Pattern type: high_frequency_loss
+  Severity score: 0.473
+  Unique genes: 375
+  Top genes: Tmprss2, Fam185a, Ptchd1
+  Mean profile: 6 kHz=39.1, 12 kHz=29.2, 18 kHz=33.6, 24 kHz=73.9, 30 kHz=83.6
+
+Cluster 4:
+  Size: 449 samples (0.8%)
+  Pattern type: severe_flat
+  Severity score: 0.759
+  Unique genes: 157
+  Top genes: Zfp719, Kcne1, Mir96
+  Mean profile: 6 kHz=84.7, 12 kHz=87.5, 18 kHz=90.2, 24 kHz=90.0, 30 kHz=92.9
+
+
+GENE-CLUSTER ASSOCIATIONS
+----------------------------------------
+Top gene associations (by sample size and significance):
+
+Prkab1:
+  Sample size: 108
+  Dominant cluster: 1 (91.7%)
+  Assignment confidence: 0.945
+  Enrichment p-value: 5.91e-01
+
+Ap4e1:
+  Sample size: 70
+  Dominant cluster: 1 (85.7%)
+  Assignment confidence: 0.927
+  Enrichment p-value: 2.16e-01
+
+Dbn1:
+  Sample size: 66
+  Dominant cluster: 1 (95.5%)
+  Assignment confidence: 0.959
+  Enrichment p-value: 1.47e-01
+
+Dnase1l2:
+  Sample size: 64
+  Dominant cluster: 1 (96.9%)
+  Assignment confidence: 0.966
+  Enrichment p-value: 7.03e-02
+
+Rnf10:
+  Sample size: 64
+  Dominant cluster: 1 (85.9%)
+  Assignment confidence: 0.935
+  Enrichment p-value: 2.61e-01
+
+Nxn:
+  Sample size: 57
+  Dominant cluster: 1 (89.5%)
+  Assignment confidence: 0.951
+  Enrichment p-value: 8.69e-01
+
+Parp1:
+  Sample size: 32
+  Dominant cluster: 1 (90.6%)
+  Assignment confidence: 0.906
+  Enrichment p-value: 9.25e-01
+
+Mettl5:
+  Sample size: 28
+  Dominant cluster: 1 (57.1%)
+  Assignment confidence: 0.831
+  Enrichment p-value: 4.91e-09
+
+Trex1:
+  Sample size: 26
+  Dominant cluster: 1 (96.2%)
+  Assignment confidence: 0.917
+  Enrichment p-value: 3.03e-01
+
+Sox14:
+  Sample size: 25
+  Dominant cluster: 1 (80.0%)
+  Assignment confidence: 0.866
+  Enrichment p-value: 8.97e-02
+
+Prdm8:
+  Sample size: 25
+  Dominant cluster: 1 (80.0%)
+  Assignment confidence: 0.901
+  Enrichment p-value: 8.97e-02
+
+Fam83h:
+  Sample size: 25
+  Dominant cluster: 1 (96.0%)
+  Assignment confidence: 0.933
+  Enrichment p-value: 3.25e-01
+
+Dpp9:
+  Sample size: 24
+  Dominant cluster: 1 (79.2%)
+  Assignment confidence: 0.951
+  Enrichment p-value: 7.19e-02
+
+Ube3a:
+  Sample size: 24
+  Dominant cluster: 1 (91.7%)
+  Assignment confidence: 0.970
+  Enrichment p-value: 8.00e-01
+
+Carmil2:
+  Sample size: 24
+  Dominant cluster: 1 (91.7%)
+  Assignment confidence: 0.977
+  Enrichment p-value: 8.00e-01
+
+Fbxw18:
+  Sample size: 23
+  Dominant cluster: 1 (82.6%)
+  Assignment confidence: 0.842
+  Enrichment p-value: 2.27e-01
+
+Amelx:
+  Sample size: 23
+  Dominant cluster: 1 (82.6%)
+  Assignment confidence: 0.901
+  Enrichment p-value: 2.27e-01
+
+Slc20a2:
+  Sample size: 23
+  Dominant cluster: 1 (87.0%)
+  Assignment confidence: 0.894
+  Enrichment p-value: 6.10e-01
+
+Cer1:
+  Sample size: 23
+  Dominant cluster: 1 (91.3%)
+  Assignment confidence: 0.957
+  Enrichment p-value: 8.50e-01
+
+Thra:
+  Sample size: 22
+  Dominant cluster: 1 (68.2%)
+  Assignment confidence: 0.909
+  Enrichment p-value: 5.60e-04
+
+
+INTERPRETATION AND RECOMMENDATIONS
+----------------------------------------
+Clusters of potential biological interest:
+  - Cluster 0: high_frequency_loss pattern with 2504 samples
+  - Cluster 2: moderate_flat pattern with 1956 samples
+  - Cluster 3: high_frequency_loss pattern with 653 samples
+  - Cluster 4: severe_flat pattern with 449 samples
+
+Total unique audiometric patterns identified: 4
+Quality assessment: High confidence clustering (>0.8 average confidence)
+
+================================================================================

@@ -1,0 +1,58 @@
+================================================================================
+GMM MODEL SELECTION SUMMARY REPORT
+================================================================================
+
+Generated: 2025-06-25 16:07:25
+Total models evaluated: 15
+
+SELECTED BEST MODEL
+----------------------------------------
+Model: gmm_k11_full
+Components: 11
+Covariance: full
+Combined score: 0.613
+
+Metrics:
+  BIC: -801001.91
+  AIC: -803057.86
+  Silhouette: -0.059
+  Stability: 0.156
+  Training time: 104953.5s
+
+Normalized scores:
+  bic: 1.000
+  aic: 1.000
+  silhouette: 0.000
+  stability: 0.063
+
+ALL MODELS RANKING
+----------------------------------------
+Rank  Model               BIC         Silhouette  Stability   
+--------------------------------------------------------------
+1     gmm_k11_full        -801001.91  -0.059      0.156        *
+2     gmm_k9_full         -770086.15  -0.018      0.498       
+3     gmm_k12_full        -762352.68  0.059       0.101       
+4     gmm_k10_full        -761980.13  0.059       0.868       
+5     gmm_k8_full         -761744.66  0.040       0.378       
+6     gmm_k7_full         -760359.44  0.039       0.317       
+7     gmm_k6_full         -759020.04  0.100       0.940       
+8     gmm_k5_full         -757849.06  0.119       0.963       
+9     gmm_k4_full         -755316.41  0.129       0.776       
+10    gmm_k3_full         -753272.74  0.132       0.960       
+11    gmm_k7_tied         -740060.12  0.255       0.644       
+12    gmm_k6_tied         -735837.92  0.254       0.885       
+13    gmm_k5_tied         -735149.41  0.320       0.487       
+14    gmm_k4_tied         -732650.78  0.436       0.981       
+15    gmm_k3_tied         -727558.11  0.498       0.890       
+
+* = Selected best model
+
+SUMMARY STATISTICS
+----------------------------------------
+BIC range: -801001.91 - -727558.11
+Silhouette range: -0.059 - 0.498
+Stability range: 0.101 - 0.981
+Total training time: 946760.1s
+Average training time: 63117.3s
+
+================================================================================
