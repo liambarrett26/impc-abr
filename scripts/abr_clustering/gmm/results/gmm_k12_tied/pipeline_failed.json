@@ -1,0 +1,6 @@
+{
+  "success": false,
+  "error": "shape mismatch: objects cannot be broadcast to a single shape.  Mismatch is between arg 0 with shape (10,) and arg 1 with shape (12,).",
+  "model_name": "gmm_k12_tied",
+  "timestamp": "2025-06-25T08:15:38.848230"
+}

@@ -1,0 +1,11 @@
+{
+  "n_components": 10,
+  "covariance_type": "full",
+  "bic": -761980.1322567014,
+  "aic": -763848.3647642243,
+  "silhouette": 0.059264643045872256,
+  "log_likelihood": 6.784312437988,
+  "stability_score": 0.86838469199945,
+  "training_time": 116698.58967,
+  "timestamp": "2025-06-25T10:59:22.535759"
+}

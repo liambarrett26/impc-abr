@@ -1,0 +1,31 @@
+{
+  "timestamp": "2025-06-23T11:21:45.861995",
+  "data_path": "/home/liamb/impc-abr/data/processed/abr_full_data.csv",
+  "n_samples": 56326,
+  "n_features": 5,
+  "n_experimental_groups": 6727,
+  "min_mutants": 3,
+  "min_controls": 20,
+  "preprocessing_config": {
+    "abr_columns": [
+      "6kHz-evoked ABR Threshold",
+      "12kHz-evoked ABR Threshold",
+      "18kHz-evoked ABR Threshold",
+      "24kHz-evoked ABR Threshold",
+      "30kHz-evoked ABR Threshold"
+    ],
+    "grouping_columns": [
+      "phenotyping_center",
+      "pipeline_name",
+      "metadata_Equipment manufacturer",
+      "metadata_Equipment model"
+    ],
+    "target_range": [
+      0.0,
+      1.0
+    ],
+    "center_threshold": 5
+  },
+  "technical_groups": 15,
+  "processing_time": 52.329055
+}
