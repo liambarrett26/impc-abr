@@ -1,0 +1,443 @@
+gene_symbol,allele_symbol,zygosity,center,total_mice,mice_with_complete_data,control_count,control_status,6kHz-evoked ABR Threshold_count,12kHz-evoked ABR Threshold_count,18kHz-evoked ABR Threshold_count,24kHz-evoked ABR Threshold_count,30kHz-evoked ABR Threshold_count,6kHz-evoked ABR Threshold_mean,12kHz-evoked ABR Threshold_mean,18kHz-evoked ABR Threshold_mean,24kHz-evoked ABR Threshold_mean,30kHz-evoked ABR Threshold_mean
+0610010K14Rik,0610010K14Rik<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,40.0,37.5,33.75,43.75,61.25
+1700020N01Rik,1700020N01Rik<em1(IMPC)J>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,50.714285714285715,45.0,34.285714285714285,47.142857142857146,62.857142857142854
+Aanat,Aanat<em1(IMPC)Krb>,homozygote,KMPC,4,2,420,OK,4,4,4,4,2,22.5,26.25,31.25,50.0,52.5
+Abca14,Abca14<tm1.1(NCOM)Mfgc>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,31.25,20.0,22.5,28.75,45.0
+Abca17,Abca17<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,4,2,346,OK,3,3,3,3,3,60.0,48.333333333333336,48.333333333333336,43.333333333333336,45.0
+Abhd11,Abhd11<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,31.25,16.25,18.75,31.25,41.25
+Abhd14a,Abhd14a<tm2a(EUCOMM)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,30.0,17.5,22.5,25.0,37.5
+Abhd17c,Abhd17c<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,21.25,25.0,33.75,50.0
+Abi2,Abi2<tm1b(EUCOMM)Wtsi>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,37.5,18.75,21.25,35.0,51.25
+Abo,Abo<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,51.25,36.25,31.25,46.25,70.0
+Acot1,Acot1<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,35.0,17.5,22.5,26.25,38.75
+Actr3b,Actr3b<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,43.125,43.125,32.5,43.125,61.25
+Adamts16,Adamts16<em1(IMPC)J>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,53.57142857142857,50.714285714285715,39.285714285714285,49.285714285714285,66.42857142857143
+Adamts16,Adamts16<em1(IMPC)H>,homozygote,MRC Harwell,4,1,346,OK,4,4,4,3,1,53.75,46.25,38.75,51.666666666666664,45.0
+Adcy1,Adcy1<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,4,2,346,OK,3,3,3,3,2,56.666666666666664,46.666666666666664,50.0,70.0,100.0
+Adgrf1,Adgrf1<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,17,17,3446,OK,17,17,17,17,17,34.411764705882355,32.64705882352941,32.64705882352941,36.76470588235294,50.588235294117645
+Adh4,Adh4<em2(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,55.0,51.25,48.75,53.75,77.5
+Adipoq,Adipoq<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,42.5,25.0,32.5,42.5,55.0
+Agap1,Agap1<tm1a(EUCOMM)Wtsi>,homozygote,WTSI,9,9,906,OK,9,9,9,9,9,45.0,21.11111111111111,27.77777777777778,43.888888888888886,82.22222222222223
+Ahsa2,Ahsa2<tm1b(EUCOMM)Wtsi>,homozygote,ICS,4,4,1512,OK,4,4,4,4,4,31.65,20.65,18.2,34.35,40.15
+Aicda,Aicda<tm1b(EUCOMM)Hmgu>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,31.25,15.0,20.0,25.0,38.75
+Akap10,Akap10<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,28.75,26.25,35.0,56.25
+Akap13,Akap13<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,40.0,20.0,22.5,31.25,67.5
+Akr1c14,Akr1c14<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,45.0,20.0,22.5,32.5,53.75
+Aldh1a3,Aldh1a3<tm1b(KOMP)Wtsi>,heterozygote,JAX,8,8,2541,OK,8,8,8,8,8,53.125,56.875,41.875,48.125,59.375
+Aldh1b1,Aldh1b1<tm2a(EUCOMM)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,30.0,18.75,18.75,31.25,41.25
+Aldh1b1,Aldh1b1<tm2a(EUCOMM)Wtsi>,heterozygote,WTSI,3,3,906,OK,3,3,3,3,3,30.0,15.0,16.666666666666668,30.0,36.666666666666664
+Ankrd28,Ankrd28<em1(IMPC)J>,homozygote,JAX,5,5,2541,OK,5,5,5,5,5,48.0,44.0,39.0,45.0,65.0
+Ankrd65,Ankrd65<tm1(KOMP)Wtsi>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,60.0,55.0,56.25,57.5,73.75
+Ap3s2,Ap3s2<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,50.0,41.25,33.75,37.5,41.25
+Apbb3,Apbb3<em1(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,47.5,37.5,38.75,43.75,85.0
+Aprt,Aprt<em1(IMPC)Hmgu>,heterozygote,HMGU,8,8,1909,OK,8,8,8,8,8,36.875,25.625,28.75,40.625,50.625
+Aprt,Aprt<em1(IMPC)Hmgu>,homozygote,HMGU,3,1,1909,OK,3,3,3,3,1,45.0,30.0,33.333333333333336,45.0,65.0
+Arfip1,Arfip1<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,33.75,17.5,18.75,30.0,48.75
+Arhgap26,Arhgap26<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,8,8,1909,OK,8,8,8,8,8,50.0,32.5,37.5,46.25,61.25
+Arhgef12,Arhgef12<tm1b(KOMP)Wtsi>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,18.75,28.75,32.5,45.0
+Arl15,Arl15<em1(IMPC)H>,heterozygote,MRC Harwell,3,2,346,OK,3,3,3,3,2,45.0,41.666666666666664,36.666666666666664,36.666666666666664,60.0
+Asb2,Asb2<tm2b(KOMP)Wtsi>,heterozygote,KMPC,9,1,420,OK,9,9,8,6,1,36.666666666666664,27.77777777777778,30.625,44.166666666666664,45.0
+Asic4,Asic4<tm1b(KOMP)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,42.5,21.25,31.25,31.25,43.75
+Asic4,Asic4<em2(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,35.0,18.75,23.75,33.75,48.75
+Atf3,Atf3<tm2b(EUCOMM)Wtsi>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,65.0,36.25,35.0,43.75,47.5
+Atp11b,Atp11b<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,21.25,26.25,35.0,48.75
+Atp13a5,Atp13a5<em1(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,48.75,62.5,45.0,53.75,58.75
+Atp5mc2,Atp5mc2<tm2b(EUCOMM)Hmgu>,heterozygote,HMGU,8,6,960,OK,8,8,8,8,6,55.0,35.625,37.5,45.625,65.0
+Atp5mc2,Atp5mc2<tm2b(EUCOMM)Hmgu>,homozygote,HMGU,3,1,960,OK,3,3,3,2,1,68.33333333333333,40.0,45.0,52.5,80.0
+Atp5po,Atp5po<tm1.1(KOMP)Vlcg>,heterozygote,JAX,8,8,2541,OK,8,8,8,8,8,50.625,47.5,33.75,40.0,52.5
+B4galt5,B4galt5<em1(IMPC)Tcp>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,21.25,27.5,32.5,45.0
+B4gat1,B4gat1<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,3,3,574,OK,3,3,3,3,3,45.0,30.0,30.0,38.333333333333336,55.0
+Bcl2l11,Bcl2l11<em1(IMPC)H>,homozygote,MRC Harwell,4,4,70,OK,4,4,4,4,4,47.5,42.5,31.25,30.0,33.75
+Birc3,Birc3<em1(IMPC)Kmpc>,homozygote,KMPC,4,4,420,OK,4,4,4,4,4,32.5,26.25,31.25,33.75,66.25
+Bloc1s5,Bloc1s5<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,35.0,18.75,27.5,38.75,48.75
+Bloc1s5,Bloc1s5<em1(IMPC)Tcp>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,18.75,27.5,37.5,52.5
+Bnip1,Bnip1<tm2b(KOMP)Wtsi>,heterozygote,MARC,4,4,147,OK,4,4,4,4,4,55.0,57.5,52.5,65.0,77.5
+Bpifa2,Bpifa2<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,32.5,17.5,20.0,32.5,52.5
+Bri3bp,Bri3bp<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,21.25,23.75,40.0,56.25
+Brix1,Brix1<tm1b(KOMP)Mbp>,heterozygote,MARC,4,4,147,OK,4,4,4,4,4,45.0,56.25,42.5,55.0,52.5
+Bst2,Bst2<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,32.5,21.25,21.25,30.0,48.75
+Btc,Btc<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,33.75,15.0,21.25,30.0,48.75
+Btrc,Btrc<tm1b(KOMP)Wtsi>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,36.25,31.25,26.25,35.0,56.25
+C1qb,C1qb<tm1.1(KOMP)Vlcg>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,54.375,51.25,43.125,51.25,64.375
+C2cd4c,C2cd4c<em1(IMPC)Hmgu>,homozygote,HMGU,8,8,1909,OK,8,8,8,8,8,41.25,29.375,28.75,43.75,56.875
+Cacna2d2,Cacna2d2<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,41.25,21.25,31.25,40.0,63.75
+Cant1,Cant1<tm1b(EUCOMM)Hmgu>,heterozygote,HMGU,8,8,960,OK,8,8,8,8,8,64.375,42.5,41.875,52.5,68.75
+Cant1,Cant1<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,3,1,960,OK,2,2,2,1,1,42.5,32.5,35.0,45.0,55.0
+Cav2,Cav2<em1(IMPC)Kmpc>,homozygote,KMPC,5,2,420,OK,5,5,5,5,2,25.0,25.0,26.0,34.0,65.0
+Cavin3,Cavin3<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,37.5,21.25,25.0,30.0,46.25
+Ccdc40,Ccdc40<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,44.375,41.25,34.375,45.0,63.75
+Ccdc85a,Ccdc85a<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,46.875,43.75,29.375,43.125,57.5
+Cd79a,Cd79a<em1(IMPC)H>,homozygote,MRC Harwell,3,3,70,OK,3,3,3,3,3,50.0,43.333333333333336,33.333333333333336,35.0,35.0
+Cdc7,Cdc7<tm1.1(KOMP)Vlcg>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,18.75,22.5,31.25,48.75
+Cdh26,Cdh26<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,47.5,23.75,28.75,43.75,63.75
+Cenph,Cenph<tm1b(EUCOMM)Hmgu>,heterozygote,HMGU,12,11,960,OK,12,12,12,12,11,39.583333333333336,27.083333333333332,34.166666666666664,44.166666666666664,57.72727272727273
+Cep162,Cep162<em1(IMPC)Kmpc>,homozygote,KMPC,4,2,420,OK,4,4,4,4,2,31.25,32.5,28.75,33.75,60.0
+Ces1d,Ces1d<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,42.5,27.5,28.75,40.0,70.0
+Ces2c,Ces2c<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,50.0,41.25,40.0,48.75,66.25
+Cfap45,Cfap45<em1(IMPC)Mhzh>,heterozygote,MARC,6,6,147,OK,6,6,6,6,6,48.333333333333336,45.0,52.5,65.83333333333333,73.33333333333333
+Cfap45,Cfap45<em1(IMPC)Mhzh>,homozygote,MARC,3,3,147,OK,3,3,3,3,3,48.333333333333336,53.333333333333336,38.333333333333336,46.666666666666664,55.0
+Cfap68,Cfap68<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,51.25,27.5,31.25,37.5,52.5
+Chchd10,Chchd10<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,41.25,26.25,28.75,35.0,47.5
+Chd8,Chd8<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,31.25,17.5,23.75,32.5,60.0
+Chek2,Chek2<tm1b(EUCOMM)Hmgu>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,48.75,46.875,36.25,43.125,60.0
+Ciao2a,Ciao2a<tm2a(EUCOMM)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,33.75,21.25,20.0,33.75,45.0
+Cib3,Cib3<em1(IMPC)H>,homozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,35.0,30.0,32.5,33.75,37.5
+Cimap1d,Cimap1d<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,76.25,80.0,68.75,71.25,77.5
+Cimap1d,Cimap1d<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,66.25,60.0,57.5,78.75,100.0
+Clca2,Clca2<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,38.75,22.5,22.5,30.0,62.5
+Clcn6,Clcn6<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,35.0,17.5,22.5,31.25,55.0
+Cldn3,Cldn3<em1(IMPC)H>,homozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,43.75,31.25,28.75,35.0,51.25
+Clec2i,Clec2i<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,2,346,OK,4,4,4,2,2,58.75,52.5,51.25,55.0,45.0
+Clec5a,Clec5a<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,35.0,18.75,23.75,37.5,73.75
+Cmklr2,Cmklr2<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,41.25,27.5,27.5,27.5,45.0
+Cmtm3,Cmtm3<em1(IMPC)H>,homozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,41.25,38.75,32.5,30.0,32.5
+Coq2,Coq2<tm1b(EUCOMM)Hmgu>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,48.75,27.5,33.75,41.25,43.75
+Cox20,Cox20<em1(IMPC)Tcp>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,18.75,22.5,30.0,42.5
+Cpa1,Cpa1<em1(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,57.5,42.5,45.0,53.75,76.25
+Cpe,Cpe<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,4,1,960,OK,2,2,2,2,1,50.0,42.5,47.5,62.5,60.0
+Cped1,Cped1<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,48.125,41.25,30.0,49.375,56.25
+Crtac1,Crtac1<em1(IMPC)H>,homozygote,MRC Harwell,4,3,346,OK,4,4,4,4,3,41.25,40.0,42.5,57.5,81.66666666666667
+Csf2rb,Csf2rb<tm2b(EUCOMM)Hmgu>,heterozygote,ICS,16,16,1512,OK,16,16,16,16,16,39.6875,18.75,20.3125,28.4375,40.3125
+Csf3r,Csf3r<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,46.25,42.5,33.75,43.75,77.5
+Cstdc3,Cstdc3<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,18.75,25.0,33.75,48.75
+Ctla2b,Ctla2b<tm1.1(NCOM)Mfgc>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,17.5,20.0,26.25,35.0
+Cul5,Cul5<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,51.25,36.25,37.5,51.25,60.0
+Cyb5b,Cyb5b<tm1b(EUCOMM)Hmgu>,heterozygote,KMPC,4,2,420,OK,4,4,4,4,2,37.5,27.5,25.0,38.75,70.0
+Cysltr2,Cysltr2<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,30.0,30.0,37.5,46.25
+Dapl1,Dapl1<em1(IMPC)Kmpc>,homozygote,KMPC,4,1,420,OK,4,4,4,4,1,30.0,27.5,28.75,38.75,60.0
+Defb43,Defb43<tm1b(KOMP)Wtsi>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,67.5,56.25,55.0,88.75,95.0
+Dgke,Dgke<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,35.0,20.0,23.75,27.5,41.25
+Dhx9,Dhx9<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,8,0,1909,OK,0,0,0,0,0,,,,,
+Dnajc21,Dnajc21<tm1.1(NCOM)Mfgc>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,35.0,21.25,25.0,28.75,41.25
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,ICS,21,21,1512,OK,21,21,21,21,21,47.61904761904762,20.0,21.428571428571427,30.0,38.095238095238095
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,50.0,26.25,25.0,41.25,57.5
+Dnase1l2,Dnase1l2<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,47.5,45.0,34.375,43.125,57.5
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,43.75,30.0,28.75,35.0,42.5
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,JAX,8,7,2541,OK,8,8,8,8,7,56.25,53.75,40.0,57.5,65.0
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,HMGU,8,5,960,OK,8,8,8,7,5,48.125,27.5,38.125,43.57142857142857,51.0
+Dnase1l2,Dnase1l2<tm1(KOMP)Wtsi>,homozygote,RBRC,4,4,296,OK,4,4,4,4,4,10.7,3.2,8.0,22.05,28.55
+Dnase1l2,Dnase1l2<em2(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,42.5,30.0,33.75,45.0,53.75
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,38.75,13.75,22.5,30.0,43.75
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,35.0,20.0,23.75,30.0,41.25
+Dpm3,Dpm3<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,47.5,31.25,30.0,42.5,55.0
+Dsc3,Dsc3<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,3,3,346,OK,3,3,3,3,3,55.0,30.0,40.0,40.0,46.666666666666664
+Dusp13b,Dusp13b<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,61.25,28.75,32.5,40.0,50.0
+Dync2i1,Dync2i1<em1(IMPC)Tcp>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,32.5,18.75,26.25,30.0,48.75
+Edc3,Edc3<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,40.0,22.5,30.0,36.25,50.0
+Edc3,Edc3<em1(IMPC)Tcp>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,20.0,23.75,31.25,47.5
+Efcab11,Efcab11<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,43.75,25.0,28.75,36.25,55.0
+Egfl6,Egfl6<tm1a(EUCOMM)Hmgu>,homozygote,KMPC,4,1,420,OK,4,4,4,4,1,28.75,30.0,26.25,26.25,85.0
+Eif2b4,Eif2b4<tm1b(KOMP)Wtsi>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,40.0,25.0,25.0,38.75,47.5
+Emd,Emd<em1(IMPC)Kmpc>,homozygote,KMPC,3,1,420,OK,3,3,3,3,1,31.666666666666668,26.666666666666668,28.333333333333332,46.666666666666664,30.0
+Emd,Emd<em1(IMPC)Kmpc>,hemizygote,KMPC,3,2,420,OK,3,3,3,3,2,25.0,20.0,28.333333333333332,40.0,57.5
+Emd,Emd<em1(IMPC)Kmpc>,homozygote,KMPC,3,1,420,OK,3,3,3,3,1,31.666666666666668,26.666666666666668,28.333333333333332,46.666666666666664,30.0
+Emd,Emd<em1(IMPC)Kmpc>,hemizygote,KMPC,3,2,420,OK,3,3,3,3,2,25.0,20.0,28.333333333333332,40.0,57.5
+Eng,Eng<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,45.0,27.5,35.0,47.5,55.0
+Entpd1,Entpd1<tm1b(EUCOMM)Wtsi>,homozygote,HMGU,4,2,960,OK,4,4,4,4,2,35.0,21.25,30.0,47.5,55.0
+Entpd1,Entpd1<tm1b(EUCOMM)Wtsi>,heterozygote,HMGU,8,2,960,OK,8,8,8,8,2,35.0,21.25,28.125,43.75,62.5
+Entpd1,Entpd1<tm1b(EUCOMM)Wtsi>,homozygote,HMGU,4,2,960,OK,4,4,4,4,2,35.0,21.25,30.0,47.5,55.0
+Entpd1,Entpd1<tm1b(EUCOMM)Wtsi>,heterozygote,HMGU,8,2,960,OK,8,8,8,8,2,35.0,21.25,28.125,43.75,62.5
+Eomes,Eomes<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,52.5,27.5,37.5,48.75,46.25
+Epb41l4a,Epb41l4a<tm1b(KOMP)Mbp>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,43.57142857142857,40.0,29.285714285714285,40.0,47.857142857142854
+Ercc6l2,Ercc6l2<em1(IMPC)Hmgu>,homozygote,HMGU,3,2,1909,OK,3,3,3,3,2,38.333333333333336,25.0,28.333333333333332,40.0,60.0
+Erich3,Erich3<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,33.75,22.5,25.0,30.0,42.5
+Ermn,Ermn<em1(IMPC)H>,homozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,38.75,31.25,36.25,31.25,45.0
+Esr2,Esr2<em1(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,58.75,43.75,48.75,57.5,73.75
+Fabp1,Fabp1<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,38.75,38.75,38.75,38.75,45.0
+Fadd,Fadd<tm1e.1(KOMP)Wtsi>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,31.25,18.75,22.5,30.0,43.75
+Fads1,Fads1<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,46.25,30.0,31.25,37.5,58.75
+Fam120a,Fam120a<em1(IMPC)J>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,58.57142857142857,51.42857142857143,49.285714285714285,57.142857142857146,67.85714285714286
+Fam124b,Fam124b<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,45.0,45.625,40.625,45.0,60.625
+Fam222a,Fam222a<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,47.5,45.625,33.75,48.125,55.0
+Fancl,Fancl<tm1b(EUCOMM)Hmgu>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,47.5,42.5,41.25,51.25,80.0
+Fbxl20,Fbxl20<em2(IMPC)Marc>,heterozygote,MARC,4,4,147,OK,4,4,4,4,4,53.75,38.75,45.0,47.5,62.5
+Fbxl20,Fbxl20<tm1b(KOMP)Wtsi>,heterozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,48.75,46.25,46.25,43.75,43.75
+Fbxl20,Fbxl20<em2(IMPC)Marc>,heterozygote,MARC,4,4,147,OK,4,4,4,4,4,53.75,38.75,45.0,47.5,62.5
+Fbxl20,Fbxl20<tm1b(KOMP)Wtsi>,heterozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,48.75,46.25,46.25,43.75,43.75
+Fbxl5,Fbxl5<em1(IMPC)Marc>,heterozygote,MARC,4,4,147,OK,4,4,4,4,4,56.25,53.75,51.25,66.25,80.0
+Fbxo15,Fbxo15<em1(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,61.25,58.75,51.25,71.25,77.5
+Fbxo36,Fbxo36<tm1b(KOMP)Wtsi>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,50.0,43.75,45.0,73.75,90.0
+Fbxo5,Fbxo5<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,37.5,27.5,23.75,35.0,46.25
+Fbxw13,Fbxw13<em2(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,55.0,53.75,45.0,56.25,73.75
+Fgf9,Fgf9<tm1b(KOMP)Wtsi>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,53.75,33.75,40.0,45.0,41.25
+Fgf9,Fgf9<tm1b(KOMP)Wtsi>,heterozygote,JAX,7,7,2541,OK,7,7,7,7,7,52.142857142857146,49.285714285714285,43.57142857142857,46.42857142857143,56.42857142857143
+Fndc3b,Fndc3b<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,16.25,18.75,35.0,55.0
+Foxn1,Foxn1<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,3,3,574,OK,3,3,3,3,3,31.666666666666668,18.333333333333332,21.666666666666668,31.666666666666668,40.0
+Fstl1,Fstl1<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,32.5,17.5,27.5,21.25,38.75
+Fuz,Fuz<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,45.0,25.0,31.25,38.75,51.25
+Fzd4,Fzd4<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,48.75,32.5,30.0,42.5,48.75
+G2e3,G2e3<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,31.25,17.5,25.0,37.5,52.5
+Gabpa,Gabpa<em2(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,41.25,30.0,32.5,38.75,56.25
+Galt,Galt<em1(IMPC)H>,homozygote,MRC Harwell,4,4,70,OK,4,4,4,4,4,53.75,43.75,50.0,40.0,45.0
+Gbgt1,Gbgt1<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,42.5,23.75,26.25,32.5,58.75
+Gdf2,Gdf2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,40.0,23.75,25.0,36.25,43.75
+Gkn2,Gkn2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,37.5,18.75,23.75,37.5,65.0
+Gnl1,Gnl1<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,35.0,23.75,27.5,37.5,50.0
+Gnpda2,Gnpda2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,41.25,17.5,25.0,40.0,50.0
+Golm2,Golm2<tm2b(EUCOMM)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,35.0,20.0,22.5,23.75,30.0
+Gpr137,Gpr137<em1(IMPC)J>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,56.42857142857143,53.57142857142857,38.57142857142857,47.142857142857146,61.42857142857143
+Gpr33,Gpr33<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,46.25,37.5,43.75,36.25,45.0
+Gpsm2,Gpsm2<tm1b(EUCOMM)Wtsi>,heterozygote,HMGU,8,5,960,OK,7,8,8,8,5,50.714285714285715,36.875,41.25,50.0,69.0
+Gpsm2,Gpsm2<tm1b(EUCOMM)Wtsi>,homozygote,HMGU,3,0,960,OK,0,0,0,0,0,,,,,
+Gpx5,Gpx5<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,42.5,23.75,27.5,42.5,71.25
+Gramd2a,Gramd2a<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,32.5,21.25,28.75,42.5,50.0
+Gramd2b,Gramd2b<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,52.5,48.75,33.125,47.5,61.25
+Grik5,Grik5<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,26.25,26.25,31.25,55.0
+Grp,Grp<em1(IMPC)H>,homozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,55.0,46.25,43.75,42.5,58.75
+Gsk3a,Gsk3a<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,8,1,960,OK,8,8,8,6,1,54.375,33.75,39.375,48.333333333333336,65.0
+Hacl1,Hacl1<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,46.25,30.0,28.75,41.25,51.25
+Hacl1,Hacl1<tm1a(KOMP)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,28.75,12.5,16.25,27.5,46.25
+Hdac2,Hdac2<em1(IMPC)Kmpc>,heterozygote,KMPC,4,2,420,OK,4,4,4,4,2,31.25,30.0,31.25,37.5,50.0
+Hdac7,Hdac7<tm1b(EUCOMM)Hmgu>,heterozygote,KMPC,4,1,420,OK,4,4,4,4,1,30.0,30.0,28.75,50.0,85.0
+Hdgfl1,Hdgfl1<em1(IMPC)Tcp>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,35.0,20.0,27.5,36.25,50.0
+Hip1,Hip1<em1(IMPC)Hmgu>,homozygote,HMGU,4,2,1909,OK,4,4,4,2,2,58.75,43.75,47.5,40.0,57.5
+Hipk3,Hipk3<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,8,0,960,OK,7,7,1,0,0,56.42857142857143,50.714285714285715,70.0,,
+Hk3,Hk3<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,20.0,28.75,37.5,50.0
+Hmx2,Hmx2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,30.0,12.5,16.25,27.5,45.0
+Hnrnpd,Hnrnpd<tm1b(KOMP)Wtsi>,heterozygote,MARC,5,5,147,OK,5,5,5,5,5,69.0,55.0,60.0,66.0,85.0
+Hnrnpdl,Hnrnpdl<em1(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,63.75,56.25,43.75,67.5,82.5
+Htr4,Htr4<em2(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,57.5,50.0,43.75,83.75,95.0
+Idh2,Idh2<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,56.25,35.0,35.0,48.75,51.25
+Ido2,Ido2<tm3a(EUCOMM)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,35.0,25.0,22.5,30.0,33.75
+Idua,Idua<em1(IMPC)Hmgu>,homozygote,HMGU,8,0,1909,OK,3,6,5,4,0,68.33333333333333,60.0,59.0,73.75,
+Ifi208,Ifi208<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,40.0,22.5,25.0,30.0,52.5
+Ifitm1,Ifitm1<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,4,1,346,OK,3,4,4,4,1,51.666666666666664,47.5,40.0,45.0,75.0
+Ifnk,Ifnk<tm1.1(KOMP)Vlcg>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,50.0,48.125,36.25,41.875,56.875
+Igfl3,Igfl3<tm1b(EUCOMM)Hmgu>,homozygote,JAX,7,7,0,Insufficient controls found: 0 < 20,7,7,7,7,7,50.714285714285715,48.57142857142857,37.142857142857146,43.57142857142857,52.142857142857146
+Iglon5,Iglon5<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,37.5,15.0,18.75,30.0,45.0
+Il20rb,Il20rb<em2(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,17.5,20.0,32.5,61.25
+Il20rb,Il20rb<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,41.25,26.25,30.0,40.0,48.75
+Il21r,Il21r<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,35.0,23.75,26.25,31.25,46.25
+Inhbb,Inhbb<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,40.0,28.75,30.0,53.75,50.0
+Ints12,Ints12<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,45.0,32.5,35.0,41.25,61.25
+Ints7,Ints7<em1(IMPC)J>,heterozygote,JAX,8,8,2541,OK,8,8,8,8,8,45.625,46.25,43.125,41.875,64.375
+Irak2,Irak2<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,41.25,33.75,30.0,28.75,41.25
+Itga3,Itga3<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,37.5,18.75,17.5,32.5,47.5
+Itgbl1,Itgbl1<em1(IMPC)Kmpc>,homozygote,KMPC,8,1,420,OK,8,8,8,8,1,30.0,25.625,25.625,45.625,50.0
+Itm2c,Itm2c<tm1b(EUCOMM)Wtsi>,heterozygote,HMGU,7,4,960,OK,7,7,7,7,4,45.714285714285715,30.0,33.57142857142857,41.42857142857143,51.25
+Itm2c,Itm2c<em2(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,38.75,23.75,25.0,31.25,41.25
+Itpr1,Itpr1<tm1.1(NCOM)Mfgc>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,32.5,17.5,21.25,31.25,40.0
+Josd1,Josd1<em1(IMPC)Wtsi>,homozygote,WTSI,6,6,906,OK,6,6,6,6,6,27.5,15.0,17.5,23.333333333333332,31.666666666666668
+Kat5,Kat5<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,21.25,22.5,31.25,45.0
+Kat8,Kat8<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,37.5,23.75,25.0,31.25,51.25
+Kbtbd12,Kbtbd12<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,35.0,21.25,21.25,35.0,60.0
+Kbtbd3,Kbtbd3<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,16,16,3446,OK,16,16,16,16,16,30.625,26.875,25.0,39.6875,69.6875
+Kbtbd8,Kbtbd8<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,32.5,21.25,31.25,38.75,51.25
+Kcna5,Kcna5<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,38.75,18.75,23.75,31.25,71.25
+Kcnh6,Kcnh6<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,55.0,31.25,31.25,48.75,65.0
+Klf17,Klf17<tm1b(KOMP)Wtsi>,homozygote,WTSI,8,8,906,OK,8,8,8,8,8,31.875,16.875,20.625,27.5,38.75
+Kntc1,Kntc1<tm1b(EUCOMM)Hmgu>,heterozygote,JAX,7,7,2541,OK,7,7,7,7,7,47.857142857142854,46.42857142857143,33.57142857142857,45.714285714285715,52.857142857142854
+Kntc1,Kntc1<tm1b(EUCOMM)Hmgu>,homozygote,JAX,3,3,2541,OK,3,3,3,3,3,60.0,60.0,46.666666666666664,51.666666666666664,60.0
+Kntc1,Kntc1<tm1b(EUCOMM)Hmgu>,heterozygote,JAX,7,7,2541,OK,7,7,7,7,7,47.857142857142854,46.42857142857143,33.57142857142857,45.714285714285715,52.857142857142854
+Kntc1,Kntc1<tm1b(EUCOMM)Hmgu>,homozygote,JAX,3,3,2541,OK,3,3,3,3,3,60.0,60.0,46.666666666666664,51.666666666666664,60.0
+Letmd1,Letmd1<em1(IMPC)Kmpc>,homozygote,KMPC,4,3,420,OK,4,4,4,4,3,31.25,26.25,27.5,37.5,63.333333333333336
+Lgals3bp,Lgals3bp<em1(IMPC)H>,homozygote,MRC Harwell,4,4,70,OK,4,4,4,4,4,48.75,36.25,36.25,32.5,51.25
+Lox,Lox<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,37.5,26.25,31.25,36.25,46.25
+Lrrcc1,Lrrcc1<tm1b(EUCOMM)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,52.5,35.0,36.25,40.0,55.0
+Lsm1,Lsm1<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,4,1,960,OK,4,4,4,1,1,50.0,36.25,45.0,55.0,70.0
+Maf,Maf<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,37.5,22.5,26.25,33.75,47.5
+Marveld2,Marveld2<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,96.25,100.0,95.0,95.0,95.0
+Mcu,Mcu<tm1b(EUCOMM)Hmgu>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,47.5,23.75,40.0,37.5,38.75
+Mdm1,Mdm1<em1(IMPC)Kmpc>,homozygote,KMPC,4,2,420,OK,4,4,4,4,2,30.0,31.25,35.0,56.25,62.5
+Me2,Me2<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,8,3,960,OK,8,8,7,6,3,45.625,28.75,33.57142857142857,45.833333333333336,58.333333333333336
+Med1,Med1<tm3b(EUCOMM)Wtsi>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,41.25,22.5,26.25,35.0,46.25
+Megf6,Megf6<em1(IMPC)Kmpc>,homozygote,KMPC,4,2,420,OK,4,4,4,4,2,30.0,27.5,28.75,32.5,50.0
+Mical2,Mical2<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,37.5,21.25,23.75,36.25,47.5
+Minar1,Minar1<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,36.25,18.75,20.0,30.0,45.0
+Mipol1,Mipol1<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,3,0,960,OK,3,3,1,0,0,58.333333333333336,46.666666666666664,35.0,,
+Mir100,Mir100<em1(IMPC)Kmpc>,homozygote,KMPC,5,4,420,OK,5,5,5,5,4,21.0,28.0,26.0,34.0,50.0
+Mir203,Mir203<tm1Wtsi>,heterozygote,MARC,6,6,147,OK,6,6,6,6,6,59.166666666666664,47.5,41.666666666666664,47.5,72.5
+Mmgt2,Mmgt2<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,57.5,56.25,48.75,51.25,58.75
+Ms4a12,Ms4a12<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,31.25,13.75,20.0,33.75,61.25
+Mybphl,Mybphl<tm1b(KOMP)Wtsi>,heterozygote,WTSI,4,4,906,OK,4,4,4,4,4,32.5,21.25,20.0,30.0,37.5
+Mybphl,Mybphl<tm1a(KOMP)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,32.5,13.75,17.5,27.5,32.5
+Myh8,Myh8<em1(IMPC)Tcp>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,18.75,25.0,33.75,50.0
+Nat1,Nat1<tm1.1(KOMP)Vlcg>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,47.142857142857146,41.42857142857143,33.57142857142857,45.0,57.142857142857146
+Nav2,Nav2<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,22.5,27.5,37.5,47.5
+Ncor2,Ncor2<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,40.0,22.5,21.25,32.5,43.75
+Ndrg3,Ndrg3<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,38.75,20.0,18.75,30.0,42.5
+Ndufc2,Ndufc2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,52.5,32.5,32.5,45.0,55.0
+Nedd4,Nedd4<tm2b(EUCOMM)Hmgu>,heterozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,55.0,43.75,46.25,63.75,62.5
+Nkg7,Nkg7<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,38.75,22.5,26.25,42.5,73.75
+Nnmt,Nnmt<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,42.5,23.75,27.5,35.0,52.5
+Nodal,Nodal<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,60.0,42.5,28.75,45.0,58.75
+Nosip,Nosip<em1(IMPC)Tcp>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,20.0,25.0,37.5,48.75
+Npas3,Npas3<tm1b(KOMP)Wtsi>,heterozygote,KMPC,5,5,420,OK,5,5,5,5,5,27.0,23.0,24.0,30.0,38.0
+Obp2b,Obp2b<em1(IMPC)Kmpc>,homozygote,KMPC,4,2,420,OK,4,4,4,4,2,30.0,27.5,27.5,35.0,50.0
+Oprl1,Oprl1<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,42.5,26.25,37.5,32.5,62.5
+Otol1,Otol1<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,41.25,27.5,28.75,38.75,68.75
+Palm3,Palm3<tm1b(EUCOMM)Wtsi>,homozygote,HMGU,8,0,1909,OK,0,0,0,0,0,,,,,
+Pank4,Pank4<em1(IMPC)Kmpc>,homozygote,KMPC,4,2,420,OK,4,4,4,4,2,32.5,27.5,31.25,38.75,60.0
+Panx1,Panx1<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,42.5,22.5,26.25,33.75,53.75
+Paox,Paox<tm1.1(KOMP)Wtsi>,homozygote,HMGU,5,2,960,OK,5,5,5,5,2,53.0,33.0,37.0,49.0,75.0
+Pappa,Pappa<em1(IMPC)H>,homozygote,MRC Harwell,4,4,70,OK,4,4,4,4,4,68.75,63.75,52.5,60.0,67.5
+Paqr5,Paqr5<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,16,16,3446,OK,16,16,16,16,16,33.75,32.5,32.1875,36.25,52.8125
+Pard3b,Pard3b<tm1b(EUCOMM)Wtsi>,homozygote,HMGU,8,6,960,OK,8,8,8,6,6,46.875,28.75,31.25,38.333333333333336,59.166666666666664
+Pcdh10,Pcdh10<tm1bNarl>,homozygote,MRC Harwell,4,2,346,OK,3,4,4,3,2,80.0,63.75,56.25,48.333333333333336,85.0
+Pde6b,Pde6b<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,38.75,20.0,21.25,32.5,47.5
+Pde7b,Pde7b<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,33.75,20.0,20.0,32.5,47.5
+Pdia6,Pdia6<tm1b(EUCOMM)Hmgu>,heterozygote,HMGU,8,5,960,OK,8,8,8,8,5,49.375,32.5,36.875,51.25,59.0
+Pes1,Pes1<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,3,1,346,OK,2,2,2,1,1,62.5,57.5,32.5,65.0,70.0
+Pfkfb4,Pfkfb4<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,46.25,16.25,21.25,31.25,42.5
+Pfkfb4,Pfkfb4<tm1a(KOMP)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,35.0,18.75,18.75,26.25,33.75
+Pgbd1,Pgbd1<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,20.0,26.25,35.0,48.75
+Phc3,Phc3<tm2b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,20.0,22.5,32.5,41.25
+Phf7,Phf7<tm1b(EUCOMM)Hmgu>,homozygote,KMPC,4,0,420,OK,4,4,4,4,0,28.75,28.75,26.25,60.0,
+Pip4p1,Pip4p1<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,16,14,3446,OK,16,16,16,16,14,30.0,28.4375,26.875,35.3125,55.714285714285715
+Pipox,Pipox<tm1b(EUCOMM)Wtsi>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,32.5,20.0,21.25,31.25,45.0
+Pla2g4b,Pla2g4b<tm1b(EUCOMM)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,15.0,21.25,31.25,43.75
+Plag1,Plag1<em1(IMPC)Hmgu>,homozygote,HMGU,8,1,1909,OK,8,8,7,3,1,44.375,33.125,42.142857142857146,66.66666666666667,55.0
+Plin4,Plin4<tm1.1(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,58.75,42.5,41.25,40.0,45.0
+Plpp3,Plpp3<tm1b(EUCOMM)Hmgu>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,45.0,33.75,37.5,41.25,58.75
+Pmm2,Pmm2<tm1b(EUCOMM)Hmgu>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,32.5,17.5,23.75,28.75,41.25
+Pnkp,Pnkp<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,38.75,18.75,27.5,25.0,36.25
+Polq,Polq<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,35.0,20.0,21.25,27.5,42.5
+Ppbp,Ppbp<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,40.0,17.5,22.5,33.75,46.25
+Ppp1cb,Ppp1cb<em2(IMPC)Marc>,heterozygote,MARC,4,4,147,OK,4,4,4,4,4,58.75,55.0,55.0,78.75,95.0
+Ppp1r15a,Ppp1r15a<em2(IMPC)H>,homozygote,MRC Harwell,4,4,70,OK,4,4,4,4,4,51.25,43.75,46.25,50.0,46.25
+Ppp1r1a,Ppp1r1a<em2(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,62.5,57.5,50.0,63.75,80.0
+Ppt2,Ppt2<tm2b(KOMP)Wtsi>,homozygote,MRC Harwell,4,3,860,OK,4,3,4,4,3,43.75,28.333333333333332,32.5,28.75,65.0
+Pramel17,Pramel17<tm1b(KOMP)Wtsi>,homozygote,UC Davis,3,3,574,OK,3,3,3,3,3,73.33333333333333,38.333333333333336,28.333333333333332,38.333333333333336,45.0
+Prdm2,Prdm2<em1(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,51.25,40.0,45.0,51.25,63.75
+Prkab1,Prkab1<em1(IMPC)J>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,51.42857142857143,45.0,33.57142857142857,42.857142857142854,55.0
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,homozygote,CCP-IMG,22,19,3446,OK,22,22,22,22,19,29.09090909090909,23.636363636363637,25.0,34.77272727272727,39.21052631578947
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,heterozygote,CCP-IMG,16,12,3446,OK,16,16,16,16,12,31.25,32.8125,30.625,38.4375,57.083333333333336
+Prkab1,Prkab1<em2(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,42.5,28.75,33.75,40.0,50.0
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,homozygote,ICS,24,24,1512,OK,24,24,24,24,24,37.5,15.625,16.458333333333332,27.083333333333332,44.166666666666664
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,homozygote,WTSI,6,6,906,OK,6,6,6,6,6,36.666666666666664,18.333333333333332,20.833333333333332,30.833333333333332,42.5
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,homozygote,RBRC,4,4,296,OK,4,4,4,4,4,3.05,2.7,5.5,23.0,27.15
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,50.0,45.625,35.0,50.0,58.125
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,homozygote,UC Davis,3,3,574,OK,3,3,3,3,3,50.0,36.666666666666664,38.333333333333336,40.0,56.666666666666664
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,heterozygote,JAX,8,8,2541,OK,8,8,8,8,8,41.875,48.75,35.0,43.125,58.125
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,homozygote,HMGU,3,2,960,OK,3,3,3,3,2,43.333333333333336,28.333333333333332,36.666666666666664,50.0,65.0
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,homozygote,MRC Harwell,8,8,860,OK,8,8,8,8,8,36.875,32.5,28.125,31.875,40.625
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,40.0,21.25,25.0,30.0,37.5
+Prkd2,Prkd2<em1(IMPC)Hmgu>,homozygote,HMGU,8,0,1909,OK,1,3,3,1,0,85.0,78.33333333333333,86.66666666666667,85.0,
+Prodh,Prodh<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,13.75,21.25,32.5,47.5
+Prpf18,Prpf18<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,37.5,16.25,20.0,32.5,50.0
+Prr9,Prr9<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,33.75,17.5,23.75,30.0,45.0
+Prss2,Prss2<tm1.1(KOMP)Vlcg>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,48.57142857142857,45.714285714285715,33.57142857142857,39.285714285714285,55.0
+Pspc1,Pspc1<em1(IMPC)Mbp>,homozygote,UC Davis,5,5,574,OK,5,5,5,5,5,36.0,18.0,28.0,36.0,48.0
+Ptger2,Ptger2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,40.0,22.5,26.25,36.25,48.75
+Ptpmt1,Ptpmt1<tm1.1(KOMP)Vlcg>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,28.75,18.75,22.5,27.5,40.0
+Pxk,Pxk<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,21.25,27.5,36.25,50.0
+Qsox2,Qsox2<em1(IMPC)Kmpc>,homozygote,KMPC,4,4,420,OK,4,4,4,4,4,31.25,28.75,26.25,31.25,56.25
+Rab24,Rab24<tm1.1(KOMP)Wtsi>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,48.125,45.0,32.5,39.375,53.125
+Rab34,Rab34<tm1b(EUCOMM)Hmgu>,heterozygote,JAX,7,7,2541,OK,7,7,7,7,7,47.857142857142854,42.857142857142854,33.57142857142857,44.285714285714285,60.0
+Rab3il1,Rab3il1<em1(IMPC)J>,homozygote,JAX,6,6,2541,OK,6,6,6,6,6,50.0,57.5,51.666666666666664,34.166666666666664,57.5
+Rabggta,Rabggta<tm1.1(KOMP)Vlcg>,heterozygote,MARC,4,4,147,OK,4,4,4,4,4,57.5,46.25,53.75,77.5,95.0
+Rapsn,Rapsn<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,26.25,22.5,28.75,28.75,41.25
+Rbak,Rbak<tm1b(KOMP)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,31.25,13.75,20.0,22.5,31.25
+Rccd1,Rccd1<tm1.1(KOMP)Wtsi>,homozygote,MRC Harwell,3,2,346,OK,3,3,3,2,2,56.666666666666664,55.0,40.0,75.0,82.5
+Rell1,Rell1<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,45.625,41.25,38.75,37.5,33.125
+Retreg3,Retreg3<tm2b(EUCOMM)Wtsi>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,42.5,35.0,38.75,36.25,38.75
+Rfxank,Rfxank<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,8,6,960,OK,8,8,8,8,6,46.25,31.25,35.625,43.75,63.333333333333336
+Rimbp2,Rimbp2<em1(IMPC)Wtsi>,homozygote,WTSI,8,8,906,OK,8,8,8,8,8,31.875,17.5,21.875,30.0,41.875
+Rmnd5b,Rmnd5b<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,50.625,51.875,35.625,44.375,57.5
+Rnase11,Rnase11<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,22.5,23.75,33.75,51.25
+Rnf128,Rnf128<tm1.1(KOMP)Vlcg>,hemizygote,CCP-IMG,8,3,3446,OK,8,8,8,8,3,31.25,23.125,23.75,51.25,80.0
+Rnf128,Rnf128<tm1.1(KOMP)Vlcg>,homozygote,CCP-IMG,8,1,3446,OK,8,8,8,7,1,34.375,24.375,29.375,58.57142857142857,55.0
+Rnf19b,Rnf19b<em1(IMPC)Ccpcz>,heterozygote,CCP-IMG,16,8,3446,OK,16,16,16,15,8,29.375,25.3125,30.3125,57.333333333333336,66.25
+Rnf19b,Rnf19b<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,3,1,3446,OK,3,3,3,2,1,35.0,26.666666666666668,48.333333333333336,62.5,85.0
+Rnf222,Rnf222<em1(IMPC)J>,homozygote,JAX,3,3,2541,OK,3,3,3,3,3,50.0,60.0,48.333333333333336,40.0,66.66666666666667
+Rtn4,Rtn4<em1(IMPC)Hmgu>,homozygote,HMGU,9,0,1909,OK,3,1,0,0,0,75.0,50.0,,,
+Rtn4rl2,Rtn4rl2<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,62.5,45.0,50.0,68.75,100.0
+Samd9l,Samd9l<tm1.1(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,35.0,16.25,17.5,35.0,62.5
+Scin,Scin<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,50.0,33.75,38.75,48.75,66.25
+Scn3b,Scn3b<tm1a(KOMP)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,32.5,12.5,23.75,32.5,32.5
+Sdha,Sdha<tm2b(KOMP)Wtsi>,heterozygote,JAX,8,8,2541,OK,8,8,8,8,8,55.625,50.625,40.0,58.125,68.75
+Selenbp1,Selenbp1<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,43.75,20.0,23.75,37.5,52.5
+Sema4d,Sema4d<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,47.5,38.75,37.5,43.75,60.0
+Sema6a,Sema6a<tm2e.1(EUCOMM)Hmgu>,heterozygote,JAX,8,8,0,Insufficient controls found: 0 < 20,8,8,8,8,8,55.625,52.5,38.75,43.75,54.375
+Septin2,Septin2<em1(IMPC)Tcp>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,35.0,18.75,25.0,32.5,45.0
+Serinc3,Serinc3<tm1a(KOMP)Wtsi>,homozygote,WTSI,6,6,906,OK,6,6,6,6,6,43.333333333333336,21.666666666666668,26.666666666666668,32.5,43.333333333333336
+Sfxn5,Sfxn5<tm1b(EUCOMM)Hmgu>,heterozygote,JAX,8,8,0,Insufficient controls found: 0 < 20,8,8,8,8,8,51.25,52.5,39.375,53.125,65.0
+Sgip1,Sgip1<tm1b(EUCOMM)Hmgu>,heterozygote,HMGU,16,11,960,OK,16,16,16,16,11,52.5,35.9375,40.3125,47.8125,63.18181818181818
+Sgip1,Sgip1<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,3,1,960,OK,3,3,3,2,1,55.0,36.666666666666664,43.333333333333336,45.0,55.0
+Sgsh,Sgsh<em3(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,35.0,22.5,27.5,38.75,53.75
+Sgsm1,Sgsm1<tm1b(EUCOMM)Wtsi>,homozygote,WTSI,4,4,906,OK,4,4,4,4,4,31.25,13.75,23.75,22.5,27.5
+Sgtb,Sgtb<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,31.25,16.25,17.5,28.75,48.75
+Sh3yl1,Sh3yl1<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,31.25,15.0,18.75,38.75,71.25
+Sidt1,Sidt1<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,46.25,23.75,32.5,42.5,55.0
+Sirt1,Sirt1<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,37.5,31.25,25.0,26.25,35.0
+Skic3,Skic3<em1(IMPC)Tcp>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,20.0,23.75,33.75,47.5
+Slc13a3,Slc13a3<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,40.0,20.0,22.5,36.25,46.25
+Slc4a8,Slc4a8<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,36.25,18.75,21.25,38.75,52.5
+Slc5a4a,Slc5a4a<em1(IMPC)Hmgu>,homozygote,HMGU,8,8,1909,OK,8,8,8,8,8,41.875,26.875,28.75,40.0,56.875
+Slc9a5,Slc9a5<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,54.375,47.5,38.75,43.75,58.75
+Smoc1,Smoc1<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,3,3,860,OK,3,3,3,3,3,55.0,40.0,35.0,48.333333333333336,60.0
+Smoc1,Smoc1<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,28.75,22.5,26.25,27.5,36.25
+Snapc1,Snapc1<tm1b(KOMP)Mbp>,heterozygote,MRC Harwell,4,3,346,OK,4,4,4,4,3,57.5,43.75,40.0,40.0,48.333333333333336
+Snph,Snph<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,3,3,574,OK,3,3,3,3,3,58.333333333333336,23.333333333333332,28.333333333333332,45.0,65.0
+Snx22,Snx22<tm1.1(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,31.25,13.75,17.5,35.0,48.75
+Sort1,Sort1<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,48.75,27.5,33.75,41.25,46.25
+Sostdc1,Sostdc1<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,58.75,46.25,37.5,46.25,56.25
+Sowaha,Sowaha<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,40.0,25.0,27.5,38.75,65.0
+Sprr1a,Sprr1a<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,48.75,43.125,34.375,43.75,60.625
+Sptan1,Sptan1<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,31.25,17.5,25.0,32.5,41.25
+Strbp,Strbp<em1(IMPC)Hmgu>,homozygote,HMGU,9,0,1909,OK,0,0,0,0,0,,,,,
+Suox,Suox<em1(IMPC)Kmpc>,heterozygote,KMPC,4,2,420,OK,4,4,4,4,2,32.5,26.25,26.25,36.25,67.5
+Syce2,Syce2<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,33.75,21.25,23.75,31.25,46.25
+Syne3,Syne3<tm1b(KOMP)Wtsi>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,47.5,25.0,26.25,37.5,50.0
+Sytl4,Sytl4<em1(IMPC)Hmgu>,hemizygote,HMGU,4,3,1909,OK,4,4,4,3,3,45.0,30.0,31.25,48.333333333333336,55.0
+Sytl4,Sytl4<em1(IMPC)Hmgu>,homozygote,HMGU,4,1,1909,OK,4,4,4,4,1,38.75,28.75,31.25,58.75,70.0
+Taar8a,Taar8a<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,49.375,43.125,41.25,56.25,63.75
+Tafa2,Tafa2<em1(IMPC)H>,homozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,42.5,35.0,33.75,50.0,57.5
+Tbcel,Tbcel<em1(IMPC)J>,homozygote,JAX,12,12,2541,OK,12,12,12,12,12,47.083333333333336,39.166666666666664,31.666666666666668,45.0,58.75
+Tbl1xr1,Tbl1xr1<tm1b(EUCOMM)Hmgu>,heterozygote,HMGU,8,6,1909,OK,7,8,8,8,7,47.857142857142854,41.875,45.0,53.125,68.57142857142857
+Tbl1xr1,Tbl1xr1<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,3,2,1909,OK,2,3,3,3,3,65.0,58.333333333333336,56.666666666666664,63.333333333333336,73.33333333333333
+Tfpi2,Tfpi2<em1(IMPC)Kmpc>,homozygote,KMPC,4,0,420,OK,4,4,4,4,0,31.25,30.0,30.0,40.0,
+Thbd,Thbd<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,38.75,21.25,23.75,37.5,50.0
+Tle3,Tle3<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,41.25,22.5,20.0,33.75,33.75
+Tlr2,Tlr2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,47.5,22.5,26.25,41.25,53.75
+Tmco5,Tmco5<tm1b(KOMP)Wtsi>,homozygote,MRC Harwell,3,3,346,OK,3,3,3,3,3,40.0,41.666666666666664,33.333333333333336,40.0,48.333333333333336
+Tmem163,Tmem163<em1(IMPC)Kmpc>,homozygote,KMPC,4,0,420,OK,4,4,4,4,0,27.5,28.75,27.5,40.0,
+Tmem163,Tmem163<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,30.0,16.25,23.75,28.75,36.25
+Tmem171,Tmem171<em1(IMPC)J>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,55.0,47.857142857142854,37.142857142857146,47.857142857142854,65.71428571428571
+Tmem184b,Tmem184b<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,56.25,30.0,30.0,43.75,48.75
+Tmem30a,Tmem30a<tm1a(KOMP)Wtsi>,heterozygote,WTSI,5,5,906,OK,5,5,5,5,5,30.0,22.0,24.0,30.0,34.0
+Tmem86a,Tmem86a<tm1b(KOMP)Mbp>,homozygote,KMPC,4,2,420,OK,4,4,4,4,2,27.5,25.0,28.75,46.25,65.0
+Tmem88,Tmem88<em1(IMPC)Kmpc>,homozygote,KMPC,4,1,420,OK,4,4,4,4,1,26.25,31.25,28.75,40.0,60.0
+Tmtc2,Tmtc2<em2(IMPC)Kmpc>,homozygote,KMPC,4,2,420,OK,4,4,4,4,2,32.5,27.5,27.5,42.5,57.5
+Tor1a,Tor1a<em1(IMPC)H>,heterozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,48.75,37.5,25.0,33.75,67.5
+Tor1aip1,Tor1aip1<tm1b(EUCOMM)Hmgu>,heterozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,47.5,57.5,46.25,50.0,58.75
+Tprg1,Tprg1<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,38.75,23.75,25.0,41.25,65.0
+Tpte,Tpte<em1(IMPC)Kmpc>,homozygote,KMPC,4,1,420,OK,4,4,4,4,1,36.25,30.0,33.75,51.25,60.0
+Tram2,Tram2<tm1a(KOMP)Wtsi>,homozygote,WTSI,8,8,906,OK,8,8,8,8,8,79.375,59.375,55.625,62.5,72.5
+Trappc1,Trappc1<em1(IMPC)Mbp>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,32.5,13.75,18.75,28.75,40.0
+Trav1,Trav1<em1(IMPC)J>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,51.42857142857143,47.142857142857146,33.57142857142857,39.285714285714285,58.57142857142857
+Treml1,Treml1<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,38.75,23.75,28.75,31.25,35.0
+Trh,Trh<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,31.25,17.5,25.0,28.75,46.25
+Trmt9b,Trmt9b<em1(IMPC)H>,homozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,43.75,38.75,26.25,33.75,35.0
+Tspan14,Tspan14<em1(IMPC)H>,heterozygote,MRC Harwell,3,2,346,OK,2,3,2,3,2,50.0,33.333333333333336,42.5,60.0,52.5
+Tst,Tst<tm1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,56.25,18.75,25.0,36.25,47.5
+Tst,Tst<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,45.0,30.0,30.0,38.75,51.25
+Tstd1,Tstd1<em1(IMPC)J>,homozygote,JAX,7,7,2541,OK,7,7,7,7,7,44.285714285714285,35.714285714285715,32.142857142857146,47.857142857142854,57.857142857142854
+Ttc38,Ttc38<em1Llp>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,50.0,45.0,36.875,41.875,61.25
+Ttc7b,Ttc7b<em1(IMPC)J>,heterozygote,JAX,7,7,2541,OK,7,7,7,7,7,51.42857142857143,52.857142857142854,36.42857142857143,38.57142857142857,61.42857142857143
+Tubb4b,Tubb4b<em1(IMPC)J>,heterozygote,JAX,4,4,2541,OK,4,4,4,4,4,41.25,32.5,38.75,30.0,48.75
+Ube3c,Ube3c<tm1b(EUCOMM)Hmgu>,homozygote,RBRC,4,4,296,OK,4,4,4,4,4,13.05,17.7,19.25,59.25,70.9
+Ube3c,Ube3c<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,8,2,1909,OK,8,8,8,6,2,44.375,36.25,35.0,50.833333333333336,65.0
+Ufc1,Ufc1<em1(IMPC)Marc>,heterozygote,MARC,4,4,147,OK,4,4,4,4,4,43.75,42.5,41.25,40.0,47.5
+Unc13b,Unc13b<tm1b(KOMP)Wtsi>,heterozygote,UC Davis,4,4,574,OK,4,4,4,4,4,47.5,23.75,25.0,33.75,52.5
+Unc13c,Unc13c<em1(IMPC)H>,homozygote,MRC Harwell,4,4,346,OK,4,4,4,4,4,42.5,36.25,32.5,40.0,46.25
+Usp16,Usp16<tm1b(EUCOMM)Hmgu>,heterozygote,MARC,5,5,0,Insufficient controls found: 0 < 20,5,5,5,5,5,55.0,45.0,45.0,53.0,73.0
+Usp29,Usp29<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,35.0,17.5,23.75,31.25,45.0
+Usp31,Usp31<em1(IMPC)Marc>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,53.75,41.25,50.0,57.5,73.75
+Usp36,Usp36<tm1b(EUCOMM)Hmgu>,heterozygote,MARC,4,4,147,OK,4,4,4,4,4,50.0,41.25,47.5,55.0,72.5
+Vegfb,Vegfb<tm1b(EUCOMM)Hmgu>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,46.875,46.25,35.0,45.0,62.5
+Vopp1,Vopp1<tm1b(EUCOMM)Wtsi>,homozygote,JAX,7,7,0,Insufficient controls found: 0 < 20,7,7,7,7,7,50.0,44.285714285714285,35.714285714285715,48.57142857142857,61.42857142857143
+Vopp1,Vopp1<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,50.625,48.125,38.75,50.0,64.375
+Vps13c,Vps13c<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,5,2,960,OK,5,5,5,5,2,39.0,29.0,34.0,45.0,60.0
+Vstm2l,Vstm2l<em1(IMPC)Tcp>,homozygote,TCP,4,4,588,OK,4,4,4,4,4,31.25,18.75,27.5,37.5,48.75
+Washc3,Washc3<tm1.1(KOMP)Vlcg>,heterozygote,TCP,4,4,588,OK,4,4,4,4,4,36.25,16.25,23.75,28.75,42.5
+Wfdc2,Wfdc2<em1(IMPC)H>,heterozygote,MRC Harwell,4,2,346,OK,4,4,4,4,2,56.25,36.25,37.5,47.5,60.0
+Xbp1,Xbp1<tm1a(EUCOMM)Wtsi>,heterozygote,WTSI,4,4,906,OK,4,4,4,4,4,33.75,16.25,20.0,32.5,40.0
+Xbp1,Xbp1<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,43.75,37.5,36.25,42.5,41.25
+Zc3h13,Zc3h13<em1(IMPC)J>,heterozygote,JAX,8,8,2541,OK,8,8,8,8,8,43.75,37.5,32.5,38.75,48.75
+Zdhhc24,Zdhhc24<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,4,4,860,OK,4,4,4,4,4,36.25,32.5,30.0,36.25,52.5
+Zfp280d,Zfp280d<em1(IMPC)Hmgu>,homozygote,HMGU,8,0,1909,OK,0,0,0,0,0,,,,,
+Zfp354a,Zfp354a<em1(IMPC)Mbp>,homozygote,UC Davis,4,4,574,OK,4,4,4,4,4,33.75,20.0,21.25,30.0,66.25
+Zgrf1,Zgrf1<em1(IMPC)J>,homozygote,JAX,8,8,2541,OK,8,8,8,8,8,45.0,36.25,28.75,46.875,60.625
+Zswim1,Zswim1<tm1b(KOMP)Mbp>,homozygote,MARC,4,4,147,OK,4,4,4,4,4,52.5,57.5,50.0,55.0,71.25
+Zswim6,Zswim6<em1(IMPC)J>,heterozygote,JAX,8,8,2541,OK,8,8,8,8,8,53.125,48.75,35.0,46.875,63.75

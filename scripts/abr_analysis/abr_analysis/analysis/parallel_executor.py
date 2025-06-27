@@ -42,6 +42,18 @@ from .batch_bayes_processor import GeneBayesianAnalyzer
 
 def process_experimental_group(group_info, data_path, save_dir=None):
     """Process a single experimental group and return the result."""
+    # Set up process-specific PyTensor cache to prevent corruption
+    import os
+    import tempfile
+    from pathlib import Path
+    
+    process_id = os.getpid()
+    temp_cache_dir = Path(tempfile.gettempdir()) / f"pytensor_cache_{process_id}"
+    temp_cache_dir.mkdir(exist_ok=True, parents=True)
+    
+    # Set PyTensor flags for this process
+    os.environ['PYTENSOR_FLAGS'] = f'base_compiledir={temp_cache_dir},device=cpu,optimizer=fast_compile'
+    
     # Create a new analyzer for this process
     analyzer = GeneBayesianAnalyzer(data_path)
 
@@ -181,6 +193,18 @@ def process_experimental_group(group_info, data_path, save_dir=None):
 
 def process_gene_groups(gene, data_path, save_dir=None):
     """Process all experimental groups for a gene and return the results."""
+    # Set up process-specific PyTensor cache to prevent corruption
+    import os
+    import tempfile
+    from pathlib import Path
+    
+    process_id = os.getpid()
+    temp_cache_dir = Path(tempfile.gettempdir()) / f"pytensor_cache_{process_id}"
+    temp_cache_dir.mkdir(exist_ok=True, parents=True)
+    
+    # Set PyTensor flags for this process
+    os.environ['PYTENSOR_FLAGS'] = f'base_compiledir={temp_cache_dir},device=cpu,optimizer=fast_compile'
+    
     # Create a new analyzer to find groups
     analyzer = GeneBayesianAnalyzer(data_path)
 
@@ -205,6 +229,16 @@ def process_gene_groups(gene, data_path, save_dir=None):
 def run_parallel_analysis(data_path, output_dir="results/parallel_bayes", min_bf=3.0,
                           n_processes=None, batch_size=10):
     """Run full batch Bayesian analysis in parallel and save results."""
+    # Clear main PyTensor cache before starting
+    import shutil
+    cache_dir = Path.home() / ".pytensor"
+    if cache_dir.exists():
+        try:
+            shutil.rmtree(cache_dir)
+            print("Cleared main PyTensor cache directory")
+        except Exception as e:
+            print(f"Warning: Could not clear main cache: {e}")
+    
     # Create output directory with timestamp
     timestamp = time.strftime("%Y%m%d_%H%M%S")
     output_dir = Path(output_dir) / f"parallel_analysis_{timestamp}"

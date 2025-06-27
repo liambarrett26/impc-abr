@@ -1,0 +1,34 @@
+gene_symbol,allele_symbol,zygosity,phenotyping_center,count
+Abca8b,Abca8b<tm1b(EUCOMM)Wtsi>,homozygote,UC Davis,6
+Abtb1,Abtb1<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,16
+Arpc1a,Arpc1a<em1(IMPC)J>,heterozygote,JAX,8
+Bhlhe40,Bhlhe40<tm1b(KOMP)Wtsi>,homozygote,JAX,7
+Bhlhe40,Bhlhe40<tm1b(KOMP)Wtsi>,homozygote,WTSI,5
+Cmip,Cmip<tm1a(EUCOMM)Wtsi>,heterozygote,WTSI,8
+Cnot10,Cnot10<em1(IMPC)J>,heterozygote,JAX,8
+Efhc2,Efhc2<em1(IMPC)J>,hemizygote,JAX,4
+Efna2,Efna2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4
+Fstl3,Fstl3<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,4
+Gimap7,Gimap7<em1(IMPC)Tcp>,heterozygote,TCP,4
+Golt1b,Golt1b<tm1b(EUCOMM)Wtsi>,homozygote,HMGU,8
+Herc6,Herc6<tm1b(EUCOMM)Hmgu>,homozygote,MARC,4
+Ipo4,Ipo4<em1(IMPC)J>,heterozygote,JAX,8
+Kifc2,Kifc2<tm1.1(KOMP)Vlcg>,homozygote,JAX,8
+Lmbrd1,Lmbrd1<tm1b(EUCOMM)Hmgu>,heterozygote,TCP,4
+Lrrc3,Lrrc3<tm1b(EUCOMM)Hmgu>,homozygote,ICS,6
+Magea9,Magea9<tm1a(KOMP)Wtsi>,homozygote,WTSI,3
+Mrgprd,Mrgprd<tm1b(EUCOMM)Hmgu>,homozygote,JAX,5
+Mrps22,Mrps22<tm1.1(KOMP)Vlcg>,heterozygote,JAX,8
+Nufip1,Nufip1<em1(IMPC)Mbp>,heterozygote,UC Davis,4
+Plekha5,Plekha5<em1(IMPC)Tcp>,homozygote,TCP,4
+Proser2,Proser2<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,16
+Rsad1,Rsad1<tm1.1(KOMP)Vlcg>,heterozygote,TCP,4
+Rsad1,Rsad1<tm1.1(KOMP)Vlcg>,homozygote,TCP,4
+Scand1,Scand1<em1(IMPC)H>,homozygote,MRC Harwell,4
+Spg11,Spg11<em1(IMPC)J>,homozygote,JAX,8
+Sprr3,Sprr3<tm1.1(KOMP)Vlcg>,homozygote,JAX,8
+Srsf6,Srsf6<em1(IMPC)J>,homozygote,JAX,8
+Tomm20l,Tomm20l<tm1b(EUCOMM)Wtsi>,homozygote,WTSI,7
+Traf2,Traf2<tm1a(EUCOMM)Wtsi>,heterozygote,WTSI,4
+Wdtc1,Wdtc1<tm1a(KOMP)Wtsi>,homozygote,WTSI,7
+Zfp638,Zfp638<em1(IMPC)J>,heterozygote,JAX,7

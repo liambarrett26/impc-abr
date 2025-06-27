@@ -1,0 +1,314 @@
+gene_symbol,sex_analysis_recommendation,male_sufficient,female_sufficient
+Rtn4rl2,Insufficient data for sex-specific analysis,False,False
+Prss2,Both male and female analysis recommended,True,True
+Pfkfb4,Male-only analysis recommended,True,False
+Bst2,Insufficient data for sex-specific analysis,False,False
+Zgrf1,Both male and female analysis recommended,True,True
+Vegfb,Both male and female analysis recommended,True,True
+Slc9a5,Both male and female analysis recommended,True,True
+Aldh1a3,Both male and female analysis recommended,True,True
+Csf2rb,Both male and female analysis recommended,True,True
+Ints7,Both male and female analysis recommended,True,True
+Ces1d,Insufficient data for sex-specific analysis,False,False
+Scn3b,Insufficient data for sex-specific analysis,False,False
+Itm2c,Insufficient data for sex-specific analysis,False,False
+Eng,Insufficient data for sex-specific analysis,False,False
+Dnase1l2,Both male and female analysis recommended,True,True
+Otol1,Insufficient data for sex-specific analysis,False,False
+Abhd17c,Insufficient data for sex-specific analysis,False,False
+Marveld2,Insufficient data for sex-specific analysis,False,False
+Tubb4b,Insufficient data for sex-specific analysis,False,False
+Nedd4,Insufficient data for sex-specific analysis,False,False
+Aldh1b1,Female-only analysis recommended,False,True
+Gnpda2,Insufficient data for sex-specific analysis,False,False
+Med1,Insufficient data for sex-specific analysis,False,False
+Cimap1d,Insufficient data for sex-specific analysis,False,False
+Cmtm3,Insufficient data for sex-specific analysis,False,False
+Snx22,Insufficient data for sex-specific analysis,False,False
+Kbtbd12,Insufficient data for sex-specific analysis,False,False
+Apbb3,Insufficient data for sex-specific analysis,False,False
+Slc13a3,Insufficient data for sex-specific analysis,False,False
+Arhgef12,Insufficient data for sex-specific analysis,False,False
+Mir100,Insufficient data for sex-specific analysis,False,False
+Ndufc2,Insufficient data for sex-specific analysis,False,False
+Csf3r,Insufficient data for sex-specific analysis,False,False
+Ms4a12,Insufficient data for sex-specific analysis,False,False
+Atp13a5,Insufficient data for sex-specific analysis,False,False
+Ndrg3,Insufficient data for sex-specific analysis,False,False
+Cfap45,Both male and female analysis recommended,True,True
+Tor1a,Insufficient data for sex-specific analysis,False,False
+Fads1,Insufficient data for sex-specific analysis,False,False
+Treml1,Insufficient data for sex-specific analysis,False,False
+Hdgfl1,Insufficient data for sex-specific analysis,False,False
+Erich3,Insufficient data for sex-specific analysis,False,False
+Pgbd1,Insufficient data for sex-specific analysis,False,False
+Prpf18,Insufficient data for sex-specific analysis,False,False
+Plin4,Insufficient data for sex-specific analysis,False,False
+Efcab11,Insufficient data for sex-specific analysis,False,False
+Akap10,Insufficient data for sex-specific analysis,False,False
+Abhd11,Insufficient data for sex-specific analysis,False,False
+Samd9l,Insufficient data for sex-specific analysis,False,False
+Bpifa2,Insufficient data for sex-specific analysis,False,False
+Ints12,Insufficient data for sex-specific analysis,False,False
+Abhd14a,Insufficient data for sex-specific analysis,False,False
+Ahsa2,Insufficient data for sex-specific analysis,False,False
+Epb41l4a,Both male and female analysis recommended,True,True
+Kbtbd3,Both male and female analysis recommended,True,True
+Taar8a,Both male and female analysis recommended,True,True
+Maf,Insufficient data for sex-specific analysis,False,False
+Usp36,Insufficient data for sex-specific analysis,False,False
+Myh8,Insufficient data for sex-specific analysis,False,False
+Sptan1,Insufficient data for sex-specific analysis,False,False
+Esr2,Insufficient data for sex-specific analysis,False,False
+Asic4,Insufficient data for sex-specific analysis,False,False
+Aicda,Insufficient data for sex-specific analysis,False,False
+Kcnh6,Insufficient data for sex-specific analysis,False,False
+Irak2,Insufficient data for sex-specific analysis,False,False
+Ppt2,Insufficient data for sex-specific analysis,False,False
+Usp31,Insufficient data for sex-specific analysis,False,False
+Kat5,Insufficient data for sex-specific analysis,False,False
+Dgke,Insufficient data for sex-specific analysis,False,False
+Edc3,Insufficient data for sex-specific analysis,False,False
+Rab3il1,Both male and female analysis recommended,True,True
+Galt,Insufficient data for sex-specific analysis,False,False
+Pip4p1,Both male and female analysis recommended,True,True
+Bcl2l11,Insufficient data for sex-specific analysis,False,False
+Lgals3bp,Insufficient data for sex-specific analysis,False,False
+Ciao2a,Male-only analysis recommended,True,False
+Gramd2b,Both male and female analysis recommended,True,True
+Cfap68,Insufficient data for sex-specific analysis,False,False
+Golm2,Insufficient data for sex-specific analysis,False,False
+Atp5po,Both male and female analysis recommended,True,True
+Cped1,Both male and female analysis recommended,True,True
+Ttc38,Both male and female analysis recommended,True,True
+Slc5a4a,Both male and female analysis recommended,True,True
+Sort1,Insufficient data for sex-specific analysis,False,False
+Il21r,Insufficient data for sex-specific analysis,False,False
+Gabpa,Insufficient data for sex-specific analysis,False,False
+Ppp1r15a,Insufficient data for sex-specific analysis,False,False
+Pla2g4b,Insufficient data for sex-specific analysis,False,False
+Fbxw13,Insufficient data for sex-specific analysis,False,False
+Adgrf1,Both male and female analysis recommended,True,True
+Ankrd28,Male-only analysis recommended,True,False
+Ccdc40,Both male and female analysis recommended,True,True
+Zc3h13,Both male and female analysis recommended,True,True
+Fstl1,Insufficient data for sex-specific analysis,False,False
+Adipoq,Insufficient data for sex-specific analysis,False,False
+Tbcel,Both male and female analysis recommended,True,True
+Fndc3b,Insufficient data for sex-specific analysis,False,False
+Akr1c14,Insufficient data for sex-specific analysis,False,False
+Fgf9,Both male and female analysis recommended,True,True
+Zdhhc24,Insufficient data for sex-specific analysis,False,False
+Slc4a8,Insufficient data for sex-specific analysis,False,False
+Ncor2,Insufficient data for sex-specific analysis,False,False
+Fbxo36,Insufficient data for sex-specific analysis,False,False
+Xbp1,Insufficient data for sex-specific analysis,False,False
+Bri3bp,Insufficient data for sex-specific analysis,False,False
+Clca2,Insufficient data for sex-specific analysis,False,False
+Btc,Insufficient data for sex-specific analysis,False,False
+Akap13,Insufficient data for sex-specific analysis,False,False
+Clcn6,Insufficient data for sex-specific analysis,False,False
+Sgtb,Insufficient data for sex-specific analysis,False,False
+Ufc1,Insufficient data for sex-specific analysis,False,False
+Skic3,Insufficient data for sex-specific analysis,False,False
+Me2,Insufficient data for sex-specific analysis,False,False
+Retreg3,Insufficient data for sex-specific analysis,False,False
+Hk3,Insufficient data for sex-specific analysis,False,False
+Il20rb,Insufficient data for sex-specific analysis,False,False
+Arfip1,Insufficient data for sex-specific analysis,False,False
+Tafa2,Insufficient data for sex-specific analysis,False,False
+Cib3,Insufficient data for sex-specific analysis,False,False
+Pard3b,Male-only analysis recommended,True,False
+Sgsm1,Insufficient data for sex-specific analysis,False,False
+Rfxank,Male-only analysis recommended,True,False
+Ces2c,Both male and female analysis recommended,True,True
+C2cd4c,Both male and female analysis recommended,True,True
+Mcu,Insufficient data for sex-specific analysis,False,False
+Dpm3,Insufficient data for sex-specific analysis,False,False
+Kntc1,Both male and female analysis recommended,True,True
+Fam222a,Both male and female analysis recommended,True,True
+Hnrnpd,Female-only analysis recommended,False,True
+Pdia6,Male-only analysis recommended,True,False
+Mir203,Both male and female analysis recommended,True,True
+Ifnk,Both male and female analysis recommended,True,True
+Ctla2b,Insufficient data for sex-specific analysis,False,False
+Serinc3,Male-only analysis recommended,True,False
+Chchd10,Insufficient data for sex-specific analysis,False,False
+Fadd,Insufficient data for sex-specific analysis,False,False
+Snapc1,Insufficient data for sex-specific analysis,False,False
+Vstm2l,Insufficient data for sex-specific analysis,False,False
+Unc13c,Insufficient data for sex-specific analysis,False,False
+Rnf222,Insufficient data for sex-specific analysis,False,False
+Cdc7,Insufficient data for sex-specific analysis,False,False
+Ppbp,Insufficient data for sex-specific analysis,False,False
+Prdm2,Insufficient data for sex-specific analysis,False,False
+Gpr33,Insufficient data for sex-specific analysis,False,False
+Tst,Insufficient data for sex-specific analysis,False,False
+Snph,Insufficient data for sex-specific analysis,False,False
+Sidt1,Insufficient data for sex-specific analysis,False,False
+Ppp1r1a,Insufficient data for sex-specific analysis,False,False
+Sirt1,Insufficient data for sex-specific analysis,False,False
+Fam120a,Both male and female analysis recommended,True,True
+Pspc1,Male-only analysis recommended,True,False
+Nat1,Both male and female analysis recommended,True,True
+Arhgap26,Both male and female analysis recommended,True,True
+Actr3b,Both male and female analysis recommended,True,True
+Tmem171,Both male and female analysis recommended,True,True
+Sh3yl1,Insufficient data for sex-specific analysis,False,False
+Btrc,Insufficient data for sex-specific analysis,False,False
+Rimbp2,Both male and female analysis recommended,True,True
+Rab34,Both male and female analysis recommended,True,True
+Coq2,Insufficient data for sex-specific analysis,False,False
+Letmd1,Insufficient data for sex-specific analysis,False,False
+Lrrcc1,Insufficient data for sex-specific analysis,False,False
+Agap1,Male-only analysis recommended,True,False
+Scin,Insufficient data for sex-specific analysis,False,False
+Hmx2,Insufficient data for sex-specific analysis,False,False
+0610010K14Rik,Insufficient data for sex-specific analysis,False,False
+Trappc1,Insufficient data for sex-specific analysis,False,False
+Sprr1a,Both male and female analysis recommended,True,True
+Rbak,Insufficient data for sex-specific analysis,False,False
+Rab24,Both male and female analysis recommended,True,True
+Rell1,Both male and female analysis recommended,True,True
+Tle3,Insufficient data for sex-specific analysis,False,False
+Acot1,Insufficient data for sex-specific analysis,False,False
+Minar1,Insufficient data for sex-specific analysis,False,False
+Septin2,Insufficient data for sex-specific analysis,False,False
+Eomes,Insufficient data for sex-specific analysis,False,False
+B4gat1,Insufficient data for sex-specific analysis,False,False
+Nnmt,Insufficient data for sex-specific analysis,False,False
+Abi2,Insufficient data for sex-specific analysis,False,False
+Abo,Insufficient data for sex-specific analysis,False,False
+Grp,Insufficient data for sex-specific analysis,False,False
+Cysltr2,Insufficient data for sex-specific analysis,False,False
+Polq,Insufficient data for sex-specific analysis,False,False
+Birc3,Insufficient data for sex-specific analysis,False,False
+Sostdc1,Insufficient data for sex-specific analysis,False,False
+Panx1,Insufficient data for sex-specific analysis,False,False
+Tmem184b,Insufficient data for sex-specific analysis,False,False
+Ermn,Insufficient data for sex-specific analysis,False,False
+Klf17,Both male and female analysis recommended,True,True
+Fam124b,Both male and female analysis recommended,True,True
+Fbxl5,Insufficient data for sex-specific analysis,False,False
+Paqr5,Both male and female analysis recommended,True,True
+Zswim6,Both male and female analysis recommended,True,True
+Abca14,Insufficient data for sex-specific analysis,False,False
+Gramd2a,Insufficient data for sex-specific analysis,False,False
+Syce2,Insufficient data for sex-specific analysis,False,False
+Eif2b4,Insufficient data for sex-specific analysis,False,False
+Fbxl20,Insufficient data for sex-specific analysis,False,False
+1700020N01Rik,Both male and female analysis recommended,True,True
+Smoc1,Insufficient data for sex-specific analysis,False,False
+Ppp1cb,Insufficient data for sex-specific analysis,False,False
+Prr9,Insufficient data for sex-specific analysis,False,False
+Ptpmt1,Insufficient data for sex-specific analysis,False,False
+Ap3s2,Insufficient data for sex-specific analysis,False,False
+Fbxo15,Insufficient data for sex-specific analysis,False,False
+Lox,Insufficient data for sex-specific analysis,False,False
+Gpx5,Insufficient data for sex-specific analysis,False,False
+Bnip1,Insufficient data for sex-specific analysis,False,False
+Cpa1,Insufficient data for sex-specific analysis,False,False
+Sema4d,Insufficient data for sex-specific analysis,False,False
+Fancl,Insufficient data for sex-specific analysis,False,False
+Atp11b,Insufficient data for sex-specific analysis,False,False
+Dusp13b,Insufficient data for sex-specific analysis,False,False
+Foxn1,Insufficient data for sex-specific analysis,False,False
+Ptger2,Insufficient data for sex-specific analysis,False,False
+Kat8,Insufficient data for sex-specific analysis,False,False
+Hacl1,Insufficient data for sex-specific analysis,False,False
+Pipox,Insufficient data for sex-specific analysis,False,False
+Zfp354a,Insufficient data for sex-specific analysis,False,False
+Rnase11,Insufficient data for sex-specific analysis,False,False
+Cul5,Insufficient data for sex-specific analysis,False,False
+Cavin3,Insufficient data for sex-specific analysis,False,False
+Hnrnpdl,Insufficient data for sex-specific analysis,False,False
+B4galt5,Insufficient data for sex-specific analysis,False,False
+Selenbp1,Insufficient data for sex-specific analysis,False,False
+Bloc1s5,Insufficient data for sex-specific analysis,False,False
+Grik5,Insufficient data for sex-specific analysis,False,False
+Ttc7b,Both male and female analysis recommended,True,True
+Dync2i1,Insufficient data for sex-specific analysis,False,False
+Pnkp,Insufficient data for sex-specific analysis,False,False
+Sdha,Both male and female analysis recommended,True,True
+Cenph,Both male and female analysis recommended,True,True
+Unc13b,Insufficient data for sex-specific analysis,False,False
+C1qb,Both male and female analysis recommended,True,True
+Mybphl,Male-only analysis recommended,True,False
+Josd1,Male-only analysis recommended,True,False
+Plpp3,Insufficient data for sex-specific analysis,False,False
+Tmem30a,Male-only analysis recommended,True,False
+Chek2,Both male and female analysis recommended,True,True
+Kbtbd8,Insufficient data for sex-specific analysis,False,False
+Zswim1,Insufficient data for sex-specific analysis,False,False
+Cstdc3,Insufficient data for sex-specific analysis,False,False
+Tram2,Both male and female analysis recommended,True,True
+Thbd,Insufficient data for sex-specific analysis,False,False
+Pxk,Insufficient data for sex-specific analysis,False,False
+Cox20,Insufficient data for sex-specific analysis,False,False
+Rabggta,Insufficient data for sex-specific analysis,False,False
+Gkn2,Insufficient data for sex-specific analysis,False,False
+Gpr137,Both male and female analysis recommended,True,True
+Dsc3,Insufficient data for sex-specific analysis,False,False
+Sgsh,Insufficient data for sex-specific analysis,False,False
+Pmm2,Insufficient data for sex-specific analysis,False,False
+Trav1,Both male and female analysis recommended,True,True
+Tstd1,Both male and female analysis recommended,True,True
+Qsox2,Insufficient data for sex-specific analysis,False,False
+Tmco5,Insufficient data for sex-specific analysis,False,False
+Clec5a,Insufficient data for sex-specific analysis,False,False
+Fabp1,Insufficient data for sex-specific analysis,False,False
+Syne3,Insufficient data for sex-specific analysis,False,False
+Ifi208,Insufficient data for sex-specific analysis,False,False
+Washc3,Insufficient data for sex-specific analysis,False,False
+Mical2,Insufficient data for sex-specific analysis,False,False
+Sowaha,Insufficient data for sex-specific analysis,False,False
+Tprg1,Insufficient data for sex-specific analysis,False,False
+Ankrd65,Insufficient data for sex-specific analysis,False,False
+Dnajc21,Insufficient data for sex-specific analysis,False,False
+Cdh26,Insufficient data for sex-specific analysis,False,False
+Cd79a,Insufficient data for sex-specific analysis,False,False
+Npas3,Female-only analysis recommended,False,True
+Trh,Insufficient data for sex-specific analysis,False,False
+Ido2,Male-only analysis recommended,True,False
+Gnl1,Insufficient data for sex-specific analysis,False,False
+Itga3,Insufficient data for sex-specific analysis,False,False
+Cldn3,Insufficient data for sex-specific analysis,False,False
+Itpr1,Insufficient data for sex-specific analysis,False,False
+Nav2,Insufficient data for sex-specific analysis,False,False
+Rapsn,Insufficient data for sex-specific analysis,False,False
+Oprl1,Insufficient data for sex-specific analysis,False,False
+Trmt9b,Insufficient data for sex-specific analysis,False,False
+Nosip,Insufficient data for sex-specific analysis,False,False
+Phc3,Insufficient data for sex-specific analysis,False,False
+Inhbb,Insufficient data for sex-specific analysis,False,False
+Cacna2d2,Insufficient data for sex-specific analysis,False,False
+Pappa,Insufficient data for sex-specific analysis,False,False
+Usp29,Insufficient data for sex-specific analysis,False,False
+Prodh,Insufficient data for sex-specific analysis,False,False
+Mmgt2,Insufficient data for sex-specific analysis,False,False
+Tor1aip1,Insufficient data for sex-specific analysis,False,False
+Tlr2,Insufficient data for sex-specific analysis,False,False
+Kcna5,Insufficient data for sex-specific analysis,False,False
+Fuz,Insufficient data for sex-specific analysis,False,False
+Crtac1,Insufficient data for sex-specific analysis,False,False
+Pde7b,Insufficient data for sex-specific analysis,False,False
+Fzd4,Insufficient data for sex-specific analysis,False,False
+Ccdc85a,Both male and female analysis recommended,True,True
+Idh2,Insufficient data for sex-specific analysis,False,False
+Nodal,Insufficient data for sex-specific analysis,False,False
+Defb43,Insufficient data for sex-specific analysis,False,False
+Chd8,Insufficient data for sex-specific analysis,False,False
+G2e3,Insufficient data for sex-specific analysis,False,False
+Rmnd5b,Both male and female analysis recommended,True,True
+Pramel17,Insufficient data for sex-specific analysis,False,False
+Iglon5,Insufficient data for sex-specific analysis,False,False
+Gbgt1,Insufficient data for sex-specific analysis,False,False
+Nkg7,Insufficient data for sex-specific analysis,False,False
+Htr4,Insufficient data for sex-specific analysis,False,False
+Cmklr2,Insufficient data for sex-specific analysis,False,False
+Atf3,Insufficient data for sex-specific analysis,False,False
+Gdf2,Insufficient data for sex-specific analysis,False,False
+Fbxo5,Insufficient data for sex-specific analysis,False,False
+Brix1,Insufficient data for sex-specific analysis,False,False
+Pde6b,Insufficient data for sex-specific analysis,False,False
+Adh4,Insufficient data for sex-specific analysis,False,False

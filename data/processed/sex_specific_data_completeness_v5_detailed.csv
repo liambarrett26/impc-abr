@@ -1,0 +1,340 @@
+gene_symbol,allele_symbol,zygosity,center,male_total_mice,male_complete_data_mice,male_control_count,male_analyzable,female_total_mice,female_complete_data_mice,female_control_count,female_analyzable,control_status
+Rtn4rl2,Rtn4rl2<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Prss2,Prss2<tm1.1(KOMP)Vlcg>,homozygote,JAX,3,3,1264,True,4,4,1277,True,OK
+Pfkfb4,Pfkfb4<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Pfkfb4,Pfkfb4<tm1a(KOMP)Wtsi>,homozygote,WTSI,4,4,454,True,0,0,452,False,OK
+Bst2,Bst2<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Zgrf1,Zgrf1<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Vegfb,Vegfb<tm1b(EUCOMM)Hmgu>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Slc9a5,Slc9a5<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Aldh1a3,Aldh1a3<tm1b(KOMP)Wtsi>,heterozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Csf2rb,Csf2rb<tm2b(EUCOMM)Hmgu>,heterozygote,ICS,9,9,767,True,7,7,745,True,OK
+Ints7,Ints7<em1(IMPC)J>,heterozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Ces1d,Ces1d<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Scn3b,Scn3b<tm1a(KOMP)Wtsi>,homozygote,WTSI,2,2,454,False,2,2,452,False,OK
+Itm2c,Itm2c<tm1b(EUCOMM)Wtsi>,heterozygote,HMGU,4,2,475,False,3,2,485,False,OK
+Itm2c,Itm2c<em2(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Eng,Eng<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,ICS,9,9,767,True,12,12,745,True,OK
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Dnase1l2,Dnase1l2<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,JAX,4,4,1264,True,4,3,1277,True,OK
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,HMGU,4,3,475,True,4,2,485,False,OK
+Dnase1l2,Dnase1l2<tm1(KOMP)Wtsi>,homozygote,RBRC,4,4,239,True,0,0,57,False,OK
+Dnase1l2,Dnase1l2<em2(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,WTSI,0,0,454,False,4,4,452,True,OK
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Otol1,Otol1<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Abhd17c,Abhd17c<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Marveld2,Marveld2<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Tubb4b,Tubb4b<em1(IMPC)J>,heterozygote,JAX,2,2,1264,False,2,2,1277,False,OK
+Nedd4,Nedd4<tm2b(EUCOMM)Hmgu>,heterozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Aldh1b1,Aldh1b1<tm2a(EUCOMM)Wtsi>,homozygote,WTSI,0,0,454,False,4,4,452,True,OK
+Aldh1b1,Aldh1b1<tm2a(EUCOMM)Wtsi>,heterozygote,WTSI,0,0,454,False,3,3,452,True,OK
+Gnpda2,Gnpda2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Med1,Med1<tm3b(EUCOMM)Wtsi>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Cimap1d,Cimap1d<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Cimap1d,Cimap1d<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Cmtm3,Cmtm3<em1(IMPC)H>,homozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Snx22,Snx22<tm1.1(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Kbtbd12,Kbtbd12<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Apbb3,Apbb3<em1(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Slc13a3,Slc13a3<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Arhgef12,Arhgef12<tm1b(KOMP)Wtsi>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Mir100,Mir100<em1(IMPC)Kmpc>,homozygote,KMPC,2,2,209,False,3,2,211,False,OK
+Ndufc2,Ndufc2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Csf3r,Csf3r<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ms4a12,Ms4a12<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Atp13a5,Atp13a5<em1(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Ndrg3,Ndrg3<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Cfap45,Cfap45<em1(IMPC)Mhzh>,heterozygote,MARC,3,3,83,True,3,3,64,True,OK
+Cfap45,Cfap45<em1(IMPC)Mhzh>,homozygote,MARC,1,1,83,False,2,2,64,False,OK
+Tor1a,Tor1a<em1(IMPC)H>,heterozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Fads1,Fads1<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Treml1,Treml1<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Hdgfl1,Hdgfl1<em1(IMPC)Tcp>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Erich3,Erich3<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Pgbd1,Pgbd1<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Prpf18,Prpf18<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Plin4,Plin4<tm1.1(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Efcab11,Efcab11<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Akap10,Akap10<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Abhd11,Abhd11<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Samd9l,Samd9l<tm1.1(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Bpifa2,Bpifa2<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ints12,Ints12<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Abhd14a,Abhd14a<tm2a(EUCOMM)Wtsi>,homozygote,WTSI,2,2,454,False,2,2,452,False,OK
+Ahsa2,Ahsa2<tm1b(EUCOMM)Wtsi>,homozygote,ICS,2,2,767,False,2,2,745,False,OK
+Epb41l4a,Epb41l4a<tm1b(KOMP)Mbp>,homozygote,JAX,3,3,1264,True,4,4,1277,True,OK
+Kbtbd3,Kbtbd3<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,8,8,1701,True,8,8,1745,True,OK
+Taar8a,Taar8a<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Maf,Maf<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Usp36,Usp36<tm1b(EUCOMM)Hmgu>,heterozygote,MARC,2,2,83,False,2,2,64,False,OK
+Myh8,Myh8<em1(IMPC)Tcp>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Sptan1,Sptan1<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Esr2,Esr2<em1(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Asic4,Asic4<tm1b(KOMP)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Asic4,Asic4<em2(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Aicda,Aicda<tm1b(EUCOMM)Hmgu>,homozygote,WTSI,2,2,454,False,2,2,452,False,OK
+Kcnh6,Kcnh6<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Irak2,Irak2<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Ppt2,Ppt2<tm2b(KOMP)Wtsi>,homozygote,MRC Harwell,2,2,434,False,2,1,426,False,OK
+Usp31,Usp31<em1(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Kat5,Kat5<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Dgke,Dgke<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Edc3,Edc3<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Edc3,Edc3<em1(IMPC)Tcp>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Rab3il1,Rab3il1<em1(IMPC)J>,homozygote,JAX,3,3,1264,True,3,3,1277,True,OK
+Galt,Galt<em1(IMPC)H>,homozygote,MRC Harwell,2,2,36,False,2,2,34,False,OK
+Pip4p1,Pip4p1<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,8,7,1701,True,8,7,1745,True,OK
+Bcl2l11,Bcl2l11<em1(IMPC)H>,homozygote,MRC Harwell,2,2,36,False,2,2,34,False,OK
+Lgals3bp,Lgals3bp<em1(IMPC)H>,homozygote,MRC Harwell,2,2,36,False,2,2,34,False,OK
+Ciao2a,Ciao2a<tm2a(EUCOMM)Wtsi>,homozygote,WTSI,3,3,454,True,1,1,452,False,OK
+Gramd2b,Gramd2b<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Cfap68,Cfap68<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Golm2,Golm2<tm2b(EUCOMM)Wtsi>,homozygote,WTSI,2,2,454,False,2,2,452,False,OK
+Atp5po,Atp5po<tm1.1(KOMP)Vlcg>,heterozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Cped1,Cped1<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Ttc38,Ttc38<em1Llp>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Slc5a4a,Slc5a4a<em1(IMPC)Hmgu>,homozygote,HMGU,4,4,959,True,4,4,950,True,OK
+Sort1,Sort1<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Il21r,Il21r<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Gabpa,Gabpa<em2(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ppp1r15a,Ppp1r15a<em2(IMPC)H>,homozygote,MRC Harwell,2,2,36,False,2,2,34,False,OK
+Pla2g4b,Pla2g4b<tm1b(EUCOMM)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Fbxw13,Fbxw13<em2(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Adgrf1,Adgrf1<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,8,8,1701,True,9,9,1745,True,OK
+Ankrd28,Ankrd28<em1(IMPC)J>,homozygote,JAX,3,3,1264,True,2,2,1277,False,OK
+Ccdc40,Ccdc40<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Zc3h13,Zc3h13<em1(IMPC)J>,heterozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Fstl1,Fstl1<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Adipoq,Adipoq<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Tbcel,Tbcel<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,8,8,1277,True,OK
+Fndc3b,Fndc3b<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Akr1c14,Akr1c14<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Fgf9,Fgf9<tm1b(KOMP)Wtsi>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Fgf9,Fgf9<tm1b(KOMP)Wtsi>,heterozygote,JAX,3,3,1264,True,4,4,1277,True,OK
+Zdhhc24,Zdhhc24<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Slc4a8,Slc4a8<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ncor2,Ncor2<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Fbxo36,Fbxo36<tm1b(KOMP)Wtsi>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Xbp1,Xbp1<tm1a(EUCOMM)Wtsi>,heterozygote,WTSI,2,2,454,False,2,2,452,False,OK
+Xbp1,Xbp1<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Bri3bp,Bri3bp<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Clca2,Clca2<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Btc,Btc<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Akap13,Akap13<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Clcn6,Clcn6<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Sgtb,Sgtb<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ufc1,Ufc1<em1(IMPC)Marc>,heterozygote,MARC,2,2,83,False,2,2,64,False,OK
+Skic3,Skic3<em1(IMPC)Tcp>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Me2,Me2<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,4,1,475,False,4,2,485,False,OK
+Retreg3,Retreg3<tm2b(EUCOMM)Wtsi>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Hk3,Hk3<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Il20rb,Il20rb<em2(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Il20rb,Il20rb<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Arfip1,Arfip1<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Tafa2,Tafa2<em1(IMPC)H>,homozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Cib3,Cib3<em1(IMPC)H>,homozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Pard3b,Pard3b<tm1b(EUCOMM)Wtsi>,homozygote,HMGU,4,4,475,True,4,2,485,False,OK
+Sgsm1,Sgsm1<tm1b(EUCOMM)Wtsi>,homozygote,WTSI,2,2,454,False,2,2,452,False,OK
+Rfxank,Rfxank<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,4,4,475,True,4,2,485,False,OK
+Ces2c,Ces2c<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+C2cd4c,C2cd4c<em1(IMPC)Hmgu>,homozygote,HMGU,4,4,959,True,4,4,950,True,OK
+Mcu,Mcu<tm1b(EUCOMM)Hmgu>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Dpm3,Dpm3<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Kntc1,Kntc1<tm1b(EUCOMM)Hmgu>,heterozygote,JAX,4,4,1264,True,3,3,1277,True,OK
+Kntc1,Kntc1<tm1b(EUCOMM)Hmgu>,homozygote,JAX,2,2,1264,False,1,1,1277,False,OK
+Fam222a,Fam222a<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Hnrnpd,Hnrnpd<tm1b(KOMP)Wtsi>,heterozygote,MARC,2,2,83,False,3,3,64,True,OK
+Pdia6,Pdia6<tm1b(EUCOMM)Hmgu>,heterozygote,HMGU,4,4,475,True,4,1,485,False,OK
+Mir203,Mir203<tm1Wtsi>,heterozygote,MARC,3,3,83,True,3,3,64,True,OK
+Ifnk,Ifnk<tm1.1(KOMP)Vlcg>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Ctla2b,Ctla2b<tm1.1(NCOM)Mfgc>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Serinc3,Serinc3<tm1a(KOMP)Wtsi>,homozygote,WTSI,4,4,454,True,2,2,452,False,OK
+Chchd10,Chchd10<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Fadd,Fadd<tm1e.1(KOMP)Wtsi>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Snapc1,Snapc1<tm1b(KOMP)Mbp>,heterozygote,MRC Harwell,2,1,169,False,2,2,177,False,OK
+Vstm2l,Vstm2l<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Unc13c,Unc13c<em1(IMPC)H>,homozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Rnf222,Rnf222<em1(IMPC)J>,homozygote,JAX,1,1,1264,False,2,2,1277,False,OK
+Cdc7,Cdc7<tm1.1(KOMP)Vlcg>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Ppbp,Ppbp<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Prdm2,Prdm2<em1(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Gpr33,Gpr33<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Tst,Tst<tm1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Tst,Tst<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Snph,Snph<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,1,1,285,False,2,2,289,False,OK
+Sidt1,Sidt1<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ppp1r1a,Ppp1r1a<em2(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Sirt1,Sirt1<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Fam120a,Fam120a<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,3,3,1277,True,OK
+Pspc1,Pspc1<em1(IMPC)Mbp>,homozygote,UC Davis,3,3,285,True,2,2,289,False,OK
+Nat1,Nat1<tm1.1(KOMP)Vlcg>,homozygote,JAX,3,3,1264,True,4,4,1277,True,OK
+Arhgap26,Arhgap26<tm1b(EUCOMM)Hmgu>,homozygote,HMGU,4,4,959,True,4,4,950,True,OK
+Actr3b,Actr3b<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Tmem171,Tmem171<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,3,3,1277,True,OK
+Sh3yl1,Sh3yl1<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Btrc,Btrc<tm1b(KOMP)Wtsi>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Rimbp2,Rimbp2<em1(IMPC)Wtsi>,homozygote,WTSI,5,5,454,True,3,3,452,True,OK
+Rab34,Rab34<tm1b(EUCOMM)Hmgu>,heterozygote,JAX,3,3,1264,True,4,4,1277,True,OK
+Coq2,Coq2<tm1b(EUCOMM)Hmgu>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Letmd1,Letmd1<em1(IMPC)Kmpc>,homozygote,KMPC,2,2,209,False,2,1,211,False,OK
+Lrrcc1,Lrrcc1<tm1b(EUCOMM)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Agap1,Agap1<tm1a(EUCOMM)Wtsi>,homozygote,WTSI,8,8,454,True,1,1,452,False,OK
+Scin,Scin<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Hmx2,Hmx2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+0610010K14Rik,0610010K14Rik<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Trappc1,Trappc1<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Sprr1a,Sprr1a<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Rbak,Rbak<tm1b(KOMP)Wtsi>,homozygote,WTSI,2,2,454,False,2,2,452,False,OK
+Rab24,Rab24<tm1.1(KOMP)Wtsi>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Rell1,Rell1<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Tle3,Tle3<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Acot1,Acot1<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Minar1,Minar1<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Septin2,Septin2<em1(IMPC)Tcp>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Eomes,Eomes<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+B4gat1,B4gat1<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,1,1,285,False,2,2,289,False,OK
+Nnmt,Nnmt<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Abi2,Abi2<tm1b(EUCOMM)Wtsi>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Abo,Abo<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Grp,Grp<em1(IMPC)H>,homozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Cysltr2,Cysltr2<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Polq,Polq<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Birc3,Birc3<em1(IMPC)Kmpc>,homozygote,KMPC,2,2,209,False,2,2,211,False,OK
+Sostdc1,Sostdc1<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Panx1,Panx1<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Tmem184b,Tmem184b<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ermn,Ermn<em1(IMPC)H>,homozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Klf17,Klf17<tm1b(KOMP)Wtsi>,homozygote,WTSI,4,4,454,True,4,4,452,True,OK
+Fam124b,Fam124b<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Fbxl5,Fbxl5<em1(IMPC)Marc>,heterozygote,MARC,2,2,83,False,2,2,64,False,OK
+Paqr5,Paqr5<em1(IMPC)Ccpcz>,homozygote,CCP-IMG,8,8,1701,True,8,8,1745,True,OK
+Zswim6,Zswim6<em1(IMPC)J>,heterozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Abca14,Abca14<tm1.1(NCOM)Mfgc>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Gramd2a,Gramd2a<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Syce2,Syce2<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Eif2b4,Eif2b4<tm1b(KOMP)Wtsi>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Fbxl20,Fbxl20<em2(IMPC)Marc>,heterozygote,MARC,2,2,83,False,2,2,64,False,OK
+Fbxl20,Fbxl20<tm1b(KOMP)Wtsi>,heterozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+1700020N01Rik,1700020N01Rik<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,3,3,1277,True,OK
+Smoc1,Smoc1<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,1,1,434,False,2,2,426,False,OK
+Smoc1,Smoc1<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Ppp1cb,Ppp1cb<em2(IMPC)Marc>,heterozygote,MARC,2,2,83,False,2,2,64,False,OK
+Prr9,Prr9<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ptpmt1,Ptpmt1<tm1.1(KOMP)Vlcg>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Ap3s2,Ap3s2<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Fbxo15,Fbxo15<em1(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Lox,Lox<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Gpx5,Gpx5<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Bnip1,Bnip1<tm2b(KOMP)Wtsi>,heterozygote,MARC,2,2,83,False,2,2,64,False,OK
+Cpa1,Cpa1<em1(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Sema4d,Sema4d<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Fancl,Fancl<tm1b(EUCOMM)Hmgu>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Atp11b,Atp11b<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Dusp13b,Dusp13b<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Foxn1,Foxn1<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,1,1,285,False,2,2,289,False,OK
+Ptger2,Ptger2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Kat8,Kat8<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Hacl1,Hacl1<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Hacl1,Hacl1<tm1a(KOMP)Wtsi>,homozygote,WTSI,2,2,454,False,2,2,452,False,OK
+Pipox,Pipox<tm1b(EUCOMM)Wtsi>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Zfp354a,Zfp354a<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Rnase11,Rnase11<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Cul5,Cul5<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Cavin3,Cavin3<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Hnrnpdl,Hnrnpdl<em1(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+B4galt5,B4galt5<em1(IMPC)Tcp>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Selenbp1,Selenbp1<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Bloc1s5,Bloc1s5<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Bloc1s5,Bloc1s5<em1(IMPC)Tcp>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Grik5,Grik5<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ttc7b,Ttc7b<em1(IMPC)J>,heterozygote,JAX,4,4,1264,True,3,3,1277,True,OK
+Dync2i1,Dync2i1<em1(IMPC)Tcp>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Pnkp,Pnkp<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Sdha,Sdha<tm2b(KOMP)Wtsi>,heterozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Cenph,Cenph<tm1b(EUCOMM)Hmgu>,heterozygote,HMGU,4,4,475,True,8,7,485,True,OK
+Unc13b,Unc13b<tm1b(KOMP)Wtsi>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+C1qb,C1qb<tm1.1(KOMP)Vlcg>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Mybphl,Mybphl<tm1b(KOMP)Wtsi>,heterozygote,WTSI,4,4,454,True,0,0,452,False,OK
+Mybphl,Mybphl<tm1a(KOMP)Wtsi>,homozygote,WTSI,3,3,454,True,1,1,452,False,OK
+Josd1,Josd1<em1(IMPC)Wtsi>,homozygote,WTSI,4,4,454,True,2,2,452,False,OK
+Plpp3,Plpp3<tm1b(EUCOMM)Hmgu>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Tmem30a,Tmem30a<tm1a(KOMP)Wtsi>,heterozygote,WTSI,4,4,454,True,1,1,452,False,OK
+Chek2,Chek2<tm1b(EUCOMM)Hmgu>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Kbtbd8,Kbtbd8<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Zswim1,Zswim1<tm1b(KOMP)Mbp>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Cstdc3,Cstdc3<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Tram2,Tram2<tm1a(KOMP)Wtsi>,homozygote,WTSI,3,3,454,True,5,5,452,True,OK
+Thbd,Thbd<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Pxk,Pxk<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Cox20,Cox20<em1(IMPC)Tcp>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Rabggta,Rabggta<tm1.1(KOMP)Vlcg>,heterozygote,MARC,2,2,83,False,2,2,64,False,OK
+Gkn2,Gkn2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Gpr137,Gpr137<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,3,3,1277,True,OK
+Dsc3,Dsc3<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,2,2,169,False,1,1,177,False,OK
+Sgsh,Sgsh<em3(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Pmm2,Pmm2<tm1b(EUCOMM)Hmgu>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Trav1,Trav1<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,3,3,1277,True,OK
+Tstd1,Tstd1<em1(IMPC)J>,homozygote,JAX,3,3,1264,True,4,4,1277,True,OK
+Qsox2,Qsox2<em1(IMPC)Kmpc>,homozygote,KMPC,2,2,209,False,2,2,211,False,OK
+Tmco5,Tmco5<tm1b(KOMP)Wtsi>,homozygote,MRC Harwell,1,1,169,False,2,2,177,False,OK
+Clec5a,Clec5a<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Fabp1,Fabp1<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Syne3,Syne3<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ifi208,Ifi208<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Washc3,Washc3<tm1.1(KOMP)Vlcg>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Mical2,Mical2<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Sowaha,Sowaha<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Tprg1,Tprg1<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ankrd65,Ankrd65<tm1(KOMP)Wtsi>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Dnajc21,Dnajc21<tm1.1(NCOM)Mfgc>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Cdh26,Cdh26<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Cd79a,Cd79a<em1(IMPC)H>,homozygote,MRC Harwell,1,1,36,False,2,2,34,False,OK
+Npas3,Npas3<tm1b(KOMP)Wtsi>,heterozygote,KMPC,2,2,209,False,3,3,211,True,OK
+Trh,Trh<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Ido2,Ido2<tm3a(EUCOMM)Wtsi>,homozygote,WTSI,3,3,454,True,1,1,452,False,OK
+Gnl1,Gnl1<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Itga3,Itga3<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Cldn3,Cldn3<em1(IMPC)H>,homozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Itpr1,Itpr1<tm1.1(NCOM)Mfgc>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Nav2,Nav2<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Rapsn,Rapsn<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Oprl1,Oprl1<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Trmt9b,Trmt9b<em1(IMPC)H>,homozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Nosip,Nosip<em1(IMPC)Tcp>,heterozygote,TCP,2,2,293,False,2,2,295,False,OK
+Phc3,Phc3<tm2b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Inhbb,Inhbb<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Cacna2d2,Cacna2d2<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Pappa,Pappa<em1(IMPC)H>,homozygote,MRC Harwell,2,2,36,False,2,2,34,False,OK
+Usp29,Usp29<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Prodh,Prodh<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Mmgt2,Mmgt2<tm1b(EUCOMM)Wtsi>,homozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Tor1aip1,Tor1aip1<tm1b(EUCOMM)Hmgu>,heterozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Tlr2,Tlr2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Kcna5,Kcna5<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Fuz,Fuz<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Crtac1,Crtac1<em1(IMPC)H>,homozygote,MRC Harwell,2,2,169,False,2,1,177,False,OK
+Pde7b,Pde7b<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Fzd4,Fzd4<tm1.1(KOMP)Vlcg>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Ccdc85a,Ccdc85a<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Idh2,Idh2<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Nodal,Nodal<tm1b(EUCOMM)Wtsi>,heterozygote,MRC Harwell,2,2,169,False,2,2,177,False,OK
+Defb43,Defb43<tm1b(KOMP)Wtsi>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Chd8,Chd8<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+G2e3,G2e3<em1(IMPC)Tcp>,homozygote,TCP,2,2,293,False,2,2,295,False,OK
+Rmnd5b,Rmnd5b<em1(IMPC)J>,homozygote,JAX,4,4,1264,True,4,4,1277,True,OK
+Pramel17,Pramel17<tm1b(KOMP)Wtsi>,homozygote,UC Davis,1,1,285,False,2,2,289,False,OK
+Iglon5,Iglon5<em1(IMPC)Mbp>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Gbgt1,Gbgt1<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Nkg7,Nkg7<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Htr4,Htr4<em2(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK
+Cmklr2,Cmklr2<tm1b(EUCOMM)Hmgu>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Atf3,Atf3<tm2b(EUCOMM)Wtsi>,homozygote,MRC Harwell,2,2,434,False,2,2,426,False,OK
+Gdf2,Gdf2<tm1.1(KOMP)Vlcg>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Fbxo5,Fbxo5<em1(IMPC)Mbp>,heterozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Brix1,Brix1<tm1b(KOMP)Mbp>,heterozygote,MARC,2,2,83,False,2,2,64,False,OK
+Pde6b,Pde6b<tm1b(KOMP)Wtsi>,homozygote,UC Davis,2,2,285,False,2,2,289,False,OK
+Adh4,Adh4<em2(IMPC)Marc>,homozygote,MARC,2,2,83,False,2,2,64,False,OK

@@ -20,7 +20,7 @@ class ABRDataLoader:
         
     def load_data(self):
         """Load the ABR data file."""
-        self.data = pd.read_csv(self.data_path)
+        self.data = pd.read_csv(self.data_path, low_memory=False)
         return self.data
     
     def get_frequencies(self):
