@@ -1,0 +1,88 @@
+================================================================================
+GENE-CLUSTER ASSOCIATION ANALYSIS REPORT
+GMM Clustering (k=4, tied covariance) vs Bayesian Significant Genes
+================================================================================
+
+SUMMARY STATISTICS
+----------------------------------------
+Total significant genes analyzed: 139
+Mean consistency score: 0.817
+Genes with high consistency (≥0.8): 74
+Genes with mixed phenotypes (<0.6): 25
+
+GENES BY ANALYSIS TYPE
+----------------------------------------
+All: 123 genes
+Female: 11 genes
+Male: 5 genes
+
+GENE DISTRIBUTION ACROSS CLUSTERS
+----------------------------------------
+Cluster 0 (Moderate HL): 38 genes (27.3%)
+Cluster 1 (Control/Normal): 43 genes (30.9%)
+Cluster 2 (High-Freq Loss): 46 genes (33.1%)
+Cluster 3 (Severe HL): 12 genes (8.6%)
+
+PHENOTYPIC CONSISTENCY BY CLUSTER
+----------------------------------------
+
+TOP GENES BY DOMINANT CLUSTER (by Bayes Factor)
+----------------------------------------
+
+Cluster 0 (Moderate HL):
+  Baiap2l2 - BF: 726.3, Consistency: 0.62, Mice: 16
+  Aak1 - BF: 63.0, Consistency: 0.47, Mice: 17
+  Relch - BF: 32.3, Consistency: 0.88, Mice: 8
+  Adgrb1 - BF: 31.7, Consistency: 0.50, Mice: 8
+  Ankrd11 - BF: 31.4, Consistency: 0.50, Mice: 8
+
+Cluster 1 (Control/Normal):
+  Mettl5 - BF: 3999.0, Consistency: 0.68, Mice: 19
+  Btbd7 - BF: 56.1, Consistency: 0.53, Mice: 15
+  Enpp1 - BF: 18.5, Consistency: 0.60, Mice: 10
+  Lrp1b - BF: 15.2, Consistency: 0.57, Mice: 7
+  Agap1 - BF: 12.0, Consistency: 1.00, Mice: 9
+
+Cluster 2 (High-Freq Loss):
+  Kcne1 - BF: 614.4, Consistency: 1.00, Mice: 14
+  Klc2 - BF: 346.8, Consistency: 0.54, Mice: 13
+  Zfp719 - BF: 172.9, Consistency: 1.00, Mice: 11
+  Zfp719 - BF: 85.0, Consistency: 1.00, Mice: 10
+  Gipc3 - BF: 52.7, Consistency: 1.00, Mice: 9
+
+Cluster 3 (Severe HL):
+  Cep250 - BF: 17.3, Consistency: 0.71, Mice: 7
+  Tmprss2 - BF: 10.1, Consistency: 0.83, Mice: 6
+  Rap1gap2 - BF: 10.0, Consistency: 0.67, Mice: 6
+  Pank2 - BF: 5.9, Consistency: 0.40, Mice: 10
+  Phf3 - BF: 5.8, Consistency: 0.60, Mice: 5
+
+GENES WITH MIXED PHENOTYPES (Consistency < 0.6)
+----------------------------------------
+Klc2 - Consistency: 0.54, Distribution: [C0:3, C1:3, C2:7]
+Aak1 - Consistency: 0.47, Distribution: [C0:8, C1:3, C2:5, C3:1]
+Btbd7 - Consistency: 0.53, Distribution: [C0:7, C1:8]
+Adgrb1 - Consistency: 0.50, Distribution: [C0:4, C2:2, C3:2]
+Ankrd11 - Consistency: 0.50, Distribution: [C0:4, C1:3, C3:1]
+Otog - Consistency: 0.50, Distribution: [C0:4, C2:4]
+Phf10 - Consistency: 0.50, Distribution: [C0:4, C1:4]
+Mettl5 - Consistency: 0.56, Distribution: [C0:5, C1:3, C2:1]
+Camsap3 - Consistency: 0.57, Distribution: [C0:4, C1:3]
+Lrp1b - Consistency: 0.57, Distribution: [C0:3, C1:4]
+
+SEX-SPECIFIC CONSISTENCY ANALYSIS
+----------------------------------------
+Genes with different dominant clusters by sex:
+  Baiap2l2 - Male: Cluster 2, Female: Cluster 0
+  Klc2 - Male: Cluster 2, Female: Cluster 1
+  Aak1 - Male: Cluster 0, Female: Cluster 2
+  Btbd7 - Male: Cluster 1, Female: Cluster 0
+  Adgrb1 - Male: Cluster 3, Female: Cluster 0
+  Plscr5 - Male: Cluster 2, Female: Cluster 0
+  Otog - Male: Cluster 0, Female: Cluster 2
+  Rab11fip3 - Male: Cluster 0, Female: Cluster 2
+  Phf10 - Male: Cluster 0, Female: Cluster 1
+  Lrp1b - Male: Cluster 0, Female: Cluster 1
+
+Mean male consistency: 0.845
+Mean female consistency: 0.828
