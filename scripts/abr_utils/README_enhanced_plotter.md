@@ -43,15 +43,15 @@ This script creates improved visualizations from pre-trained Bayesian ABR models
 ### Command Line
 ```bash
 # Basic usage - creates plots in model_directory/enhanced_plots/
-python scripts/enhanced_abr_plotter.py "path/to/model/directory"
+python scripts/abr_utils/enhanced_abr_plotter.py "path/to/model/directory"
 
 # Specify custom output directory
-python scripts/enhanced_abr_plotter.py "path/to/model/directory" --output-dir "custom/output/path"
+python scscripts/abr_utils/enhanced_abr_plotter.py "path/to/model/directory" --output-dir "custom/output/path"
 ```
 
 ### Example
 ```bash
-python scripts/enhanced_abr_plotter.py "results/test_bayes/Marveld2_analysis_20250603_162914/Marveld2_Marveld2<tm1b(EUCOMM)Wtsi>_homozygote_MRC Harwell"
+python scripts/abr_utils/enhanced_abr_plotter.py "results/test_bayes/Marveld2_analysis_20250603_162914/Marveld2_Marveld2<tm1b(EUCOMM)Wtsi>_homozygote_MRC Harwell"
 ```
 
 ### Python API
@@ -64,7 +64,7 @@ plotter.load_model()
 
 # Create individual plots
 plotter.plot_abr_profiles("abr_profiles.png")
-plotter.plot_posterior_distribution("posterior.png") 
+plotter.plot_posterior_distribution("posterior.png")
 plotter.plot_effect_size("effect_size.png")
 
 # Or create all plots at once
@@ -81,7 +81,7 @@ The script expects a model directory containing:
 
 Each plot is saved in both formats:
 - `abr_profiles_enhanced.png/.eps`: ABR threshold profiles comparison
-- `posterior_distribution_enhanced.png/.eps`: Posterior probability of hearing loss  
+- `posterior_distribution_enhanced.png/.eps`: Posterior probability of hearing loss
 - `effect_size_enhanced.png/.eps`: Frequency-specific hearing loss effects
 
 **PNG files** (1200 DPI): High-resolution for presentations, printing, and detailed viewing
