@@ -88,11 +88,27 @@ def preprocess_and_save(data_path: str,
         
         logger.info(f"Loaded {len(df)} samples from {len(experimental_groups) if experimental_groups else 0} groups")
         
+        # Step 1.5: Remove samples with missing ABR values
+        abr_cols = [
+            '6kHz-evoked ABR Threshold',
+            '12kHz-evoked ABR Threshold',
+            '18kHz-evoked ABR Threshold',
+            '24kHz-evoked ABR Threshold',
+            '30kHz-evoked ABR Threshold'
+        ]
+        
+        initial_count = len(df)
+        missing_mask = df[abr_cols].isnull().any(axis=1)
+        df_clean = df[~missing_mask].copy()
+        
+        logger.info(f"Removed {missing_mask.sum()} samples with missing ABR values")
+        logger.info(f"Clean dataset: {len(df_clean)} samples ({len(df_clean)/initial_count*100:.1f}% retained)")
+        
         # Step 2: Preprocess data
         logger.info("Preprocessing ABR data")
         config = create_default_config()
         preprocessor = ABRPreprocessor(config)
-        normalized_data = preprocessor.fit_transform(df)
+        normalized_data = preprocessor.fit_transform(df_clean)
         
         logger.info(f"Normalized data shape: {normalized_data.shape}")
         
@@ -119,8 +135,8 @@ def preprocess_and_save(data_path: str,
         ]
         
         # Keep available columns
-        available_cols = [col for col in metadata_cols + abr_cols if col in df.columns]
-        metadata = df[available_cols].copy()
+        available_cols = [col for col in metadata_cols + abr_cols if col in df_clean.columns]
+        metadata = df_clean[available_cols].copy()
         metadata.to_csv(output_path / "metadata.csv", index=False)
         
         # Save preprocessor for potential inverse transforms
@@ -131,7 +147,7 @@ def preprocess_and_save(data_path: str,
         preproc_info = {
             'timestamp': datetime.now().isoformat(),
             'data_path': str(data_path),
-            'n_samples': len(df),
+            'n_samples': len(df_clean),
             'n_features': normalized_data.shape[1],
             'n_experimental_groups': len(experimental_groups) if experimental_groups else 0,
             'min_mutants': min_mutants,

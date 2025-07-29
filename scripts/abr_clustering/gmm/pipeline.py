@@ -383,6 +383,20 @@ class AudiometricPhenotypePipeline:
                 processed_df.to_csv(processed_data_path, index=False)
                 saved_files['normalized_data'] = str(processed_data_path)
 
+            # Save original ABR data for visualizations
+            if self.raw_data is not None:
+                abr_columns = [
+                    '6kHz-evoked ABR Threshold',
+                    '12kHz-evoked ABR Threshold',
+                    '18kHz-evoked ABR Threshold',
+                    '24kHz-evoked ABR Threshold',
+                    '30kHz-evoked ABR Threshold'
+                ]
+                original_data_path = self.output_dir / "original_data.csv"
+                original_df = pd.DataFrame(self.raw_data[abr_columns].values, columns=abr_columns)
+                original_df.to_csv(original_data_path, index=False)
+                saved_files['original_data'] = str(original_data_path)
+
             # Save models if requested
             if save_models:
                 if self.preprocessor:

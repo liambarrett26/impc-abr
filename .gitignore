@@ -2,6 +2,9 @@
 /results/**
 /scripts/abr_clustering/results/**
 /scripts/abr_clustering/results/gene_results/**
+/scripts/abr_clustering/gmm/results/**
+/scripts/abr_clustering/gmm/shared_data/**
+/scripts/abr_clustering/gmm/*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

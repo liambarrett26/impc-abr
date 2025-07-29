@@ -334,7 +334,8 @@ class AudiometricAnalyzer:
                             cluster_labels: np.ndarray,
                             cluster_probabilities: np.ndarray,
                             original_data: np.ndarray = None,
-                            output_dir: str = "results") -> Dict[str, str]:
+                            output_dir: str = "results",
+                            use_confidence_intervals: bool = True) -> Dict[str, str]:
         """
         Create comprehensive visualizations of clustering results.
 
@@ -361,44 +362,67 @@ class AudiometricAnalyzer:
 
         # 1. Cluster audiogram profiles
         fig_profiles = self._plot_cluster_profiles(original_data if original_data is not None else normalized_data,
-                                                 cluster_labels, use_original_scale=original_data is not None)
-        profile_path = output_path / "cluster_audiogram_profiles.png"
-        fig_profiles.savefig(profile_path, dpi=300, bbox_inches='tight')
+                                                 cluster_labels, use_original_scale=original_data is not None,
+                                                 use_confidence_intervals=use_confidence_intervals)
+        profile_path_png = output_path / "cluster_audiogram_profiles.png"
+        profile_path_eps = output_path / "cluster_audiogram_profiles.eps"
+        fig_profiles.savefig(profile_path_png, dpi=1200, bbox_inches='tight')
+        fig_profiles.savefig(profile_path_eps, format='eps', bbox_inches='tight')
         plt.close(fig_profiles)
-        plot_files['audiogram_profiles'] = str(profile_path)
+        plot_files['audiogram_profiles_png'] = str(profile_path_png)
+        plot_files['audiogram_profiles_eps'] = str(profile_path_eps)
 
-        # 2. PCA visualization
+        # 2. PCA visualization - clusters
         fig_pca = self._plot_pca_clusters(normalized_data, cluster_labels, cluster_probabilities)
-        pca_path = output_path / "cluster_pca_visualization.png"
-        fig_pca.savefig(pca_path, dpi=300, bbox_inches='tight')
+        pca_path_png = output_path / "cluster_pca_clusters.png"
+        pca_path_eps = output_path / "cluster_pca_clusters.eps"
+        fig_pca.savefig(pca_path_png, dpi=1200, bbox_inches='tight')
+        fig_pca.savefig(pca_path_eps, format='eps', bbox_inches='tight')
         plt.close(fig_pca)
-        plot_files['pca_visualization'] = str(pca_path)
+        plot_files['pca_clusters_png'] = str(pca_path_png)
+        plot_files['pca_clusters_eps'] = str(pca_path_eps)
 
-        # 3. Cluster size and confidence distributions
+        # 3. PCA visualization - confidence
+        fig_pca_conf = self._plot_pca_confidence(normalized_data, cluster_labels, cluster_probabilities)
+        pca_conf_path_png = output_path / "cluster_pca_confidence.png"
+        pca_conf_path_eps = output_path / "cluster_pca_confidence.eps"
+        fig_pca_conf.savefig(pca_conf_path_png, dpi=1200, bbox_inches='tight')
+        fig_pca_conf.savefig(pca_conf_path_eps, format='eps', bbox_inches='tight')
+        plt.close(fig_pca_conf)
+        plot_files['pca_confidence_png'] = str(pca_conf_path_png)
+        plot_files['pca_confidence_eps'] = str(pca_conf_path_eps)
+
+        # 4. Cluster size and confidence distributions
         fig_dist = self._plot_cluster_distributions(cluster_labels, cluster_probabilities)
-        dist_path = output_path / "cluster_distributions.png"
-        fig_dist.savefig(dist_path, dpi=300, bbox_inches='tight')
+        dist_path_png = output_path / "cluster_distributions.png"
+        dist_path_eps = output_path / "cluster_distributions.eps"
+        fig_dist.savefig(dist_path_png, dpi=1200, bbox_inches='tight')
+        fig_dist.savefig(dist_path_eps, format='eps', bbox_inches='tight')
         plt.close(fig_dist)
-        plot_files['cluster_distributions'] = str(dist_path)
+        plot_files['cluster_distributions_png'] = str(dist_path_png)
+        plot_files['cluster_distributions_eps'] = str(dist_path_eps)
 
-        # 4. Uncertainty heatmap
+        # 5. Uncertainty heatmap
         fig_uncertainty = self._plot_uncertainty_heatmap(cluster_probabilities)
-        uncertainty_path = output_path / "assignment_uncertainty.png"
-        fig_uncertainty.savefig(uncertainty_path, dpi=300, bbox_inches='tight')
+        uncertainty_path_png = output_path / "assignment_uncertainty.png"
+        uncertainty_path_eps = output_path / "assignment_uncertainty.eps"
+        fig_uncertainty.savefig(uncertainty_path_png, dpi=1200, bbox_inches='tight')
+        fig_uncertainty.savefig(uncertainty_path_eps, format='eps', bbox_inches='tight')
         plt.close(fig_uncertainty)
-        plot_files['uncertainty_heatmap'] = str(uncertainty_path)
+        plot_files['uncertainty_heatmap_png'] = str(uncertainty_path_png)
+        plot_files['uncertainty_heatmap_eps'] = str(uncertainty_path_eps)
 
         logger.info(f"Created {len(plot_files)} visualization files in {output_dir}")
         return plot_files
 
     def _plot_cluster_profiles(self, data: np.ndarray, cluster_labels: np.ndarray,
-                             use_original_scale: bool = True) -> plt.Figure:
+                             use_original_scale: bool = True, use_confidence_intervals: bool = True) -> plt.Figure:
         """Plot mean audiogram profiles for each cluster."""
         n_clusters = len(np.unique(cluster_labels))
 
-        fig, axes = plt.subplots(1, 2, figsize=(15, 6))
+        fig, ax = plt.subplots(1, 1, figsize=(10, 6))
 
-        # Left plot: Individual cluster profiles
+        # Individual cluster profiles
         colors = sns.color_palette("husl", n_clusters)
 
         for cluster_id in range(n_clusters):
@@ -409,79 +433,92 @@ class AudiometricAnalyzer:
                 continue
 
             mean_profile = np.mean(cluster_data, axis=0)
-            std_profile = np.std(cluster_data, axis=0)
+            
+            if use_confidence_intervals:
+                # Calculate 95% confidence intervals
+                import scipy.stats as stats
+                n = len(cluster_data)
+                std_error = np.std(cluster_data, axis=0) / np.sqrt(n)
+                confidence_level = 0.95
+                t_critical = stats.t.ppf((1 + confidence_level) / 2, n - 1)
+                margin_of_error = t_critical * std_error
+                lower_bound = mean_profile - margin_of_error
+                upper_bound = mean_profile + margin_of_error
+                band_label = "95% CI"
+            else:
+                # Use standard deviation
+                std_profile = np.std(cluster_data, axis=0)
+                lower_bound = mean_profile - std_profile
+                upper_bound = mean_profile + std_profile
+                band_label = "±1 SD"
 
-            axes[0].plot(self.frequency_labels, mean_profile,
-                        color=colors[cluster_id], linewidth=2,
-                        marker='o', markersize=6,
-                        label=f'Cluster {cluster_id} (n={len(cluster_data)})')
+            ax.plot(self.frequency_labels, mean_profile,
+                   color=colors[cluster_id], linewidth=2,
+                   marker='o', markersize=6,
+                   label=f'Cluster {cluster_id + 1} (n={len(cluster_data)})')
 
-            axes[0].fill_between(self.frequency_labels,
-                               mean_profile - std_profile,
-                               mean_profile + std_profile,
-                               color=colors[cluster_id], alpha=0.2)
+            ax.fill_between(self.frequency_labels,
+                           lower_bound, upper_bound,
+                           color=colors[cluster_id], alpha=0.2)
 
-        axes[0].set_xlabel('Frequency')
-        axes[0].set_ylabel('ABR Threshold (dB SPL)' if use_original_scale else 'Normalized Threshold')
-        axes[0].set_title('Cluster Audiogram Profiles')
-        axes[0].legend()
-        axes[0].grid(True, alpha=0.3)
+        ax.set_xlabel('Frequency')
+        ax.set_ylabel('ABR Threshold (dB SPL)' if use_original_scale else 'Normalized Threshold')
+        ax.set_title('Cluster Audiogram Profiles')
+        ax.legend()
+        ax.grid(True, alpha=0.3)
 
         if use_original_scale:
-            axes[0].invert_yaxis()  # Lower thresholds (better hearing) at top
-
-        # Right plot: Heatmap of cluster means
-        cluster_means = np.array([np.mean(data[cluster_labels == i], axis=0)
-                                for i in range(n_clusters)])
-
-        im = axes[1].imshow(cluster_means, aspect='auto', cmap='viridis')
-        axes[1].set_xticks(range(len(self.frequency_labels)))
-        axes[1].set_xticklabels(self.frequency_labels)
-        axes[1].set_yticks(range(n_clusters))
-        axes[1].set_yticklabels([f'Cluster {i}' for i in range(n_clusters)])
-        axes[1].set_title('Cluster Profile Heatmap')
-
-        cbar = plt.colorbar(im, ax=axes[1])
-        cbar.set_label('Mean Threshold' if use_original_scale else 'Normalized Mean')
-
+            ax.set_ylim(0, 100)  # Standard audiogram range: 0-100 dB SPL
+        
         plt.tight_layout()
         return fig
 
     def _plot_pca_clusters(self, normalized_data: np.ndarray, cluster_labels: np.ndarray,
                           cluster_probabilities: np.ndarray) -> plt.Figure:
-        """Plot clusters in PCA space with confidence indicators."""
+        """Plot clusters in PCA space."""
         pca = PCA(n_components=2)
         data_pca = pca.fit_transform(normalized_data)
 
-        fig, axes = plt.subplots(1, 2, figsize=(15, 6))
+        fig, ax = plt.subplots(1, 1, figsize=(8, 6))
 
         n_clusters = len(np.unique(cluster_labels))
         colors = sns.color_palette("husl", n_clusters)
 
-        # Left plot: Colored by cluster
+        # Plot colored by cluster
         for cluster_id in range(n_clusters):
             cluster_mask = cluster_labels == cluster_id
-            axes[0].scatter(data_pca[cluster_mask, 0], data_pca[cluster_mask, 1],
-                          c=[colors[cluster_id]], alpha=0.6, s=30,
-                          label=f'Cluster {cluster_id}')
+            ax.scatter(data_pca[cluster_mask, 0], data_pca[cluster_mask, 1],
+                      c=[colors[cluster_id]], alpha=0.6, s=30,
+                      label=f'Cluster {cluster_id + 1}')
 
-        axes[0].set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.1%} variance)')
-        axes[0].set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.1%} variance)')
-        axes[0].set_title('Clusters in PCA Space')
-        axes[0].legend()
-        axes[0].grid(True, alpha=0.3)
+        ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.1%} variance)')
+        ax.set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.1%} variance)')
+        ax.set_title('Clusters in PCA Space')
+        ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+        ax.grid(True, alpha=0.3)
 
-        # Right plot: Colored by assignment confidence
+        plt.tight_layout()
+        return fig
+
+    def _plot_pca_confidence(self, normalized_data: np.ndarray, cluster_labels: np.ndarray,
+                            cluster_probabilities: np.ndarray) -> plt.Figure:
+        """Plot assignment confidence in PCA space."""
+        pca = PCA(n_components=2)
+        data_pca = pca.fit_transform(normalized_data)
+
+        fig, ax = plt.subplots(1, 1, figsize=(8, 6))
+
+        # Plot colored by assignment confidence
         max_probs = cluster_probabilities.max(axis=1)
-        scatter = axes[1].scatter(data_pca[:, 0], data_pca[:, 1],
-                                c=max_probs, cmap='plasma', s=30, alpha=0.7)
+        scatter = ax.scatter(data_pca[:, 0], data_pca[:, 1],
+                           c=max_probs, cmap='plasma', s=30, alpha=0.7)
 
-        axes[1].set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.1%} variance)')
-        axes[1].set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.1%} variance)')
-        axes[1].set_title('Assignment Confidence in PCA Space')
-        axes[1].grid(True, alpha=0.3)
+        ax.set_xlabel(f'PC1 ({pca.explained_variance_ratio_[0]:.1%} variance)')
+        ax.set_ylabel(f'PC2 ({pca.explained_variance_ratio_[1]:.1%} variance)')
+        ax.set_title('Assignment Confidence in PCA Space')
+        ax.grid(True, alpha=0.3)
 
-        cbar = plt.colorbar(scatter, ax=axes[1])
+        cbar = plt.colorbar(scatter, ax=ax)
         cbar.set_label('Assignment Confidence')
 
         plt.tight_layout()
@@ -520,7 +557,7 @@ class AudiometricAnalyzer:
 
         # Bottom right: Confidence by cluster
         conf_by_cluster = [max_probs[cluster_labels == i] for i in range(n_clusters)]
-        axes[1, 1].boxplot(conf_by_cluster, labels=[f'C{i}' for i in range(n_clusters)])
+        axes[1, 1].boxplot(conf_by_cluster, labels=[f'C{i+1}' for i in range(n_clusters)])
         axes[1, 1].set_xlabel('Cluster')
         axes[1, 1].set_ylabel('Assignment Confidence')
         axes[1, 1].set_title('Confidence by Cluster')
@@ -597,7 +634,7 @@ class AudiometricAnalyzer:
             f.write("-" * 40 + "\n")
 
             for cluster_id, char in analysis_results['cluster_characteristics'].items():
-                f.write(f"\nCluster {cluster_id}:\n")
+                f.write(f"\nCluster {cluster_id + 1}:\n")
                 f.write(f"  Size: {char.size} samples ({char.size/analysis_results['summary_statistics']['total_samples']*100:.1f}%)\n")
                 f.write(f"  Pattern type: {char.pattern_type}\n")
                 f.write(f"  Severity score: {char.severity_score:.3f}\n")
@@ -647,7 +684,7 @@ class AudiometricAnalyzer:
             if interesting_clusters:
                 f.write("Clusters of potential biological interest:\n")
                 for cluster_id, char in interesting_clusters:
-                    f.write(f"  - Cluster {cluster_id}: {char.pattern_type} pattern with {char.size} samples\n")
+                    f.write(f"  - Cluster {cluster_id + 1}: {char.pattern_type} pattern with {char.size} samples\n")
 
             f.write(f"\nTotal unique audiometric patterns identified: {len(set(char.pattern_type for char in analysis_results['cluster_characteristics'].values()))}\n")
 
