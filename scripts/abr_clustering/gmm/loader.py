@@ -115,11 +115,7 @@ class IMPCABRLoader:
         df = df[valid_thresholds].copy()
         logger.info(f"After threshold range filter: {len(df)} rows")
 
-        # Filter 3: Age filter (typical testing age around 14 weeks)
-        if 'age_in_weeks' in df.columns:
-            age_filter = (df['age_in_weeks'] >= 10) & (df['age_in_weeks'] <= 20)
-            df = df[age_filter].copy()
-            logger.info(f"After age filter (10-20 weeks): {len(df)} rows")
+        # Filter 3: Age filter removed - no age restrictions applied
 
         # Filter 4: Remove rows with missing critical metadata
         critical_cols = ['sex', 'phenotyping_center', 'genetic_background']

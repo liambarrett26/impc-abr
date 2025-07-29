@@ -87,18 +87,19 @@ class ModelAggregator:
         model_dirs = [d for d in self.results_dir.iterdir() 
                      if d.is_dir() and d.name.startswith('gmm_k')]
         
+        self.logger.info(f"Found {len(model_dirs)} model directories")
+        
         for model_dir in sorted(model_dirs):
-            # Check if model completed successfully
-            if not (model_dir / "completed.txt").exists():
-                self.logger.warning(f"Skipping incomplete model: {model_dir.name}")
+            self.logger.debug(f"Processing model directory: {model_dir.name}")
+            
+            # Check if model has metrics (more reliable than completed.txt)
+            metrics_path = model_dir / "metrics.json"
+            if not metrics_path.exists():
+                self.logger.warning(f"Skipping model without metrics: {model_dir.name}")
                 continue
                 
             try:
                 # Load metrics
-                metrics_path = model_dir / "metrics.json"
-                if not metrics_path.exists():
-                    self.logger.warning(f"No metrics found for {model_dir.name}")
-                    continue
                     
                 with open(metrics_path, 'r') as f:
                     metrics = json.load(f)
@@ -130,7 +131,9 @@ class ModelAggregator:
                     result['has_analysis'] = False
                     
                 self.model_results.append(result)
-                self.logger.info(f"Collected results for {model_dir.name}")
+                self.logger.info(f"Collected results for {model_dir.name}: "
+                               f"k={result['n_components']}, cov={result['covariance_type']}, "
+                               f"BIC={result['bic']:.2f}, Silhouette={result['silhouette']:.3f}")
                 
             except Exception as e:
                 self.logger.error(f"Error loading results from {model_dir.name}: {e}")
@@ -199,6 +202,82 @@ class ModelAggregator:
         self.logger.info(f"Combined score: {self.best_model['combined_score']:.3f}")
         
         return self.best_model
+    
+    def generate_separate_metric_plots(self, df: pd.DataFrame) -> Dict[str, str]:
+        """
+        Generate separate plots for each metric with improved formatting.
+        
+        Args:
+            df: DataFrame with model results
+            
+        Returns:
+            Dictionary mapping plot names to file paths
+        """
+        plot_files = {}
+        
+        # Define metrics and their properties
+        metrics = [
+            {
+                'column': 'bic',
+                'title': 'Bayesian Information Criterion',
+                'ylabel': 'BIC Score',
+                'color': '#1f77b4',  # Blue
+                'note': '(lower is better)'
+            },
+            {
+                'column': 'aic', 
+                'title': 'Akaike Information Criterion',
+                'ylabel': 'AIC Score',
+                'color': '#ff7f0e',  # Orange
+                'note': '(lower is better)'
+            },
+            {
+                'column': 'silhouette',
+                'title': 'Silhouette Coefficient',
+                'ylabel': 'Silhouette Score', 
+                'color': '#2ca02c',  # Green
+                'note': '(higher is better)'
+            },
+            {
+                'column': 'stability_score',
+                'title': 'Bootstrap Stability',
+                'ylabel': 'Stability Score',
+                'color': '#d62728',  # Red
+                'note': '(higher is better)'
+            }
+        ]
+        
+        for metric in metrics:
+            fig, ax = plt.subplots(figsize=(12, 8))
+            
+            # Create x positions and labels with proper ordering
+            x = range(len(df))
+            bars = ax.bar(x, df[metric['column']], color=metric['color'], alpha=0.8)
+            
+            # Set x-axis labels with proper formatting
+            ax.set_xticks(x)
+            ax.set_xticklabels([f"k{r['n_components']}\n{r['covariance_type'][:4]}" 
+                               for _, r in df.iterrows()], 
+                               rotation=45, ha='right')
+            
+            # Labels and title
+            ax.set_ylabel(metric['ylabel'], fontsize=12)
+            ax.set_title(f"{metric['title']}", fontsize=14, pad=20)
+            ax.grid(True, alpha=0.3)
+            
+            # Value labels on bars removed as requested
+            
+            # Improve layout
+            plt.tight_layout()
+            
+            # Save as PNG with high DPI
+            png_path = self.output_dir / f"model_comparison_{metric['column']}.png"
+            fig.savefig(png_path, dpi=1200, bbox_inches='tight', facecolor='white')
+            plot_files[f'model_comparison_{metric["column"]}_png'] = str(png_path)
+            
+            plt.close(fig)
+            
+        return plot_files
         
     def generate_comparison_plots(self) -> Dict[str, str]:
         """
@@ -214,81 +293,85 @@ class ModelAggregator:
         # Convert results to DataFrame for easier plotting
         df = pd.DataFrame(self.model_results)
         
+        self.logger.info(f"Creating plots for {len(df)} models")
+        self.logger.info(f"Models included: {list(df['model_name'])}")
+        
+        # Sort by n_components first, then by covariance type for proper ordering
+        df = df.sort_values(['n_components', 'covariance_type'])
+        
+        # Log the sorted order
+        self.logger.info("Plot order after sorting:")
+        for _, row in df.iterrows():
+            self.logger.info(f"  {row['model_name']}: k={row['n_components']}, cov={row['covariance_type']}")
+        
         # Set style
         plt.style.use('default')
         sns.set_palette("husl")
         
-        # 1. Model selection criteria comparison
+        # 1. Model selection criteria comparison with individual colors
         fig, axes = plt.subplots(2, 2, figsize=(15, 12))
+        
+        # Define colors for consistency with separate plots
+        colors = {
+            'bic': '#1f77b4',     # Blue
+            'aic': '#ff7f0e',     # Orange  
+            'silhouette': '#2ca02c',  # Green
+            'stability_score': '#d62728'  # Red
+        }
         
         # BIC scores
         ax = axes[0, 0]
         x = range(len(df))
-        bars = ax.bar(x, df['bic'])
+        bars = ax.bar(x, df['bic'], color=colors['bic'], alpha=0.8)
         ax.set_xticks(x)
         ax.set_xticklabels([f"k{r['n_components']}\n{r['covariance_type'][:4]}" 
-                           for _, r in df.iterrows()], rotation=45)
+                           for _, r in df.iterrows()], rotation=45, ha='right')
         ax.set_ylabel('BIC Score')
-        ax.set_title('Bayesian Information Criterion (lower is better)')
+        ax.set_title('Bayesian Information Criterion')
         ax.grid(True, alpha=0.3)
-        
-        # Highlight best
-        if self.best_model:
-            best_idx = df[df['model_name'] == self.best_model['model_name']].index[0]
-            bars[best_idx].set_color('red')
-            bars[best_idx].set_edgecolor('black')
-            bars[best_idx].set_linewidth(2)
         
         # AIC scores
         ax = axes[0, 1]
-        bars = ax.bar(x, df['aic'])
+        bars = ax.bar(x, df['aic'], color=colors['aic'], alpha=0.8)
         ax.set_xticks(x)
         ax.set_xticklabels([f"k{r['n_components']}\n{r['covariance_type'][:4]}" 
-                           for _, r in df.iterrows()], rotation=45)
+                           for _, r in df.iterrows()], rotation=45, ha='right')
         ax.set_ylabel('AIC Score')
-        ax.set_title('Akaike Information Criterion (lower is better)')
+        ax.set_title('Akaike Information Criterion')
         ax.grid(True, alpha=0.3)
-        
-        if self.best_model:
-            bars[best_idx].set_color('red')
-            bars[best_idx].set_edgecolor('black')
-            bars[best_idx].set_linewidth(2)
         
         # Silhouette scores
         ax = axes[1, 0]
-        bars = ax.bar(x, df['silhouette'])
+        bars = ax.bar(x, df['silhouette'], color=colors['silhouette'], alpha=0.8)
         ax.set_xticks(x)
         ax.set_xticklabels([f"k{r['n_components']}\n{r['covariance_type'][:4]}" 
-                           for _, r in df.iterrows()], rotation=45)
+                           for _, r in df.iterrows()], rotation=45, ha='right')
         ax.set_ylabel('Silhouette Score')
-        ax.set_title('Silhouette Coefficient (higher is better)')
+        ax.set_title('Silhouette Coefficient')
         ax.grid(True, alpha=0.3)
-        
-        if self.best_model:
-            bars[best_idx].set_color('red')
-            bars[best_idx].set_edgecolor('black')
-            bars[best_idx].set_linewidth(2)
         
         # Stability scores
         ax = axes[1, 1]
-        bars = ax.bar(x, df['stability_score'])
+        bars = ax.bar(x, df['stability_score'], color=colors['stability_score'], alpha=0.8)
         ax.set_xticks(x)
         ax.set_xticklabels([f"k{r['n_components']}\n{r['covariance_type'][:4]}" 
-                           for _, r in df.iterrows()], rotation=45)
+                           for _, r in df.iterrows()], rotation=45, ha='right')
         ax.set_ylabel('Stability Score')
-        ax.set_title('Bootstrap Stability (higher is better)')
+        ax.set_title('Bootstrap Stability')
         ax.grid(True, alpha=0.3)
         
-        if self.best_model:
-            bars[best_idx].set_color('red')
-            bars[best_idx].set_edgecolor('black')
-            bars[best_idx].set_linewidth(2)
-        
         plt.tight_layout()
-        comparison_path = self.output_dir / "model_comparison_metrics.png"
-        fig.savefig(comparison_path, dpi=300, bbox_inches='tight')
+        comparison_path_png = self.output_dir / "model_comparison_metrics.png"
+        comparison_path_eps = self.output_dir / "model_comparison_metrics.eps"
+        fig.savefig(comparison_path_png, dpi=1200, bbox_inches='tight')
+        fig.savefig(comparison_path_eps, format='eps', bbox_inches='tight')
         plt.close(fig)
-        plot_files['model_comparison'] = str(comparison_path)
+        plot_files['model_comparison_png'] = str(comparison_path_png)
+        plot_files['model_comparison_eps'] = str(comparison_path_eps)
+        
+        # Generate separate plots for each metric
+        separate_plot_files = self.generate_separate_metric_plots(df)
+        plot_files.update(separate_plot_files)
         
         # 2. Score evolution by k
         fig, ax = plt.subplots(figsize=(10, 6))
@@ -305,10 +388,13 @@ class ModelAggregator:
         ax.legend()
         ax.grid(True, alpha=0.3)
         
-        evolution_path = self.output_dir / "bic_evolution.png"
-        fig.savefig(evolution_path, dpi=300, bbox_inches='tight')
+        evolution_path_png = self.output_dir / "bic_evolution.png"
+        evolution_path_eps = self.output_dir / "bic_evolution.eps"
+        fig.savefig(evolution_path_png, dpi=1200, bbox_inches='tight')
+        fig.savefig(evolution_path_eps, format='eps', bbox_inches='tight')
         plt.close(fig)
-        plot_files['bic_evolution'] = str(evolution_path)
+        plot_files['bic_evolution_png'] = str(evolution_path_png)
+        plot_files['bic_evolution_eps'] = str(evolution_path_eps)
         
         # 3. Training time comparison
         if 'training_time' in df.columns:
@@ -322,10 +408,13 @@ class ModelAggregator:
             ax.set_title('Model Training Time Comparison')
             ax.grid(True, alpha=0.3)
             
-            time_path = self.output_dir / "training_time_comparison.png"
-            fig.savefig(time_path, dpi=300, bbox_inches='tight')
+            time_path_png = self.output_dir / "training_time_comparison.png"
+            time_path_eps = self.output_dir / "training_time_comparison.eps"
+            fig.savefig(time_path_png, dpi=1200, bbox_inches='tight')
+            fig.savefig(time_path_eps, format='eps', bbox_inches='tight')
             plt.close(fig)
-            plot_files['training_time'] = str(time_path)
+            plot_files['training_time_png'] = str(time_path_png)
+            plot_files['training_time_eps'] = str(time_path_eps)
         
         self.logger.info(f"Generated {len(plot_files)} comparison plots")
         return plot_files
