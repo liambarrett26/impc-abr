@@ -1,0 +1,888 @@
+ABR Analysis Report - Detailed Results Analysis
+==================================================
+
+Overall Statistics
+------------------
+Total genes analyzed: 6549
+Total gene/allele combinations: 6984
+Confirmed deafness genes: 52
+Candidate deafness genes: 47
+Significance threshold (p-value): 0.001
+
+
+ALL ANALYSIS
+------------
+Total significant genes: 675
+Total significant gene/allele combinations: 687
+Found in confirmed deafness genes: 44
+Found in candidate deafness genes: 36
+Novel candidates: 595
+Missed confirmed genes: 8
+Missed candidate genes: 11
+
+Found in confirmed deafness genes:
+Aak1                	Adgrv1              	Atp8b1
+Baiap2l2            	Cabp2               	Camsap3
+Ccdc88c             	Cep250              	Cib2
+Clpp                	Clrn1               	Clrn2
+Col9a2              	Col9a3              	Elmod1
+Espnl               	Gipc3               	Grxcr1
+Hars2               	Homer2              	Hsd17b4
+Kcne1               	Klc2                	Marveld2
+Minar2              	Mir96               	Mpdz
+Myo3a               	Myo6                	Nptn
+Otoa                	Otog                	Otogl
+Slc17a8             	Slc4a10             	Sun1
+Tmtc4               	Tnfrsf11b           	Tomt
+Tprn                	Triobp              	Usp53
+Wdr45               	Zbtb16
+
+Found in candidate deafness genes:
+Agap1               	Ahsg                	Ankrd11
+Bod1                	Brd2                	Cbln3
+Chsy1               	Csnk1g3             	D6Wsu163e
+Dnase1              	Duoxa2              	Fads3
+Fbxo33              	Gas2l2              	Gpr152
+Gzf1                	Herc1               	Il1r2
+Iqgap2              	Ist1                	Klhdc7b
+Ldlr                	Mag                 	Med28
+Mkrn2               	Mphosph8            	Myh1
+Nin                 	Phf6                	Pramel17
+Prdm5               	Slc5a5              	Tmem30b
+Tox                 	Ube2g1              	Zfp719
+
+Novel candidates:
+1700003F12Rik       	4933405L10Rik       	Aars2
+Abca2               	Abcc8               	Abhd4
+Abhd6               	Acat1               	Acsl4
+Actl6b              	Acyp1               	Adad2
+Adamts15            	Adarb1              	Adcy6
+Adgrb1              	Adipor1             	Adora1
+Aff3                	Ahrr                	Akap8l
+Akr1c12             	Alg1                	Ampd1
+Ankrd13b            	Ankrd24             	Ankrd44
+Ankrd53             	Ap4e1               	Apbb3
+Arf3                	Arhgap21            	Arhgef10l
+Arsk                	Arv1                	Asb5
+Asf1b               	Ash1l               	Asic1
+Atf6b               	Atg2b               	Atg4a
+Atg4b               	Atg4c               	Atg4d
+Atp2b1              	Atp7a               	Atxn7l3
+B230219D22Rik       	B2m                 	BC049715
+Bap1                	Bbof1               	Bcl2l13
+Bhlhe40             	Bicral              	Bloc1s6
+Blvrb               	Bnip1               	Bola2
+Brcc3dc             	Btbd7               	Btbd8
+Bysl                	C2cd2l              	C4bp
+C9orf72             	Cacna2d1            	Cad
+Camkv               	Carm1               	Ccbe1
+Ccdc117             	Ccdc124             	Ccdc166
+Ccdc191             	Ccdc83              	Cckar
+Cdc37               	Cdc37l1             	Cdc42ep5
+Cdca5               	Cdk12               	Cdk14
+Cdk8                	Cdkn1a              	Cdkn2aip
+Cep128              	Cep135              	Cep85l
+Ces1f               	Ces2c               	Cfap45
+Cfdp1               	Chd1                	Chd6
+Chfr                	Chrnd               	Chst12
+Cidec               	Cimap1d             	Cimip2b
+Clec16a             	Clec3a              	Clptm1l
+Cmtm7               	Cnih2               	Cntnap5b
+Cox4i1              	Cpa5                	Crisp3
+Crtac1              	Cryzl2              	Csf3r
+Ctf2                	Ctif                	Ctsm
+Ctu2                	Cxcl3               	Cxxc4
+Cyb5d1              	Cyp17a1             	Cyp3a41b
+D630023F18Rik       	Dbil5               	Dcaf15
+Dcaf6               	Dclk3               	Dctd
+Dctpp1              	Ddah1               	Defb43
+Depdc1a             	Disc1               	Dlat
+Dlgap2              	Dmtf1l              	Dnaja4
+Dnajb14             	Dnajb4              	Dnajc14
+Dnmbp               	Dpp8                	Dpyd
+Dtl                 	Dtnbp1              	Dusp7
+Ebf1                	Eea1                	Eef2kmt
+Efhb                	Eif2s1              	Eif4b
+Elavl1              	Elavl2              	Elfn1
+Elmo3               	Emc3                	Emc4
+Emilin2             	Emx1                	Eng
+Enpep               	Enpp1               	Ensa
+Epb41l1             	Epc2                	Epn3
+Eps8l1              	Ergic1              	Erlec1
+Etfa                	Ewsr1               	Eya4
+Fads6               	Fam185a             	Fam24b
+Fancl               	Fbrs                	Fbxl12
+Fbxl15              	Fbxl19              	Fbxl5
+Fbxl8               	Fbxo10              	Fbxo15
+Fbxo24              	Fbxo25              	Fbxo27
+Fbxo28              	Fbxo36              	Fbxo38
+Fbxo48              	Fer                 	Fer1l4
+Fgf7                	Fnbp1l              	Fnip1
+Fntb                	Frmd3               	Fuca1
+Fus                 	Gatad2b             	Gga1
+Gm14569             	Gm5447              	Gm5547
+Golph3              	Gpbp1               	Gpr150
+Gpr156              	Gpx4                	Gsdma3
+Gsdmd               	Gstt1               	Gtf2a1l
+Gtf2h3              	Gtpbp2              	Gulp1
+H1f0                	H1f10               	Haao
+Hacd3               	Haus4               	Helq
+Hemk1               	Herc4               	Hmgcs1
+Hnrnpd              	Hnrnpdl             	Hnrnph1
+Hnrnpm              	Hnrnpr              	Hoxc11
+Hs3st3a1            	Hsd17b1             	Hspa5
+Hspb3               	Hspb9               	Htr4
+Ifng                	Ift56               	Ikzf5
+Il10ra              	Il6ra               	Ildr1
+Ing5                	Ints6l              	Ipo4
+Irgq                	Irx6                	Isg20
+Isy1                	Iws1                	Jazf1
+Kcna7               	Kcnn1               	Kcnt2
+Kcnv1               	Kctd11              	Kctd9
+Kdm1a               	Kdm2b               	Kdm5a
+Kics2               	Kif13a              	Klhdc8b
+Klhl18              	Klhl34              	Klhl5
+Klk11               	Klk14               	Klk5
+Kmt2c               	Krt1                	Krt25
+Krt33a              	Krtap29-1           	Krtcap2
+Lcorl               	Ldhal6b             	Ldhb
+Lelp1               	Lhcgr               	Lipm
+Lkaaear1            	Lmtk2               	Loxl1
+Lpcat2              	Lrrc4b              	Lsm14a
+Ltv1                	Luc7l               	Lypd2
+Lypd6b              	Mageh1              	Mapk13
+Mapkapk5            	Mcidas              	Med25
+Mettl5              	Mfsd4b4             	Mgrn1
+Mical3              	Mir143              	Mir145a
+Mir204              	Mir28a              	Mob4
+Mreg                	Mroh2b              	Mrpl39
+Msantd3             	Msi2                	Muc5b
+Myo10               	Myo1d               	Myo7a
+Myom2               	Myzap               	Necap2
+Nedd4l              	Nek2                	Nelfcd
+Nemp1               	Nfil3               	Nherf4
+Nhsl1               	Npcd                	Nsl1
+Nt5e                	Nup62cl             	Nwd2
+Ocm                 	Oprl1               	Osbpl8
+Otud1               	Otud3               	Oxsm
+P2rx5               	P2rx7               	Pak1ip1
+Pank2               	Panx2               	Pappa
+Parp12              	Pax5                	Pcdh20
+Pcdhb3              	Pcdhb9              	Pcnx4
+Pcp4l1              	Pcyox1l             	Pdcd6ip
+Pdxp                	Peak1               	Pepd
+Pfas                	Pfdn1               	Pfkfb2
+Pgc                 	Pgpep1              	Phf3
+Phf8                	Pigm                	Pjvk
+Pkhd1l1             	Pla2g5              	Pla2g7
+Plbd2               	Plcb4               	Pld3
+Plekhf2             	Plscr5              	Pmel
+Poc1b               	Pom121l2            	Pop7
+Pou2af3             	Ppfia3              	Ppia
+Ppox                	Ppp1cb              	Ppp1r12b
+Ppp1r14a            	Ppp1r14d            	Ppp1r1a
+Ppp2r2a             	Ppp2r2c             	Ppp2r5c
+Ppp2r5d             	Ppp2r5e             	Prkra
+Prmt9               	Prss12              	Prss21
+Prss36              	Pspc1               	Ptchd1
+Ptma                	Ptprd               	Qsox1
+Rab10               	Rab11fip3           	Rab39b
+Rab3il1             	Rab3ip              	Rabggta
+Ramac               	Rap1gap2            	Rapgef5
+Rasal2              	Rbbp4               	Rbm11
+Rcor3               	Relch               	Rell1
+Rfxap               	Rgl1                	Rgs2
+Rhox13              	Rnd2                	Rnf10
+Rnf123              	Rnf144b             	Rnf166
+Rnf222              	Rnf4                	Rpain
+Rprd2               	Rrbp1               	Rsad1
+Rtl10               	Rtn4rl2             	Rufy3
+Rxfp2               	Ryr1                	Sall3
+Sap30               	Satb2               	Sbf1
+Scamp2              	Scg5                	Scin
+Scn4a               	Scrib               	Sec62
+Secisbp2l           	Selenok             	Serpinb13
+Serpine3            	Setd5               	Sfxn3
+Sh3bp5              	Sh3gl2              	Sh3rf3
+Shank1              	Shank3              	Shfl
+Skida1              	Sla2                	Slbp
+Slc15a1             	Slc22a15            	Slc22a4
+Slc37a1             	Slc3a1              	Slc4a1ap
+Slc52a2             	Slco6c1             	Smarca2
+Smc6                	Snd1                	Snx25
+Sorcs2              	Sox14               	Sox21
+Spast               	Speer4f1            	Speg
+Spns2               	Spred1              	Srrm4
+Srsf7               	Ssh2                	Sstr5
+Stim2               	Strn4               	Stx17
+Sun2                	Syce1l              	Syncrip
+Syt4                	Taar3               	Taar8a
+Tacr3               	Taf13               	Tdrkh
+Tdrp                	Tent4a              	Tfec
+Tg                  	Thap12              	Tigd3
+Timm50              	Tktl2               	Tle4
+Tmco6               	Tmem108             	Tmem145
+Tmem169             	Tmem33              	Tmem51
+Tmprss2             	Tnip1               	Tomm20
+Tomm70a             	Topors              	Tpd52l1
+Tram2               	Trappc11            	Trim10
+Trim35              	Trim37              	Trim71
+Trpm3               	Tspan7              	Tspan9
+Tssk4               	Ttbk1               	Ttc7
+Tti1                	Ttyh2               	Tubb4b
+Tvp23b              	Twist2              	Tyk2
+U2af1               	U2af2               	U2surp
+Ube2d3              	Ube2h               	Ube2i
+Ube2n               	Ube2w               	Ube3c
+Ubxn10              	Umodl1              	Unc119b
+Unkl                	Urm1                	Ush1c
+Usp13               	Usp15               	Usp26
+Usp30               	Usp32               	Usp39
+Usp43               	Usp46               	Vav2
+Vps13b              	Wdr4                	Wdr41
+Wdr6                	Wdr89               	Wdtc1
+Xpnpep1             	Xrcc5               	Yod1
+Zbtb41              	Zc2hc1a             	Zc3h7a
+Zc3h8               	Zcchc3              	Zdhhc19
+Zdhhc2              	Zdhhc23             	Zdhhc3
+Zdhhc5              	Zfand3              	Zfp28
+Zfp280c             	Zfp286              	Zfp423
+Zfp438              	Zfp469              	Zfp474
+Zfp512b             	Zfp597              	Zfp652
+Zhx3                	Zmat4               	Znhit2
+Zscan12
+
+Missed confirmed genes:
+Asic3               	Gata2               	Gjb3
+Hoxa2               	Nr2f1               	Nrp1
+Rest                	Tbl1xr1
+
+Missed candidate genes:
+Bicd1               	Bzw1                	Cstb
+Dpp4                	Hmx2                	Kif5a
+Myo18b              	Plod3               	Smarcc2
+Srd5a3              	Xpnpep3
+
+
+MALE ANALYSIS
+-------------
+Total significant genes: 289
+Total significant gene/allele combinations: 294
+Found in confirmed deafness genes: 25
+Found in candidate deafness genes: 16
+Novel candidates: 248
+Missed confirmed genes: 27
+Missed candidate genes: 31
+
+ALL SIGNIFICANT GENE/ALLELE COMBINATIONS:
+2510009E07Rik (2510009E07Rik<em1(IMPC)Ccpcz>)	Aak1 (Aak1<tm1b(EUCOMM)Hmgu>)	Abca2 (Abca2<em1(IMPC)J>)
+Abcc8 (Abcc8<em1(IMPC)J>)	Abhd4 (Abhd4<em1(IMPC)J>)	Acat1 (Acat1<em1(IMPC)J>)
+Acot2 (Acot2<em1(IMPC)J>)	Acyp1 (Acyp1<em1(IMPC)J>)	Adgrb1 (Adgrb1<tm2a(EUCOMM)Wtsi>)
+Adipor1 (Adipor1<tm1b(EUCOMM)Hmgu>)	Aff3 (Aff3<tm1a(EUCOMM)Wtsi>)	Agap1 (Agap1<tm1a(EUCOMM)Wtsi>)
+Akap8l (Akap8l<em1(IMPC)J>)	Angptl3 (Angptl3<tm2b(KOMP)Wtsi>)	Ankrd13b (Ankrd13b<em1(IMPC)J>)
+Ankrd24 (Ankrd24<em1(IMPC)J>)	Ankrd44 (Ankrd44<em1(IMPC)J>)	Ap4e1 (Ap4e1<tm1b(KOMP)Wtsi>)
+Arf3 (Arf3<tm1b(EUCOMM)Hmgu>)	Arhgap21 (Arhgap21<em1(IMPC)J>)	Arsk (Arsk<tm1b(KOMP)Wtsi>)
+Arv1 (Arv1<em1(IMPC)J>)	Asf1b (Asf1b<em1(IMPC)J>)	Aspa (Aspa<tm1b(EUCOMM)Wtsi>)
+Atg2b (Atg2b<em1(IMPC)J>)	Atp7a (Atp7a<em1(IMPC)J>)	Atp8b1 (Atp8b1<em1(IMPC)Tcp>)
+Baiap2l2 (Baiap2l2<tm1a(EUCOMM)Hmgu>)	Baiap2l2 (Baiap2l2<tm1b(EUCOMM)Hmgu>)	Blvrb (Blvrb<tm1(KOMP)Wtsi>)
+Bola2 (Bola2<tm1(KOMP)Wtsi>)	Brd3 (Brd3<em1(IMPC)J>)	Btbd7 (Btbd7<em1(IMPC)Ccpcz>)
+C4bp (C4bp<tm1b(KOMP)Wtsi>)	Cabp2 (Cabp2<em1(IMPC)J>)	Cbln3 (Cbln3<tm1.1(KOMP)Vlcg>)
+Ccdc166 (Ccdc166<em1(IMPC)J>)	Cdca5 (Cdca5<tm1.1(KOMP)Vlcg>)	Cdk12 (Cdk12<em1(IMPC)Tcp>)
+Cdkn2aip (Cdkn2aip<em1(IMPC)J>)	Cep128 (Cep128<em1(IMPC)Kmpc>)	Cep135 (Cep135<em1(IMPC)J>)
+Cep250 (Cep250<tm1a(EUCOMM)Wtsi>)	Ces1f (Ces1f<tm1b(KOMP)Wtsi>)	Cfdp1 (Cfdp1<em1(IMPC)J>)
+Chd1 (Chd1<tm1b(KOMP)Wtsi>)	Cidec (Cidec<tm1b(EUCOMM)Wtsi>)	Clec16a (Clec16a<em1(IMPC)J>)
+Clec3a (Clec3a<em1(IMPC)J>)	Clpp (Clpp<tm1a(EUCOMM)Wtsi>)	Clrn2 (Clrn2<em1(IMPC)J>)
+Cpa4 (Cpa4<em1(IMPC)Marc>)	Crisp3 (Crisp3<em1(IMPC)Mhzh>)	Cyb5d1 (Cyb5d1<tm1.1(KOMP)Vlcg>)
+Cyp4f39 (Cyp4f39<em1(IMPC)J>)	D630023F18Rik (D630023F18Rik<tm1b(KOMP)Wtsi>)	Dclk3 (Dclk3<em1(IMPC)J>)
+Ddah1 (Ddah1<tm2a(EUCOMM)Wtsi>)	Depdc1a (Depdc1a<em1(IMPC)J>)	Dlat (Dlat<em1(IMPC)J>)
+Dmtf1l (Dmtf1l<em1(IMPC)J>)	Dnajb11 (Dnajb11<tm1b(EUCOMM)Wtsi>)	Dnajb14 (Dnajb14<em1(IMPC)J>)
+Dnajc14 (Dnajc14<tm1.1(KOMP)Vlcg>)	Dock9 (Dock9<em1(IMPC)J>)	Dpyd (Dpyd<tm1b(KOMP)Wtsi>)
+Duoxa2 (Duoxa2<tm1b(KOMP)Wtsi>)	Efhb (Efhb<em1(IMPC)J>)	Elavl1 (Elavl1<tm1b(EUCOMM)Hmgu>)
+Elavl2 (Elavl2<em1(IMPC)J>)	Emilin2 (Emilin2<em1(IMPC)J>)	Enpep (Enpep<tm1b(KOMP)Wtsi>)
+Enpp1 (Enpp1<em1(IMPC)Ccpcz>)	Ensa (Ensa<em1(IMPC)J>)	Epgn (Epgn<tm1b(KOMP)Wtsi>)
+Ergic1 (Ergic1<em1(IMPC)J>)	Espnl (Espnl<tm1b(KOMP)Wtsi>)	Fads3 (Fads3<tm1b(EUCOMM)Hmgu>)
+Fam204a (Fam204a<em1(IMPC)J>)	Fbxo10 (Fbxo10<tm1b(KOMP)Wtsi>)	Fbxo33 (Fbxo33<tm1b(EUCOMM)Wtsi>)
+Fer1l4 (Fer1l4<tm1b(EUCOMM)Hmgu>)	Fhod1 (Fhod1<em1(IMPC)J>)	Fnip1 (Fnip1<em1(IMPC)Ccpcz>)
+Frmd3 (Frmd3<em1(IMPC)J>)	Fshr (Fshr<tm1(KOMP)Vlcg>)	Fuca1 (Fuca1<em1(IMPC)J>)
+Garre1 (Garre1<em1(IMPC)J>)	Gipc3 (Gipc3<tm1b(KOMP)Wtsi>)	Gm5447 (Gm5447<em1(IMPC)J>)
+Gpbp1 (Gpbp1<tm1b(EUCOMM)Wtsi>)	Gpr150 (Gpr150<em1(IMPC)J>)	Gpr152 (Gpr152<tm1b(EUCOMM)Wtsi>)
+Grxcr1 (Grxcr1<em1(IMPC)J>)	Gsdmd (Gsdmd<em1(IMPC)Marc>)	Gtf2h3 (Gtf2h3<em1(IMPC)J>)
+Gulp1 (Gulp1<em1(IMPC)J>)	H1f10 (H1f10<tm1.1(KOMP)Vlcg>)	Haus4 (Haus4<em1(IMPC)J>)
+Hbs1l (Hbs1l<tm1a(KOMP)Wtsi>)	Helq (Helq<em1(IMPC)Mbp>)	Hemk1 (Hemk1<em1(IMPC)J>)
+Hmgcs1 (Hmgcs1<em1(IMPC)J>)	Homer2 (Homer2<em1(IMPC)J>)	Hspa5 (Hspa5<tm1.1(KOMP)Vlcg>)
+Hspb3 (Hspb3<tm1.1(KOMP)Vlcg>)	Hspb9 (Hspb9<em1(IMPC)J>)	Ift56 (Ift56<em1(IMPC)J>)
+Ikzf5 (Ikzf5<tm1(KOMP)Wtsi>)	Ildr1 (Ildr1<tm1(KOMP)Wtsi>)	Ing5 (Ing5<em1(IMPC)J>)
+Iqcf1 (Iqcf1<em1(IMPC)J>)	Ist1 (Ist1<em1(IMPC)J>)	Isy1 (Isy1<em1(IMPC)J>)
+Jakmip3 (Jakmip3<em1(IMPC)J>)	Kcna7 (Kcna7<em1(IMPC)J>)	Kcne1 (Kcne1<tm1b(EUCOMM)Hmgu>)
+Kcnn1 (Kcnn1<tm1b(KOMP)Wtsi>)	Kdm1a (Kdm1a<tm1(NCOM)Mfgc>)	Kdm2b (Kdm2b<em1(IMPC)Marc>)
+Klc2 (Klc2<tm1e(EUCOMM)Wtsi>)	Klhdc8b (Klhdc8b<em1(IMPC)J>)	Klhl18 (Klhl18<tm1a(KOMP)Wtsi>)
+Klhl34 (Klhl34<em1(IMPC)J>)	Klhl5 (Klhl5<tm1b(EUCOMM)Hmgu>)	Klk14 (Klk14<tm1.1(KOMP)Vlcg>)
+Klk5 (Klk5<tm2b(KOMP)Wtsi>)	Krt33a (Krt33a<em1(IMPC)Ccpcz>)	Krtcap2 (Krtcap2<em1(IMPC)J>)
+Lcorl (Lcorl<em1(IMPC)J>)	Ldhal6b (Ldhal6b<em1(IMPC)J>)	Ldhb (Ldhb<tm1b(KOMP)Wtsi>)
+Ldlr (Ldlr<tm1b(EUCOMM)Wtsi>)	Lkaaear1 (Lkaaear1<em1(IMPC)J>)	Lpcat2 (Lpcat2<em1(IMPC)J>)
+Lrrc4b (Lrrc4b<em1(IMPC)J>)	Lsm14a (Lsm14a<tm1b(KOMP)Wtsi>)	Lysmd1 (Lysmd1<em1(IMPC)J>)
+Mag (Mag<tm1.1(KOMP)Vlcg>)	Mageh1 (Mageh1<em1(IMPC)J>)	Mapk13 (Mapk13<em1(IMPC)Hmgu>)
+Mcidas (Mcidas<em2(IMPC)Tcp>)	Mettl5 (Mettl5<em1(IMPC)Hmgu>)	Mettl5 (Mettl5<em1(IMPC)Hmgu>)
+Mfsd4b4 (Mfsd4b4<em1(IMPC)J>)	Mgrn1 (Mgrn1<em1(IMPC)Tcp>)	Minar2 (Minar2<tm1b(KOMP)Wtsi>)
+Mir145a (Mir145a<tm1(mirKO)Wtsi>)	Mir96 (Mir96<tm2.2(IMPC)Wtsi>)	Mir96 (Mir96<tm3.2(IMPC)Wtsi>)
+Mkrn2 (Mkrn2<tm1b(KOMP)Wtsi>)	Mob4 (Mob4<em1(IMPC)J>)	Mpdz (Mpdz<em1(IMPC)J>)
+Mphosph8 (Mphosph8<em1(IMPC)J>)	Mroh2b (Mroh2b<em1(IMPC)J>)	Mrpl18 (Mrpl18<tm1.1(KOMP)Vlcg>)
+Mrpl39 (Mrpl39<em1(IMPC)J>)	Myh1 (Myh1<tm1b(KOMP)Wtsi>)	Myh13 (Myh13<em1(IMPC)J>)
+Myo10 (Myo10<tm2(KOMP)Wtsi>)	Myo1d (Myo1d<em1(IMPC)J>)	Myo3a (Myo3a<tm1b(KOMP)Wtsi>)
+Myo7a (Myo7a<tm1a(EUCOMM)Wtsi>)	Naa10 (Naa10<em1(IMPC)Mbp>)	Nek2 (Nek2<tm1b(KOMP)Wtsi>)
+Nemp1 (Nemp1<em1(IMPC)Mbp>)	Nin (Nin<tm1b(EUCOMM)Hmgu>)	Npcd (Npcd<em1(IMPC)J>)
+Nup62cl (Nup62cl<em1(IMPC)J>)	Ocm (Ocm<tm1e(EUCOMM)Wtsi>)	Osbpl8 (Osbpl8<em1(IMPC)Tcp>)
+Otoa (Otoa<tm1.1(KOMP)Vlcg>)	Otog (Otog<em1(IMPC)J>)	Otogl (Otogl<em1(IMPC)J>)
+Otud3 (Otud3<em1(IMPC)Marc>)	P2rx5 (P2rx5<tm1b(EUCOMM)Hmgu>)	P2rx7 (P2rx7<tm1b(EUCOMM)Wtsi>)
+P4ha3 (P4ha3<em1(IMPC)J>)	Pank2 (Pank2<em1(IMPC)Ccpcz>)	Panx2 (Panx2<tm1b(KOMP)Wtsi>)
+Pax5 (Pax5<tm1b(EUCOMM)Wtsi>)	Pcyox1l (Pcyox1l<em1(IMPC)J>)	Pdxp (Pdxp<em1(IMPC)J>)
+Peak1 (Peak1<em1(IMPC)J>)	Pepd (Pepd<tm1a(KOMP)Wtsi>)	Pfdn1 (Pfdn1<em1(IMPC)J>)
+Pgc (Pgc<em1(IMPC)Ccpcz>)	Pgpep1 (Pgpep1<em1(IMPC)J>)	Phf8 (Phf8<em1(IMPC)Marc>)
+Pjvk (Pjvk<em1(IMPC)J>)	Plbd2 (Plbd2<em1(IMPC)J>)	Plekhf2 (Plekhf2<em1(IMPC)Wtsi>)
+Plscr5 (Plscr5<em1(IMPC)J>)	Ppfia3 (Ppfia3<em1(IMPC)J>)	Ppox (Ppox<em1(IMPC)J>)
+Ppp2r5e (Ppp2r5e<em1(IMPC)Marc>)	Prss12 (Prss12<em1(IMPC)Ccpcz>)	Pspc1 (Pspc1<em1(IMPC)Mbp>)
+Ptchd1 (Ptchd1<tm1b(KOMP)IcsOrl>)	Rab10 (Rab10<em1(IMPC)J>)	Rab11fip3 (Rab11fip3<em1(IMPC)J>)
+Rab3il1 (Rab3il1<em1(IMPC)J>)	Ramac (Ramac<em1(IMPC)J>)	Rap1gap2 (Rap1gap2<tm1b(EUCOMM)Hmgu>)
+Rasal2 (Rasal2<tm1a(EUCOMM)Wtsi>)	Rcan3 (Rcan3<em1(IMPC)J>)	Relch (Relch<em1(IMPC)J>)
+Rell1 (Rell1<em1(IMPC)J>)	Rhox13 (Rhox13<tm1a(KOMP)Wtsi>)	Rlim (Rlim<em1(IMPC)Rbrc>)
+Rnd2 (Rnd2<em1(IMPC)Mbp>)	Rnf4 (Rnf4<em1(IMPC)Ccpcz>)	Rrbp1 (Rrbp1<em1(IMPC)J>)
+Rufy3 (Rufy3<tm1b(EUCOMM)Hmgu>)	Rxfp2 (Rxfp2<tm1b(EUCOMM)Wtsi>)	Sap30 (Sap30<em1(IMPC)J>)
+Scamp2 (Scamp2<em1(IMPC)J>)	Scrn1 (Scrn1<em1(IMPC)J>)	Secisbp2l (Secisbp2l<em1(IMPC)J>)
+Selenok (Selenok<tm1b(EUCOMM)Wtsi>)	Setd5 (Setd5<tm1a(EUCOMM)Wtsi>)	Sfxn3 (Sfxn3<tm1b(KOMP)Wtsi>)
+Sh3bp5 (Sh3bp5<tm1b(KOMP)Wtsi>)	Sh3rf3 (Sh3rf3<em1(IMPC)J>)	Sla2 (Sla2<em1(IMPC)Ccpcz>)
+Slbp (Slbp<tm1.1(KOMP)Vlcg>)	Slc1a3 (Slc1a3<tm1.1(KOMP)Mbp>)	Slc5a5 (Slc5a5<tm1b(KOMP)Wtsi>)
+Smc6 (Smc6<tm1b(EUCOMM)Hmgu>)	Speg (Speg<tm1b(KOMP)Wtsi>)	Spns2 (Spns2<tm1b(KOMP)Wtsi>)
+Sqle (Sqle<tm1a(EUCOMM)Wtsi>)	Ssh2 (Ssh2<em1(IMPC)J>)	Stx17 (Stx17<em1(IMPC)J>)
+Sun1 (Sun1<tm1b(EUCOMM)Wtsi>)	Sun2 (Sun2<tm1b(EUCOMM)Hmgu>)	Syce1l (Syce1l<tm1.1(KOMP)Vlcg>)
+Syne2 (Syne2<em1(IMPC)J>)	Tent4a (Tent4a<tm1b(EUCOMM)Hmgu>)	Tg (Tg<em1(IMPC)J>)
+Thap12 (Thap12<em1(IMPC)J>)	Tigd3 (Tigd3<em1(IMPC)J>)	Tmco6 (Tmco6<tm1.1(KOMP)Vlcg>)
+Tmem33 (Tmem33<em1(IMPC)J>)	Tmem79 (Tmem79<tm1.1(KOMP)Wtsi>)	Tmprss2 (Tmprss2<em1(IMPC)Ccpcz>)
+Tmprss2 (Tmprss2<tm2b(EUCOMM)Hmgu>)	Tomm20 (Tomm20<em1(IMPC)J>)	Tomm70a (Tomm70a<em1(IMPC)J>)
+Tprn (Tprn<tm1.1(KOMP)Vlcg>)	Tram2 (Tram2<tm1a(KOMP)Wtsi>)	Trappc11 (Trappc11<em1(IMPC)J>)
+Trim10 (Trim10<em1(IMPC)J>)	Trim37 (Trim37<em1(IMPC)Marc>)	Triobp (Triobp<em1(IMPC)J>)
+Tspan7 (Tspan7<em1(IMPC)J>)	Tspyl1 (Tspyl1<em1(IMPC)J>)	Tstd1 (Tstd1<em1(IMPC)J>)
+Ttc32 (Ttc32<em1(IMPC)J>)	Tvp23b (Tvp23b<em1(IMPC)J>)	Tyk2 (Tyk2<tm2b(EUCOMM)Hmgu>)
+U2af1 (U2af1<em1(IMPC)J>)	U2af2 (U2af2<em1(IMPC)J>)	Ubap2 (Ubap2<em1(IMPC)J>)
+Ube2g1 (Ube2g1<tm1b(EUCOMM)Hmgu>)	Ube2n (Ube2n<em1(IMPC)Ccpcz>)	Ubxn10 (Ubxn10<tm1b(EUCOMM)Wtsi>)
+Unkl (Unkl<em1(IMPC)J>)	Ush1c (Ush1c<tm1a(KOMP)Wtsi>)	Usp26 (Usp26<em1(IMPC)Marc>)
+Usp30 (Usp30<em1(IMPC)Marc>)	Usp32 (Usp32<em1(IMPC)Mhzh>)	Usp53 (Usp53<em1(IMPC)Tcp>)
+Vkorc1l1 (Vkorc1l1<em1(IMPC)J>)	Wdr45 (Wdr45<em1(IMPC)J>)	Wdr89 (Wdr89<tm1a(KOMP)Wtsi>)
+Xpnpep1 (Xpnpep1<tm1a(KOMP)Wtsi>)	Xrcc5 (Xrcc5<em1(IMPC)Ccpcz>)	Ywhab (Ywhab<tm1b(EUCOMM)Hmgu>)
+Zc3h7a (Zc3h7a<em1(IMPC)J>)	Zdhhc19 (Zdhhc19<em1(IMPC)J>)	Zfp267 (Zfp267<em1(IMPC)J>)
+Zfp280c (Zfp280c<em1(IMPC)Hmgu>)	Zfp286 (Zfp286<em1(IMPC)J>)	Zfp423 (Zfp423<em1(IMPC)J>)
+Zfp512b (Zfp512b<em1(IMPC)J>)	Zfp597 (Zfp597<em1(IMPC)J>)	Zfp652 (Zfp652<em1(IMPC)J>)
+Zfp719 (Zfp719<tm1a(EUCOMM)Wtsi>)	Zfp719 (Zfp719<tm1b(EUCOMM)Wtsi>)	Zfp786 (Zfp786<em1(IMPC)J>)
+Zfp940 (Zfp940<em1(IMPC)J>)	Zmat4 (Zmat4<em1(IMPC)J>)	Zscan12 (Zscan12<em1(IMPC)J>)
+
+Found in confirmed deafness genes:
+Aak1                	Atp8b1              	Baiap2l2
+Cabp2               	Cep250              	Clpp
+Clrn2               	Espnl               	Gipc3
+Grxcr1              	Homer2              	Kcne1
+Klc2                	Minar2              	Mir96
+Mpdz                	Myo3a               	Otoa
+Otog                	Otogl               	Sun1
+Tprn                	Triobp              	Usp53
+Wdr45
+
+Found in candidate deafness genes:
+Agap1               	Cbln3               	Duoxa2
+Fads3               	Fbxo33              	Gpr152
+Ist1                	Ldlr                	Mag
+Mkrn2               	Mphosph8            	Myh1
+Nin                 	Slc5a5              	Ube2g1
+Zfp719
+
+Novel candidates:
+2510009E07Rik       	Abca2               	Abcc8
+Abhd4               	Acat1               	Acot2
+Acyp1               	Adgrb1              	Adipor1
+Aff3                	Akap8l              	Angptl3
+Ankrd13b            	Ankrd24             	Ankrd44
+Ap4e1               	Arf3                	Arhgap21
+Arsk                	Arv1                	Asf1b
+Aspa                	Atg2b               	Atp7a
+Blvrb               	Bola2               	Brd3
+Btbd7               	C4bp                	Ccdc166
+Cdca5               	Cdk12               	Cdkn2aip
+Cep128              	Cep135              	Ces1f
+Cfdp1               	Chd1                	Cidec
+Clec16a             	Clec3a              	Cpa4
+Crisp3              	Cyb5d1              	Cyp4f39
+D630023F18Rik       	Dclk3               	Ddah1
+Depdc1a             	Dlat                	Dmtf1l
+Dnajb11             	Dnajb14             	Dnajc14
+Dock9               	Dpyd                	Efhb
+Elavl1              	Elavl2              	Emilin2
+Enpep               	Enpp1               	Ensa
+Epgn                	Ergic1              	Fam204a
+Fbxo10              	Fer1l4              	Fhod1
+Fnip1               	Frmd3               	Fshr
+Fuca1               	Garre1              	Gm5447
+Gpbp1               	Gpr150              	Gsdmd
+Gtf2h3              	Gulp1               	H1f10
+Haus4               	Hbs1l               	Helq
+Hemk1               	Hmgcs1              	Hspa5
+Hspb3               	Hspb9               	Ift56
+Ikzf5               	Ildr1               	Ing5
+Iqcf1               	Isy1                	Jakmip3
+Kcna7               	Kcnn1               	Kdm1a
+Kdm2b               	Klhdc8b             	Klhl18
+Klhl34              	Klhl5               	Klk14
+Klk5                	Krt33a              	Krtcap2
+Lcorl               	Ldhal6b             	Ldhb
+Lkaaear1            	Lpcat2              	Lrrc4b
+Lsm14a              	Lysmd1              	Mageh1
+Mapk13              	Mcidas              	Mettl5
+Mfsd4b4             	Mgrn1               	Mir145a
+Mob4                	Mroh2b              	Mrpl18
+Mrpl39              	Myh13               	Myo10
+Myo1d               	Myo7a               	Naa10
+Nek2                	Nemp1               	Npcd
+Nup62cl             	Ocm                 	Osbpl8
+Otud3               	P2rx5               	P2rx7
+P4ha3               	Pank2               	Panx2
+Pax5                	Pcyox1l             	Pdxp
+Peak1               	Pepd                	Pfdn1
+Pgc                 	Pgpep1              	Phf8
+Pjvk                	Plbd2               	Plekhf2
+Plscr5              	Ppfia3              	Ppox
+Ppp2r5e             	Prss12              	Pspc1
+Ptchd1              	Rab10               	Rab11fip3
+Rab3il1             	Ramac               	Rap1gap2
+Rasal2              	Rcan3               	Relch
+Rell1               	Rhox13              	Rlim
+Rnd2                	Rnf4                	Rrbp1
+Rufy3               	Rxfp2               	Sap30
+Scamp2              	Scrn1               	Secisbp2l
+Selenok             	Setd5               	Sfxn3
+Sh3bp5              	Sh3rf3              	Sla2
+Slbp                	Slc1a3              	Smc6
+Speg                	Spns2               	Sqle
+Ssh2                	Stx17               	Sun2
+Syce1l              	Syne2               	Tent4a
+Tg                  	Thap12              	Tigd3
+Tmco6               	Tmem33              	Tmem79
+Tmprss2             	Tomm20              	Tomm70a
+Tram2               	Trappc11            	Trim10
+Trim37              	Tspan7              	Tspyl1
+Tstd1               	Ttc32               	Tvp23b
+Tyk2                	U2af1               	U2af2
+Ubap2               	Ube2n               	Ubxn10
+Unkl                	Ush1c               	Usp26
+Usp30               	Usp32               	Vkorc1l1
+Wdr89               	Xpnpep1             	Xrcc5
+Ywhab               	Zc3h7a              	Zdhhc19
+Zfp267              	Zfp280c             	Zfp286
+Zfp423              	Zfp512b             	Zfp597
+Zfp652              	Zfp786              	Zfp940
+Zmat4               	Zscan12
+
+Missed confirmed genes:
+Adgrv1              	Asic3               	Camsap3
+Ccdc88c             	Cib2                	Clrn1
+Col9a2              	Col9a3              	Elmod1
+Gata2               	Gjb3                	Hars2
+Hoxa2               	Hsd17b4             	Marveld2
+Myo6                	Nptn                	Nr2f1
+Nrp1                	Rest                	Slc17a8
+Slc4a10             	Tbl1xr1             	Tmtc4
+Tnfrsf11b           	Tomt                	Zbtb16
+
+Missed candidate genes:
+Ahsg                	Ankrd11             	Bicd1
+Bod1                	Brd2                	Bzw1
+Chsy1               	Csnk1g3             	Cstb
+D6Wsu163e           	Dnase1              	Dpp4
+Gas2l2              	Gzf1                	Herc1
+Hmx2                	Il1r2               	Iqgap2
+Kif5a               	Klhdc7b             	Med28
+Myo18b              	Phf6                	Plod3
+Pramel17            	Prdm5               	Smarcc2
+Srd5a3              	Tmem30b             	Tox
+Xpnpep3
+
+
+FEMALE ANALYSIS
+---------------
+Total significant genes: 283
+Total significant gene/allele combinations: 286
+Found in confirmed deafness genes: 25
+Found in candidate deafness genes: 14
+Novel candidates: 244
+Missed confirmed genes: 27
+Missed candidate genes: 33
+
+ALL SIGNIFICANT GENE/ALLELE COMBINATIONS:
+0610040J01Rik (0610040J01Rik<em1(IMPC)Ccpcz>)	4933405L10Rik (4933405L10Rik<em1(IMPC)J>)	4933430I17Rik (4933430I17Rik<tm1b(EUCOMM)Wtsi>)
+Aak1 (Aak1<tm1b(EUCOMM)Hmgu>)	Abhd4 (Abhd4<em1(IMPC)J>)	Ablim2 (Ablim2<em1(IMPC)J>)
+Acsl4 (Acsl4<tm1a(EUCOMM)Wtsi>)	Actl6b (Actl6b<em1(IMPC)J>)	Adad2 (Adad2<em1(IMPC)J>)
+Adora1 (Adora1<tm1b(KOMP)Wtsi>)	Aff3 (Aff3<tm1a(EUCOMM)Wtsi>)	Ahrr (Ahrr<tm1b(KOMP)Wtsi>)
+Ankrd11 (Ankrd11<tm1b(EUCOMM)Wtsi>)	Ankrd13b (Ankrd13b<em1(IMPC)J>)	Ankrd24 (Ankrd24<em1(IMPC)J>)
+Ap2a2 (Ap2a2<tm1b(EUCOMM)Wtsi>)	Arhgap21 (Arhgap21<em1(IMPC)J>)	Arv1 (Arv1<em1(IMPC)J>)
+Atp8b1 (Atp8b1<em1(IMPC)Tcp>)	Bahd1 (Bahd1<tm2b(KOMP)Wtsi>)	Baiap2l2 (Baiap2l2<tm1a(EUCOMM)Hmgu>)
+Baiap2l2 (Baiap2l2<tm1b(EUCOMM)Hmgu>)	Bclaf1 (Bclaf1<tm1b(EUCOMM)Wtsi>)	Blvrb (Blvrb<tm1(KOMP)Wtsi>)
+Brcc3dc (Brcc3dc<em1(IMPC)J>)	Btbd7 (Btbd7<em1(IMPC)Ccpcz>)	Btbd8 (Btbd8<em1(IMPC)Ccpcz>)
+Bysl (Bysl<em1(IMPC)Ccpcz>)	C2cd2l (C2cd2l<em1(IMPC)J>)	Cabp2 (Cabp2<em1(IMPC)J>)
+Camsap3 (Camsap3<tm1a(EUCOMM)Wtsi>)	Ccdc191 (Ccdc191<em1(IMPC)J>)	Cckar (Cckar<tm1b(EUCOMM)Hmgu>)
+Cdc37l1 (Cdc37l1<em1(IMPC)J>)	Cdk14 (Cdk14<tm1a(KOMP)Wtsi>)	Cep128 (Cep128<em1(IMPC)Kmpc>)
+Ces1f (Ces1f<tm1b(KOMP)Wtsi>)	Ces2c (Ces2c<em1(IMPC)J>)	Cfap45 (Cfap45<em1(IMPC)Mhzh>)
+Chst12 (Chst12<em1(IMPC)Marc>)	Cidec (Cidec<tm1b(EUCOMM)Wtsi>)	Clec16a (Clec16a<em1(IMPC)J>)
+Clec3a (Clec3a<em1(IMPC)J>)	Clptm1l (Clptm1l<em1(IMPC)J>)	Clrn2 (Clrn2<em1(IMPC)J>)
+Cmya5 (Cmya5<em1(IMPC)J>)	Cnih2 (Cnih2<tm1b(KOMP)Wtsi>)	Cntnap5b (Cntnap5b<em1(IMPC)J>)
+Col9a3 (Col9a3<em1(IMPC)Tcp>)	Cpa5 (Cpa5<em1(IMPC)J>)	Crisp3 (Crisp3<em1(IMPC)Mhzh>)
+Cryzl2 (Cryzl2<em1(IMPC)Marc>)	Csnk1g3 (Csnk1g3<tm1a(EUCOMM)Wtsi>)	Ctif (Ctif<em1(IMPC)J>)
+Cxxc4 (Cxxc4<em1(IMPC)J>)	D630045J12Rik (D630045J12Rik<tm1b(KOMP)Wtsi>)	D6Wsu163e (D6Wsu163e<tm1b(EUCOMM)Wtsi>)
+Dctpp1 (Dctpp1<em1(IMPC)Marc>)	Dlgap2 (Dlgap2<em1(IMPC)Mhzh>)	Dnaja4 (Dnaja4<tm1b(KOMP)Wtsi>)
+Dnajb4 (Dnajb4<em1(IMPC)J>)	Dnajc14 (Dnajc14<tm1.1(KOMP)Vlcg>)	Dpp8 (Dpp8<em1(IMPC)J>)
+Dtnbp1 (Dtnbp1<tm1b(EUCOMM)Hmgu>)	Dusp15 (Dusp15<em1(IMPC)J>)	Dusp7 (Dusp7<tm1(KOMP)Wtsi>)
+Eea1 (Eea1<tm1b(EUCOMM)Hmgu>)	Eef2kmt (Eef2kmt<tm1b(EUCOMM)Wtsi>)	Efhb (Efhb<em1(IMPC)J>)
+Emc3 (Emc3<tm1b(EUCOMM)Wtsi>)	Enpp1 (Enpp1<em1(IMPC)Ccpcz>)	Epb41l1 (Epb41l1<tm1b(EUCOMM)Wtsi>)
+Espnl (Espnl<tm1b(KOMP)Wtsi>)	Ewsr1 (Ewsr1<tm1b(EUCOMM)Wtsi>)	Exoc4 (Exoc4<em1(IMPC)J>)
+Fads3 (Fads3<tm1b(EUCOMM)Hmgu>)	Fam185a (Fam185a<em1(IMPC)Ccpcz>)	Fam24b (Fam24b<em1(IMPC)J>)
+Fbxl19 (Fbxl19<tm1b(EUCOMM)Wtsi>)	Fbxo10 (Fbxo10<tm1b(KOMP)Wtsi>)	Fbxo25 (Fbxo25<em1(IMPC)Ccpcz>)
+Fbxo48 (Fbxo48<em1(IMPC)J>)	Fnbp1l (Fnbp1l<tm1.1(KOMP)Vlcg>)	Fuca1 (Fuca1<em1(IMPC)J>)
+Gatad2b (Gatad2b<tm1b(EUCOMM)Hmgu>)	Gipc3 (Gipc3<tm1b(KOMP)Wtsi>)	Gm14569 (Gm14569<em1(IMPC)J>)
+Gm5547 (Gm5547<em1(IMPC)J>)	Grxcr1 (Grxcr1<em1(IMPC)J>)	Gsdmd (Gsdmd<em1(IMPC)Marc>)
+Gstt1 (Gstt1<tm1a(EUCOMM)Hmgu>)	Gulp1 (Gulp1<em1(IMPC)J>)	Gzf1 (Gzf1<em1(IMPC)Tcp>)
+H1f10 (H1f10<tm1.1(KOMP)Vlcg>)	Hars2 (Hars2<em1(IMPC)J>)	Herc1 (Herc1<em3(IMPC)Wtsi>)
+Hilpda (Hilpda<em1(IMPC)Mhzh>)	Hmgcs1 (Hmgcs1<em1(IMPC)J>)	Hnrnpd (Hnrnpd<tm1b(KOMP)Wtsi>)
+Homer2 (Homer2<em1(IMPC)J>)	Hsd17b1 (Hsd17b1<tm1.1(KOMP)Vlcg>)	Hspa5 (Hspa5<tm1.1(KOMP)Vlcg>)
+Iffo2 (Iffo2<em1(IMPC)J>)	Il10ra (Il10ra<tm1b(KOMP)Wtsi>)	Il3ra (Il3ra<em1(IMPC)J>)
+Ints6l (Ints6l<em1(IMPC)Marc>)	Irgq (Irgq<em1(IMPC)J>)	Irx6 (Irx6<tm1b(KOMP)Mbp>)
+Isg20 (Isg20<tm1a(KOMP)Wtsi>)	Iws1 (Iws1<em1(IMPC)J>)	Kcne1 (Kcne1<tm1b(EUCOMM)Hmgu>)
+Kctd11 (Kctd11<em1(IMPC)J>)	Kctd9 (Kctd9<em1(IMPC)J>)	Klc2 (Klc2<tm1e(EUCOMM)Wtsi>)
+Klhdc8b (Klhdc8b<em1(IMPC)J>)	Klk11 (Klk11<em1(IMPC)Ccpcz>)	Klk5 (Klk5<tm2b(KOMP)Wtsi>)
+Knl1 (Knl1<tm1b(EUCOMM)Hmgu>)	Krt25 (Krt25<em1(IMPC)J>)	Krtap29-1 (Krtap29-1<em1(IMPC)J>)
+Krtcap2 (Krtcap2<em1(IMPC)J>)	Lamp5 (Lamp5<em1(IMPC)J>)	Ldlr (Ldlr<tm1b(EUCOMM)Wtsi>)
+Lipm (Lipm<em1(IMPC)J>)	Loxl1 (Loxl1<tm1.1(KOMP)Vlcg>)	Lpcat2 (Lpcat2<em1(IMPC)J>)
+Lrig3 (Lrig3<em1(IMPC)Ccpcz>)	Lrrc4b (Lrrc4b<em1(IMPC)J>)	Lsm14a (Lsm14a<tm1b(KOMP)Wtsi>)
+Lypd6b (Lypd6b<tm1b(KOMP)Wtsi>)	Mag (Mag<tm1.1(KOMP)Vlcg>)	Mcidas (Mcidas<em2(IMPC)Tcp>)
+Med10 (Med10<em1(IMPC)J>)	Med25 (Med25<tm1b(KOMP)Wtsi>)	Mettl5 (Mettl5<em1(IMPC)Hmgu>)
+Mettl5 (Mettl5<em1(IMPC)Hmgu>)	Mical3 (Mical3<em1(IMPC)J>)	Minar2 (Minar2<tm1b(KOMP)Wtsi>)
+Mir143 (Mir143<tm1Wtsi>)	Mir320 (Mir320<tm1Wtsi>)	Mkrn2 (Mkrn2<tm1b(KOMP)Wtsi>)
+Mpdz (Mpdz<em1(IMPC)J>)	Mpzl2 (Mpzl2<tm1b(EUCOMM)Hmgu>)	Mroh2b (Mroh2b<em1(IMPC)J>)
+Mrpl3 (Mrpl3<em1(IMPC)J>)	Msantd3 (Msantd3<em1(IMPC)J>)	Myh1 (Myh1<tm1b(KOMP)Wtsi>)
+Myo1d (Myo1d<em1(IMPC)J>)	Myo3a (Myo3a<tm1b(KOMP)Wtsi>)	Myo7a (Myo7a<tm1a(EUCOMM)Wtsi>)
+Myzap (Myzap<em1(IMPC)J>)	Nacc1 (Nacc1<em1(IMPC)Hmgu>)	Nedd4l (Nedd4l<tm1b(KOMP)Wtsi>)
+Nek2 (Nek2<tm1b(KOMP)Wtsi>)	Nelfcd (Nelfcd<em1(IMPC)J>)	Nherf4 (Nherf4<tm1a(KOMP)Wtsi>)
+Nwd2 (Nwd2<em1(IMPC)Ccpcz>)	Nxn (Nxn<em1(IMPC)J>)	Ocm (Ocm<tm1e(EUCOMM)Wtsi>)
+Osbpl8 (Osbpl8<em1(IMPC)Tcp>)	Oscp1 (Oscp1<tm1b(EUCOMM)Hmgu>)	Otoa (Otoa<tm1.1(KOMP)Vlcg>)
+Otog (Otog<em1(IMPC)J>)	Otogl (Otogl<em1(IMPC)J>)	Otud3 (Otud3<em1(IMPC)Marc>)
+P2rx7 (P2rx7<tm1b(EUCOMM)Wtsi>)	Pak1ip1 (Pak1ip1<em1(IMPC)Tcp>)	Pank2 (Pank2<em1(IMPC)Ccpcz>)
+Pcdhb3 (Pcdhb3<em1(IMPC)J>)	Pcdhb9 (Pcdhb9<em1(IMPC)J>)	Pcnx4 (Pcnx4<em1(IMPC)J>)
+Pcp4l1 (Pcp4l1<tm1b(KOMP)Wtsi>)	Pcyox1l (Pcyox1l<em1(IMPC)J>)	Pfas (Pfas<em1(IMPC)J>)
+Pgm1 (Pgm1<em1(IMPC)J>)	Phf10 (Phf10<tm1b(EUCOMM)Hmgu>)	Phf3 (Phf3<em2(IMPC)Marc>)
+Phf6 (Phf6<tm1b(EUCOMM)Wtsi>)	Phf8 (Phf8<em1(IMPC)Marc>)	Pjvk (Pjvk<em1(IMPC)J>)
+Pla2g5 (Pla2g5<em1(IMPC)Ccpcz>)	Pla2g7 (Pla2g7<em1(IMPC)J>)	Pld3 (Pld3<tm1e(EUCOMM)Wtsi>)
+Plekhf2 (Plekhf2<em1(IMPC)Wtsi>)	Plscr5 (Plscr5<em1(IMPC)J>)	Pola2 (Pola2<tm1b(KOMP)Mbp>)
+Pom121l2 (Pom121l2<em1(IMPC)J>)	Ppp1r12b (Ppp1r12b<em1(IMPC)J>)	Ppp2r5e (Ppp2r5e<em1(IMPC)Marc>)
+Prdm5 (Prdm5<em1(IMPC)Tcp>)	Prmt9 (Prmt9<em1(IMPC)J>)	Prrc2c (Prrc2c<em1(IMPC)J>)
+Prss21 (Prss21<em1(IMPC)Ccpcz>)	Prss36 (Prss36<em1(IMPC)J>)	Prss47 (Prss47<em1(IMPC)Ccpcz>)
+Ptprd (Ptprd<tm2a(KOMP)Wtsi>)	Qsox1 (Qsox1<em1(IMPC)Kmpc>)	Rab10 (Rab10<em1(IMPC)J>)
+Rab11fip3 (Rab11fip3<em1(IMPC)J>)	Rab39b (Rab39b<em1(IMPC)Tcp>)	Rab3il1 (Rab3il1<em1(IMPC)J>)
+Rab3ip (Rab3ip<tm1.1(KOMP)Vlcg>)	Ramac (Ramac<em1(IMPC)J>)	Rap1gap2 (Rap1gap2<tm1b(EUCOMM)Hmgu>)
+Rasal3 (Rasal3<tm1b(EUCOMM)Hmgu>)	Rbm11 (Rbm11<em1(IMPC)Marc>)	Rcor3 (Rcor3<em1(IMPC)J>)
+Relch (Relch<em1(IMPC)J>)	Rell1 (Rell1<em1(IMPC)J>)	Rgs20 (Rgs20<em1(IMPC)Mhzh>)
+Rhox13 (Rhox13<tm1a(KOMP)Wtsi>)	Rnf10 (Rnf10<tm1b(KOMP)Wtsi>)	Rnf123 (Rnf123<em1(IMPC)J>)
+Rnf144b (Rnf144b<tm1b(EUCOMM)Hmgu>)	Rnf168 (Rnf168<tm2b(EUCOMM)Hmgu>)	Rpain (Rpain<em1(IMPC)J>)
+Rprd2 (Rprd2<em1(IMPC)J>)	Rrbp1 (Rrbp1<em1(IMPC)J>)	Sall3 (Sall3<tm1.1(KOMP)Mbp>)
+Sap30 (Sap30<em1(IMPC)J>)	Scamp2 (Scamp2<em1(IMPC)J>)	Sdha (Sdha<tm2b(KOMP)Wtsi>)
+Sec62 (Sec62<em1(IMPC)J>)	Slc15a1 (Slc15a1<em1(IMPC)Ccpcz>)	Slc22a15 (Slc22a15<em1(IMPC)J>)
+Slc37a1 (Slc37a1<tm1b(EUCOMM)Hmgu>)	Slc4a1ap (Slc4a1ap<em1(IMPC)J>)	Slc5a5 (Slc5a5<tm1b(KOMP)Wtsi>)
+Slco6c1 (Slco6c1<em1(IMPC)Marc>)	Smarca2 (Smarca2<em1(IMPC)J>)	Smim17 (Smim17<em1(IMPC)J>)
+Sorcs2 (Sorcs2<em1(IMPC)Marc>)	Sox14 (Sox14<em1(IMPC)Ccpcz>)	Srsf7 (Srsf7<tm1a(EUCOMM)Wtsi>)
+Ssh2 (Ssh2<em1(IMPC)J>)	Syncrip (Syncrip<tm1b(EUCOMM)Hmgu>)	Taar8a (Taar8a<em1(IMPC)J>)
+Tacr3 (Tacr3<em1(IMPC)J>)	Tcaf2 (Tcaf2<em1(IMPC)Ccpcz>)	Tdrkh (Tdrkh<tm1b(KOMP)Wtsi>)
+Tmco6 (Tmco6<tm1.1(KOMP)Vlcg>)	Tmem108 (Tmem108<tm1b(EUCOMM)Wtsi>)	Tmem169 (Tmem169<em1(IMPC)Mhzh>)
+Tmem63a (Tmem63a<tm1(KOMP)Vlcg>)	Tmprss2 (Tmprss2<em1(IMPC)Ccpcz>)	Tnfrsf11b (Tnfrsf11b<em1(IMPC)Mbp>)
+Tpd52l1 (Tpd52l1<em1(IMPC)J>)	Tprn (Tprn<tm1.1(KOMP)Vlcg>)	Tram1 (Tram1<em1(IMPC)J>)
+Tram2 (Tram2<tm1a(KOMP)Wtsi>)	Trim16 (Trim16<em1(IMPC)Tcp>)	Trim37 (Trim37<em1(IMPC)Marc>)
+Triobp (Triobp<em1(IMPC)J>)	Trpm3 (Trpm3<em1(IMPC)J>)	Ttbk1 (Ttbk1<em1(IMPC)J>)
+Ttc7 (Ttc7<em1(IMPC)J>)	Tvp23b (Tvp23b<em1(IMPC)J>)	U2af1 (U2af1<em1(IMPC)J>)
+Unkl (Unkl<em1(IMPC)J>)	Usp26 (Usp26<em1(IMPC)Marc>)	Usp30 (Usp30<em1(IMPC)Marc>)
+Usp32 (Usp32<em1(IMPC)Mhzh>)	Usp35 (Usp35<em1(IMPC)J>)	Usp53 (Usp53<em1(IMPC)Tcp>)
+Vps13b (Vps13b<em1(IMPC)Tcp>)	Wdr4 (Wdr4<em1(IMPC)Ics>)	Wdr41 (Wdr41<em1(IMPC)J>)
+Wdr45 (Wdr45<em1(IMPC)J>)	Wdtc1 (Wdtc1<tm1a(KOMP)Wtsi>)	Xrcc5 (Xrcc5<em1(IMPC)Ccpcz>)
+Zbtb41 (Zbtb41<em1(IMPC)J>)	Zc2hc1a (Zc2hc1a<em1(IMPC)Ccpcz>)	Zc3h7a (Zc3h7a<em1(IMPC)J>)
+Zc3h8 (Zc3h8<em1(IMPC)Ccpcz>)	Zcchc3 (Zcchc3<em1(IMPC)J>)	Zdhhc5 (Zdhhc5<tm1e.1(EUCOMM)Hmgu>)
+Zfand3 (Zfand3<em1(IMPC)J>)	Zfp28 (Zfp28<em1(IMPC)J>)	Zfp438 (Zfp438<em1(IMPC)J>)
+Zfp512b (Zfp512b<em1(IMPC)J>)	Zfp638 (Zfp638<em1(IMPC)J>)	Zfp652 (Zfp652<em1(IMPC)J>)
+Zfp719 (Zfp719<tm1a(EUCOMM)Wtsi>)	Zfp719 (Zfp719<tm1b(EUCOMM)Wtsi>)	Zmat4 (Zmat4<em1(IMPC)J>)
+Znhit2 (Znhit2<em1(IMPC)J>)
+
+Found in confirmed deafness genes:
+Aak1                	Atp8b1              	Baiap2l2
+Cabp2               	Camsap3             	Clrn2
+Col9a3              	Espnl               	Gipc3
+Grxcr1              	Hars2               	Homer2
+Kcne1               	Klc2                	Minar2
+Mpdz                	Myo3a               	Otoa
+Otog                	Otogl               	Tnfrsf11b
+Tprn                	Triobp              	Usp53
+Wdr45
+
+Found in candidate deafness genes:
+Ankrd11             	Csnk1g3             	D6Wsu163e
+Fads3               	Gzf1                	Herc1
+Ldlr                	Mag                 	Mkrn2
+Myh1                	Phf6                	Prdm5
+Slc5a5              	Zfp719
+
+Novel candidates:
+0610040J01Rik       	4933405L10Rik       	4933430I17Rik
+Abhd4               	Ablim2              	Acsl4
+Actl6b              	Adad2               	Adora1
+Aff3                	Ahrr                	Ankrd13b
+Ankrd24             	Ap2a2               	Arhgap21
+Arv1                	Bahd1               	Bclaf1
+Blvrb               	Brcc3dc             	Btbd7
+Btbd8               	Bysl                	C2cd2l
+Ccdc191             	Cckar               	Cdc37l1
+Cdk14               	Cep128              	Ces1f
+Ces2c               	Cfap45              	Chst12
+Cidec               	Clec16a             	Clec3a
+Clptm1l             	Cmya5               	Cnih2
+Cntnap5b            	Cpa5                	Crisp3
+Cryzl2              	Ctif                	Cxxc4
+D630045J12Rik       	Dctpp1              	Dlgap2
+Dnaja4              	Dnajb4              	Dnajc14
+Dpp8                	Dtnbp1              	Dusp15
+Dusp7               	Eea1                	Eef2kmt
+Efhb                	Emc3                	Enpp1
+Epb41l1             	Ewsr1               	Exoc4
+Fam185a             	Fam24b              	Fbxl19
+Fbxo10              	Fbxo25              	Fbxo48
+Fnbp1l              	Fuca1               	Gatad2b
+Gm14569             	Gm5547              	Gsdmd
+Gstt1               	Gulp1               	H1f10
+Hilpda              	Hmgcs1              	Hnrnpd
+Hsd17b1             	Hspa5               	Iffo2
+Il10ra              	Il3ra               	Ints6l
+Irgq                	Irx6                	Isg20
+Iws1                	Kctd11              	Kctd9
+Klhdc8b             	Klk11               	Klk5
+Knl1                	Krt25               	Krtap29-1
+Krtcap2             	Lamp5               	Lipm
+Loxl1               	Lpcat2              	Lrig3
+Lrrc4b              	Lsm14a              	Lypd6b
+Mcidas              	Med10               	Med25
+Mettl5              	Mical3              	Mir143
+Mir320              	Mpzl2               	Mroh2b
+Mrpl3               	Msantd3             	Myo1d
+Myo7a               	Myzap               	Nacc1
+Nedd4l              	Nek2                	Nelfcd
+Nherf4              	Nwd2                	Nxn
+Ocm                 	Osbpl8              	Oscp1
+Otud3               	P2rx7               	Pak1ip1
+Pank2               	Pcdhb3              	Pcdhb9
+Pcnx4               	Pcp4l1              	Pcyox1l
+Pfas                	Pgm1                	Phf10
+Phf3                	Phf8                	Pjvk
+Pla2g5              	Pla2g7              	Pld3
+Plekhf2             	Plscr5              	Pola2
+Pom121l2            	Ppp1r12b            	Ppp2r5e
+Prmt9               	Prrc2c              	Prss21
+Prss36              	Prss47              	Ptprd
+Qsox1               	Rab10               	Rab11fip3
+Rab39b              	Rab3il1             	Rab3ip
+Ramac               	Rap1gap2            	Rasal3
+Rbm11               	Rcor3               	Relch
+Rell1               	Rgs20               	Rhox13
+Rnf10               	Rnf123              	Rnf144b
+Rnf168              	Rpain               	Rprd2
+Rrbp1               	Sall3               	Sap30
+Scamp2              	Sdha                	Sec62
+Slc15a1             	Slc22a15            	Slc37a1
+Slc4a1ap            	Slco6c1             	Smarca2
+Smim17              	Sorcs2              	Sox14
+Srsf7               	Ssh2                	Syncrip
+Taar8a              	Tacr3               	Tcaf2
+Tdrkh               	Tmco6               	Tmem108
+Tmem169             	Tmem63a             	Tmprss2
+Tpd52l1             	Tram1               	Tram2
+Trim16              	Trim37              	Trpm3
+Ttbk1               	Ttc7                	Tvp23b
+U2af1               	Unkl                	Usp26
+Usp30               	Usp32               	Usp35
+Vps13b              	Wdr4                	Wdr41
+Wdtc1               	Xrcc5               	Zbtb41
+Zc2hc1a             	Zc3h7a              	Zc3h8
+Zcchc3              	Zdhhc5              	Zfand3
+Zfp28               	Zfp438              	Zfp512b
+Zfp638              	Zfp652              	Zmat4
+Znhit2
+
+Missed confirmed genes:
+Adgrv1              	Asic3               	Ccdc88c
+Cep250              	Cib2                	Clpp
+Clrn1               	Col9a2              	Elmod1
+Gata2               	Gjb3                	Hoxa2
+Hsd17b4             	Marveld2            	Mir96
+Myo6                	Nptn                	Nr2f1
+Nrp1                	Rest                	Slc17a8
+Slc4a10             	Sun1                	Tbl1xr1
+Tmtc4               	Tomt                	Zbtb16
+
+Missed candidate genes:
+Agap1               	Ahsg                	Bicd1
+Bod1                	Brd2                	Bzw1
+Cbln3               	Chsy1               	Cstb
+Dnase1              	Dpp4                	Duoxa2
+Fbxo33              	Gas2l2              	Gpr152
+Hmx2                	Il1r2               	Iqgap2
+Ist1                	Kif5a               	Klhdc7b
+Med28               	Mphosph8            	Myo18b
+Nin                 	Plod3               	Pramel17
+Smarcc2             	Srd5a3              	Tmem30b
+Tox                 	Ube2g1              	Xpnpep3
+
+
+Sample Size Statistics
+--------------------
+
+ALL:
+Mean mutants per gene/allele: 6.0
+Mean controls per gene/allele: 1393.1
+
+MALE:
+Mean mutants per gene/allele: 4.3
+Mean controls per gene/allele: 1018.4
+
+FEMALE:
+Mean mutants per gene/allele: 4.3
+Mean controls per gene/allele: 1056.4
+
+
+Analysis-Specific Significant Genes
+----------------------------------
+Significant only in ALL analysis: 282
+Significant only in MALE analysis: 38
+Significant only in FEMALE analysis: 39
+
+Genes significant only in ALL analysis:
+1700003F12Rik       	Aars2               	Abhd6
+Adamts15            	Adarb1              	Adcy6
+Adgrv1              	Ahsg                	Akr1c12
+Alg1                	Ampd1               	Ankrd53
+Apbb3               	Arhgef10l           	Asb5
+Ash1l               	Asic1               	Atf6b
+Atg4a               	Atg4b               	Atg4c
+Atg4d               	Atp2b1              	Atxn7l3
+B230219D22Rik       	B2m                 	BC049715
+Bap1                	Bbof1               	Bcl2l13
+Bhlhe40             	Bicral              	Bloc1s6
+Bnip1               	Bod1                	Brd2
+C9orf72             	Cacna2d1            	Cad
+Camkv               	Carm1               	Ccbe1
+Ccdc117             	Ccdc124             	Ccdc83
+Ccdc88c             	Cdc37               	Cdc42ep5
+Cdk8                	Cdkn1a              	Cep85l
+Chd6                	Chfr                	Chrnd
+Chsy1               	Cib2                	Cimap1d
+Cimip2b             	Clrn1               	Cmtm7
+Col9a2              	Cox4i1              	Crtac1
+Csf3r               	Ctf2                	Ctsm
+Ctu2                	Cxcl3               	Cyp17a1
+Cyp3a41b            	Dbil5               	Dcaf15
+Dcaf6               	Dctd                	Defb43
+Disc1               	Dnase1              	Dnmbp
+Dtl                 	Ebf1                	Eif2s1
+Eif4b               	Elfn1               	Elmo3
+Elmod1              	Emc4                	Emx1
+Eng                 	Epc2                	Epn3
+Eps8l1              	Erlec1              	Etfa
+Eya4                	Fads6               	Fancl
+Fbrs                	Fbxl12              	Fbxl15
+Fbxl5               	Fbxl8               	Fbxo15
+Fbxo24              	Fbxo27              	Fbxo28
+Fbxo36              	Fbxo38              	Fer
+Fgf7                	Fntb                	Fus
+Gas2l2              	Gga1                	Golph3
+Gpr156              	Gpx4                	Gsdma3
+Gtf2a1l             	Gtpbp2              	H1f0
+Haao                	Hacd3               	Herc4
+Hnrnpdl             	Hnrnph1             	Hnrnpm
+Hnrnpr              	Hoxc11              	Hs3st3a1
+Hsd17b4             	Htr4                	Ifng
+Il1r2               	Il6ra               	Ipo4
+Iqgap2              	Jazf1               	Kcnt2
+Kcnv1               	Kdm5a               	Kics2
+Kif13a              	Klhdc7b             	Kmt2c
+Krt1                	Lelp1               	Lhcgr
+Lmtk2               	Ltv1                	Luc7l
+Lypd2               	Mapkapk5            	Marveld2
+Med28               	Mir204              	Mir28a
+Mreg                	Msi2                	Muc5b
+Myo6                	Myom2               	Necap2
+Nfil3               	Nhsl1               	Nptn
+Nsl1                	Nt5e                	Oprl1
+Otud1               	Oxsm                	Pappa
+Parp12              	Pcdh20              	Pdcd6ip
+Pfkfb2              	Pigm                	Pkhd1l1
+Plcb4               	Pmel                	Poc1b
+Pop7                	Pou2af3             	Ppia
+Ppp1cb              	Ppp1r14a            	Ppp1r14d
+Ppp1r1a             	Ppp2r2a             	Ppp2r2c
+Ppp2r5c             	Ppp2r5d             	Pramel17
+Prkra               	Ptma                	Rabggta
+Rapgef5             	Rbbp4               	Rfxap
+Rgl1                	Rgs2                	Rnf166
+Rnf222              	Rsad1               	Rtl10
+Rtn4rl2             	Ryr1                	Satb2
+Sbf1                	Scg5                	Scin
+Scn4a               	Scrib               	Serpinb13
+Serpine3            	Sh3gl2              	Shank1
+Shank3              	Shfl                	Skida1
+Slc17a8             	Slc22a4             	Slc3a1
+Slc4a10             	Slc52a2             	Snd1
+Snx25               	Sox21               	Spast
+Speer4f1            	Spred1              	Srrm4
+Sstr5               	Stim2               	Strn4
+Syt4                	Taar3               	Taf13
+Tdrp                	Tfec                	Timm50
+Tktl2               	Tle4                	Tmem145
+Tmem30b             	Tmem51              	Tmtc4
+Tnip1               	Tomt                	Topors
+Tox                 	Trim35              	Trim71
+Tspan9              	Tssk4               	Tti1
+Ttyh2               	Tubb4b              	Twist2
+U2surp              	Ube2d3              	Ube2h
+Ube2i               	Ube2w               	Ube3c
+Umodl1              	Unc119b             	Urm1
+Usp13               	Usp15               	Usp39
+Usp43               	Usp46               	Vav2
+Wdr6                	Yod1                	Zbtb16
+Zdhhc2              	Zdhhc23             	Zdhhc3
+Zfp469              	Zfp474              	Zhx3
+
+Genes significant only in MALE analysis:
+2510009E07Rik       	Acot2               	Angptl3
+Aspa                	Brd3                	Cpa4
+Cyp4f39             	Dnajb11             	Dock9
+Epgn                	Fam204a             	Fhod1
+Fshr                	Garre1              	Hbs1l
+Iqcf1               	Jakmip3             	Lysmd1
+Mrpl18              	Myh13               	Naa10
+P4ha3               	Rcan3               	Rlim
+Scrn1               	Slc1a3              	Sqle
+Syne2               	Tmem79              	Tspyl1
+Tstd1               	Ttc32               	Ubap2
+Vkorc1l1            	Ywhab               	Zfp267
+Zfp786              	Zfp940
+
+Genes significant only in FEMALE analysis:
+0610040J01Rik       	4933430I17Rik       	Ablim2
+Ap2a2               	Bahd1               	Bclaf1
+Cmya5               	D630045J12Rik       	Dusp15
+Exoc4               	Hilpda              	Iffo2
+Il3ra               	Knl1                	Lamp5
+Lrig3               	Med10               	Mir320
+Mpzl2               	Mrpl3               	Nacc1
+Nxn                 	Oscp1               	Pgm1
+Phf10               	Pola2               	Prrc2c
+Prss47              	Rasal3              	Rgs20
+Rnf168              	Sdha                	Smim17
+Tcaf2               	Tmem63a             	Tram1
+Trim16              	Usp35               	Zfp638
+
