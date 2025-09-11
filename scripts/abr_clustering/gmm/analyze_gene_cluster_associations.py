@@ -28,23 +28,36 @@ import sys
 from scipy import stats
 
 
-def load_data():
-    """Load all necessary data files."""
+def load_data(assignment_method='probabilistic'):
+    """Load all necessary data files.
+    
+    Args:
+        assignment_method: 'probabilistic' or 'euclidean' for cluster assignment method
+    """
     # Load Bayesian significant results
     bayesian_df = pd.read_csv('shared_data/concatenated_results_v6.csv')
 
     # Load metadata with mouse information
     metadata_df = pd.read_csv('shared_data/metadata.csv')
 
-    # Load cluster assignments
-    cluster_labels = np.load('results/june_23_2025/gmm_k4_tied/cluster_labels.npy')
-    cluster_probs = np.load('results/june_23_2025/gmm_k4_tied/cluster_probabilities.npy')
+    # Load cluster assignments based on method
+    if assignment_method == 'euclidean':
+        # For euclidean, we'll compute assignments on the fly
+        cluster_labels = None
+        cluster_probs = None
+        # Load original data for euclidean distance calculation
+        original_data = pd.read_csv('results/june_23_2025/gmm_k4_tied/original_data.csv')
+    else:
+        # Load probabilistic assignments
+        cluster_labels = np.load('results/june_23_2025/gmm_k4_tied/cluster_labels.npy')
+        cluster_probs = np.load('results/june_23_2025/gmm_k4_tied/cluster_probabilities.npy')
+        original_data = None
 
     # Load analysis results for cluster characteristics
     with open('results/june_23_2025/gmm_k4_tied/analysis_results.json', 'r') as f:
         analysis_results = json.load(f)
 
-    return bayesian_df, metadata_df, cluster_labels, cluster_probs, analysis_results
+    return bayesian_df, metadata_df, cluster_labels, cluster_probs, analysis_results, original_data
 
 
 def filter_significant_genes(bayesian_df, bf_threshold=3.0, p_threshold=0.5):
@@ -110,10 +123,74 @@ def filter_significant_genes(bayesian_df, bf_threshold=3.0, p_threshold=0.5):
     return significant_groups
 
 
-def create_gene_mouse_mapping(sig_genes_df, metadata_df, cluster_labels, analysis_type='all'):
-    """Map each significant gene group to its mice and their cluster assignments."""
+def compute_euclidean_clusters(original_data, cluster_means_original):
+    """Compute cluster assignments using Euclidean distance in original space.
+    
+    Args:
+        original_data: Original ABR data in dB SPL
+        cluster_means_original: Mean ABR profiles for each cluster in original space
+    
+    Returns:
+        Array of cluster assignments
+    """
+    ABR_COLS = [
+        '6kHz-evoked ABR Threshold',
+        '12kHz-evoked ABR Threshold',
+        '18kHz-evoked ABR Threshold',
+        '24kHz-evoked ABR Threshold',
+        '30kHz-evoked ABR Threshold'
+    ]
+    
+    n_samples = len(original_data)
+    n_clusters = len(cluster_means_original)
+    euclidean_labels = np.zeros(n_samples, dtype=int)
+    
+    # Calculate distances for each sample
+    for i in range(n_samples):
+        sample_abr = original_data.iloc[i][ABR_COLS].values
+        distances = []
+        for cluster_id in range(n_clusters):
+            dist = np.linalg.norm(sample_abr - cluster_means_original[cluster_id])
+            distances.append(dist)
+        euclidean_labels[i] = np.argmin(distances)
+    
+    return euclidean_labels
+
+
+def create_gene_mouse_mapping(sig_genes_df, metadata_df, cluster_labels, analysis_type='all', assignment_method='probabilistic', original_data=None):
+    """Map each significant gene group to its mice and their cluster assignments.
+    
+    Args:
+        sig_genes_df: DataFrame of significant genes
+        metadata_df: Metadata with mouse information
+        cluster_labels: Cluster assignments (None for euclidean method)
+        analysis_type: 'all', 'male', or 'female'
+        assignment_method: 'probabilistic' or 'euclidean'
+        original_data: Original ABR data (required for euclidean method)
+    """
     # Add cluster assignments to metadata
     metadata_df = metadata_df.copy()
+    
+    if assignment_method == 'euclidean':
+        # Calculate cluster means in original space
+        # First need probabilistic labels to compute means
+        prob_labels = np.load('results/june_23_2025/gmm_k4_tied/cluster_labels.npy')
+        cluster_means_original = {}
+        ABR_COLS = [
+            '6kHz-evoked ABR Threshold',
+            '12kHz-evoked ABR Threshold',
+            '18kHz-evoked ABR Threshold',
+            '24kHz-evoked ABR Threshold',
+            '30kHz-evoked ABR Threshold'
+        ]
+        for cluster_id in range(4):
+            cluster_mask = prob_labels == cluster_id
+            cluster_data = original_data.iloc[cluster_mask][ABR_COLS]
+            cluster_means_original[cluster_id] = cluster_data.mean().values
+        
+        # Compute euclidean assignments
+        cluster_labels = compute_euclidean_clusters(original_data, cluster_means_original)
+    
     metadata_df['cluster'] = cluster_labels
 
     gene_cluster_mapping = []
@@ -709,9 +786,25 @@ def demo_csv_structure(output_dir='results/gene_cluster_analysis_sex_specific'):
         print(f"  {i:2d}. {col}")
 
 
-def main(mode='full'):
-    """Main analysis pipeline."""
-    output_dir = Path('results/gene_cluster_analysis_sex_specific')
+def main(mode='full', assignment_method='probabilistic', output_dir=None):
+    """Main analysis pipeline.
+    
+    Args:
+        mode: Analysis mode ('full', 'sex-specific', 'sex-differences', 'demo-csv')
+        assignment_method: 'probabilistic' or 'euclidean' for cluster assignment
+        output_dir: Custom output directory (optional)
+    """
+    # Set output directory based on assignment method if not provided
+    if output_dir is None:
+        if assignment_method == 'euclidean':
+            output_dir = Path('results/euclidean_assignment_original_space/analysis_plots')
+        else:
+            output_dir = Path('results/gene_cluster_analysis_sex_specific')
+    else:
+        output_dir = Path(output_dir)
+    
+    # Create output directory if it doesn't exist
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     if mode == 'sex-specific':
         show_sex_specific_genes(output_dir)
@@ -727,8 +820,8 @@ def main(mode='full'):
         sys.exit(1)
 
     # Full analysis mode
-    print("Loading data...")
-    bayesian_df, metadata_df, cluster_labels, cluster_probs, analysis_results = load_data()
+    print(f"Loading data (assignment method: {assignment_method})...")
+    bayesian_df, metadata_df, cluster_labels, cluster_probs, analysis_results, original_data = load_data(assignment_method)
 
     print("Filtering for significant genes...")
     significant_groups = filter_significant_genes(bayesian_df)
@@ -741,7 +834,10 @@ def main(mode='full'):
         print(f"Found {len(sig_genes_df)} significant gene combinations for {analysis_type}")
 
         # Create mapping for this analysis type
-        mapping_df = create_gene_mouse_mapping(sig_genes_df, metadata_df, cluster_labels, analysis_type)
+        mapping_df = create_gene_mouse_mapping(
+            sig_genes_df, metadata_df, cluster_labels, analysis_type,
+            assignment_method=assignment_method, original_data=original_data
+        )
         print(f"Successfully mapped {len(mapping_df)} gene groups to clusters for {analysis_type}")
 
         all_mappings.append(mapping_df)
@@ -754,7 +850,10 @@ def main(mode='full'):
         type_df['analysis_type'] = analysis_type
         type_df['primary_analysis_type'] = analysis_type
 
-        mapping_df = create_gene_mouse_mapping(type_df, metadata_df, cluster_labels, analysis_type)
+        mapping_df = create_gene_mouse_mapping(
+            type_df, metadata_df, cluster_labels, analysis_type,
+            assignment_method=assignment_method, original_data=original_data
+        )
         if len(mapping_df) > 0:
             all_tested_mappings.append(mapping_df)
 
@@ -771,9 +870,7 @@ def main(mode='full'):
     summary_stats['genes_by_analysis_type'] = gene_cluster_df['analysis_type'].value_counts().to_dict()
     summary_stats['consistency_by_analysis_type'] = gene_cluster_df.groupby('analysis_type')['consistency_score'].agg(['mean', 'std']).to_dict()
 
-    # Create output directory
-    output_dir = Path('results/gene_cluster_analysis_sex_specific')
-    output_dir.mkdir(exist_ok=True, parents=True)
+    # Output directory is already set at the beginning of main()
 
     print("Creating visualizations...")
     create_visualizations(gene_cluster_df, output_dir, all_genes_cluster_df, show_best_fit=True)
@@ -811,6 +908,11 @@ Modes:
     parser.add_argument('--mode', type=str, default='full',
                         choices=['full', 'sex-specific', 'sex-differences', 'demo-csv'],
                         help='Analysis mode to run')
+    parser.add_argument('--assignment-method', type=str, default='probabilistic',
+                        choices=['probabilistic', 'euclidean'],
+                        help='Cluster assignment method to use')
+    parser.add_argument('--output-dir', type=str, default=None,
+                        help='Custom output directory for results')
 
     args = parser.parse_args()
-    main(args.mode)
+    main(args.mode, args.assignment_method, args.output_dir)

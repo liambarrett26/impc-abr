@@ -24,14 +24,16 @@ logger = logging.getLogger(__name__)
 class ResultsVisualizer:
     """Create visualizations from saved GMM clustering results."""
     
-    def __init__(self, results_dir: Path):
+    def __init__(self, results_dir: Path, assignment_method: str = 'probabilistic'):
         """
         Initialize visualizer with results directory.
         
         Args:
             results_dir: Directory containing pipeline outputs
+            assignment_method: 'probabilistic' or 'euclidean' for cluster assignment
         """
         self.results_dir = Path(results_dir)
+        self.assignment_method = assignment_method
         self.frequency_labels = ['6 kHz', '12 kHz', '18 kHz', '24 kHz', '30 kHz']
         
         # Load saved data
@@ -43,20 +45,34 @@ class ResultsVisualizer:
         results_path = self.results_dir / "analysis_results.json"
         with open(results_path, 'r', encoding='utf-8') as f:
             self.analysis_results = json.load(f)
+        
+        if self.assignment_method == 'euclidean':
+            # Load original data for Euclidean distance calculation
+            original_path = self.results_dir / "original_data.csv"
+            if not original_path.exists():
+                # Try alternate location
+                original_path = Path("results/june_23_2025/gmm_k4_tied/original_data.csv")
+            if original_path.exists():
+                self.original_data_df = pd.read_csv(original_path)
+            else:
+                raise FileNotFoundError("Original data required for Euclidean assignments")
             
-        # Load cluster assignments
-        assignments_path = self.results_dir / "cluster_assignments.csv"
-        if assignments_path.exists():
-            self.assignments_df = pd.read_csv(assignments_path)
-            self.cluster_labels = self.assignments_df['cluster_label'].values
-            
-            # Extract cluster probabilities
-            prob_cols = [col for col in self.assignments_df.columns if col.startswith('cluster_') and col.endswith('_prob')]
-            self.cluster_probabilities = self.assignments_df[prob_cols].values
+            # Compute Euclidean assignments
+            self.cluster_labels, self.cluster_probabilities = self._compute_euclidean_assignments()
         else:
-            # Load from numpy files (older format)
-            self.cluster_labels = np.load(self.results_dir / "cluster_labels.npy")
-            self.cluster_probabilities = np.load(self.results_dir / "cluster_probabilities.npy")
+            # Load cluster assignments for probabilistic
+            assignments_path = self.results_dir / "cluster_assignments.csv"
+            if assignments_path.exists():
+                self.assignments_df = pd.read_csv(assignments_path)
+                self.cluster_labels = self.assignments_df['cluster_label'].values
+                
+                # Extract cluster probabilities
+                prob_cols = [col for col in self.assignments_df.columns if col.startswith('cluster_') and col.endswith('_prob')]
+                self.cluster_probabilities = self.assignments_df[prob_cols].values
+            else:
+                # Load from numpy files (older format)
+                self.cluster_labels = np.load(self.results_dir / "cluster_labels.npy")
+                self.cluster_probabilities = np.load(self.results_dir / "cluster_probabilities.npy")
         
         # Load normalized data
         normalized_path = self.results_dir / "normalized_data.csv"
@@ -71,15 +87,81 @@ class ResultsVisualizer:
                 raise FileNotFoundError("Cannot find normalized data")
         
         # Check for original data (if saved separately)
-        original_path = self.results_dir / "original_data.csv"
-        if original_path.exists():
-            self.original_data = pd.read_csv(original_path).values
+        if self.assignment_method != 'euclidean':
+            original_path = self.results_dir / "original_data.csv"
+            if original_path.exists():
+                self.original_data = pd.read_csv(original_path).values
+            else:
+                self.original_data = None
+                logger.warning("Original data not found. Some visualizations will use normalized scale.")
         else:
-            self.original_data = None
-            logger.warning("Original data not found. Some visualizations will use normalized scale.")
+            # For Euclidean, extract ABR columns from the loaded DataFrame
+            ABR_COLS = [
+                '6kHz-evoked ABR Threshold',
+                '12kHz-evoked ABR Threshold',
+                '18kHz-evoked ABR Threshold',
+                '24kHz-evoked ABR Threshold',
+                '30kHz-evoked ABR Threshold'
+            ]
+            self.original_data = self.original_data_df[ABR_COLS].values
             
         self.n_clusters = len(np.unique(self.cluster_labels))
-        logger.info(f"Loaded results: {self.n_clusters} clusters, {len(self.cluster_labels)} samples")
+        logger.info(f"Loaded results ({self.assignment_method}): {self.n_clusters} clusters, {len(self.cluster_labels)} samples")
+    
+    def _compute_euclidean_assignments(self):
+        """Compute cluster assignments using Euclidean distance in original space."""
+        # First load probabilistic labels to compute cluster means
+        prob_labels_path = self.results_dir / "cluster_labels.npy"
+        if not prob_labels_path.exists():
+            prob_labels_path = Path("results/june_23_2025/gmm_k4_tied/cluster_labels.npy")
+        prob_labels = np.load(prob_labels_path)
+        
+        # ABR columns
+        ABR_COLS = [
+            '6kHz-evoked ABR Threshold',
+            '12kHz-evoked ABR Threshold',
+            '18kHz-evoked ABR Threshold',
+            '24kHz-evoked ABR Threshold',
+            '30kHz-evoked ABR Threshold'
+        ]
+        
+        # Calculate cluster means in original space
+        cluster_means_original = {}
+        for cluster_id in range(4):
+            cluster_mask = prob_labels == cluster_id
+            cluster_data = self.original_data_df.iloc[cluster_mask][ABR_COLS]
+            cluster_means_original[cluster_id] = cluster_data.mean().values
+        
+        # Compute Euclidean distances and assignments
+        n_samples = len(self.original_data_df)
+        n_clusters = 4
+        euclidean_labels = np.zeros(n_samples, dtype=int)
+        euclidean_distances = np.zeros((n_samples, n_clusters))
+        
+        for i in range(n_samples):
+            sample_abr = self.original_data_df.iloc[i][ABR_COLS].values
+            for cluster_id in range(n_clusters):
+                euclidean_distances[i, cluster_id] = np.linalg.norm(sample_abr - cluster_means_original[cluster_id])
+            euclidean_labels[i] = np.argmin(euclidean_distances[i])
+        
+        # Convert distances to pseudo-probabilities using softmax
+        # Use negative distances (closer = higher probability) with temperature scaling
+        euclidean_probs = np.zeros((n_samples, n_clusters))
+        
+        # Temperature parameter controls sharpness of probability distribution
+        # Lower temperature = sharper distinctions, higher confidence
+        temperature = 10.0  # Tune this based on typical distance scales
+        
+        for i in range(n_samples):
+            # Use negative distances so smaller distance = higher score
+            neg_distances = -euclidean_distances[i] / temperature
+            # Subtract max for numerical stability
+            neg_distances = neg_distances - np.max(neg_distances)
+            # Apply softmax
+            exp_scores = np.exp(neg_distances)
+            euclidean_probs[i] = exp_scores / exp_scores.sum()
+        
+        return euclidean_labels, euclidean_probs
         
     def create_all_visualizations(self, output_dir: Optional[Path] = None, dpi: int = 1200):
         """
@@ -471,10 +553,18 @@ def main():
         help='Use standard deviation bands instead of 95% confidence intervals (default: CI)'
     )
     
+    parser.add_argument(
+        '--assignment-method',
+        type=str,
+        default='probabilistic',
+        choices=['probabilistic', 'euclidean'],
+        help='Cluster assignment method to use'
+    )
+    
     args = parser.parse_args()
     
     # Initialize visualizer
-    visualizer = ResultsVisualizer(args.results_dir)
+    visualizer = ResultsVisualizer(args.results_dir, args.assignment_method)
     
     # Create visualizations
     if args.figure_type == 'all':
@@ -494,7 +584,13 @@ def main():
         fig = visualizer.create_custom_figure(args.figure_type, **kwargs)
         
         # Save figure
-        output_dir = Path(args.output_dir) if args.output_dir else Path(args.results_dir) / "figures"
+        if args.output_dir:
+            output_dir = Path(args.output_dir)
+        else:
+            if args.assignment_method == 'euclidean':
+                output_dir = Path(args.results_dir) / "figures_euclidean"
+            else:
+                output_dir = Path(args.results_dir) / "figures"
         output_dir.mkdir(exist_ok=True)
         
         base_path = output_dir / args.figure_type
