@@ -1,0 +1,40 @@
+{
+  "visualization_type": "post_training_analysis",
+  "embeddings_path": "experiments/full_pipeline_test_minimal/20250618_174959_evident/evaluation/embeddings/latent_embeddings.npz",
+  "experiment_info": {
+    "experiment_name": "full_pipeline_test_minimal",
+    "run_id": "20250618_174959_evident",
+    "detected": true
+  },
+  "visualization_timestamp": "2025-06-18T17:51:32.580232",
+  "command_line_args": {
+    "embeddings": "experiments/full_pipeline_test_minimal/20250618_174959_evident/evaluation/embeddings/latent_embeddings.npz",
+    "results": "experiments/full_pipeline_test_minimal/20250618_174959_evident/evaluation/embeddings/cluster_predictions.csv",
+    "original_data": null,
+    "reduction_methods": [
+      "pca",
+      "tsne",
+      "umap"
+    ],
+    "skip_static_plots": false,
+    "skip_interactive_plots": false,
+    "skip_cluster_analysis": false,
+    "skip_audiogram_plots": false,
+    "figure_format": "png",
+    "dpi": 300,
+    "figure_size": [
+      12,
+      8
+    ],
+    "color_palette": "husl",
+    "max_samples": 2000,
+    "cluster_column": "cluster_assignment",
+    "gene_column": "gene_label",
+    "mouse_id_column": "mouse_id",
+    "output_dir": "experiments",
+    "experiment_name": "full_pipeline_test_minimal",
+    "run_id": "20250618_174959_evident",
+    "log_level": "INFO",
+    "quiet": false
+  }
+}

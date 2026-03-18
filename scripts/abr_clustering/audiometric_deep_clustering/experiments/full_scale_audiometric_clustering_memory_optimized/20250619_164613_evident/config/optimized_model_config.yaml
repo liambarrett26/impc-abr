@@ -1,0 +1,99 @@
+architecture:
+  bias_init: zeros
+  gradient_clipping: 1.0
+  residual_connections: false
+  use_layer_norm: false
+  use_spectral_norm: false
+  weight_init: xavier_uniform
+clustering:
+  adaptive_update: true
+  alpha: 1.0
+  cluster_init: kmeans
+  initial_update_interval: 5
+  max_update_interval: 20
+  min_cluster_size: 50
+  num_clusters: 12
+  reassign_empty: false
+  tolerance: 0.001
+  update_decay: 0.1
+  update_interval: 10
+contrastive:
+  augmentation:
+    dropout_prob: 0.1
+    magnitude_scale: 0.1
+    noise_std: 0.05
+  projection_dim: 64
+  temperature: 0.5
+data:
+  abr_features: 6
+  audiometric_indices:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  categorical_indices:
+  - 8
+  - 9
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  continuous_indices:
+  - 6
+  - 7
+  - 16
+  - 17
+  metadata_features: 10
+  pca_features: 2
+  total_features: 18
+decoder:
+  activation: relu
+  dropout_rate: 0.2
+  hidden_dims:
+  - 32
+  - 64
+  - 128
+  output_activation: linear
+  use_batch_norm: true
+encoder:
+  abr_encoder:
+    hidden_dim: 32
+    use_batch_norm: true
+  activation: relu
+  attention:
+    dropout: 0.1
+    enabled: true
+    head_dim: 16
+    num_heads: 4
+  dropout_rate: 0.2
+  hidden_dims:
+  - 128
+  - 64
+  - 32
+  metadata_encoder:
+    embedding_dims:
+      genetic_background: 8
+      phenotyping_center: 12
+      sex: 4
+      zygosity: 4
+    hidden_dim: 48
+latent:
+  beta: 1.0
+  latent_dim: 24
+  max_logvar: 10
+  min_logvar: -10
+loss_weights:
+  clustering: 1.0
+  contrastive: 0.5
+  frequency_smoothness: 0.1
+  kl_divergence: 1.0
+  phenotype_consistency: 0.3
+  reconstruction: 1.0
+  reconstruction_weights:
+    abr: 2.0
+    metadata: 1.0
+    pca: 1.5

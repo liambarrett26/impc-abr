@@ -1,0 +1,13 @@
+================================================================================
+CONTRASTIVEVAE-DEC EVALUATION REPORT
+================================================================================
+
+CLUSTERING QUALITY METRICS
+----------------------------------------
+Silhouette Score: N/A
+Calinski-Harabasz Index: N/A
+Davies-Bouldin Index: N/A
+Reconstruction MSE: 0.711770236492157
+Feature Correlation: 0.2751460671424866
+
+================================================================================

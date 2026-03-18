@@ -1,0 +1,183 @@
+# ContrastiveVAE-DEC Training Configuration
+# Training process settings for audiometric phenotype clustering
+
+# =============================================================================
+# DATASET CONFIGURATION
+# =============================================================================
+dataset:
+  # Data paths
+  data_path: "/home/liamb/impc-abr/data/processed/abr_full_data.csv"  # Main dataset path
+
+  # Data splitting
+  train_split: 0.8           # Training set proportion
+  val_split: 0.1             # Validation set proportion
+  test_split: 0.1            # Test set proportion
+  random_seed: 42            # Reproducibility seed
+
+  # Data loading
+  batch_size: 512            # Batch size (manageable for single GPU)
+  num_workers: 4             # DataLoader workers
+  pin_memory: true           # Pin memory for GPU efficiency
+  shuffle: true              # Shuffle training data
+
+# =============================================================================
+# OPTIMIZATION SETTINGS
+# =============================================================================
+optimizer:
+  # Primary optimizer
+  type: 'adam'               # Optimizer type
+  lr: 0.001                  # Initial learning rate
+  weight_decay: 1e-5         # L2 regularization
+
+  # Adam-specific parameters
+  betas: [0.9, 0.999]        # Adam beta parameters
+  eps: 1e-8                  # Adam epsilon
+
+  # Alternative optimizers (uncomment to use)
+  # type: 'adamw'
+  # type: 'sgd'
+  # momentum: 0.9            # SGD momentum
+
+# =============================================================================
+# LEARNING RATE SCHEDULING
+# =============================================================================
+scheduler:
+  type: 'cosine_annealing'   # LR scheduler type
+
+  # Cosine annealing parameters
+  T_max: 200                 # Maximum epochs for cosine cycle
+  eta_min: 1e-6             # Minimum learning rate
+
+  # Alternative schedulers
+  # type: 'step'
+  # step_size: 50
+  # gamma: 0.5
+
+  # type: 'reduce_on_plateau'
+  # patience: 10
+  # factor: 0.5
+
+# =============================================================================
+# TRAINING STAGES
+# =============================================================================
+training_stages:
+  # Stage 1: VAE Pretraining
+  stage1_pretrain:
+    epochs: 50               # Pretraining epochs
+    objectives: ['reconstruction', 'kl_divergence']  # Active loss components
+
+  # Stage 2: Cluster Initialization
+  stage2_cluster_init:
+    kmeans_iterations: 300   # K-means iterations for cluster initialization
+
+  # Stage 3: Joint Training
+  stage3_joint:
+    epochs: 150              # Joint training epochs
+    warmup_epochs: 10        # Gradual loss weight increase
+    objectives: ['reconstruction', 'kl_divergence', 'clustering', 'contrastive', 'phenotype_consistency']
+
+# =============================================================================
+# TRAINING CONTROL
+# =============================================================================
+training:
+  # Total training configuration
+  max_epochs: 200            # Maximum training epochs
+  early_stopping:
+    patience: 20             # Early stopping patience
+    min_delta: 1e-4         # Minimum improvement threshold
+    monitor: 'val_total_loss' # Metric to monitor
+    mode: 'min'             # Minimize the monitored metric
+
+  # Gradient handling
+  grad_clip_norm: 1.0        # Gradient clipping norm
+  accumulate_grad_batches: 1  # Gradient accumulation steps
+
+  # Model checkpointing
+  save_top_k: 3              # Save top k models
+  monitor_checkpoint: 'val_total_loss'  # Metric for best model
+  save_last: true            # Save last checkpoint
+
+  # Validation
+  val_check_interval: 1.0    # Validation frequency (1.0 = every epoch)
+  check_val_every_n_epoch: 1 # Validation every N epochs
+
+# =============================================================================
+# LOGGING AND MONITORING
+# =============================================================================
+logging:
+  # Experiment tracking
+  experiment_name: "contrastive_vae_dec_abr"  # Experiment identifier
+  log_dir: "logs"            # Logging directory
+
+  # Logging frequency
+  log_every_n_steps: 100     # Log metrics every N steps
+  save_dir: "checkpoints"    # Model checkpoint directory
+
+  # Weights & Biases (optional)
+  use_wandb: false           # Enable W&B logging
+  wandb_project: "audiometric_clustering"  # W&B project name
+  wandb_entity: null         # W&B entity (username/team)
+
+  # TensorBoard
+  use_tensorboard: true      # Enable TensorBoard logging
+
+  # What to log
+  log_histograms: false      # Log parameter histograms (expensive)
+  log_embeddings: true       # Log latent space embeddings
+  log_attention_weights: true # Log attention mechanism weights
+
+# =============================================================================
+# HARDWARE AND PERFORMANCE
+# =============================================================================
+hardware:
+  # GPU configuration
+  gpus: 1                    # Number of GPUs to use
+  accelerator: 'gpu'         # Accelerator type ('gpu', 'cpu', 'tpu')
+  precision: 16              # Mixed precision (16 for half-precision)
+
+  # Memory optimization
+  gradient_checkpointing: false  # Trade compute for memory
+  find_unused_parameters: false  # DDP optimization
+
+  # Deterministic training
+  deterministic: false       # Deterministic operations (slower but reproducible)
+  benchmark: true           # cuDNN benchmark for consistent input sizes
+
+# =============================================================================
+# EVALUATION AND ANALYSIS
+# =============================================================================
+evaluation:
+  # Evaluation frequency
+  evaluate_every_n_epochs: 5  # Full evaluation frequency
+
+  # Metrics to compute
+  compute_silhouette: true    # Silhouette score for clustering
+  compute_ari: true          # Adjusted Rand Index
+  compute_nmi: true          # Normalized Mutual Information
+
+  # Visualization
+  plot_latent_space: true    # t-SNE/UMAP of latent space
+  plot_attention_maps: true  # Attention weight visualizations
+  plot_reconstructions: true # Sample reconstructions
+
+  # Analysis
+  gene_enrichment_analysis: true   # Gene set enrichment for clusters
+  phenotype_characterization: true # Cluster phenotype analysis
+
+# =============================================================================
+# HYPERPARAMETER SEARCH (Optional)
+# =============================================================================
+hyperparameter_search:
+  enabled: false             # Enable hyperparameter search
+
+  # Search space (when enabled)
+  search_space:
+    lr: [0.0001, 0.001, 0.01]
+    latent_dim: [8, 10, 12, 16]
+    num_clusters: [8, 10, 12, 15]
+    beta: [0.5, 1.0, 2.0]
+    temperature: [0.1, 0.5, 1.0]
+
+  # Search configuration
+  num_trials: 20             # Number of hyperparameter trials
+  pruning: true              # Enable trial pruning
