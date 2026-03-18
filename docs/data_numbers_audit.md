@@ -250,8 +250,36 @@ The manuscript currently uses a single "met inclusion criteria" count (56,326) f
 
 The cluster sizes (9,525 / 44,332 / 562 / 1,907) sum to 56,326, which was the GMM training set size. This needs verification on evident-linux to confirm whether it was run on the current or an older version of the dataset.
 
+## Supplementary Data Cross-Check (2026-03-18)
+
+Verified manuscript claims against the supplementary files in `OneDrive/.../impc/supp_mats/`.
+
+### Confirmed matches
+
+| Claim | Supp file | Status |
+|---|---|---|
+| 337 genes significant by IMPC | Supp 1 | MATCH |
+| 4.99% of genes with ABR data | Supp 1 | MATCH |
+| 6,919 alleles / 6,549 genes meeting inclusion | Supp 2 & 4 | MATCH |
+| 139 alleles (133 genes) with BF >= 3 | Supp 4 sig | MATCH |
+| 52 known hearing loss genes | Supp 3a | MATCH |
+| Cluster sizes 9,525 / 44,332 / 562 / 1,907 | Supp 5 | MATCH |
+
+### Outstanding mismatches
+
+| Claim | Manuscript | Supp data | Issue |
+|---|---|---|---|
+| 765 significant alleles (multivariate, q < 0.001) | 765 | 547 (allele+zygosity with q < 0.001 in Supp 2) | Count method differs — 765 may be per experimental group (not collapsed by A+Z), or threshold/counting differed |
+| 38 male-only / 39 female-only significant | 38 / 39 | 30 / 37 in Supp 2 | Likely same counting issue as above |
+| 46 of 52 known genes retrieved | 46 | 43 in Supp 2 | 3-gene difference — may depend on how sex-specific results are included |
+| Gene classification: 47 known / 26 candidate / 60 novel | 47/26/60 | 43/17/79 in Supp 4 sig `gene_classification` column | The `gene_classification` column in `all_sig_results_annotated.csv` uses different Known/Candidate list definitions than the manuscript. Lists need reconciling |
+
+These mismatches relate to (a) how the 765 multivariate significant count is derived (per-group vs collapsed) and (b) the gene classification lists used to annotate Supp 4 sig differing from the manuscript's definitions. Both need resolving before submission.
+
 ## Still To Resolve
 
 1. Determine the correct value for "X genes with too few controls" — this refers to the IMPC's own >=60 control threshold, needs querying against IMPC portal data
 2. Check whether `pipeline_name` matching is intentional or an oversight — it is in the code but not explicitly named in the manuscript Methods (though "pipeline" is mentioned)
 3. Verify GMM training dataset on evident-linux and re-run if needed (see `docs/gmm_cluster_count_investigation.md`)
+4. Reconcile the 765 multivariate significant count — clarify whether this is per experimental group or collapsed by allele+zygosity, and ensure Supp 2 matches
+5. Reconcile gene classification lists (Known/Candidate) used in Supp 4 sig annotation with the manuscript's definitions (Supp 3a/3b)
