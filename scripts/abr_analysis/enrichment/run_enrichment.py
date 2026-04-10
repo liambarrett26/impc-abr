@@ -27,6 +27,7 @@ from .enrichment_test import (
     filter_terms_from_mappings,
 )
 from .circularity import classify_results, get_acoustic_term_ids
+from .acoustic_filter import filter_acoustic_assertions
 from .centre_matching import build_centre_matched_mappings
 
 logging.basicConfig(
@@ -121,30 +122,22 @@ def main():
                                  f"p_adj={row['p_adjusted']:.2e}  "
                                  f"procs: {row.get('procedures', '')[:60]}")
 
-        # ── Re-run top-level with acoustic terms removed ───────────────
+        # ── Re-run with acoustic assertions removed at source ─────────
         logger.info("=" * 60)
-        logger.info("STAGE 3b: Top-level enrichment (acoustic-dependent terms removed)")
+        logger.info("STAGE 3b: Assertion-level acoustic filtering")
         logger.info("=" * 60)
 
-        acoustic_ids = get_acoustic_term_ids(hier_results)
-        # Also include all leaf terms under hearing/vestibular/ear that are acoustic
-        # We need to propagate: if leaf terms are acoustic, remove their contribution
-        # to the top-level term they roll up to. This requires filtering at the
-        # gene-to-all-mp level, not the top level.
-        # For top-level re-analysis, we rebuild gene_to_top_mp excluding genes
-        # whose ONLY phenotype assertions for a top-level term are acoustic-dependent.
-        # Simpler approach: remove acoustic leaf terms from gene_to_all_mp,
-        # then rebuild top-level from the genotype-phenotype data excluding
-        # records whose leaf mp_term_id is in acoustic_ids.
+        gp_filtered, removal_log = filter_acoustic_assertions(gp_df)
+        removal_log.to_csv(RESULTS_DIR / "acoustic_filter_log.csv", index=False)
 
-        logger.info(f"Acoustic-dependent terms to remove: {len(acoustic_ids)}")
-
-        # Filter the raw gp_df to exclude acoustic-dependent assertions
-        gp_filtered = gp_df[~gp_df["mp_term_id"].isin(acoustic_ids)].copy()
+        # Rebuild all mappings from filtered data
         from .fetch_data import build_gene_mp_mappings as _build
-        (gene_to_top_mp_filt, gene_to_all_mp_filt, _, _, _, top_names_filt) = _build(gp_filtered)
+        (gene_to_top_mp_filt, gene_to_all_mp_filt,
+         _, _, mp_names_filt, top_names_filt) = _build(gp_filtered)
         gene_to_top_mp_filt = {g: t for g, t in gene_to_top_mp_filt.items() if g in bg_genes}
+        gene_to_all_mp_filt = {g: t for g, t in gene_to_all_mp_filt.items() if g in bg_genes}
 
+        # Top-level enrichment on filtered data
         top_filtered = run_top_level_enrichment(
             fg_genes, bg_genes, gene_to_top_mp_filt, top_names_filt
         )
@@ -152,13 +145,32 @@ def main():
             RESULTS_DIR / "top_level_enrichment_no_acoustic.csv", index=False
         )
 
-        logger.info("\nTop-level results AFTER removing acoustic-dependent terms:")
+        logger.info("\nTop-level results AFTER assertion-level acoustic filtering:")
         for _, row in top_filtered.iterrows():
             sig_marker = "*" if row["significant"] else " "
             logger.info(f"  {sig_marker} {row['mp_term_name']:<45} "
                          f"OR={row['odds_ratio']:>6.2f}  "
                          f"a={row['a']:>3}  "
                          f"p_adj={row['p_adjusted']:.2e}")
+
+        # Hierarchical enrichment on filtered data
+        sig_top_filt_ids = top_filtered[top_filtered["significant"]]["mp_term_id"].tolist()
+        if sig_top_filt_ids:
+            hier_filtered = run_hierarchical_enrichment(
+                sig_top_filt_ids, fg_genes, bg_genes,
+                gene_to_all_mp_filt, ontology, mp_names_filt
+            )
+            hier_filtered.to_csv(
+                RESULTS_DIR / "hierarchical_enrichment_no_acoustic.csv", index=False
+            )
+
+            sig_hier_filt = hier_filtered[hier_filtered["significant"]]
+            logger.info(f"\nFiltered hierarchical: {len(sig_hier_filt)} significant terms")
+            for _, row in sig_hier_filt.head(30).iterrows():
+                logger.info(f"    {row['mp_term_name']:<50} "
+                             f"OR={row['odds_ratio']:>6.2f}  "
+                             f"a={row['a']:>3}  "
+                             f"p_adj={row['p_adjusted']:.2e}")
 
         # ── Comparison: full vs filtered ───────────────────────────────
         _print_comparison(top_results, top_filtered)

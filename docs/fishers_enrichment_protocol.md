@@ -175,13 +175,22 @@ These terms would be misreported as independent neurological enrichments without
 
 **Unclear**: Does not match any of the above rules. Not triggered by any term in the current analysis.
 
-### Filtered enrichment analysis
+### Filtered enrichment analysis — assertion-level acoustic removal
 
-After classification, repeat the top-level enrichment (Stage 1) and sub-branch enrichment (Stage 2) with acoustic-dependent terms **removed entirely** from the dataset. Report:
+Rather than removing whole MP terms based on a classification threshold, we filter at the **individual assertion level** using `acoustic_filter.py`. This is more principled: terms that are partially acoustic-dependent retain their non-acoustic gene evidence, while terms that are entirely acoustic-derived naturally drop to zero foreground genes without any arbitrary cutoff.
 
-1. Full results (all terms included) — for completeness and comparison with Vicencio-Jimenez et al.
-2. Filtered results (acoustic-dependent terms excluded) — the genuinely informative analysis.
-3. The difference between (1) and (2) — quantifying how much of the enrichment signal was circular.
+Filtering rules:
+1. **Fully acoustic procedures** (ACS, ABR, ESLIM_011): all assertions removed
+2. **Mixed procedures** (CSD/SHIRPA): only assertions with acoustic-specific MP terms (pinna reflex, startle) removed; non-acoustic assertions (gait, coat morphology) retained
+3. **All other procedures**: all assertions retained
+
+After filtering, gene-to-MP mappings are rebuilt from scratch and both top-level and hierarchical enrichment are re-run. The analysis reports:
+
+1. **Full results** (unfiltered, all assertions) — for comparability with Vicencio-Jimenez et al.
+2. **Filtered results** (acoustic assertions removed at source) — the genuinely informative analysis
+3. **The delta** between (1) and (2) — quantifying circularity per term, with gene count changes showing exactly where acoustic evidence was removed
+
+The circularity labels from the classifier (Stage 3) are retained on the unfiltered results for interpretive purposes but do not determine what is removed in the filtered analysis — the filtering is purely procedure-based.
 
 ---
 
@@ -249,8 +258,10 @@ scripts/abr_analysis/enrichment/
     config.py               # Paths, API URLs, thresholds, keyword lists
     fetch_data.py            # Data acquisition: API, OBO parsing, gene sets
     enrichment_test.py       # Fisher's exact tests + BH FDR correction
-    circularity.py           # Acoustic/vestibular/independent classification
+    circularity.py           # Acoustic/vestibular/independent term labelling
+    acoustic_filter.py       # Assertion-level acoustic filtering
     centre_matching.py       # Centre-matched gene-to-MP mappings
+    visualise.py             # Sankey, dot plot, circularity comparison charts
     run_enrichment.py        # Main orchestrator (entry point)
     data/                    # Cached downloads (gitignored)
         genotype_phenotype_all.json   # 67,350 IMPC assertions
@@ -333,9 +344,15 @@ For each significant term classified as "independent" in Pass 1:
 
 This caught 8 additional terms in the current analysis, including "abnormal synaptic transmission" (97% acoustic), "abnormal reflex" (96%), and "abnormal involuntary movement" (90%).
 
-### Filtered re-analysis
+### Assertion-level acoustic filtering (`acoustic_filter.py`)
 
-After classification, all 18 acoustic-dependent MP term IDs are collected. The raw genotype-phenotype data is re-filtered to exclude assertions with these term IDs, gene-to-MP mappings are rebuilt from scratch, and top-level enrichment is re-run. This produces a direct comparison showing which top-level enrichments are circular vs. genuine.
+Instead of removing whole MP terms, this module filters individual genotype-phenotype assertions based on their generating procedure:
+
+1. **Fully acoustic procedures** (`ACS`, `IMPC_ABR_`, `ESLIM_011`): all assertions removed (2,774 assertions)
+2. **Mixed procedures** (`CSD`, `SHI`, `ESLIM_008`, `M-G-P_008`): only assertions whose MP term name matches acoustic keywords ("pinna reflex", "startle reflex", etc.) are removed (253 assertions); non-acoustic assertions are retained (3,728 assertions)
+3. **All other procedures**: retained (60,595 assertions)
+
+Total: 3,027 of 67,350 assertions removed (4.5%). Gene-to-MP mappings are rebuilt from the 64,323 remaining assertions and both top-level and hierarchical enrichment re-run. A detailed log of every removal decision is saved to `acoustic_filter_log.csv`.
 
 ### Centre matching (`centre_matching.py`)
 
@@ -349,6 +366,9 @@ For each gene in the background, only includes MP assertions from the same pheno
 | `top_level_enrichment_no_acoustic.csv` | Same, after removing acoustic-dependent assertions | 24 |
 | `top_level_enrichment_centre_matched.csv` | Centre-matched variant | 24 |
 | `hierarchical_enrichment.csv` | All descendant terms of significant top-level categories, with classification | 525 (157 significant) |
+| `hierarchical_enrichment_no_acoustic.csv` | Hierarchical enrichment re-run on assertion-filtered data | 143 significant |
+| `acoustic_filter_log.csv` | Log of every assertion removed/kept from acoustic/mixed procedures | — |
+| `procedure_audit.csv` | Classification of all 253 IMPC procedures as acoustic/mixed/non-acoustic | 253 |
 | `enrichment_analysis_log.txt` | Full log of classification decisions for every significant term | — |
 
 Each CSV contains: `mp_term_id`, `mp_term_name`, `a`, `b`, `c`, `d`, `total_with_term`, `odds_ratio`, `fold_enrichment`, `p_value`, `p_adjusted`, `significant`. Hierarchical results additionally include `top_level_mp_id`, `top_level_mp_name`, `classification`, `classification_reason`, `procedures`.
