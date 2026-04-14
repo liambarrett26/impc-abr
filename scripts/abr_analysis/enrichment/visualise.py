@@ -5,7 +5,7 @@ Visualisations for the enrichment analysis results.
 Produces:
 1. Sankey diagram (matplotlib): MP hierarchy flow from genes to enriched terms
 2. Full vs filtered bar chart: circularity comparison at top-level
-3. Dot plot of enriched sub-terms
+3. Dot plot of enriched sub-terms (acoustic vs non-acoustic)
 """
 
 import pandas as pd
@@ -21,21 +21,7 @@ from .config import RESULTS_DIR
 
 # ── Colour scheme ──────────────────────────────────────────────────────
 
-CLASSIFICATION_COLOURS = {
-    "acoustic_dependent": "#B71C1C",
-    "vestibular": "#E65100",
-    "independent": "#1B5E20",
-    "unclear": "#616161",
-}
-
-CLASSIFICATION_LABELS = {
-    "acoustic_dependent": "Acoustic-dependent",
-    "vestibular": "Vestibular",
-    "independent": "Independent",
-    "unclear": "Unclear",
-}
-
-# Top-level: use blues/purples/teals to avoid red/amber/green clash
+# Top-level category colours — used for both level 2 and level 3 nodes
 TOP_LEVEL_COLOURS = {
     "hearing/vestibular/ear phenotype": "#5C6BC0",
     "behavior/neurological phenotype": "#1565C0",
@@ -46,21 +32,21 @@ TOP_LEVEL_COLOURS = {
     "immune system phenotype": "#AD1457",
 }
 
+# Dot plot: acoustic vs non-acoustic
+ACOUSTIC_COLOUR = "#B71C1C"
+ACOUSTIC_FILL = "#FFCDD2"
+NON_ACOUSTIC_COLOUR = "#1B5E20"
+NON_ACOUSTIC_FILL = "#C8E6C9"
 
-# ── Sankey diagram (matplotlib) ────────────────────────────────────────
+
+# ── Helpers ────────────────────────────────────────────────────────────
 
 def _draw_flow(ax, x0, y0, h0, x1, y1, h1, colour, alpha=0.25):
     """Draw a curved flow band between two nodes using cubic Bezier."""
     mid_x = (x0 + x1) / 2
     verts = [
-        (x0, y0),
-        (mid_x, y0),
-        (mid_x, y1),
-        (x1, y1),
-        (x1, y1 + h1),
-        (mid_x, y1 + h1),
-        (mid_x, y0 + h0),
-        (x0, y0 + h0),
+        (x0, y0), (mid_x, y0), (mid_x, y1), (x1, y1),
+        (x1, y1 + h1), (mid_x, y1 + h1), (mid_x, y0 + h0), (x0, y0 + h0),
         (x0, y0),
     ]
     codes = [
@@ -93,33 +79,38 @@ def _draw_node(ax, x, y, w, h, colour, label=None, label_side="right",
             ax.text(x - 0.008, y + h / 2, label,
                     va="center", ha="right", fontsize=fontsize,
                     color=fontcolour, zorder=4)
-        elif label_side == "inside":
-            ax.text(x + w / 2, y + h / 2, label,
-                    va="center", ha="center", fontsize=fontsize,
-                    color="white", fontweight="bold", zorder=4)
 
+
+def _title_fix(name):
+    """Title-case with acronym preservation."""
+    label = name.title()
+    for acr in ["Cns", "Ldl", "Hdl", "Ppi", "Abr"]:
+        label = label.replace(acr, acr.upper())
+    return label
+
+
+# ── Sankey diagram ─────────────────────────────────────────────────────
 
 def create_sankey(hier_df, top_df, output_dir=None):
-    """Create a Sankey-style diagram using matplotlib."""
+    """Create a Sankey-style diagram. Sub-terms coloured by parent category."""
     if output_dir is None:
         output_dir = RESULTS_DIR
 
     sig_hier = hier_df[hier_df["significant"]].copy()
     sig_top = top_df[top_df["significant"]].copy()
 
-    # ── Select sub-terms ───────────────────────────────────────────
+    # ── Select sub-terms: top N by significance per parent ─────────
     MAX_PER_CATEGORY = 6
     selected_parts = []
+    # Build a map from parent index to top-level name for colouring
+    parent_idx_to_name = {}
     for i, (_, top_row) in enumerate(sig_top.iterrows()):
         top_id = top_row["mp_term_id"]
+        parent_idx_to_name[i] = top_row["mp_term_name"]
         branch = sig_hier[sig_hier["top_level_mp_id"] == top_id].copy()
         if len(branch) == 0:
             continue
-        av = branch[branch["classification"].isin(["acoustic_dependent", "vestibular"])]
-        ind = branch[branch["classification"] == "independent"].head(
-            MAX_PER_CATEGORY - len(av)
-        )
-        sel = pd.concat([av, ind]).head(MAX_PER_CATEGORY).copy()
+        sel = branch.nsmallest(MAX_PER_CATEGORY, "p_adjusted").copy()
         sel["_parent_idx"] = i
         selected_parts.append(sel)
 
@@ -136,37 +127,31 @@ def create_sankey(hier_df, top_df, output_dir=None):
     node_w = 0.022
 
     n_top = len(sig_top)
-    n_sub = len(selected)
     total_value = sig_top["a"].sum()
 
-    # ── Compute node positions ─────────────────────────────────────
-    # Source: use sqrt scaling so it's not absurdly tall
+    # Source node
     source_h = 0.75
     source_y = (1.0 - source_h) / 2
 
-    # Top-level: sqrt-scaled heights so small categories remain visible
+    # Top-level nodes: sqrt-scaled heights
     top_gap = 0.025
     top_available = 0.85
     raw_heights = np.sqrt(sig_top["a"].values.astype(float))
     raw_heights = raw_heights / raw_heights.sum() * (top_available - top_gap * (n_top - 1))
-    min_h = 0.018
-    raw_heights = np.maximum(raw_heights, min_h)
+    raw_heights = np.maximum(raw_heights, 0.018)
 
     top_nodes = []
     y_cursor = 0.07
     for idx, (_, row) in enumerate(sig_top.iterrows()):
-        h = raw_heights[idx]
-        top_nodes.append((y_cursor, h, row))
-        y_cursor += h + top_gap
+        top_nodes.append((y_cursor, raw_heights[idx], row))
+        y_cursor += raw_heights[idx] + top_gap
 
-    # Sub-terms: sized by sqrt(a) normalised GLOBALLY, centred around parent
+    # Sub-terms: globally sqrt-scaled heights, centred on parent
     sub_gap_within = 0.006
     sub_gap_between = 0.016
     min_sub_h = 0.007
     max_sub_h = 0.030
 
-    # First: compute global sqrt(a) scaling so node sizes are comparable
-    # across all groups
     from collections import defaultdict as _defaultdict
     parent_to_selected = _defaultdict(list)
     for _, row in selected.iterrows():
@@ -177,7 +162,6 @@ def create_sankey(hier_df, top_df, output_dir=None):
     global_sqrt_max = np.sqrt(all_a_values.max())
 
     def _scale_height(a_val):
-        """Map a-value to node height using global sqrt scale."""
         sqrt_a = np.sqrt(float(a_val))
         if global_sqrt_max == global_sqrt_min:
             t = 0.5
@@ -185,20 +169,15 @@ def create_sankey(hier_df, top_df, output_dir=None):
             t = (sqrt_a - global_sqrt_min) / (global_sqrt_max - global_sqrt_min)
         return min_sub_h + t * (max_sub_h - min_sub_h)
 
-    # Build groups with globally-scaled heights, centred on parent
     sub_groups = []
     for parent_idx in sorted(parent_to_selected.keys()):
         rows = parent_to_selected[parent_idx]
         parent_y_pos, parent_h, _ = top_nodes[parent_idx]
         parent_mid = parent_y_pos + parent_h / 2
-
-        n_subs = len(rows)
         heights = np.array([_scale_height(r["a"]) for r in rows])
-
-        total_gap = sub_gap_within * (n_subs - 1)
+        total_gap = sub_gap_within * (len(rows) - 1)
         total_h = heights.sum() + total_gap
         group_bottom = parent_mid - total_h / 2
-
         group = []
         y_cursor = group_bottom
         for i, row in enumerate(rows):
@@ -206,16 +185,12 @@ def create_sankey(hier_df, top_df, output_dir=None):
             y_cursor += heights[i] + sub_gap_within
         sub_groups.append((parent_idx, group))
 
-    # Second pass: resolve vertical overlaps between groups
-    # Push groups apart if they collide
-    all_groups_flat = []  # (group_idx, items)
+    # Collision avoidance
+    all_groups_flat = []
     for gi, (pidx, group) in enumerate(sub_groups):
-        group_top = group[-1][0] + group[-1][1]
-        group_bottom = group[0][0]
-        all_groups_flat.append((gi, group_bottom, group_top, group))
+        all_groups_flat.append((gi, group[0][0], group[-1][0] + group[-1][1], group))
 
-    # Sort by vertical position and push overlapping groups apart
-    for iteration in range(10):
+    for _ in range(10):
         changed = False
         for i in range(len(all_groups_flat) - 1):
             gi_a, bot_a, top_a, grp_a = all_groups_flat[i]
@@ -223,7 +198,6 @@ def create_sankey(hier_df, top_df, output_dir=None):
             overlap = top_a + sub_gap_between - bot_b
             if overlap > 0:
                 shift = overlap / 2 + 0.002
-                # Push A down, B up
                 new_grp_a = [(y - shift, h, r) for y, h, r in grp_a]
                 new_grp_b = [(y + shift, h, r) for y, h, r in grp_b]
                 all_groups_flat[i] = (gi_a, new_grp_a[0][0],
@@ -234,23 +208,18 @@ def create_sankey(hier_df, top_df, output_dir=None):
         if not changed:
             break
 
-    # Clamp all groups to stay within plot bounds [0.03, 0.95]
-    y_min_bound = 0.02
-    y_max_bound = 0.93
+    # Clamp to bounds
     for i, (gi, bot, top, group) in enumerate(all_groups_flat):
-        if bot < y_min_bound:
-            shift = y_min_bound - bot
+        if bot < 0.02:
+            shift = 0.02 - bot
             group = [(y + shift, h, r) for y, h, r in group]
-            all_groups_flat[i] = (gi, group[0][0],
-                                  group[-1][0] + group[-1][1], group)
+            all_groups_flat[i] = (gi, group[0][0], group[-1][0] + group[-1][1], group)
         grp_top = group[-1][0] + group[-1][1]
-        if grp_top > y_max_bound:
-            shift = grp_top - y_max_bound
+        if grp_top > 0.93:
+            shift = grp_top - 0.93
             group = [(y - shift, h, r) for y, h, r in group]
-            all_groups_flat[i] = (gi, group[0][0],
-                                  group[-1][0] + group[-1][1], group)
+            all_groups_flat[i] = (gi, group[0][0], group[-1][0] + group[-1][1], group)
 
-    # Flatten into sub_nodes list
     sub_nodes = []
     for gi, bot, top, group in all_groups_flat:
         for y, h, row in group:
@@ -272,9 +241,7 @@ def create_sankey(hier_df, top_df, output_dir=None):
                    x_top, ty, th, colour, alpha=0.18)
         source_y_offset += flow_h_source
 
-    # Flows: top-level → sub-terms (stacked within each parent)
-    # For each parent, normalise its sub-term 'a' values so flow heights
-    # stack to exactly fill the parent node height, then draw bottom-to-top
+    # Flows: top-level → sub-terms (coloured by parent)
     from collections import defaultdict
     parent_to_subs = defaultdict(list)
     for si, (sy, sh, srow) in enumerate(sub_nodes):
@@ -282,20 +249,17 @@ def create_sankey(hier_df, top_df, output_dir=None):
 
     for parent_idx, sub_list in parent_to_subs.items():
         parent_y_pos, parent_h, parent_row = top_nodes[parent_idx]
+        parent_colour = TOP_LEVEL_COLOURS.get(parent_row["mp_term_name"], "#78909C")
 
-        # Normalise a-values to fill parent height
         a_values = np.array([srow["a"] for _, _, _, srow in sub_list], dtype=float)
         a_norm = a_values / a_values.sum()
         flow_heights = a_norm * parent_h
 
-        # Stack from bottom of parent node upward
         y_cursor = parent_y_pos
         for i, (si, sy, sh, srow) in enumerate(sub_list):
-            fh = flow_heights[i]
-            colour = CLASSIFICATION_COLOURS.get(srow["classification"], "#757575")
-            _draw_flow(ax, x_top + node_w, y_cursor, fh,
-                       x_sub, sy, sh, colour, alpha=0.28)
-            y_cursor += fh
+            _draw_flow(ax, x_top + node_w, y_cursor, flow_heights[i],
+                       x_sub, sy, sh, parent_colour, alpha=0.28)
+            y_cursor += flow_heights[i]
 
     # Draw source node
     _draw_node(ax, x_source, source_y, node_w, source_h, "#37474F")
@@ -303,60 +267,36 @@ def create_sankey(hier_df, top_df, output_dir=None):
     # Draw top-level nodes
     for ty, th, trow in top_nodes:
         colour = TOP_LEVEL_COLOURS.get(trow["mp_term_name"], "#78909C")
-        label = f"{trow['mp_term_name'].replace(' phenotype', '').title()} (N={int(trow['a'])})"
+        label = f"{_title_fix(trow['mp_term_name'].replace(' phenotype', ''))} (N={int(trow['a'])})"
         _draw_node(ax, x_top, ty, node_w, th, colour,
                    label=label, label_side="left", fontsize=11)
 
-    # Draw sub-term nodes with labels to the right (including N=X)
+    # Draw sub-term nodes — coloured by parent
     for sy, sh, srow in sub_nodes:
-        colour = CLASSIFICATION_COLOURS.get(srow["classification"], "#757575")
-        label = srow["mp_term_name"].title()
-        # Fix acronyms that title() breaks
-        for acr in ["Cns", "Ldl", "Hdl", "Ppi"]:
-            label = label.replace(acr, acr.upper())
+        parent_name = parent_idx_to_name.get(srow["_parent_idx"], "")
+        colour = TOP_LEVEL_COLOURS.get(parent_name, "#78909C")
+        label = _title_fix(srow["mp_term_name"])
         if len(label) > 55:
             label = label[:52] + "..."
         label = f"{label} (N={int(srow['a'])})"
         _draw_node(ax, x_sub, sy, node_w, sh, colour,
                    label=label, label_side="right", fontsize=9.5)
 
-    # ── Title ──────────────────────────────────────────────────────
+    # ── Title and annotations ──────────────────────────────────────
     ax.text(0.5, 0.99, "MP Term Enrichment Hierarchy",
             ha="center", va="top", fontsize=16, fontweight="bold",
             transform=ax.transAxes)
 
-    # Source label — above the node
     ax.text(x_source + node_w / 2, source_y + source_h + 0.025,
             "133 Hearing Loss Genes\n(BF \u2265 3)",
             ha="center", va="bottom", fontsize=11.5, fontweight="bold")
 
-    # Column headers
     ax.text(x_top + node_w / 2, 0.96, "Top-level MP category",
             ha="center", va="top", fontsize=16, color="#444", fontstyle="italic")
     ax.text(x_sub + node_w / 2, 0.96, "Enriched sub-terms",
             ha="center", va="top", fontsize=16, color="#444", fontstyle="italic")
 
-    # ── Classification legend — top right, with proper squares ─────
-    legend_x = 0.92
-    legend_y = 0.95
-    legend_items = [
-        ("Acoustic-dependent", CLASSIFICATION_COLOURS["acoustic_dependent"]),
-        ("Vestibular", CLASSIFICATION_COLOURS["vestibular"]),
-        ("Independent", CLASSIFICATION_COLOURS["independent"]),
-    ]
-    ax.text(legend_x, legend_y, "Sub-term classification",
-            ha="right", va="top", fontsize=11.5, fontweight="bold",
-            transform=ax.transAxes)
-    for i, (label, colour) in enumerate(legend_items):
-        y_leg = legend_y - 0.045 * (i + 1)
-        ax.add_patch(mpatches.Rectangle(
-            (legend_x + 0.01, y_leg - 0.01), 0.015, 0.02,
-            facecolor=colour, edgecolor="none",
-            transform=ax.transAxes, zorder=5, clip_on=False,
-        ))
-        ax.text(legend_x, y_leg, label,
-                ha="right", va="center", fontsize=11,
-                transform=ax.transAxes)
+    # No classification legend — sub-terms coloured by parent category
 
     plt.subplots_adjust(left=0.02, right=0.98, top=0.96, bottom=0.02)
 
@@ -434,35 +374,27 @@ def create_circularity_comparison(top_df, top_filtered_df, output_dir=None):
 # ── Dot plot ───────────────────────────────────────────────────────────
 
 def create_dot_plot(hier_df, output_dir=None):
-    """Dot plot of significant enriched sub-terms."""
+    """Dot plot of significant enriched sub-terms.
+    Simplified to acoustic vs non-acoustic classification.
+    """
     if output_dir is None:
         output_dir = RESULTS_DIR
 
     sig = hier_df[hier_df["significant"]].copy()
 
-    terms_to_show = []
-    for classification in ["acoustic_dependent", "vestibular", "independent"]:
-        subset = sig[sig["classification"] == classification].nsmallest(
-            12 if classification == "independent" else 6, "p_adjusted",
-        )
-        terms_to_show.append(subset)
+    # Binary classification: acoustic vs non-acoustic
+    sig = sig.copy()
+    sig["is_acoustic"] = sig["classification"] == "acoustic_dependent"
 
-    show = pd.concat(terms_to_show).drop_duplicates(subset="mp_term_id")
+    # Select terms to show
+    acoustic = sig[sig["is_acoustic"]].nsmallest(8, "p_adjusted")
+    non_acoustic = sig[~sig["is_acoustic"]].nsmallest(16, "p_adjusted")
+    show = pd.concat([acoustic, non_acoustic]).drop_duplicates(subset="mp_term_id")
 
-    # Order: acoustic at top, vestibular middle, independent bottom
-    class_order = {"acoustic_dependent": 0, "vestibular": 1, "independent": 2}
+    # Order: acoustic at top, non-acoustic bottom
     show = show.copy()
-    show["_class_order"] = show["classification"].map(class_order)
-    show = show.sort_values(
-        ["_class_order", "fold_enrichment"], ascending=[False, True]
-    )
-
-    # Title-case labels with acronym fixes
-    def _title_fix(name):
-        label = name.title()
-        for acr in ["Cns", "Ldl", "Hdl", "Ppi", "Abr"]:
-            label = label.replace(acr, acr.upper())
-        return label
+    show["_order"] = show["is_acoustic"].map({True: 0, False: 1})
+    show = show.sort_values(["_order", "fold_enrichment"], ascending=[False, True])
 
     size_scale = 6
     max_a = show["a"].max()
@@ -472,21 +404,14 @@ def create_dot_plot(hier_df, output_dir=None):
 
     y = np.arange(len(show)) * 1.2
 
-    # Light fill with deep hue outline
-    CLASSIFICATION_FILL = {
-        "acoustic_dependent": "#FFCDD2",  # light red
-        "vestibular": "#FFE0B2",          # light orange
-        "independent": "#C8E6C9",         # light green
-        "unclear": "#E0E0E0",
-    }
-
     for i, (_, row) in enumerate(show.iterrows()):
-        edge_colour = CLASSIFICATION_COLOURS.get(row["classification"], "#757575")
-        fill_colour = CLASSIFICATION_FILL.get(row["classification"], "#E0E0E0")
+        if row["is_acoustic"]:
+            edge, fill = ACOUSTIC_COLOUR, ACOUSTIC_FILL
+        else:
+            edge, fill = NON_ACOUSTIC_COLOUR, NON_ACOUSTIC_FILL
         ax.scatter(row["fold_enrichment"], y[i],
-                   s=row["a"] * size_scale, c=fill_colour, alpha=0.9,
-                   edgecolors=edge_colour, linewidths=1.5,
-                   zorder=3)
+                   s=row["a"] * size_scale, c=fill, alpha=0.9,
+                   edgecolors=edge, linewidths=1.5, zorder=3)
 
     ax.set_yticks(y)
     ax.set_yticklabels([_title_fix(n) for n in show["mp_term_name"].values],
@@ -495,16 +420,14 @@ def create_dot_plot(hier_df, output_dir=None):
     ax.set_title("Enriched MP Sub-Terms (FDR < 0.05)",
                  fontsize=15, fontweight="bold")
 
-    # Combined legend
+    # Legend
     legend_handles = []
-    for classification in ["acoustic_dependent", "vestibular", "independent"]:
-        if classification in show["classification"].values:
-            edge = CLASSIFICATION_COLOURS[classification]
-            fill = CLASSIFICATION_FILL[classification]
-            label = CLASSIFICATION_LABELS[classification]
-            handle = ax.scatter([], [], c=fill, s=80, label=label,
-                                edgecolors=edge, linewidths=1.5)
-            legend_handles.append(handle)
+    legend_handles.append(ax.scatter([], [], c=ACOUSTIC_FILL, s=80,
+                                      edgecolors=ACOUSTIC_COLOUR, linewidths=1.5,
+                                      label="Acoustic-dependent"))
+    legend_handles.append(ax.scatter([], [], c=NON_ACOUSTIC_FILL, s=80,
+                                      edgecolors=NON_ACOUSTIC_COLOUR, linewidths=1.5,
+                                      label="Non-acoustic"))
 
     size_legend_values = [v for v in [5, 20, 50, 100] if v <= max_a + 10]
     for sv in size_legend_values:
