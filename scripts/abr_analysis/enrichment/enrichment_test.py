@@ -61,7 +61,9 @@ def run_fishers_test(foreground, background, gene_to_terms, term_id):
         return None
 
     # Total genes with this term (foreground + background-only)
-    total_with_term = sum(1 for g in background if term_id in gene_to_terms.get(g, set()))
+    total_with_term = sum(
+        1 for g in background if term_id in gene_to_terms.get(g, set())
+    )
     c = total_with_term - a  # background-only genes with this term
 
     b = n_fg - a
@@ -75,7 +77,10 @@ def run_fishers_test(foreground, background, gene_to_terms, term_id):
     fold_enrichment = a / expected if expected > 0 else float("inf")
 
     return {
-        "a": a, "b": b, "c": c, "d": d,
+        "a": a,
+        "b": b,
+        "c": c,
+        "d": d,
         "total_with_term": total_with_term,
         "odds_ratio": odds_ratio,
         "fold_enrichment": fold_enrichment,
@@ -110,14 +115,26 @@ def run_top_level_enrichment(foreground, background, gene_to_top_mp, top_level_n
     df["significant"] = df["p_adjusted"] < FDR_ALPHA
     df = df.sort_values("p_value").reset_index(drop=True)
 
-    cols = ["mp_term_id", "mp_term_name", "a", "b", "c", "d",
-            "total_with_term", "odds_ratio", "fold_enrichment",
-            "p_value", "p_adjusted", "significant"]
+    cols = [
+        "mp_term_id",
+        "mp_term_name",
+        "a",
+        "b",
+        "c",
+        "d",
+        "total_with_term",
+        "odds_ratio",
+        "fold_enrichment",
+        "p_value",
+        "p_adjusted",
+        "significant",
+    ]
     return df[cols]
 
 
-def run_hierarchical_enrichment(significant_top_ids, foreground, background,
-                                 gene_to_all_mp, ontology, mp_term_names):
+def run_hierarchical_enrichment(
+    significant_top_ids, foreground, background, gene_to_all_mp, ontology, mp_term_names
+):
     """Run Fisher's exact test for all descendants of significant top-level terms.
 
     Tests at every level of the MP hierarchy (intermediate and leaf terms).
@@ -145,8 +162,9 @@ def run_hierarchical_enrichment(significant_top_ids, foreground, background,
             if res is None:
                 continue
             res["mp_term_id"] = term_id
-            res["mp_term_name"] = mp_term_names.get(term_id,
-                                    ontology.terms.get(term_id, term_id))
+            res["mp_term_name"] = mp_term_names.get(
+                term_id, ontology.terms.get(term_id, term_id)
+            )
             res["top_level_mp_id"] = top_id
             res["top_level_mp_name"] = top_name
             results.append(res)
@@ -161,9 +179,7 @@ def run_hierarchical_enrichment(significant_top_ids, foreground, background,
     for top_id in df["top_level_mp_id"].unique():
         mask = df["top_level_mp_id"] == top_id
         if mask.sum() > 0:
-            adjusted[mask.values] = benjamini_hochberg(
-                df.loc[mask, "p_value"].values
-            )
+            adjusted[mask.values] = benjamini_hochberg(df.loc[mask, "p_value"].values)
     df["p_adjusted"] = adjusted
     df["significant"] = df["p_adjusted"] < FDR_ALPHA
     df = df.sort_values(["top_level_mp_id", "p_value"]).reset_index(drop=True)

@@ -6,12 +6,13 @@ Implements the two-stage normalization approach:
 2. Global min-max scaling to [0,1] range
 """
 
-import pandas as pd
-import numpy as np
-from typing import Dict, Tuple, Optional, List
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import logging
 from dataclasses import dataclass
+from typing import Dict, List, Optional, Tuple
+
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 logger = logging.getLogger(__name__)
 
@@ -19,6 +20,7 @@ logger = logging.getLogger(__name__)
 @dataclass
 class PreprocessingConfig:
     """Configuration for preprocessing parameters."""
+
     abr_columns: List[str]
     grouping_columns: List[str]
     target_range: Tuple[float, float] = (0.0, 1.0)
@@ -56,11 +58,13 @@ class ABRPreprocessor:
             Series with technical group labels
         """
         # Combine available grouping columns
-        available_cols = [col for col in self.config.grouping_columns if col in df.columns]
+        available_cols = [
+            col for col in self.config.grouping_columns if col in df.columns
+        ]
 
         if not available_cols:
             logger.warning("No grouping columns found, using single group")
-            return pd.Series('default_group', index=df.index)
+            return pd.Series("default_group", index=df.index)
 
         # Create combined grouping variable
         group_parts = []
@@ -69,13 +73,17 @@ class ABRPreprocessor:
 
         # Fix: Use pd.Series.str.cat() instead of '_'.join() for pandas Series
         if len(group_parts) > 1:
-            technical_groups = group_parts[0].str.cat(group_parts[1:], sep='_', na_rep='missing')
+            technical_groups = group_parts[0].str.cat(
+                group_parts[1:], sep="_", na_rep="missing"
+            )
         else:
-            technical_groups = group_parts[0].fillna('missing')
+            technical_groups = group_parts[0].fillna("missing")
 
         return technical_groups
 
-    def _validate_group_sizes(self, df: pd.DataFrame, technical_groups: pd.Series) -> pd.Series:
+    def _validate_group_sizes(
+        self, df: pd.DataFrame, technical_groups: pd.Series
+    ) -> pd.Series:
         """
         Filter out technical groups with insufficient sample sizes.
 
@@ -90,15 +98,19 @@ class ABRPreprocessor:
         small_groups = group_counts[group_counts < self.config.center_threshold].index
 
         if len(small_groups) > 0:
-            logger.info(f"Merging {len(small_groups)} small technical groups into 'other'")
-            technical_groups = technical_groups.replace(small_groups, 'other_combined')
+            logger.info(
+                f"Merging {len(small_groups)} small technical groups into 'other'"
+            )
+            technical_groups = technical_groups.replace(small_groups, "other_combined")
 
         final_counts = technical_groups.value_counts()
-        logger.info(f"Technical groups: {len(final_counts)} groups, sizes: {dict(final_counts)}")
+        logger.info(
+            f"Technical groups: {len(final_counts)} groups, sizes: {dict(final_counts)}"
+        )
 
         return technical_groups
 
-    def fit(self, df: pd.DataFrame) -> 'ABRPreprocessor':
+    def fit(self, df: pd.DataFrame) -> "ABRPreprocessor":
         """
         Fit preprocessing transformations on training data.
 
@@ -140,9 +152,13 @@ class ABRPreprocessor:
                 # Handle edge case of zero variance
                 if np.std(freq_data) > 1e-8:
                     scaler.fit(freq_data)
-                    z_scored_data.loc[group_mask, freq_col] = scaler.transform(freq_data).flatten()
+                    z_scored_data.loc[group_mask, freq_col] = scaler.transform(
+                        freq_data
+                    ).flatten()
                 else:
-                    logger.warning(f"Zero variance in {freq_col} for group {group_name}")
+                    logger.warning(
+                        f"Zero variance in {freq_col} for group {group_name}"
+                    )
                     # Use identity transformation for zero variance
                     scaler.mean_ = np.array([np.mean(freq_data)])
                     scaler.scale_ = np.array([1.0])
@@ -184,21 +200,27 @@ class ABRPreprocessor:
             # Use fitted scaler if available, otherwise use 'other_combined'
             if group_name in self.group_scalers:
                 group_scalers = self.group_scalers[group_name]
-            elif 'other_combined' in self.group_scalers:
-                group_scalers = self.group_scalers['other_combined']
-                logger.info(f"Using 'other_combined' scaler for unseen group: {group_name}")
+            elif "other_combined" in self.group_scalers:
+                group_scalers = self.group_scalers["other_combined"]
+                logger.info(
+                    f"Using 'other_combined' scaler for unseen group: {group_name}"
+                )
             else:
                 # Fallback: use first available group's scalers
                 fallback_group = list(self.group_scalers.keys())[0]
                 group_scalers = self.group_scalers[fallback_group]
-                logger.warning(f"Using fallback scaler '{fallback_group}' for group: {group_name}")
+                logger.warning(
+                    f"Using fallback scaler '{fallback_group}' for group: {group_name}"
+                )
 
             group_data = df.loc[group_mask, self.config.abr_columns]
 
             for freq_col in self.config.abr_columns:
                 if freq_col in group_scalers:
                     freq_data = group_data[freq_col].values.reshape(-1, 1)
-                    z_scored_data.loc[group_mask, freq_col] = group_scalers[freq_col].transform(freq_data).flatten()
+                    z_scored_data.loc[group_mask, freq_col] = (
+                        group_scalers[freq_col].transform(freq_data).flatten()
+                    )
 
         # Stage 2: Apply global min-max scaling
         normalized_data = self.global_scaler.transform(z_scored_data.values)
@@ -217,8 +239,9 @@ class ABRPreprocessor:
         """
         return self.fit(df).transform(df)
 
-    def inverse_transform(self, normalized_data: np.ndarray,
-                         technical_group: str = None) -> np.ndarray:
+    def inverse_transform(
+        self, normalized_data: np.ndarray, technical_group: str = None
+    ) -> np.ndarray:
         """
         Inverse transform normalized data back to original scale.
 
@@ -243,19 +266,25 @@ class ABRPreprocessor:
             for i, freq_col in enumerate(self.config.abr_columns):
                 if freq_col in group_scalers:
                     freq_data = z_scored_data[:, i].reshape(-1, 1)
-                    original_data[:, i] = group_scalers[freq_col].inverse_transform(freq_data).flatten()
+                    original_data[:, i] = (
+                        group_scalers[freq_col].inverse_transform(freq_data).flatten()
+                    )
                 else:
                     original_data[:, i] = z_scored_data[:, i]
         else:
-            logger.warning("Cannot perform inverse z-score without technical group info")
+            logger.warning(
+                "Cannot perform inverse z-score without technical group info"
+            )
             original_data = z_scored_data
 
         return original_data
 
     def get_feature_names(self) -> List[str]:
         """Get standardized feature names for normalized data."""
-        return [f"normalized_{col.replace('kHz-evoked ABR Threshold', 'kHz')}"
-                for col in self.config.abr_columns]
+        return [
+            f"normalized_{col.replace('kHz-evoked ABR Threshold', 'kHz')}"
+            for col in self.config.abr_columns
+        ]
 
     def _log_fit_summary(self, df: pd.DataFrame, technical_groups: pd.Series):
         """Log summary of preprocessing fit."""
@@ -266,7 +295,9 @@ class ABRPreprocessor:
         # Log scaling statistics
         for group_name, group_scalers in self.group_scalers.items():
             group_size = (technical_groups == group_name).sum()
-            logger.info(f"Group '{group_name}': {group_size} mice, {len(group_scalers)} frequencies scaled")
+            logger.info(
+                f"Group '{group_name}': {group_size} mice, {len(group_scalers)} frequencies scaled"
+            )
 
         # Log global scaling range
         if self.global_scaler:
@@ -277,8 +308,9 @@ class ABRPreprocessor:
         logger.info("=== End Preprocessing Summary ===")
 
 
-def create_default_config(abr_columns: List[str] = None,
-                         grouping_columns: List[str] = None) -> PreprocessingConfig:
+def create_default_config(
+    abr_columns: List[str] = None, grouping_columns: List[str] = None
+) -> PreprocessingConfig:
     """
     Create default preprocessing configuration.
 
@@ -291,31 +323,32 @@ def create_default_config(abr_columns: List[str] = None,
     """
     if abr_columns is None:
         abr_columns = [
-            '6kHz-evoked ABR Threshold',
-            '12kHz-evoked ABR Threshold',
-            '18kHz-evoked ABR Threshold',
-            '24kHz-evoked ABR Threshold',
-            '30kHz-evoked ABR Threshold'
+            "6kHz-evoked ABR Threshold",
+            "12kHz-evoked ABR Threshold",
+            "18kHz-evoked ABR Threshold",
+            "24kHz-evoked ABR Threshold",
+            "30kHz-evoked ABR Threshold",
         ]
 
     if grouping_columns is None:
         grouping_columns = [
-            'phenotyping_center',
-            'pipeline_name',
-            'metadata_Equipment manufacturer',
-            'metadata_Equipment model'
+            "phenotyping_center",
+            "pipeline_name",
+            "metadata_Equipment manufacturer",
+            "metadata_Equipment model",
         ]
 
     return PreprocessingConfig(
         abr_columns=abr_columns,
         grouping_columns=grouping_columns,
         target_range=(0.0, 1.0),
-        center_threshold=5
+        center_threshold=5,
     )
 
 
-def preprocess_abr_data(df: pd.DataFrame,
-                       config: PreprocessingConfig = None) -> Tuple[np.ndarray, ABRPreprocessor]:
+def preprocess_abr_data(
+    df: pd.DataFrame, config: PreprocessingConfig = None
+) -> Tuple[np.ndarray, ABRPreprocessor]:
     """
     Convenience function to preprocess ABR data with default settings.
 
@@ -338,6 +371,7 @@ def preprocess_abr_data(df: pd.DataFrame,
 if __name__ == "__main__":
     # Example usage and testing
     import sys
+
     from loader import load_impc_data
 
     if len(sys.argv) < 2:
@@ -354,11 +388,15 @@ if __name__ == "__main__":
 
     print(f"Original data shape: {df[config.abr_columns].shape}")
     print(f"Normalized data shape: {normalized_data.shape}")
-    print(f"Normalized data range: [{normalized_data.min():.3f}, {normalized_data.max():.3f}]")
+    print(
+        f"Normalized data range: [{normalized_data.min():.3f}, {normalized_data.max():.3f}]"
+    )
     print("Feature names:", preprocessor.get_feature_names())
 
     # Test inverse transform (using first technical group)
     if preprocessor.group_scalers:
         first_group = list(preprocessor.group_scalers.keys())[0]
-        restored_data = preprocessor.inverse_transform(normalized_data[:10], first_group)
+        restored_data = preprocessor.inverse_transform(
+            normalized_data[:10], first_group
+        )
         print(f"Inverse transform test shape: {restored_data.shape}")

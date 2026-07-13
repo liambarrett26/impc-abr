@@ -14,17 +14,19 @@ Author: Liam Barrett
 Version: 1.0.1
 """
 
-from pathlib import Path
 import traceback
-import pandas as pd
-import numpy as np
+from pathlib import Path
+
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import seaborn as sns
 from tqdm import tqdm
 
 from ..data.loader import ABRDataLoader
 from ..data.matcher import ControlMatcher
 from ..models.bayesian import BayesianABRAnalysis
+
 
 class GeneBayesianAnalyzer:
     """Analyze all genes in dataset using Bayesian approach."""
@@ -46,28 +48,28 @@ class GeneBayesianAnalyzer:
         """Analyze a single experimental group using Bayesian methods."""
         try:
             # Get the group data
-            group_data = group_info['data']
+            group_data = group_info["data"]
 
             # Apply sex filter if specified
             if sex_filter:
-                group_data = group_data[group_data['sex'] == sex_filter]
+                group_data = group_data[group_data["sex"] == sex_filter]
 
             # Check if we have any data after filtering
             if len(group_data) < 3:  # Minimum required for analysis
                 return None
 
             # Create a unique key for this analysis
-            gene_symbol = group_info['gene_symbol']
-            allele_symbol = group_info['allele_symbol']
-            zygosity = group_info['zygosity']
-            center = group_info['phenotyping_center']
+            gene_symbol = group_info["gene_symbol"]
+            allele_symbol = group_info["allele_symbol"]
+            zygosity = group_info["zygosity"]
+            center = group_info["phenotyping_center"]
 
             analysis_key = f"{gene_symbol}_{allele_symbol}_{zygosity}_{center}"
             if sex_filter:
                 analysis_key += f"_{sex_filter}"
 
             # Store metadata for later use in visualizations
-            self.gene_metadata[analysis_key] = group_info['metadata']
+            self.gene_metadata[analysis_key] = group_info["metadata"]
 
             # Find matching controls
             try:
@@ -77,7 +79,7 @@ class GeneBayesianAnalyzer:
                 if sex_filter:
                     control_data = controls[sex_filter]
                 else:
-                    control_data = controls['all']
+                    control_data = controls["all"]
 
                 if len(control_data) < 20:  # Minimum control requirement
                     return None
@@ -86,18 +88,24 @@ class GeneBayesianAnalyzer:
                 return None
 
             # Extract profiles
-            control_profiles = self.matcher.get_control_profiles(control_data, self.freq_cols)
-            mutant_profiles = self.matcher.get_experimental_profiles(group_info,
-                                                                     self.freq_cols,
-                                                                     sex_filter)
+            control_profiles = self.matcher.get_control_profiles(
+                control_data, self.freq_cols
+            )
+            mutant_profiles = self.matcher.get_experimental_profiles(
+                group_info, self.freq_cols, sex_filter
+            )
 
             # Store profiles for later visualization
             self.control_profiles[analysis_key] = control_data
             self.mutant_profiles[analysis_key] = group_data
 
             # Remove any profiles with NaN values
-            control_profiles_clean = control_profiles[~np.any(np.isnan(control_profiles), axis=1)]
-            mutant_profiles_clean = mutant_profiles[~np.any(np.isnan(mutant_profiles), axis=1)]
+            control_profiles_clean = control_profiles[
+                ~np.any(np.isnan(control_profiles), axis=1)
+            ]
+            mutant_profiles_clean = mutant_profiles[
+                ~np.any(np.isnan(mutant_profiles), axis=1)
+            ]
 
             # Check minimum sample sizes
             if len(mutant_profiles_clean) < 3 or len(control_profiles_clean) < 20:
@@ -105,7 +113,9 @@ class GeneBayesianAnalyzer:
 
             # Fit Bayesian model
             bayesian_model = BayesianABRAnalysis()
-            bayesian_model.fit(control_profiles_clean, mutant_profiles_clean, self.freq_cols)
+            bayesian_model.fit(
+                control_profiles_clean, mutant_profiles_clean, self.freq_cols
+            )
 
             # Store model for later visualization
             self.bayesian_models[analysis_key] = bayesian_model
@@ -115,44 +125,46 @@ class GeneBayesianAnalyzer:
             bayes_factor = bayesian_model.calculate_bayes_factor()
 
             # Extract key statistics
-            p_hearing_loss = summary.loc['p_hearing_loss', 'mean']
-            hdi_lower = summary.loc['p_hearing_loss', 'hdi_3%']
-            hdi_upper = summary.loc['p_hearing_loss', 'hdi_97%']
+            p_hearing_loss = summary.loc["p_hearing_loss", "mean"]
+            hdi_lower = summary.loc["p_hearing_loss", "hdi_3%"]
+            hdi_upper = summary.loc["p_hearing_loss", "hdi_97%"]
 
             # Get effect sizes
             effect_sizes = []
             for i in range(len(self.freq_cols)):
-                effect_sizes.append(summary.loc[f'hl_shift[{i}]', 'mean'])
+                effect_sizes.append(summary.loc[f"hl_shift[{i}]", "mean"])
 
             return {
-                'gene_symbol': gene_symbol,
-                'allele_symbol': allele_symbol,
-                'zygosity': zygosity,
-                'center': center,
-                'bayes_factor': bayes_factor,
-                'p_hearing_loss': p_hearing_loss,
-                'hdi_lower': hdi_lower,
-                'hdi_upper': hdi_upper,
-                'effect_sizes': effect_sizes,
-                'n_mutants': len(mutant_profiles_clean),
-                'n_controls': len(control_profiles_clean),
-                'mutant_means': np.mean(mutant_profiles_clean, axis=0),
-                'control_means': np.mean(control_profiles_clean, axis=0),
-                'analysis_key': analysis_key,
-                'sex_filter': sex_filter if sex_filter else 'all'
+                "gene_symbol": gene_symbol,
+                "allele_symbol": allele_symbol,
+                "zygosity": zygosity,
+                "center": center,
+                "bayes_factor": bayes_factor,
+                "p_hearing_loss": p_hearing_loss,
+                "hdi_lower": hdi_lower,
+                "hdi_upper": hdi_upper,
+                "effect_sizes": effect_sizes,
+                "n_mutants": len(mutant_profiles_clean),
+                "n_controls": len(control_profiles_clean),
+                "mutant_means": np.mean(mutant_profiles_clean, axis=0),
+                "control_means": np.mean(control_profiles_clean, axis=0),
+                "analysis_key": analysis_key,
+                "sex_filter": sex_filter if sex_filter else "all",
             }
 
         except (ValueError, IOError, RuntimeError) as e:
             group_desc = f"{group_info['gene_symbol']} ({group_info['allele_symbol']}, {group_info['zygosity']}, {group_info['phenotyping_center']})"
-            print(f"Warning: Error analyzing group {group_desc}{f' ({sex_filter})' if sex_filter else ''}: {str(e)}")
+            print(
+                f"Warning: Error analyzing group {group_desc}{f' ({sex_filter})' if sex_filter else ''}: {str(e)}"
+            )
             traceback.print_exc()
             return None
 
     def analyze_all_genes(self):
         """Analyze all genes in the dataset using Bayesian approach."""
         # Get all genes with experimental data
-        mutants = self.data[self.data['biological_sample_group'] == 'experimental']
-        genes = mutants['gene_symbol'].unique()
+        mutants = self.data[self.data["biological_sample_group"] == "experimental"]
+        genes = mutants["gene_symbol"].unique()
         genes = genes[~pd.isna(genes)]  # Remove NaN values
 
         all_results = []
@@ -178,9 +190,9 @@ class GeneBayesianAnalyzer:
             for group in exp_groups:
                 # Analyze for all data, males only, and females only
                 analyses = {
-                    'all': self.analyze_experimental_group(group),
-                    'male': self.analyze_experimental_group(group, 'male'),
-                    'female': self.analyze_experimental_group(group, 'female')
+                    "all": self.analyze_experimental_group(group),
+                    "male": self.analyze_experimental_group(group, "male"),
+                    "female": self.analyze_experimental_group(group, "female"),
                 }
 
                 # Store detailed group results
@@ -191,39 +203,54 @@ class GeneBayesianAnalyzer:
 
                 # Create a gene-level result entry
                 result = {
-                    'gene_symbol': gene,
-                    'allele_symbol': group['allele_symbol'],
-                    'zygosity': group['zygosity'],
-                    'center': group['phenotyping_center']
+                    "gene_symbol": gene,
+                    "allele_symbol": group["allele_symbol"],
+                    "zygosity": group["zygosity"],
+                    "center": group["phenotyping_center"],
                 }
 
                 # Record results for each analysis type
                 for analysis_type, analysis in analyses.items():
                     if analysis:
                         # Include main statistics
-                        result[f'{analysis_type}_bayes_factor'] = analysis['bayes_factor']
-                        result[f'{analysis_type}_p_hearing_loss'] = analysis['p_hearing_loss']
-                        result[f'{analysis_type}_hdi_lower'] = analysis['hdi_lower']
-                        result[f'{analysis_type}_hdi_upper'] = analysis['hdi_upper']
-                        result[f'{analysis_type}_n_mutants'] = analysis['n_mutants']
-                        result[f'{analysis_type}_n_controls'] = analysis['n_controls']
-                        result[f'{analysis_type}_analysis_key'] = analysis['analysis_key']
+                        result[f"{analysis_type}_bayes_factor"] = analysis[
+                            "bayes_factor"
+                        ]
+                        result[f"{analysis_type}_p_hearing_loss"] = analysis[
+                            "p_hearing_loss"
+                        ]
+                        result[f"{analysis_type}_hdi_lower"] = analysis["hdi_lower"]
+                        result[f"{analysis_type}_hdi_upper"] = analysis["hdi_upper"]
+                        result[f"{analysis_type}_n_mutants"] = analysis["n_mutants"]
+                        result[f"{analysis_type}_n_controls"] = analysis["n_controls"]
+                        result[f"{analysis_type}_analysis_key"] = analysis[
+                            "analysis_key"
+                        ]
 
                         # Include effect sizes for each frequency
                         for i, freq in enumerate(self.freq_cols):
                             freq_name = freq.split()[0]
-                            result[f'{analysis_type}_effect_{freq_name}'] = analysis['effect_sizes'][i]
+                            result[f"{analysis_type}_effect_{freq_name}"] = analysis[
+                                "effect_sizes"
+                            ][i]
                     else:
                         # Set missing values for metrics
-                        metrics = ['bayes_factor', 'p_hearing_loss', 'hdi_lower', 'hdi_upper',
-                                'n_mutants', 'n_controls', 'analysis_key']
+                        metrics = [
+                            "bayes_factor",
+                            "p_hearing_loss",
+                            "hdi_lower",
+                            "hdi_upper",
+                            "n_mutants",
+                            "n_controls",
+                            "analysis_key",
+                        ]
                         for metric in metrics:
-                            result[f'{analysis_type}_{metric}'] = np.nan
+                            result[f"{analysis_type}_{metric}"] = np.nan
 
                         # Set missing values for effect sizes
                         for freq in self.freq_cols:
                             freq_name = freq.split()[0]
-                            result[f'{analysis_type}_effect_{freq_name}'] = np.nan
+                            result[f"{analysis_type}_effect_{freq_name}"] = np.nan
 
                 all_results.append(result)
 
@@ -238,19 +265,32 @@ class GeneBayesianAnalyzer:
         gene_summary = self._create_gene_summary()
 
         # Add classification based on Bayes factors
-        for analysis_type in ['all', 'male', 'female']:
-            bf_col = f'{analysis_type}_bayes_factor'
-            evidence_col = f'{analysis_type}_evidence'
+        for analysis_type in ["all", "male", "female"]:
+            bf_col = f"{analysis_type}_bayes_factor"
+            evidence_col = f"{analysis_type}_evidence"
 
-            gene_summary[evidence_col] = 'Insufficient data'
+            gene_summary[evidence_col] = "Insufficient data"
             mask = ~gene_summary[bf_col].isna()
 
             # Classify based on Bayes factor
-            gene_summary.loc[mask & (gene_summary[bf_col] > 100), evidence_col] = 'Extreme'
-            gene_summary.loc[mask & (gene_summary[bf_col] <= 100) & (gene_summary[bf_col] > 30), evidence_col] = 'Very Strong'
-            gene_summary.loc[mask & (gene_summary[bf_col] <= 30) & (gene_summary[bf_col] > 10), evidence_col] = 'Strong'
-            gene_summary.loc[mask & (gene_summary[bf_col] <= 10) & (gene_summary[bf_col] > 3), evidence_col] = 'Substantial'
-            gene_summary.loc[mask & (gene_summary[bf_col] <= 3), evidence_col] = 'Weak/None'
+            gene_summary.loc[mask & (gene_summary[bf_col] > 100), evidence_col] = (
+                "Extreme"
+            )
+            gene_summary.loc[
+                mask & (gene_summary[bf_col] <= 100) & (gene_summary[bf_col] > 30),
+                evidence_col,
+            ] = "Very Strong"
+            gene_summary.loc[
+                mask & (gene_summary[bf_col] <= 30) & (gene_summary[bf_col] > 10),
+                evidence_col,
+            ] = "Strong"
+            gene_summary.loc[
+                mask & (gene_summary[bf_col] <= 10) & (gene_summary[bf_col] > 3),
+                evidence_col,
+            ] = "Substantial"
+            gene_summary.loc[mask & (gene_summary[bf_col] <= 3), evidence_col] = (
+                "Weak/None"
+            )
 
         self.gene_summary = gene_summary
         return gene_summary
@@ -261,19 +301,19 @@ class GeneBayesianAnalyzer:
             return pd.DataFrame()
 
         # Get unique genes
-        genes = self.results['gene_symbol'].unique()
+        genes = self.results["gene_symbol"].unique()
 
         summary_data = []
 
         for gene in genes:
-            gene_data = self.results[self.results['gene_symbol'] == gene]
+            gene_data = self.results[self.results["gene_symbol"] == gene]
 
             # Initialize summary row
-            summary = {'gene_symbol': gene}
+            summary = {"gene_symbol": gene}
 
             # For each analysis type, find the experimental group with the highest Bayes factor
-            for analysis_type in ['all', 'male', 'female']:
-                bf_col = f'{analysis_type}_bayes_factor'
+            for analysis_type in ["all", "male", "female"]:
+                bf_col = f"{analysis_type}_bayes_factor"
 
                 # Check if we have valid data
                 valid_data = gene_data[~gene_data[bf_col].isna()]
@@ -283,89 +323,116 @@ class GeneBayesianAnalyzer:
                     best_row = valid_data.loc[valid_data[bf_col].idxmax()]
 
                     # Copy key statistics to summary
-                    metrics = ['bayes_factor', 'p_hearing_loss', 'hdi_lower', 'hdi_upper',
-                              'n_mutants', 'n_controls', 'analysis_key']
+                    metrics = [
+                        "bayes_factor",
+                        "p_hearing_loss",
+                        "hdi_lower",
+                        "hdi_upper",
+                        "n_mutants",
+                        "n_controls",
+                        "analysis_key",
+                    ]
                     for metric in metrics:
-                        summary[f'{analysis_type}_{metric}'] = best_row[f'{analysis_type}_{metric}']
+                        summary[f"{analysis_type}_{metric}"] = best_row[
+                            f"{analysis_type}_{metric}"
+                        ]
 
                     # Copy effect sizes
                     for freq in self.freq_cols:
                         freq_name = freq.split()[0]
-                        summary[f'{analysis_type}_effect_{freq_name}'] = best_row[f'{analysis_type}_effect_{freq_name}']
+                        summary[f"{analysis_type}_effect_{freq_name}"] = best_row[
+                            f"{analysis_type}_effect_{freq_name}"
+                        ]
 
                     # Add allele info from the best row
-                    summary[f'{analysis_type}_allele'] = best_row['allele_symbol']
-                    summary[f'{analysis_type}_zygosity'] = best_row['zygosity']
-                    summary[f'{analysis_type}_center'] = best_row['center']
+                    summary[f"{analysis_type}_allele"] = best_row["allele_symbol"]
+                    summary[f"{analysis_type}_zygosity"] = best_row["zygosity"]
+                    summary[f"{analysis_type}_center"] = best_row["center"]
                 else:
                     # Set missing values
-                    metrics = ['bayes_factor', 'p_hearing_loss', 'hdi_lower', 'hdi_upper',
-                              'n_mutants', 'n_controls', 'analysis_key', 'allele', 'zygosity', 'center']
+                    metrics = [
+                        "bayes_factor",
+                        "p_hearing_loss",
+                        "hdi_lower",
+                        "hdi_upper",
+                        "n_mutants",
+                        "n_controls",
+                        "analysis_key",
+                        "allele",
+                        "zygosity",
+                        "center",
+                    ]
                     for metric in metrics:
-                        summary[f'{analysis_type}_{metric}'] = np.nan
+                        summary[f"{analysis_type}_{metric}"] = np.nan
 
                     # Set missing values for effect sizes
                     for freq in self.freq_cols:
                         freq_name = freq.split()[0]
-                        summary[f'{analysis_type}_effect_{freq_name}'] = np.nan
+                        summary[f"{analysis_type}_effect_{freq_name}"] = np.nan
 
             summary_data.append(summary)
 
         return pd.DataFrame(summary_data)
 
-    def compare_with_known_genes(self, confirmed_genes_path, candidate_genes_path, min_bf=3.0):
+    def compare_with_known_genes(
+        self, confirmed_genes_path, candidate_genes_path, min_bf=3.0
+    ):
         """
         Compare results with confirmed and candidate deafness genes.
-        
-        Parameters:
+
+        Args:
             confirmed_genes_path (str): Path to the confirmed deafness genes file
             candidate_genes_path (str): Path to the candidate deafness genes file
             min_bf (float): Minimum Bayes Factor threshold for significance
-            
+
         Returns:
             dict: Comparison results for each analysis type
         """
         # Load confirmed and candidate gene lists
-        with open(confirmed_genes_path, 'r', encoding='utf-8') as f:
+        with open(confirmed_genes_path, "r", encoding="utf-8") as f:
             confirmed_genes = set(line.strip() for line in f if line.strip())
 
-        with open(candidate_genes_path, 'r', encoding='utf-8') as f:
+        with open(candidate_genes_path, "r", encoding="utf-8") as f:
             candidate_genes = set(line.strip() for line in f if line.strip())
 
         # Create sets of significant genes for each analysis type
         significant_genes = {}
-        for analysis_type in ['all', 'male', 'female']:
+        for analysis_type in ["all", "male", "female"]:
             # Get unique gene symbols with significant Bayes factors
-            sig_genes = set(self.gene_summary[self.gene_summary[f'{analysis_type}_bayes_factor'] > min_bf]['gene_symbol'])
+            sig_genes = set(
+                self.gene_summary[
+                    self.gene_summary[f"{analysis_type}_bayes_factor"] > min_bf
+                ]["gene_symbol"]
+            )
             significant_genes[analysis_type] = sig_genes
 
         # Generate comparison results
         comparisons = {}
         for analysis_type, sig_genes in significant_genes.items():
             comparisons[analysis_type] = {
-                'found_in_confirmed': confirmed_genes & sig_genes,
-                'found_in_candidate': candidate_genes & sig_genes,
-                'novel': sig_genes - confirmed_genes - candidate_genes,
-                'missed_confirmed': confirmed_genes - sig_genes,
-                'missed_candidate': candidate_genes - sig_genes
+                "found_in_confirmed": confirmed_genes & sig_genes,
+                "found_in_candidate": candidate_genes & sig_genes,
+                "novel": sig_genes - confirmed_genes - candidate_genes,
+                "missed_confirmed": confirmed_genes - sig_genes,
+                "missed_candidate": candidate_genes - sig_genes,
             }
 
         return comparisons
 
-    def create_gene_visualization(self, gene, output_dir, analysis_type='all'):
+    def create_gene_visualization(self, gene, output_dir, analysis_type="all"):
         """Create visualizations for a specific gene."""
-        gene_dir = output_dir / 'visuals' / gene
+        gene_dir = output_dir / "visuals" / gene
         gene_dir.mkdir(parents=True, exist_ok=True)
 
         # Get gene summary data
-        if gene not in self.gene_summary['gene_symbol'].values:
+        if gene not in self.gene_summary["gene_symbol"].values:
             print(f"No data available for gene {gene}")
             return
 
-        gene_row = self.gene_summary[self.gene_summary['gene_symbol'] == gene].iloc[0]
+        gene_row = self.gene_summary[self.gene_summary["gene_symbol"] == gene].iloc[0]
 
         # Get the analysis key for the best result
-        analysis_key = gene_row.get(f'{analysis_type}_analysis_key')
+        analysis_key = gene_row.get(f"{analysis_type}_analysis_key")
 
         if pd.isna(analysis_key) or analysis_key not in self.bayesian_models:
             print(f"No valid analysis found for gene {gene} ({analysis_type})")
@@ -383,12 +450,14 @@ class GeneBayesianAnalyzer:
                 return
 
             # Extract profiles
-            control_profiles = self.matcher.get_control_profiles(control_data, self.freq_cols)
-            group_info_for_extract = {'data': mutant_data}
+            control_profiles = self.matcher.get_control_profiles(
+                control_data, self.freq_cols
+            )
+            group_info_for_extract = {"data": mutant_data}
 
             # For mutant profiles, check if we need to filter by sex
-            if 'male' in analysis_key or 'female' in analysis_key:
-                sex_filter = 'male' if 'male' in analysis_key else 'female'
+            if "male" in analysis_key or "female" in analysis_key:
+                sex_filter = "male" if "male" in analysis_key else "female"
                 mutant_profiles = self.matcher.get_experimental_profiles(
                     group_info_for_extract, self.freq_cols, sex_filter
                 )
@@ -398,23 +467,27 @@ class GeneBayesianAnalyzer:
                 )
 
             # Remove NaN values
-            control_profiles = control_profiles[~np.any(np.isnan(control_profiles), axis=1)]
-            mutant_profiles = mutant_profiles[~np.any(np.isnan(mutant_profiles), axis=1)]
+            control_profiles = control_profiles[
+                ~np.any(np.isnan(control_profiles), axis=1)
+            ]
+            mutant_profiles = mutant_profiles[
+                ~np.any(np.isnan(mutant_profiles), axis=1)
+            ]
 
             # Create full visualization
             fig = bayesian_model.plot_results(control_profiles, mutant_profiles, gene)
 
             # Add allele, zygosity, and center information to the title
-            allele = gene_row.get(f'{analysis_type}_allele', '')
-            zygosity = gene_row.get(f'{analysis_type}_zygosity', '')
-            center = gene_row.get(f'{analysis_type}_center', '')
+            allele = gene_row.get(f"{analysis_type}_allele", "")
+            zygosity = gene_row.get(f"{analysis_type}_zygosity", "")
+            center = gene_row.get(f"{analysis_type}_center", "")
 
             fig.suptitle(f"{gene} - {allele} ({zygosity}) - {center}", fontsize=14)
 
             fig.tight_layout(rect=[0, 0, 1, 0.95])  # Make room for suptitle
 
             # Sanitize filename
-            safe_allele = str(allele).replace('<', '').replace('>', '')
+            safe_allele = str(allele).replace("<", "").replace(">", "")
             safe_filename = f"{gene}_{safe_allele}_{zygosity}_{center}_{analysis_type}_bayesian_analysis.png"
 
             fig.savefig(gene_dir / safe_filename)
@@ -424,103 +497,123 @@ class GeneBayesianAnalyzer:
             print(f"Error creating visualisation for {gene}: {str(e)}")
             traceback.print_exc()
 
-    def create_visualizations(self, output_dir='.', min_bf=3.0):
+    def create_visualizations(self, output_dir=".", min_bf=3.0):
         """Create visualizations of the results."""
         output_dir = Path(output_dir)
-        visuals_dir = output_dir / 'visuals'
+        visuals_dir = output_dir / "visuals"
         visuals_dir.mkdir(exist_ok=True, parents=True)
 
         # 1. Global Bayes Factor Distribution
         plt.figure(figsize=(10, 6))
-        bfs = self.gene_summary['all_bayes_factor'].replace([np.inf, -np.inf], np.nan).dropna()
+        bfs = (
+            self.gene_summary["all_bayes_factor"]
+            .replace([np.inf, -np.inf], np.nan)
+            .dropna()
+        )
 
         if not bfs.empty:
             # Log transform for better visualization
             log_bfs = np.log10(bfs + 0.1)  # Add small constant to handle zeros
 
             sns.histplot(log_bfs, kde=True)
-            plt.axvline(x=np.log10(3), color='r', linestyle='--', label='BF=3')
-            plt.axvline(x=np.log10(10), color='g', linestyle='--', label='BF=10')
-            plt.axvline(x=np.log10(100), color='b', linestyle='--', label='BF=100')
+            plt.axvline(x=np.log10(3), color="r", linestyle="--", label="BF=3")
+            plt.axvline(x=np.log10(10), color="g", linestyle="--", label="BF=10")
+            plt.axvline(x=np.log10(100), color="b", linestyle="--", label="BF=100")
 
-            plt.xlabel('log10(Bayes Factor)')
-            plt.ylabel('Count')
-            plt.title('Distribution of Bayes Factors')
+            plt.xlabel("log10(Bayes Factor)")
+            plt.ylabel("Count")
+            plt.title("Distribution of Bayes Factors")
             plt.legend()
-            plt.savefig(visuals_dir / 'bayes_factor_distribution.png')
+            plt.savefig(visuals_dir / "bayes_factor_distribution.png")
         plt.close()
 
         # 2. Evidence Classification Pie Chart
         plt.figure(figsize=(10, 6))
-        evidence_counts = self.gene_summary['all_evidence'].value_counts()
+        evidence_counts = self.gene_summary["all_evidence"].value_counts()
 
         if not evidence_counts.empty:
-            plt.pie(evidence_counts, labels=evidence_counts.index, autopct='%1.1f%%')
-            plt.title('Distribution of Evidence Levels')
-            plt.savefig(visuals_dir / 'evidence_classification.png')
+            plt.pie(evidence_counts, labels=evidence_counts.index, autopct="%1.1f%%")
+            plt.title("Distribution of Evidence Levels")
+            plt.savefig(visuals_dir / "evidence_classification.png")
         plt.close()
 
         # 3. Sex Comparison Plot
         plt.figure(figsize=(10, 6))
 
         # Check if we have male and female data
-        has_male_data = 'male_bayes_factor' in self.gene_summary.columns and not self.gene_summary['male_bayes_factor'].isna().all()
-        has_female_data = 'female_bayes_factor' in self.gene_summary.columns and not self.gene_summary['female_bayes_factor'].isna().all()
+        has_male_data = (
+            "male_bayes_factor" in self.gene_summary.columns
+            and not self.gene_summary["male_bayes_factor"].isna().all()
+        )
+        has_female_data = (
+            "female_bayes_factor" in self.gene_summary.columns
+            and not self.gene_summary["female_bayes_factor"].isna().all()
+        )
 
         if has_male_data and has_female_data:
-            male_sig = self.gene_summary['male_bayes_factor'] > min_bf
-            female_sig = self.gene_summary['female_bayes_factor'] > min_bf
+            male_sig = self.gene_summary["male_bayes_factor"] > min_bf
+            female_sig = self.gene_summary["female_bayes_factor"] > min_bf
 
             # Fill NaN values with False for boolean comparisons
             male_sig = male_sig.fillna(False)
             female_sig = female_sig.fillna(False)
 
             venn_data = {
-                'Male Only': sum(male_sig & ~female_sig),
-                'Female Only': sum(female_sig & ~male_sig),
-                'Both': sum(male_sig & female_sig)
+                "Male Only": sum(male_sig & ~female_sig),
+                "Female Only": sum(female_sig & ~male_sig),
+                "Both": sum(male_sig & female_sig),
             }
 
             # Check if we have any data to plot AND all categories have data
-            if sum(venn_data.values()) > 0 and all(count > 0 for count in venn_data.values()):
-                plt.pie(venn_data.values(), labels=venn_data.keys(), autopct='%1.1f%%')
-                plt.title(f'Sex-specific Genes (BF > {min_bf})')
-                plt.savefig(output_dir / 'sex_comparison.png')
+            if sum(venn_data.values()) > 0 and all(
+                count > 0 for count in venn_data.values()
+            ):
+                plt.pie(venn_data.values(), labels=venn_data.keys(), autopct="%1.1f%%")
+                plt.title(f"Sex-specific Genes (BF > {min_bf})")
+                plt.savefig(output_dir / "sex_comparison.png")
             elif sum(venn_data.values()) > 0:
                 # Filter out zero counts before making pie chart
                 non_zero_data = {k: v for k, v in venn_data.items() if v > 0}
-                plt.pie(non_zero_data.values(), labels=non_zero_data.keys(), autopct='%1.1f%%')
-                plt.title(f'Sex-specific Genes (BF > {min_bf})')
-                plt.savefig(output_dir / 'sex_comparison.png')
+                plt.pie(
+                    non_zero_data.values(),
+                    labels=non_zero_data.keys(),
+                    autopct="%1.1f%%",
+                )
+                plt.title(f"Sex-specific Genes (BF > {min_bf})")
+                plt.savefig(output_dir / "sex_comparison.png")
         plt.close()
 
         # 4. Effect Size Distribution
         plt.figure(figsize=(12, 6))
-        sig_genes = self.gene_summary[self.gene_summary['all_bayes_factor'] > min_bf]
+        sig_genes = self.gene_summary[self.gene_summary["all_bayes_factor"] > min_bf]
 
         if not sig_genes.empty:
             # Calculate mean effect size across frequencies
-            effect_cols = [col for col in sig_genes.columns if col.startswith('all_effect_')]
+            effect_cols = [
+                col for col in sig_genes.columns if col.startswith("all_effect_")
+            ]
 
             if effect_cols:  # Only proceed if we have effect columns
-                sig_genes['mean_effect'] = sig_genes[effect_cols].mean(axis=1)
+                sig_genes["mean_effect"] = sig_genes[effect_cols].mean(axis=1)
 
-                sns.histplot(data=sig_genes, x='mean_effect', bins=20)
-                plt.xlabel('Mean Effect Size (dB)')
-                plt.title(f'Effect Size Distribution (BF > {min_bf})')
-                plt.savefig(visuals_dir / 'effect_size_distribution.png')
+                sns.histplot(data=sig_genes, x="mean_effect", bins=20)
+                plt.xlabel("Mean Effect Size (dB)")
+                plt.title(f"Effect Size Distribution (BF > {min_bf})")
+                plt.savefig(visuals_dir / "effect_size_distribution.png")
         plt.close()
 
         # 5. Center Comparison
         plt.figure(figsize=(12, 6))
         # Group by center and count significant genes
         center_counts = {}
-        sig_genes_with_center = self.gene_summary[(self.gene_summary['all_bayes_factor'] > min_bf) & 
-                                                (~self.gene_summary['all_center'].isna())]
+        sig_genes_with_center = self.gene_summary[
+            (self.gene_summary["all_bayes_factor"] > min_bf)
+            & (~self.gene_summary["all_center"].isna())
+        ]
 
         if not sig_genes_with_center.empty:
             for _, row in sig_genes_with_center.iterrows():
-                center = row.get('all_center')
+                center = row.get("all_center")
                 if not pd.isna(center):
                     center_counts[center] = center_counts.get(center, 0) + 1
 
@@ -529,30 +622,60 @@ class GeneBayesianAnalyzer:
                 counts = list(center_counts.values())
 
                 plt.bar(centers, counts)
-                plt.title(f'Genes with BF > {min_bf} by Center')
+                plt.title(f"Genes with BF > {min_bf} by Center")
                 plt.xticks(rotation=45)
-                plt.ylabel('Number of Genes')
+                plt.ylabel("Number of Genes")
                 plt.tight_layout()
-                plt.savefig(visuals_dir / 'center_comparison.png')
+                plt.savefig(visuals_dir / "center_comparison.png")
         plt.close()
 
         # 6. Create gene-specific visualizations
         print("\nGenerating gene-specific visualizations...")
-        significant_genes = self.gene_summary[self.gene_summary['all_bayes_factor'] > min_bf]['gene_symbol'].dropna().tolist()
+        significant_genes = (
+            self.gene_summary[self.gene_summary["all_bayes_factor"] > min_bf][
+                "gene_symbol"
+            ]
+            .dropna()
+            .tolist()
+        )
 
         # Create visualizations for all significant genes
-        for gene in tqdm(significant_genes, desc="Creating gene visualizations", unit="gene"):
-            self.create_gene_visualization(gene, output_dir, 'all')
+        for gene in tqdm(
+            significant_genes, desc="Creating gene visualizations", unit="gene"
+        ):
+            self.create_gene_visualization(gene, output_dir, "all")
 
         # Also create visualizations for sex-specific significant genes
         if has_male_data:
-            male_sig_genes = self.gene_summary[self.gene_summary['male_bayes_factor'] > min_bf]['gene_symbol'].dropna().tolist()
-            for gene in tqdm(male_sig_genes, desc="Creating male-specific visualizations", unit="gene"):
+            male_sig_genes = (
+                self.gene_summary[self.gene_summary["male_bayes_factor"] > min_bf][
+                    "gene_symbol"
+                ]
+                .dropna()
+                .tolist()
+            )
+            for gene in tqdm(
+                male_sig_genes,
+                desc="Creating male-specific visualizations",
+                unit="gene",
+            ):
                 if gene not in significant_genes:  # Avoid duplicates
-                    self.create_gene_visualization(gene, output_dir, 'male')
+                    self.create_gene_visualization(gene, output_dir, "male")
 
         if has_female_data:
-            female_sig_genes = self.gene_summary[self.gene_summary['female_bayes_factor'] > min_bf]['gene_symbol'].dropna().tolist()
-            for gene in tqdm(female_sig_genes, desc="Creating female-specific visualizations", unit="gene"):
-                if gene not in significant_genes and gene not in (male_sig_genes if has_male_data else []):  # Avoid duplicates
-                    self.create_gene_visualization(gene, output_dir, 'female')
+            female_sig_genes = (
+                self.gene_summary[self.gene_summary["female_bayes_factor"] > min_bf][
+                    "gene_symbol"
+                ]
+                .dropna()
+                .tolist()
+            )
+            for gene in tqdm(
+                female_sig_genes,
+                desc="Creating female-specific visualizations",
+                unit="gene",
+            ):
+                if gene not in significant_genes and gene not in (
+                    male_sig_genes if has_male_data else []
+                ):  # Avoid duplicates
+                    self.create_gene_visualization(gene, output_dir, "female")

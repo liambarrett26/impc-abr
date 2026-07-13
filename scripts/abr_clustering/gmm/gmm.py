@@ -5,19 +5,20 @@ Implements GMM clustering with the parameters optimized for ABR data analysis,
 including model selection, stability validation, and uncertainty quantification.
 """
 
+import logging
+import warnings
+from abc import ABC, abstractmethod
+from collections import defaultdict
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Tuple
+
 import numpy as np
 import pandas as pd
-from sklearn.mixture import GaussianMixture
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
-from sklearn.metrics import silhouette_score, adjusted_rand_score
+from sklearn.metrics import adjusted_rand_score, silhouette_score
+from sklearn.mixture import GaussianMixture
 from sklearn.model_selection import cross_val_score
-from typing import Dict, List, Tuple, Optional, Any
-import logging
-from dataclasses import dataclass, field
-from abc import ABC, abstractmethod
-import warnings
-from collections import defaultdict
 
 logger = logging.getLogger(__name__)
 
@@ -25,8 +26,9 @@ logger = logging.getLogger(__name__)
 @dataclass
 class GMMConfig:
     """Configuration parameters for GMM clustering."""
+
     n_components_range: Tuple[int, int] = (3, 12)
-    covariance_types: List[str] = field(default_factory=lambda: ['full', 'tied'])
+    covariance_types: List[str] = field(default_factory=lambda: ["full", "tied"])
     n_init: int = 10
     max_iter: int = 1000
     tol: float = 1e-6
@@ -49,16 +51,18 @@ class ClusteringMetrics:
         self.stability_score: Optional[float] = None
 
     def __repr__(self):
-        return (f"ClusteringMetrics(n_components={self.n_components}, "
-                f"bic={self.bic:.2f}, aic={self.aic:.2f}, "
-                f"silhouette={self.silhouette:.3f})")
+        return (
+            f"ClusteringMetrics(n_components={self.n_components}, "
+            f"bic={self.bic:.2f}, aic={self.aic:.2f}, "
+            f"silhouette={self.silhouette:.3f})"
+        )
 
 
 class BaseClusteringModel(ABC):
     """Abstract base class for clustering models."""
 
     @abstractmethod
-    def fit(self, X: np.ndarray) -> 'BaseClusteringModel':
+    def fit(self, X: np.ndarray) -> "BaseClusteringModel":
         """Fit the clustering model."""
         pass
 
@@ -111,10 +115,12 @@ class AudiometricGMM(BaseClusteringModel):
         Returns:
             Initial cluster centers
         """
-        kmeans = KMeans(n_clusters=n_components,
-                       init='k-means++',
-                       n_init=10,
-                       random_state=self.config.random_state)
+        kmeans = KMeans(
+            n_clusters=n_components,
+            init="k-means++",
+            n_init=10,
+            random_state=self.config.random_state,
+        )
         kmeans.fit(X)
         return kmeans.cluster_centers_
 
@@ -135,12 +141,20 @@ class AudiometricGMM(BaseClusteringModel):
         # Create initial centers in PCA space, then transform back
         if n_components <= 4:
             # For small n_components, use corners of PCA space
-            pc1_range = np.linspace(X_pca[:, 0].min(), X_pca[:, 0].max(),
-                                   int(np.ceil(np.sqrt(n_components))))
+            pc1_range = np.linspace(
+                X_pca[:, 0].min(),
+                X_pca[:, 0].max(),
+                int(np.ceil(np.sqrt(n_components))),
+            )
             if X_pca.shape[1] > 1:
-                pc2_range = np.linspace(X_pca[:, 1].min(), X_pca[:, 1].max(),
-                                       int(np.ceil(n_components / len(pc1_range))))
-                centers_pca = np.array([[pc1, pc2] for pc1 in pc1_range for pc2 in pc2_range])
+                pc2_range = np.linspace(
+                    X_pca[:, 1].min(),
+                    X_pca[:, 1].max(),
+                    int(np.ceil(n_components / len(pc1_range))),
+                )
+                centers_pca = np.array(
+                    [[pc1, pc2] for pc1 in pc1_range for pc2 in pc2_range]
+                )
             else:
                 centers_pca = np.array([[pc1, 0] for pc1 in pc1_range])
 
@@ -150,8 +164,11 @@ class AudiometricGMM(BaseClusteringModel):
             np.random.seed(self.config.random_state)
             centers_pca = np.random.uniform(
                 low=[X_pca[:, 0].min(), X_pca[:, 1].min() if X_pca.shape[1] > 1 else 0],
-                high=[X_pca[:, 0].max(), X_pca[:, 1].max() if X_pca.shape[1] > 1 else 0],
-                size=(n_components, 2)
+                high=[
+                    X_pca[:, 0].max(),
+                    X_pca[:, 1].max() if X_pca.shape[1] > 1 else 0,
+                ],
+                size=(n_components, 2),
             )
 
         # Transform back to original space
@@ -165,10 +182,11 @@ class AudiometricGMM(BaseClusteringModel):
         else:
             centers_original = centers_pca
 
-        return pca.inverse_transform(centers_original[:, :pca.n_components_])
+        return pca.inverse_transform(centers_original[:, : pca.n_components_])
 
-    def _fit_single_model(self, X: np.ndarray, n_components: int,
-                         covariance_type: str) -> Tuple[GaussianMixture, ClusteringMetrics]:
+    def _fit_single_model(
+        self, X: np.ndarray, n_components: int, covariance_type: str
+    ) -> Tuple[GaussianMixture, ClusteringMetrics]:
         """
         Fit a single GMM with specified parameters.
 
@@ -184,7 +202,7 @@ class AudiometricGMM(BaseClusteringModel):
         best_score = -np.inf
 
         # Try different initialization strategies
-        init_strategies = ['random', 'kmeans', 'pca']
+        init_strategies = ["random", "kmeans", "pca"]
 
         for init_strategy in init_strategies:
             models = []
@@ -200,14 +218,14 @@ class AudiometricGMM(BaseClusteringModel):
                         tol=self.config.tol,
                         reg_covar=self.config.reg_covar,
                         random_state=None,  # Use different random seeds for each init
-                        warm_start=False
+                        warm_start=False,
                     )
 
                     # Set initialization
-                    if init_strategy == 'kmeans':
+                    if init_strategy == "kmeans":
                         means_init = self._initialize_with_kmeans(X, n_components)
                         model.means_init = means_init
-                    elif init_strategy == 'pca':
+                    elif init_strategy == "pca":
                         means_init = self._initialize_with_pca(X, n_components)
                         model.means_init = means_init
 
@@ -236,7 +254,9 @@ class AudiometricGMM(BaseClusteringModel):
 
         return best_model, metrics
 
-    def _calculate_metrics(self, model: GaussianMixture, X: np.ndarray) -> ClusteringMetrics:
+    def _calculate_metrics(
+        self, model: GaussianMixture, X: np.ndarray
+    ) -> ClusteringMetrics:
         """
         Calculate evaluation metrics for a fitted model.
 
@@ -272,8 +292,9 @@ class AudiometricGMM(BaseClusteringModel):
 
         return metrics
 
-    def _assess_stability(self, X: np.ndarray, n_components: int,
-                         covariance_type: str) -> float:
+    def _assess_stability(
+        self, X: np.ndarray, n_components: int, covariance_type: str
+    ) -> float:
         """
         Assess cluster stability using bootstrap resampling.
 
@@ -290,7 +311,9 @@ class AudiometricGMM(BaseClusteringModel):
 
         # Fit reference model on full data
         try:
-            reference_model, _ = self._fit_single_model(X, n_components, covariance_type)
+            reference_model, _ = self._fit_single_model(
+                X, n_components, covariance_type
+            )
             reference_labels = reference_model.predict(X)
         except:
             return 0.0
@@ -304,7 +327,9 @@ class AudiometricGMM(BaseClusteringModel):
                 X_bootstrap = X[idx]
 
                 # Fit model on bootstrap sample
-                boot_model, _ = self._fit_single_model(X_bootstrap, n_components, covariance_type)
+                boot_model, _ = self._fit_single_model(
+                    X_bootstrap, n_components, covariance_type
+                )
 
                 # Predict on full dataset
                 boot_labels = boot_model.predict(X)
@@ -319,7 +344,9 @@ class AudiometricGMM(BaseClusteringModel):
 
         return np.mean(stability_scores) if stability_scores else 0.0
 
-    def _select_best_model(self, X: np.ndarray) -> Tuple[GaussianMixture, ClusteringMetrics]:
+    def _select_best_model(
+        self, X: np.ndarray
+    ) -> Tuple[GaussianMixture, ClusteringMetrics]:
         """
         Perform model selection across different configurations.
 
@@ -336,11 +363,15 @@ class AudiometricGMM(BaseClusteringModel):
 
         for n_components in range(n_min, n_max + 1):
             for covariance_type in self.config.covariance_types:
-                logger.info(f"Testing {n_components} components with {covariance_type} covariance")
+                logger.info(
+                    f"Testing {n_components} components with {covariance_type} covariance"
+                )
 
                 try:
                     # Fit model
-                    model, metrics = self._fit_single_model(X, n_components, covariance_type)
+                    model, metrics = self._fit_single_model(
+                        X, n_components, covariance_type
+                    )
 
                     # Assess stability
                     stability = self._assess_stability(X, n_components, covariance_type)
@@ -348,12 +379,16 @@ class AudiometricGMM(BaseClusteringModel):
 
                     results.append((model, metrics))
 
-                    logger.info(f"  BIC: {metrics.bic:.2f}, AIC: {metrics.aic:.2f}, "
-                              f"Silhouette: {metrics.silhouette:.3f}, Stability: {stability:.3f}")
+                    logger.info(
+                        f"  BIC: {metrics.bic:.2f}, AIC: {metrics.aic:.2f}, "
+                        f"Silhouette: {metrics.silhouette:.3f}, Stability: {stability:.3f}"
+                    )
 
                 except Exception as e:
-                    logger.warning(f"Failed to fit model with {n_components} components "
-                                 f"and {covariance_type} covariance: {e}")
+                    logger.warning(
+                        f"Failed to fit model with {n_components} components "
+                        f"and {covariance_type} covariance: {e}"
+                    )
                     continue
 
         if not results:
@@ -361,12 +396,12 @@ class AudiometricGMM(BaseClusteringModel):
 
         # Store all results
         self.model_selection_results = {
-            'models': [r[0] for r in results],
-            'metrics': [r[1] for r in results],
-            'bic_scores': [r[1].bic for r in results],
-            'aic_scores': [r[1].aic for r in results],
-            'silhouette_scores': [r[1].silhouette for r in results],
-            'stability_scores': [r[1].stability_score for r in results]
+            "models": [r[0] for r in results],
+            "metrics": [r[1] for r in results],
+            "bic_scores": [r[1].bic for r in results],
+            "aic_scores": [r[1].aic for r in results],
+            "silhouette_scores": [r[1].silhouette for r in results],
+            "stability_scores": [r[1].stability_score for r in results],
         }
 
         # Select best model using combined criteria
@@ -374,7 +409,9 @@ class AudiometricGMM(BaseClusteringModel):
 
         return results[best_idx]
 
-    def _select_best_by_criteria(self, results: List[Tuple[GaussianMixture, ClusteringMetrics]]) -> int:
+    def _select_best_by_criteria(
+        self, results: List[Tuple[GaussianMixture, ClusteringMetrics]]
+    ) -> int:
         """
         Select best model using multiple criteria with weighted combination.
 
@@ -394,21 +431,31 @@ class AudiometricGMM(BaseClusteringModel):
         stability_scores = np.array([r[1].stability_score for r in results])
 
         # Normalize metrics (lower is better for BIC/AIC, higher for silhouette/stability)
-        bic_norm = 1 - (bic_scores - bic_scores.min()) / (bic_scores.max() - bic_scores.min() + 1e-8)
-        aic_norm = 1 - (aic_scores - aic_scores.min()) / (aic_scores.max() - aic_scores.min() + 1e-8)
-        sil_norm = (silhouette_scores - silhouette_scores.min()) / (silhouette_scores.max() - silhouette_scores.min() + 1e-8)
-        stab_norm = (stability_scores - stability_scores.min()) / (stability_scores.max() - stability_scores.min() + 1e-8)
+        bic_norm = 1 - (bic_scores - bic_scores.min()) / (
+            bic_scores.max() - bic_scores.min() + 1e-8
+        )
+        aic_norm = 1 - (aic_scores - aic_scores.min()) / (
+            aic_scores.max() - aic_scores.min() + 1e-8
+        )
+        sil_norm = (silhouette_scores - silhouette_scores.min()) / (
+            silhouette_scores.max() - silhouette_scores.min() + 1e-8
+        )
+        stab_norm = (stability_scores - stability_scores.min()) / (
+            stability_scores.max() - stability_scores.min() + 1e-8
+        )
 
         # Weighted combination (emphasizing BIC and stability)
         weights = np.array([0.4, 0.2, 0.2, 0.2])  # BIC, AIC, Silhouette, Stability
-        combined_scores = (weights[0] * bic_norm +
-                          weights[1] * aic_norm +
-                          weights[2] * sil_norm +
-                          weights[3] * stab_norm)
+        combined_scores = (
+            weights[0] * bic_norm
+            + weights[1] * aic_norm
+            + weights[2] * sil_norm
+            + weights[3] * stab_norm
+        )
 
         return np.argmax(combined_scores)
 
-    def fit(self, X: np.ndarray) -> 'AudiometricGMM':
+    def fit(self, X: np.ndarray) -> "AudiometricGMM":
         """
         Fit the GMM with model selection and validation.
 
@@ -429,8 +476,10 @@ class AudiometricGMM(BaseClusteringModel):
         # Perform model selection
         self.best_model, self.best_metrics = self._select_best_model(X)
 
-        logger.info(f"Best model: {self.best_metrics.n_components} components, "
-                   f"{self.best_metrics.covariance_type} covariance")
+        logger.info(
+            f"Best model: {self.best_metrics.n_components} components, "
+            f"{self.best_metrics.covariance_type} covariance"
+        )
         logger.info(f"Best model metrics: {self.best_metrics}")
 
         self.is_fitted = True
@@ -519,6 +568,7 @@ def create_default_gmm_config(**kwargs) -> GMMConfig:
 if __name__ == "__main__":
     # Example usage and testing
     import sys
+
     from loader import load_impc_data
     from preproc import preprocess_abr_data
 

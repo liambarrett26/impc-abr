@@ -5,26 +5,27 @@ This module orchestrates the entire analysis pipeline from data loading
 through final results generation and visualization.
 """
 
-import numpy as np
-import pandas as pd
-from pathlib import Path
-import logging
 import argparse
 import json
+import logging
 import pickle
-from datetime import datetime
-from typing import Dict, Any, Optional
 import warnings
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, Optional
+
+import numpy as np
+import pandas as pd
+from analysis import AudiometricAnalyzer, analyze_gmm_results
+from gmm import AudiometricGMM, GMMConfig, create_default_gmm_config
 
 # Import pipeline components
 from loader import IMPCABRLoader, load_impc_data
 from preproc import ABRPreprocessor, create_default_config, preprocess_abr_data
-from gmm import AudiometricGMM, create_default_gmm_config, GMMConfig
-from analysis import analyze_gmm_results, AudiometricAnalyzer
 
 # Suppress warnings for cleaner output
-warnings.filterwarnings('ignore', category=UserWarning)
-warnings.filterwarnings('ignore', category=FutureWarning)
+warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 
 class AudiometricPhenotypePipeline:
@@ -35,10 +36,12 @@ class AudiometricPhenotypePipeline:
     a single cohesive workflow with comprehensive logging and result tracking.
     """
 
-    def __init__(self,
-                 output_dir: str = "results",
-                 log_level: str = "INFO",
-                 random_state: int = 42):
+    def __init__(
+        self,
+        output_dir: str = "results",
+        log_level: str = "INFO",
+        random_state: int = 42,
+    ):
         """
         Initialize the pipeline.
 
@@ -73,10 +76,10 @@ class AudiometricPhenotypePipeline:
 
         # Pipeline configuration
         self.config = {
-            'pipeline_version': '1.0.0',
-            'created_at': datetime.now().isoformat(),
-            'random_state': random_state,
-            'output_dir': str(output_dir)
+            "pipeline_version": "1.0.0",
+            "created_at": datetime.now().isoformat(),
+            "random_state": random_state,
+            "output_dir": str(output_dir),
         }
 
         self.logger.info(f"Initialized AudiometricPhenotypePipeline in {output_dir}")
@@ -86,7 +89,7 @@ class AudiometricPhenotypePipeline:
         log_file = self.output_dir / "pipeline.log"
 
         # Create logger
-        self.logger = logging.getLogger('AudiometricPipeline')
+        self.logger = logging.getLogger("AudiometricPipeline")
         self.logger.setLevel(getattr(logging, log_level.upper()))
 
         # Clear existing handlers
@@ -94,10 +97,10 @@ class AudiometricPhenotypePipeline:
 
         # Create formatters
         detailed_formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s'
+            "%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s"
         )
         simple_formatter = logging.Formatter(
-            '%(asctime)s - %(levelname)s - %(message)s'
+            "%(asctime)s - %(levelname)s - %(message)s"
         )
 
         # File handler
@@ -112,12 +115,13 @@ class AudiometricPhenotypePipeline:
         console_handler.setFormatter(simple_formatter)
         self.logger.addHandler(console_handler)
 
-        self.logger.info(f"Logging initialized - Level: {log_level}, Log file: {log_file}")
+        self.logger.info(
+            f"Logging initialized - Level: {log_level}, Log file: {log_file}"
+        )
 
-    def load_data(self,
-                  data_path: str,
-                  min_mutants: int = 3,
-                  min_controls: int = 20) -> 'AudiometricPhenotypePipeline':
+    def load_data(
+        self, data_path: str, min_mutants: int = 3, min_controls: int = 20
+    ) -> "AudiometricPhenotypePipeline":
         """
         Load and filter IMPC ABR data.
 
@@ -137,21 +141,26 @@ class AudiometricPhenotypePipeline:
 
             # Load and prepare data
             self.raw_data, self.experimental_groups = self.loader.load_and_prepare(
-                min_mutants=min_mutants,
-                min_controls=min_controls
+                min_mutants=min_mutants, min_controls=min_controls
             )
 
             # Update configuration
-            self.config.update({
-                'data_path': str(data_path),
-                'min_mutants': min_mutants,
-                'min_controls': min_controls,
-                'total_mice': len(self.raw_data),
-                'experimental_groups': len(self.experimental_groups) if self.experimental_groups else 0
-            })
+            self.config.update(
+                {
+                    "data_path": str(data_path),
+                    "min_mutants": min_mutants,
+                    "min_controls": min_controls,
+                    "total_mice": len(self.raw_data),
+                    "experimental_groups": (
+                        len(self.experimental_groups) if self.experimental_groups else 0
+                    ),
+                }
+            )
 
-            self.logger.info(f"Data loading complete: {len(self.raw_data)} mice, "
-                           f"{len(self.experimental_groups) if self.experimental_groups else 0} experimental groups")
+            self.logger.info(
+                f"Data loading complete: {len(self.raw_data)} mice, "
+                f"{len(self.experimental_groups) if self.experimental_groups else 0} experimental groups"
+            )
 
         except Exception as e:
             self.logger.error(f"Data loading failed: {e}")
@@ -159,8 +168,9 @@ class AudiometricPhenotypePipeline:
 
         return self
 
-    def preprocess_data(self,
-                       preproc_config: Optional[Dict] = None) -> 'AudiometricPhenotypePipeline':
+    def preprocess_data(
+        self, preproc_config: Optional[Dict] = None
+    ) -> "AudiometricPhenotypePipeline":
         """
         Preprocess ABR data with normalization and batch correction.
 
@@ -190,16 +200,20 @@ class AudiometricPhenotypePipeline:
             self.normalized_data = self.preprocessor.fit_transform(self.raw_data)
 
             # Update configuration
-            self.config.update({
-                'preprocessing': {
-                    'normalization_range': config.target_range,
-                    'grouping_columns': config.grouping_columns,
-                    'center_threshold': config.center_threshold,
-                    'output_shape': self.normalized_data.shape
+            self.config.update(
+                {
+                    "preprocessing": {
+                        "normalization_range": config.target_range,
+                        "grouping_columns": config.grouping_columns,
+                        "center_threshold": config.center_threshold,
+                        "output_shape": self.normalized_data.shape,
+                    }
                 }
-            })
+            )
 
-            self.logger.info(f"Preprocessing complete: {self.normalized_data.shape} normalized features")
+            self.logger.info(
+                f"Preprocessing complete: {self.normalized_data.shape} normalized features"
+            )
 
         except Exception as e:
             self.logger.error(f"Preprocessing failed: {e}")
@@ -207,8 +221,9 @@ class AudiometricPhenotypePipeline:
 
         return self
 
-    def fit_clustering(self,
-                      gmm_config: Optional[Dict] = None) -> 'AudiometricPhenotypePipeline':
+    def fit_clustering(
+        self, gmm_config: Optional[Dict] = None
+    ) -> "AudiometricPhenotypePipeline":
         """
         Fit GMM clustering model with model selection.
 
@@ -229,8 +244,8 @@ class AudiometricPhenotypePipeline:
                 config = create_default_gmm_config(random_state=self.random_state)
             else:
                 # Don't pass random_state if it's already in gmm_config
-                if 'random_state' not in gmm_config:
-                    gmm_config['random_state'] = self.random_state
+                if "random_state" not in gmm_config:
+                    gmm_config["random_state"] = self.random_state
                 config = create_default_gmm_config(**gmm_config)
 
             # Initialize and fit GMM
@@ -239,31 +254,39 @@ class AudiometricPhenotypePipeline:
 
             # Get predictions
             self.cluster_labels = self.gmm_model.predict(self.normalized_data)
-            self.cluster_probabilities = self.gmm_model.predict_proba(self.normalized_data)
+            self.cluster_probabilities = self.gmm_model.predict_proba(
+                self.normalized_data
+            )
 
             # Get model metrics
             metrics = self.gmm_model.get_metrics()
 
             # Update configuration
-            self.config.update({
-                'clustering': {
-                    'n_components_range': config.n_components_range,
-                    'covariance_types': config.covariance_types,
-                    'n_init': config.n_init,
-                    'n_bootstrap': config.n_bootstrap,
-                    'best_n_components': metrics.n_components,
-                    'best_covariance_type': metrics.covariance_type,
-                    'bic_score': metrics.bic,
-                    'aic_score': metrics.aic,
-                    'silhouette_score': metrics.silhouette,
-                    'stability_score': metrics.stability_score
+            self.config.update(
+                {
+                    "clustering": {
+                        "n_components_range": config.n_components_range,
+                        "covariance_types": config.covariance_types,
+                        "n_init": config.n_init,
+                        "n_bootstrap": config.n_bootstrap,
+                        "best_n_components": metrics.n_components,
+                        "best_covariance_type": metrics.covariance_type,
+                        "bic_score": metrics.bic,
+                        "aic_score": metrics.aic,
+                        "silhouette_score": metrics.silhouette,
+                        "stability_score": metrics.stability_score,
+                    }
                 }
-            })
+            )
 
-            self.logger.info(f"Clustering complete: {metrics.n_components} clusters identified")
-            self.logger.info(f"Best model metrics: BIC={metrics.bic:.2f}, "
-                           f"Silhouette={metrics.silhouette:.3f}, "
-                           f"Stability={metrics.stability_score:.3f}")
+            self.logger.info(
+                f"Clustering complete: {metrics.n_components} clusters identified"
+            )
+            self.logger.info(
+                f"Best model metrics: BIC={metrics.bic:.2f}, "
+                f"Silhouette={metrics.silhouette:.3f}, "
+                f"Stability={metrics.stability_score:.3f}"
+            )
 
         except Exception as e:
             self.logger.error(f"Clustering failed: {e}")
@@ -271,7 +294,7 @@ class AudiometricPhenotypePipeline:
 
         return self
 
-    def analyze_results(self) -> 'AudiometricPhenotypePipeline':
+    def analyze_results(self) -> "AudiometricPhenotypePipeline":
         """
         Perform comprehensive analysis of clustering results.
 
@@ -286,11 +309,11 @@ class AudiometricPhenotypePipeline:
         try:
             # Get original data for interpretable visualizations
             abr_columns = [
-                '6kHz-evoked ABR Threshold',
-                '12kHz-evoked ABR Threshold',
-                '18kHz-evoked ABR Threshold',
-                '24kHz-evoked ABR Threshold',
-                '30kHz-evoked ABR Threshold'
+                "6kHz-evoked ABR Threshold",
+                "12kHz-evoked ABR Threshold",
+                "18kHz-evoked ABR Threshold",
+                "24kHz-evoked ABR Threshold",
+                "30kHz-evoked ABR Threshold",
             ]
 
             original_data = self.raw_data[abr_columns].values
@@ -302,24 +325,34 @@ class AudiometricPhenotypePipeline:
                 cluster_probabilities=self.cluster_probabilities,
                 metadata=self.raw_data,
                 original_data=original_data,
-                output_dir=str(self.output_dir)
+                output_dir=str(self.output_dir),
             )
 
             # Update configuration with analysis summary
-            self.config.update({
-                'analysis': {
-                    'n_clusters_final': self.analysis_results['n_clusters'],
-                    'total_samples_analyzed': self.analysis_results['summary_statistics']['total_samples'],
-                    'avg_assignment_confidence': self.analysis_results['summary_statistics']['avg_assignment_confidence'],
-                    'cluster_patterns': {
-                        str(cid): char.pattern_type
-                        for cid, char in self.analysis_results['cluster_characteristics'].items()
-                    },
-                    'visualization_files': list(self.visualization_files.keys())
+            self.config.update(
+                {
+                    "analysis": {
+                        "n_clusters_final": self.analysis_results["n_clusters"],
+                        "total_samples_analyzed": self.analysis_results[
+                            "summary_statistics"
+                        ]["total_samples"],
+                        "avg_assignment_confidence": self.analysis_results[
+                            "summary_statistics"
+                        ]["avg_assignment_confidence"],
+                        "cluster_patterns": {
+                            str(cid): char.pattern_type
+                            for cid, char in self.analysis_results[
+                                "cluster_characteristics"
+                            ].items()
+                        },
+                        "visualization_files": list(self.visualization_files.keys()),
+                    }
                 }
-            })
+            )
 
-            self.logger.info(f"Analysis complete: {len(self.visualization_files)} files generated")
+            self.logger.info(
+                f"Analysis complete: {len(self.visualization_files)} files generated"
+            )
 
         except Exception as e:
             self.logger.error(f"Analysis failed: {e}")
@@ -344,72 +377,82 @@ class AudiometricPhenotypePipeline:
         try:
             # Save configuration
             config_path = self.output_dir / "pipeline_config.json"
-            with open(config_path, 'w') as f:
+            with open(config_path, "w") as f:
                 json.dump(self.config, f, indent=2, default=str)
-            saved_files['config'] = str(config_path)
+            saved_files["config"] = str(config_path)
 
             # Save analysis results
             if self.analysis_results:
                 results_path = self.output_dir / "analysis_results.json"
                 # Convert numpy arrays to lists for JSON serialization
-                serializable_results = self._make_json_serializable(self.analysis_results)
-                with open(results_path, 'w') as f:
+                serializable_results = self._make_json_serializable(
+                    self.analysis_results
+                )
+                with open(results_path, "w") as f:
                     json.dump(serializable_results, f, indent=2, default=str)
-                saved_files['analysis_results'] = str(results_path)
+                saved_files["analysis_results"] = str(results_path)
 
             # Save cluster assignments
             if self.cluster_labels is not None:
                 assignments_path = self.output_dir / "cluster_assignments.csv"
-                assignments_df = pd.DataFrame({
-                    'sample_index': range(len(self.cluster_labels)),
-                    'cluster_label': self.cluster_labels,
-                    'max_probability': self.cluster_probabilities.max(axis=1),
-                    'assignment_confidence': self.cluster_probabilities.max(axis=1)
-                })
+                assignments_df = pd.DataFrame(
+                    {
+                        "sample_index": range(len(self.cluster_labels)),
+                        "cluster_label": self.cluster_labels,
+                        "max_probability": self.cluster_probabilities.max(axis=1),
+                        "assignment_confidence": self.cluster_probabilities.max(axis=1),
+                    }
+                )
 
                 # Add individual cluster probabilities
                 n_clusters = self.cluster_probabilities.shape[1]
                 for i in range(n_clusters):
-                    assignments_df[f'cluster_{i}_prob'] = self.cluster_probabilities[:, i]
+                    assignments_df[f"cluster_{i}_prob"] = self.cluster_probabilities[
+                        :, i
+                    ]
 
                 assignments_df.to_csv(assignments_path, index=False)
-                saved_files['cluster_assignments'] = str(assignments_path)
+                saved_files["cluster_assignments"] = str(assignments_path)
 
             # Save processed data
             if self.normalized_data is not None:
                 processed_data_path = self.output_dir / "normalized_data.csv"
-                feature_names = [f'normalized_{freq}kHz' for freq in [6, 12, 18, 24, 30]]
+                feature_names = [
+                    f"normalized_{freq}kHz" for freq in [6, 12, 18, 24, 30]
+                ]
                 processed_df = pd.DataFrame(self.normalized_data, columns=feature_names)
                 processed_df.to_csv(processed_data_path, index=False)
-                saved_files['normalized_data'] = str(processed_data_path)
+                saved_files["normalized_data"] = str(processed_data_path)
 
             # Save original ABR data for visualizations
             if self.raw_data is not None:
                 abr_columns = [
-                    '6kHz-evoked ABR Threshold',
-                    '12kHz-evoked ABR Threshold',
-                    '18kHz-evoked ABR Threshold',
-                    '24kHz-evoked ABR Threshold',
-                    '30kHz-evoked ABR Threshold'
+                    "6kHz-evoked ABR Threshold",
+                    "12kHz-evoked ABR Threshold",
+                    "18kHz-evoked ABR Threshold",
+                    "24kHz-evoked ABR Threshold",
+                    "30kHz-evoked ABR Threshold",
                 ]
                 original_data_path = self.output_dir / "original_data.csv"
-                original_df = pd.DataFrame(self.raw_data[abr_columns].values, columns=abr_columns)
+                original_df = pd.DataFrame(
+                    self.raw_data[abr_columns].values, columns=abr_columns
+                )
                 original_df.to_csv(original_data_path, index=False)
-                saved_files['original_data'] = str(original_data_path)
+                saved_files["original_data"] = str(original_data_path)
 
             # Save models if requested
             if save_models:
                 if self.preprocessor:
                     preprocessor_path = self.output_dir / "preprocessor.pkl"
-                    with open(preprocessor_path, 'wb') as f:
+                    with open(preprocessor_path, "wb") as f:
                         pickle.dump(self.preprocessor, f)
-                    saved_files['preprocessor_model'] = str(preprocessor_path)
+                    saved_files["preprocessor_model"] = str(preprocessor_path)
 
                 if self.gmm_model:
                     gmm_path = self.output_dir / "gmm_model.pkl"
-                    with open(gmm_path, 'wb') as f:
+                    with open(gmm_path, "wb") as f:
                         pickle.dump(self.gmm_model, f)
-                    saved_files['gmm_model'] = str(gmm_path)
+                    saved_files["gmm_model"] = str(gmm_path)
 
             # Add visualization files
             if self.visualization_files:
@@ -418,9 +461,11 @@ class AudiometricPhenotypePipeline:
             # Create summary file
             summary_path = self.output_dir / "pipeline_summary.txt"
             self._create_pipeline_summary(summary_path, saved_files)
-            saved_files['pipeline_summary'] = str(summary_path)
+            saved_files["pipeline_summary"] = str(summary_path)
 
-            self.logger.info(f"Results saved: {len(saved_files)} files in {self.output_dir}")
+            self.logger.info(
+                f"Results saved: {len(saved_files)} files in {self.output_dir}"
+            )
 
         except Exception as e:
             self.logger.error(f"Failed to save results: {e}")
@@ -431,7 +476,9 @@ class AudiometricPhenotypePipeline:
     def _make_json_serializable(self, obj):
         """Convert numpy arrays and other non-serializable objects for JSON."""
         if isinstance(obj, dict):
-            return {key: self._make_json_serializable(value) for key, value in obj.items()}
+            return {
+                key: self._make_json_serializable(value) for key, value in obj.items()
+            }
         elif isinstance(obj, list):
             return [self._make_json_serializable(item) for item in obj]
         elif isinstance(obj, np.ndarray):
@@ -440,7 +487,7 @@ class AudiometricPhenotypePipeline:
             return int(obj)
         elif isinstance(obj, np.floating):
             return float(obj)
-        elif hasattr(obj, '__dict__'):
+        elif hasattr(obj, "__dict__"):
             # Handle custom objects like ClusterCharacteristics
             return self._make_json_serializable(obj.__dict__)
         else:
@@ -448,7 +495,7 @@ class AudiometricPhenotypePipeline:
 
     def _create_pipeline_summary(self, summary_path: Path, saved_files: Dict[str, str]):
         """Create a human-readable summary of the pipeline execution."""
-        with open(summary_path, 'w') as f:
+        with open(summary_path, "w") as f:
             f.write("=" * 80 + "\n")
             f.write("AUDIOMETRIC PHENOTYPE DISCOVERY PIPELINE SUMMARY\n")
             f.write("=" * 80 + "\n\n")
@@ -462,42 +509,62 @@ class AudiometricPhenotypePipeline:
             f.write("-" * 40 + "\n")
             f.write(f"Input file: {self.config.get('data_path', 'N/A')}\n")
             f.write(f"Total mice: {self.config.get('total_mice', 'N/A')}\n")
-            f.write(f"Experimental groups: {self.config.get('experimental_groups', 'N/A')}\n")
+            f.write(
+                f"Experimental groups: {self.config.get('experimental_groups', 'N/A')}\n"
+            )
             f.write(f"Min mutants per group: {self.config.get('min_mutants', 'N/A')}\n")
-            f.write(f"Min controls per group: {self.config.get('min_controls', 'N/A')}\n\n")
+            f.write(
+                f"Min controls per group: {self.config.get('min_controls', 'N/A')}\n\n"
+            )
 
             # Preprocessing summary
-            if 'preprocessing' in self.config:
+            if "preprocessing" in self.config:
                 f.write("PREPROCESSING\n")
                 f.write("-" * 40 + "\n")
-                prep = self.config['preprocessing']
-                f.write(f"Normalization range: {prep.get('normalization_range', 'N/A')}\n")
-                f.write(f"Technical grouping: {len(prep.get('grouping_columns', []))} variables\n")
+                prep = self.config["preprocessing"]
+                f.write(
+                    f"Normalization range: {prep.get('normalization_range', 'N/A')}\n"
+                )
+                f.write(
+                    f"Technical grouping: {len(prep.get('grouping_columns', []))} variables\n"
+                )
                 f.write(f"Output shape: {prep.get('output_shape', 'N/A')}\n\n")
 
             # Clustering summary
-            if 'clustering' in self.config:
+            if "clustering" in self.config:
                 f.write("CLUSTERING\n")
                 f.write("-" * 40 + "\n")
-                clust = self.config['clustering']
-                f.write(f"Components tested: {clust.get('n_components_range', 'N/A')}\n")
+                clust = self.config["clustering"]
+                f.write(
+                    f"Components tested: {clust.get('n_components_range', 'N/A')}\n"
+                )
                 f.write(f"Covariance types: {clust.get('covariance_types', 'N/A')}\n")
-                f.write(f"Best model: {clust.get('best_n_components', 'N/A')} components, ")
+                f.write(
+                    f"Best model: {clust.get('best_n_components', 'N/A')} components, "
+                )
                 f.write(f"{clust.get('best_covariance_type', 'N/A')} covariance\n")
                 f.write(f"BIC score: {clust.get('bic_score', 'N/A'):.2f}\n")
-                f.write(f"Silhouette score: {clust.get('silhouette_score', 'N/A'):.3f}\n")
-                f.write(f"Stability score: {clust.get('stability_score', 'N/A'):.3f}\n\n")
+                f.write(
+                    f"Silhouette score: {clust.get('silhouette_score', 'N/A'):.3f}\n"
+                )
+                f.write(
+                    f"Stability score: {clust.get('stability_score', 'N/A'):.3f}\n\n"
+                )
 
             # Analysis summary
-            if 'analysis' in self.config:
+            if "analysis" in self.config:
                 f.write("ANALYSIS RESULTS\n")
                 f.write("-" * 40 + "\n")
-                anal = self.config['analysis']
+                anal = self.config["analysis"]
                 f.write(f"Final clusters: {anal.get('n_clusters_final', 'N/A')}\n")
-                f.write(f"Samples analyzed: {anal.get('total_samples_analyzed', 'N/A')}\n")
-                f.write(f"Avg assignment confidence: {anal.get('avg_assignment_confidence', 'N/A'):.3f}\n")
+                f.write(
+                    f"Samples analyzed: {anal.get('total_samples_analyzed', 'N/A')}\n"
+                )
+                f.write(
+                    f"Avg assignment confidence: {anal.get('avg_assignment_confidence', 'N/A'):.3f}\n"
+                )
 
-                patterns = anal.get('cluster_patterns', {})
+                patterns = anal.get("cluster_patterns", {})
                 if patterns:
                     f.write("Identified patterns:\n")
                     for cluster_id, pattern in patterns.items():
@@ -512,13 +579,15 @@ class AudiometricPhenotypePipeline:
 
             f.write("\n" + "=" * 80 + "\n")
 
-    def run_complete_pipeline(self,
-                            data_path: str,
-                            min_mutants: int = 3,
-                            min_controls: int = 20,
-                            preproc_config: Optional[Dict] = None,
-                            gmm_config: Optional[Dict] = None,
-                            save_models: bool = True) -> Dict[str, str]:
+    def run_complete_pipeline(
+        self,
+        data_path: str,
+        min_mutants: int = 3,
+        min_controls: int = 20,
+        preproc_config: Optional[Dict] = None,
+        gmm_config: Optional[Dict] = None,
+        save_models: bool = True,
+    ) -> Dict[str, str]:
         """
         Run the complete pipeline from data loading to results generation.
 
@@ -537,10 +606,12 @@ class AudiometricPhenotypePipeline:
 
         try:
             # Execute pipeline steps
-            (self.load_data(data_path, min_mutants, min_controls)
-             .preprocess_data(preproc_config)
-             .fit_clustering(gmm_config)
-             .analyze_results())
+            (
+                self.load_data(data_path, min_mutants, min_controls)
+                .preprocess_data(preproc_config)
+                .fit_clustering(gmm_config)
+                .analyze_results()
+            )
 
             # Save all results
             saved_files = self.save_results(save_models)
@@ -557,78 +628,72 @@ def create_argument_parser():
     """Create command-line argument parser for the pipeline."""
     parser = argparse.ArgumentParser(
         description="Audiometric Phenotype Discovery Pipeline",
-        formatter_class=argparse.ArgumentDefaultsHelpFormatter
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
 
     # Required arguments
-    parser.add_argument(
-        'data_path',
-        type=str,
-        help='Path to IMPC ABR data file'
-    )
+    parser.add_argument("data_path", type=str, help="Path to IMPC ABR data file")
 
     # Optional arguments
     parser.add_argument(
-        '--output-dir', '-o',
+        "--output-dir",
+        "-o",
         type=str,
-        default='results',
-        help='Output directory for results'
+        default="results",
+        help="Output directory for results",
     )
 
     parser.add_argument(
-        '--min-mutants',
+        "--min-mutants",
         type=int,
         default=3,
-        help='Minimum mutant mice per experimental group'
+        help="Minimum mutant mice per experimental group",
     )
 
     parser.add_argument(
-        '--min-controls',
+        "--min-controls",
         type=int,
         default=20,
-        help='Minimum control mice per experimental group'
+        help="Minimum control mice per experimental group",
     )
 
     parser.add_argument(
-        '--min-components',
+        "--min-components",
         type=int,
         default=3,
-        help='Minimum number of GMM components to test'
+        help="Minimum number of GMM components to test",
     )
 
     parser.add_argument(
-        '--max-components',
+        "--max-components",
         type=int,
         default=12,
-        help='Maximum number of GMM components to test'
+        help="Maximum number of GMM components to test",
     )
 
     parser.add_argument(
-        '--n-bootstrap',
+        "--n-bootstrap",
         type=int,
         default=100,
-        help='Number of bootstrap iterations for stability assessment'
+        help="Number of bootstrap iterations for stability assessment",
     )
 
     parser.add_argument(
-        '--random-state',
-        type=int,
-        default=42,
-        help='Random seed for reproducibility'
+        "--random-state", type=int, default=42, help="Random seed for reproducibility"
     )
 
     parser.add_argument(
-        '--log-level',
+        "--log-level",
         type=str,
-        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR'],
-        default='INFO',
-        help='Logging level'
+        choices=["DEBUG", "INFO", "WARNING", "ERROR"],
+        default="INFO",
+        help="Logging level",
     )
 
     parser.add_argument(
-        '--no-save-models',
-        action='store_true',
-        help='Do not save fitted models (preprocessor, GMM)'
+        "--no-save-models",
+        action="store_true",
+        help="Do not save fitted models (preprocessor, GMM)",
     )
 
     return parser
@@ -641,16 +706,16 @@ def main():
 
     # Create GMM configuration from arguments
     gmm_config = {
-        'n_components_range': (args.min_components, args.max_components),
-        'n_bootstrap': args.n_bootstrap,
-        'random_state': args.random_state
+        "n_components_range": (args.min_components, args.max_components),
+        "n_bootstrap": args.n_bootstrap,
+        "random_state": args.random_state,
     }
 
     # Initialize and run pipeline
     pipeline = AudiometricPhenotypePipeline(
         output_dir=args.output_dir,
         log_level=args.log_level,
-        random_state=args.random_state
+        random_state=args.random_state,
     )
 
     try:
@@ -659,12 +724,12 @@ def main():
             min_mutants=args.min_mutants,
             min_controls=args.min_controls,
             gmm_config=gmm_config,
-            save_models=not args.no_save_models
+            save_models=not args.no_save_models,
         )
 
-        print("\n" + "="*60)
+        print("\n" + "=" * 60)
         print("PIPELINE EXECUTION COMPLETED SUCCESSFULLY")
-        print("="*60)
+        print("=" * 60)
         print(f"Results saved to: {args.output_dir}")
         print(f"Total files generated: {len(saved_files)}")
         print(f"See {args.output_dir}/pipeline_summary.txt for detailed results")

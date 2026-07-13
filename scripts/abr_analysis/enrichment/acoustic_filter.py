@@ -26,7 +26,10 @@ MIXED_PROC_PATTERNS = ["CSD", "SHI", "ESLIM_008", "M-G-P_008"]
 
 # MP term keywords that are acoustic-dependent when from mixed procedures
 ACOUSTIC_MP_KEYWORDS = [
-    "pinna reflex", "preyer", "startle reflex", "startle response",
+    "pinna reflex",
+    "preyer",
+    "startle reflex",
+    "startle response",
     "acoustic startle",
 ]
 
@@ -91,26 +94,41 @@ def filter_acoustic_assertions(gp_df):
 
         if _is_fully_acoustic_proc(proc_id):
             keep_mask.append(False)
-            log_rows.append({
-                "gene": gene, "procedure": proc_id, "procedure_name": proc_name,
-                "mp_term": mp_name, "action": "removed",
-                "reason": "fully acoustic procedure",
-            })
+            log_rows.append(
+                {
+                    "gene": gene,
+                    "procedure": proc_id,
+                    "procedure_name": proc_name,
+                    "mp_term": mp_name,
+                    "action": "removed",
+                    "reason": "fully acoustic procedure",
+                }
+            )
         elif _is_mixed_proc(proc_id):
             if _is_acoustic_mp_term(mp_name, int_names):
                 keep_mask.append(False)
-                log_rows.append({
-                    "gene": gene, "procedure": proc_id, "procedure_name": proc_name,
-                    "mp_term": mp_name, "action": "removed",
-                    "reason": "acoustic MP term from mixed procedure",
-                })
+                log_rows.append(
+                    {
+                        "gene": gene,
+                        "procedure": proc_id,
+                        "procedure_name": proc_name,
+                        "mp_term": mp_name,
+                        "action": "removed",
+                        "reason": "acoustic MP term from mixed procedure",
+                    }
+                )
             else:
                 keep_mask.append(True)
-                log_rows.append({
-                    "gene": gene, "procedure": proc_id, "procedure_name": proc_name,
-                    "mp_term": mp_name, "action": "kept",
-                    "reason": "non-acoustic MP term from mixed procedure",
-                })
+                log_rows.append(
+                    {
+                        "gene": gene,
+                        "procedure": proc_id,
+                        "procedure_name": proc_name,
+                        "mp_term": mp_name,
+                        "action": "kept",
+                        "reason": "non-acoustic MP term from mixed procedure",
+                    }
+                )
         else:
             keep_mask.append(True)
             # Don't log every kept assertion — too many
@@ -119,9 +137,17 @@ def filter_acoustic_assertions(gp_df):
     removal_log = pd.DataFrame(log_rows)
 
     n_removed = len(gp_df) - len(filtered_df)
-    n_acoustic_proc = sum(1 for r in log_rows if r["reason"] == "fully acoustic procedure")
-    n_mixed_removed = sum(1 for r in log_rows if r["reason"] == "acoustic MP term from mixed procedure")
-    n_mixed_kept = sum(1 for r in log_rows if r["reason"] == "non-acoustic MP term from mixed procedure")
+    n_acoustic_proc = sum(
+        1 for r in log_rows if r["reason"] == "fully acoustic procedure"
+    )
+    n_mixed_removed = sum(
+        1 for r in log_rows if r["reason"] == "acoustic MP term from mixed procedure"
+    )
+    n_mixed_kept = sum(
+        1
+        for r in log_rows
+        if r["reason"] == "non-acoustic MP term from mixed procedure"
+    )
 
     logger.info(f"Acoustic assertion filtering:")
     logger.info(f"  Total assertions: {len(gp_df):,}")

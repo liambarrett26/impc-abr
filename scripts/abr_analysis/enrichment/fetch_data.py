@@ -6,17 +6,23 @@ downloads and parses the MP ontology, and loads gene sets.
 """
 
 import json
-import time
 import logging
-from pathlib import Path
+import time
 from collections import defaultdict
+from pathlib import Path
 
 import pandas as pd
 import requests
 
 from .config import (
-    SOLR_GP_URL, MP_OBO_URL, SOLR_PAGE_SIZE, SOLR_DELAY,
-    SOLR_FIELDS, CACHE_DIR, FOREGROUND_FILE, BACKGROUND_FILE,
+    BACKGROUND_FILE,
+    CACHE_DIR,
+    FOREGROUND_FILE,
+    MP_OBO_URL,
+    SOLR_DELAY,
+    SOLR_FIELDS,
+    SOLR_GP_URL,
+    SOLR_PAGE_SIZE,
 )
 
 logger = logging.getLogger(__name__)
@@ -25,6 +31,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 # IMPC genotype-phenotype API
 # ---------------------------------------------------------------------------
+
 
 def fetch_genotype_phenotype(cache_path=None):
     """Fetch all genotype-phenotype assertions from IMPC Solr API.
@@ -38,6 +45,7 @@ def fetch_genotype_phenotype(cache_path=None):
     if cache_path.exists():
         logger.info(f"Loading cached genotype-phenotype data from {cache_path}")
         import json as _json
+
         with open(cache_path) as f:
             all_docs = _json.load(f)
         return pd.DataFrame(all_docs)
@@ -48,9 +56,9 @@ def fetch_genotype_phenotype(cache_path=None):
     fl = ",".join(SOLR_FIELDS)
 
     # Get total count first
-    resp = requests.get(SOLR_GP_URL, params={
-        "q": "*:*", "rows": 0, "wt": "json"
-    }, timeout=60)
+    resp = requests.get(
+        SOLR_GP_URL, params={"q": "*:*", "rows": 0, "wt": "json"}, timeout=60
+    )
     resp.raise_for_status()
     total = resp.json()["response"]["numFound"]
     logger.info(f"Total records to fetch: {total:,}")
@@ -86,13 +94,14 @@ def fetch_genotype_phenotype(cache_path=None):
 # MP ontology
 # ---------------------------------------------------------------------------
 
+
 class MPOntology:
     """Minimal MP ontology parsed from OBO format."""
 
     def __init__(self, terms, parents, children):
-        self.terms = terms            # {id: name}
-        self.parents = parents        # {id: set of parent ids}
-        self.children = children      # {id: set of child ids}
+        self.terms = terms  # {id: name}
+        self.parents = parents  # {id: set of parent ids}
+        self.children = children  # {id: set of child ids}
 
     def get_all_descendants(self, term_id):
         """Return all descendant term IDs (BFS)."""
@@ -191,14 +200,17 @@ def _parse_obo(path):
         if in_term and current_id and not is_obsolete:
             terms[current_id] = current_name or current_id
 
-    logger.info(f"Parsed {len(terms):,} MP terms with "
-                f"{sum(len(v) for v in children.values()):,} parent-child relationships")
+    logger.info(
+        f"Parsed {len(terms):,} MP terms with "
+        f"{sum(len(v) for v in children.values()):,} parent-child relationships"
+    )
     return MPOntology(terms, dict(parents), dict(children))
 
 
 # ---------------------------------------------------------------------------
 # Gene sets and mappings
 # ---------------------------------------------------------------------------
+
 
 def load_gene_sets():
     """Load foreground and background gene sets from supplementary files.
@@ -299,10 +311,17 @@ def build_gene_mp_mappings(gp_df):
             if pd.notna(iname):
                 mp_term_names[iid] = iname
 
-    logger.info(f"Built mappings: {len(gene_to_top_mp)} genes with top-level MP, "
-                f"{len(gene_to_leaf_mp)} genes with leaf/intermediate MP, "
-                f"{len(mp_term_names)} unique MP terms")
+    logger.info(
+        f"Built mappings: {len(gene_to_top_mp)} genes with top-level MP, "
+        f"{len(gene_to_leaf_mp)} genes with leaf/intermediate MP, "
+        f"{len(mp_term_names)} unique MP terms"
+    )
 
-    return (dict(gene_to_top_mp), dict(gene_to_leaf_mp),
-            dict(gene_to_mp_by_centre), dict(mp_to_procedures),
-            mp_term_names, top_level_mp_names)
+    return (
+        dict(gene_to_top_mp),
+        dict(gene_to_leaf_mp),
+        dict(gene_to_mp_by_centre),
+        dict(mp_to_procedures),
+        mp_term_names,
+        top_level_mp_names,
+    )

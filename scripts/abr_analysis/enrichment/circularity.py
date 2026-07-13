@@ -43,7 +43,9 @@ def classify_term(mp_term_id, mp_term_name, procedures, ontology):
 
     # Check if term is under the hearing/vestibular/ear branch
     ancestors = ontology.get_all_ancestors(mp_term_id)
-    is_hearing_branch = HEARING_TOP_LEVEL in ancestors or mp_term_id == HEARING_TOP_LEVEL
+    is_hearing_branch = (
+        HEARING_TOP_LEVEL in ancestors or mp_term_id == HEARING_TOP_LEVEL
+    )
 
     # Check if any generating procedure is ABR
     is_abr_procedure = any(
@@ -86,8 +88,9 @@ def _is_acoustic_procedure(proc_id):
     return False
 
 
-def _check_procedure_based_circularity(term_id, foreground_genes,
-                                        gene_to_all_mp, gp_df):
+def _check_procedure_based_circularity(
+    term_id, foreground_genes, gene_to_all_mp, gp_df
+):
     """Check what fraction of foreground genes' evidence for this term
     comes from acoustic-dependent procedures.
 
@@ -159,8 +162,14 @@ def _check_procedure_based_circularity(term_id, foreground_genes,
     return n_total, n_acoustic, n_non_acoustic, frac
 
 
-def classify_results(hier_df, mp_to_procedures, ontology,
-                     foreground_genes=None, gene_to_all_mp=None, gp_df=None):
+def classify_results(
+    hier_df,
+    mp_to_procedures,
+    ontology,
+    foreground_genes=None,
+    gene_to_all_mp=None,
+    gp_df=None,
+):
     """Add classification column to hierarchical enrichment results.
 
     Two-pass classification:
@@ -207,8 +216,14 @@ def classify_results(hier_df, mp_to_procedures, ontology,
     hier_df["classification_reason"] = reasons
 
     # Pass 2: procedure-based reclassification
-    if foreground_genes is not None and gene_to_all_mp is not None and gp_df is not None:
-        logger.info("Pass 2: Procedure-based circularity check on 'independent' terms...")
+    if (
+        foreground_genes is not None
+        and gene_to_all_mp is not None
+        and gp_df is not None
+    ):
+        logger.info(
+            "Pass 2: Procedure-based circularity check on 'independent' terms..."
+        )
 
         reclassified = 0
         for idx, row in hier_df.iterrows():
@@ -220,15 +235,17 @@ def classify_results(hier_df, mp_to_procedures, ontology,
             term_id = row["mp_term_id"]
             term_name = row.get("mp_term_name", "")
 
-            n_total, n_acoustic, n_non_acoustic, frac = \
+            n_total, n_acoustic, n_non_acoustic, frac = (
                 _check_procedure_based_circularity(
                     term_id, foreground_genes, gene_to_all_mp, gp_df
                 )
+            )
 
             if frac >= ACOUSTIC_PROC_THRESHOLD and n_total >= 5:
                 hier_df.at[idx, "classification"] = "acoustic_dependent"
-                hier_df.at[idx, "classification_reason"] = \
+                hier_df.at[idx, "classification_reason"] = (
                     f"procedure-based ({n_acoustic}/{n_total}={frac:.0%} acoustic)"
+                )
                 reclassified += 1
                 logger.info(
                     f"  RECLASSIFIED: {term_name} "
@@ -242,7 +259,9 @@ def classify_results(hier_df, mp_to_procedures, ontology,
                     f"{n_non_acoustic} non-acoustic)"
                 )
 
-        logger.info(f"Pass 2 reclassified {reclassified} terms from independent → acoustic_dependent")
+        logger.info(
+            f"Pass 2 reclassified {reclassified} terms from independent → acoustic_dependent"
+        )
 
     # Log final summary
     counts = hier_df[hier_df["significant"]]["classification"].value_counts()
@@ -255,6 +274,4 @@ def get_acoustic_term_ids(hier_df):
     """Extract the set of MP term IDs classified as acoustic-dependent."""
     if "classification" not in hier_df.columns:
         return set()
-    return set(
-        hier_df[hier_df["classification"] == "acoustic_dependent"]["mp_term_id"]
-    )
+    return set(hier_df[hier_df["classification"] == "acoustic_dependent"]["mp_term_id"])

@@ -5,11 +5,12 @@ This module handles loading and initial filtering of IMPC ABR data for
 audiometric phenotype discovery using Gaussian Mixture Models.
 """
 
-import pandas as pd
-import numpy as np
+import logging
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
-import logging
+
+import numpy as np
+import pandas as pd
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -33,17 +34,26 @@ class IMPCABRLoader:
         """
         self.data_path = Path(data_path)
         self.abr_columns = [
-            '6kHz-evoked ABR Threshold',
-            '12kHz-evoked ABR Threshold',
-            '18kHz-evoked ABR Threshold',
-            '24kHz-evoked ABR Threshold',
-            '30kHz-evoked ABR Threshold'
+            "6kHz-evoked ABR Threshold",
+            "12kHz-evoked ABR Threshold",
+            "18kHz-evoked ABR Threshold",
+            "24kHz-evoked ABR Threshold",
+            "30kHz-evoked ABR Threshold",
         ]
         self.metadata_columns = [
-            'specimen_id', 'gene_symbol', 'allele_symbol', 'zygosity',
-            'sex', 'age_in_weeks', 'weight', 'phenotyping_center',
-            'pipeline_name', 'genetic_background', 'biological_sample_group',
-            'metadata_Equipment manufacturer', 'metadata_Equipment model'
+            "specimen_id",
+            "gene_symbol",
+            "allele_symbol",
+            "zygosity",
+            "sex",
+            "age_in_weeks",
+            "weight",
+            "phenotyping_center",
+            "pipeline_name",
+            "genetic_background",
+            "biological_sample_group",
+            "metadata_Equipment manufacturer",
+            "metadata_Equipment model",
         ]
 
     def load_raw_data(self) -> pd.DataFrame:
@@ -63,11 +73,11 @@ class IMPCABRLoader:
         logger.info(f"Loading data from {self.data_path}")
 
         # Determine file type and load accordingly
-        if self.data_path.suffix.lower() == '.csv':
+        if self.data_path.suffix.lower() == ".csv":
             df = pd.read_csv(self.data_path)
-        elif self.data_path.suffix.lower() in ['.xlsx', '.xls']:
+        elif self.data_path.suffix.lower() in [".xlsx", ".xls"]:
             df = pd.read_excel(self.data_path)
-        elif self.data_path.suffix.lower() == '.parquet':
+        elif self.data_path.suffix.lower() == ".parquet":
             df = pd.read_parquet(self.data_path)
         else:
             # Try CSV as default
@@ -84,7 +94,9 @@ class IMPCABRLoader:
         if missing_meta:
             logger.warning(f"Missing metadata columns: {missing_meta}")
             # Keep only available metadata columns
-            self.metadata_columns = [col for col in self.metadata_columns if col in df.columns]
+            self.metadata_columns = [
+                col for col in self.metadata_columns if col in df.columns
+            ]
 
         return df
 
@@ -104,7 +116,9 @@ class IMPCABRLoader:
         # Filter 1: Complete ABR data (all 5 frequencies)
         complete_abr = df[self.abr_columns].notna().all(axis=1)
         df = df[complete_abr].copy()
-        logger.info(f"After complete ABR filter: {len(df)} rows ({initial_count - len(df)} removed)")
+        logger.info(
+            f"After complete ABR filter: {len(df)} rows ({initial_count - len(df)} removed)"
+        )
 
         # Filter 2: Physiologically plausible thresholds (0-100 dB SPL)
         valid_thresholds = True
@@ -118,7 +132,7 @@ class IMPCABRLoader:
         # Filter 3: Age filter removed - no age restrictions applied
 
         # Filter 4: Remove rows with missing critical metadata
-        critical_cols = ['sex', 'phenotyping_center', 'genetic_background']
+        critical_cols = ["sex", "phenotyping_center", "genetic_background"]
         available_critical = [col for col in critical_cols if col in df.columns]
 
         for col in available_critical:
@@ -127,9 +141,9 @@ class IMPCABRLoader:
         logger.info(f"Final filtered dataset: {len(df)} rows")
         return df
 
-    def create_experimental_groups(self, df: pd.DataFrame,
-                                 min_mutants: int = 3,
-                                 min_controls: int = 20) -> Dict[str, pd.DataFrame]:
+    def create_experimental_groups(
+        self, df: pd.DataFrame, min_mutants: int = 3, min_controls: int = 20
+    ) -> Dict[str, pd.DataFrame]:
         """
         Create experimental groups with matched controls.
 
@@ -144,37 +158,53 @@ class IMPCABRLoader:
         logger.info("Creating experimental groups with matched controls")
 
         # Identify control mice (wild-type)
-        if 'biological_sample_group' in df.columns:
-            controls = df[df['biological_sample_group'] == 'control'].copy()
+        if "biological_sample_group" in df.columns:
+            controls = df[df["biological_sample_group"] == "control"].copy()
         else:
             # Fallback: assume baseline/wild-type based on gene_symbol
-            controls = df[df['gene_symbol'].isna()].copy()
+            controls = df[df["gene_symbol"].isna()].copy()
 
         # Identify mutant groups
-        mutant_mice = df[df['biological_sample_group'] != 'control'].copy() if 'biological_sample_group' in df.columns else df[df['gene_symbol'].notna()].copy()
+        mutant_mice = (
+            df[df["biological_sample_group"] != "control"].copy()
+            if "biological_sample_group" in df.columns
+            else df[df["gene_symbol"].notna()].copy()
+        )
 
         experimental_groups = {}
 
         # Group mutants by gene, center, pipeline, and equipment
-        grouping_cols = ['gene_symbol', 'phenotyping_center', 'pipeline_name', 'genetic_background']
-        available_grouping = [col for col in grouping_cols if col in mutant_mice.columns]
+        grouping_cols = [
+            "gene_symbol",
+            "phenotyping_center",
+            "pipeline_name",
+            "genetic_background",
+        ]
+        available_grouping = [
+            col for col in grouping_cols if col in mutant_mice.columns
+        ]
 
-        if 'metadata_Equipment manufacturer' in mutant_mice.columns:
-            available_grouping.append('metadata_Equipment manufacturer')
-        if 'metadata_Equipment model' in mutant_mice.columns:
-            available_grouping.append('metadata_Equipment model')
+        if "metadata_Equipment manufacturer" in mutant_mice.columns:
+            available_grouping.append("metadata_Equipment manufacturer")
+        if "metadata_Equipment model" in mutant_mice.columns:
+            available_grouping.append("metadata_Equipment model")
 
         for group_id, mutant_group in mutant_mice.groupby(available_grouping):
             if len(mutant_group) < min_mutants:
                 continue
 
             # Create matching criteria for controls
-            match_dict = dict(zip(available_grouping, group_id if isinstance(group_id, tuple) else [group_id]))
+            match_dict = dict(
+                zip(
+                    available_grouping,
+                    group_id if isinstance(group_id, tuple) else [group_id],
+                )
+            )
 
             # Find matching controls
             matched_controls = controls.copy()
             for col, value in match_dict.items():
-                if col != 'gene_symbol':  # Don't match on gene for controls
+                if col != "gene_symbol":  # Don't match on gene for controls
                     matched_controls = matched_controls[matched_controls[col] == value]
 
             if len(matched_controls) < min_controls:
@@ -182,14 +212,17 @@ class IMPCABRLoader:
 
             # Combine mutants and matched controls
             group_data = pd.concat([mutant_group, matched_controls], ignore_index=True)
-            group_key = f"{match_dict['gene_symbol']}_{match_dict['phenotyping_center']}"
+            group_key = (
+                f"{match_dict['gene_symbol']}_{match_dict['phenotyping_center']}"
+            )
             experimental_groups[group_key] = group_data
 
         logger.info(f"Created {len(experimental_groups)} experimental groups")
         return experimental_groups
 
-    def load_and_prepare(self, min_mutants: int = 3,
-                        min_controls: int = 20) -> Tuple[pd.DataFrame, Dict[str, pd.DataFrame]]:
+    def load_and_prepare(
+        self, min_mutants: int = 3, min_controls: int = 20
+    ) -> Tuple[pd.DataFrame, Dict[str, pd.DataFrame]]:
         """
         Complete loading and preparation pipeline.
 
@@ -207,28 +240,32 @@ class IMPCABRLoader:
         df = self.apply_quality_filters(df)
 
         # Create experimental groups
-        experimental_groups = self.create_experimental_groups(df, min_mutants, min_controls)
+        experimental_groups = self.create_experimental_groups(
+            df, min_mutants, min_controls
+        )
 
         # Log summary statistics
         self._log_summary_stats(df, experimental_groups)
 
         return df, experimental_groups
 
-    def _log_summary_stats(self, df: pd.DataFrame, experimental_groups: Dict[str, pd.DataFrame]):
+    def _log_summary_stats(
+        self, df: pd.DataFrame, experimental_groups: Dict[str, pd.DataFrame]
+    ):
         """Log summary statistics about the loaded data."""
         logger.info("=== Data Loading Summary ===")
         logger.info(f"Total mice: {len(df)}")
 
-        if 'biological_sample_group' in df.columns:
-            sample_counts = df['biological_sample_group'].value_counts()
+        if "biological_sample_group" in df.columns:
+            sample_counts = df["biological_sample_group"].value_counts()
             logger.info(f"Sample groups: {dict(sample_counts)}")
 
-        if 'sex' in df.columns:
-            sex_counts = df['sex'].value_counts()
+        if "sex" in df.columns:
+            sex_counts = df["sex"].value_counts()
             logger.info(f"Sex distribution: {dict(sex_counts)}")
 
-        if 'phenotyping_center' in df.columns:
-            center_counts = df['phenotyping_center'].value_counts()
+        if "phenotyping_center" in df.columns:
+            center_counts = df["phenotyping_center"].value_counts()
             logger.info(f"Centers: {len(center_counts)} centers with mice")
 
         if experimental_groups:
@@ -239,7 +276,9 @@ class IMPCABRLoader:
         logger.info("=== End Summary ===")
 
 
-def load_impc_data(data_path: str, **kwargs) -> Tuple[pd.DataFrame, Dict[str, pd.DataFrame]]:
+def load_impc_data(
+    data_path: str, **kwargs
+) -> Tuple[pd.DataFrame, Dict[str, pd.DataFrame]]:
     """
     Convenience function to load IMPC ABR data.
 
@@ -267,7 +306,11 @@ if __name__ == "__main__":
 
     print(f"Loaded {len(df)} mice in {len(groups)} experimental groups")
     print("First few rows of ABR data:")
-    abr_cols = ['6kHz-evoked ABR Threshold', '12kHz-evoked ABR Threshold',
-                '18kHz-evoked ABR Threshold', '24kHz-evoked ABR Threshold',
-                '30kHz-evoked ABR Threshold']
+    abr_cols = [
+        "6kHz-evoked ABR Threshold",
+        "12kHz-evoked ABR Threshold",
+        "18kHz-evoked ABR Threshold",
+        "24kHz-evoked ABR Threshold",
+        "30kHz-evoked ABR Threshold",
+    ]
     print(df[abr_cols].head())

@@ -25,28 +25,48 @@ Version: 1.0.1
 """
 
 from abc import ABC, abstractmethod
+
 import numpy as np
 from scipy import stats
-from sklearn.mixture import GaussianMixture
 from sklearn.covariance import EmpiricalCovariance
+from sklearn.mixture import GaussianMixture
+
 
 class BaseDistribution(ABC):
     """Abstract base class for ABR profile distributions."""
 
     @abstractmethod
     def fit(self, profiles):
-        """Fit distribution to control profiles."""
+        """Fit the distribution to a set of control profiles.
+
+        Args:
+            profiles (numpy.ndarray): Array of shape (n_samples, n_frequencies).
+        """
         pass
 
     @abstractmethod
     def score(self, profile):
-        """Calculate log probability of profile."""
+        """Return the log probability of a single profile.
+
+        Args:
+            profile (numpy.ndarray): A single ABR profile.
+
+        Returns:
+            float: The log probability under the fitted distribution.
+        """
         pass
+
 
 class RobustMultivariateGaussian(BaseDistribution):
     """Robust Multivariate Gaussian distribution model with error handling."""
 
     def __init__(self, min_cov_value=1e-8):
+        """Initialise the estimator.
+
+        Args:
+            min_cov_value (float): Floor applied to the smallest covariance
+                eigenvalue to keep the covariance matrix positive-definite.
+        """
         self.mean = None
         self.cov = None
         self.min_cov_value = min_cov_value
@@ -54,12 +74,24 @@ class RobustMultivariateGaussian(BaseDistribution):
         self._cov_estimator = EmpiricalCovariance(assume_centered=False)
 
     def _validate_and_clean_data(self, profiles):
-        """Validate and clean input data."""
+        """Validate input and drop rows containing NaN or infinite values.
+
+        Args:
+            profiles (numpy.ndarray): Candidate 2D array of ABR profiles.
+
+        Returns:
+            numpy.ndarray: The profiles with invalid rows removed.
+
+        Raises:
+            ValueError: If the input is not 2D or no valid rows remain.
+        """
         if len(profiles.shape) != 2:
             raise ValueError("Profiles must be 2D array")
 
         # Remove any rows with NaN or inf values
-        clean_profiles = profiles[~np.any(np.isnan(profiles) | np.isinf(profiles), axis=1)]
+        clean_profiles = profiles[
+            ~np.any(np.isnan(profiles) | np.isinf(profiles), axis=1)
+        ]
 
         if len(clean_profiles) == 0:
             raise ValueError("No valid profiles after cleaning")
@@ -67,19 +99,36 @@ class RobustMultivariateGaussian(BaseDistribution):
         return clean_profiles
 
     def _preprocess_data(self, profiles):
-        """Scale the data to help with numerical stability."""
+        """Standardise profiles per frequency for numerical stability.
+
+        Args:
+            profiles (numpy.ndarray): Cleaned ABR profiles.
+
+        Returns:
+            numpy.ndarray: Z-scored profiles (the fitted scaler is stored on
+            ``self.scaler``).
+        """
         # Simple standardization
         self.scaler = {
-            'mean': np.mean(profiles, axis=0),
-            'std': np.std(profiles, axis=0)
+            "mean": np.mean(profiles, axis=0),
+            "std": np.std(profiles, axis=0),
         }
-        self.scaler['std'][self.scaler['std'] == 0] = 1  # Avoid division by zero
+        self.scaler["std"][self.scaler["std"] == 0] = 1  # Avoid division by zero
 
-        scaled_profiles = (profiles - self.scaler['mean']) / self.scaler['std']
+        scaled_profiles = (profiles - self.scaler["mean"]) / self.scaler["std"]
         return scaled_profiles
 
     def fit(self, profiles):
-        """Fit MVN to control profiles with robust covariance estimation."""
+        """Fit the multivariate Gaussian with robust covariance estimation.
+
+        Cleans and standardises the profiles, estimates the mean and covariance,
+        and enforces positive-definiteness (falling back to a diagonal
+        covariance if estimation fails).
+
+        Args:
+            profiles (numpy.ndarray): Control ABR profiles of shape
+                (n_samples, n_frequencies).
+        """
         clean_profiles = self._validate_and_clean_data(profiles)
         scaled_profiles = self._preprocess_data(clean_profiles)
 
@@ -102,33 +151,51 @@ class RobustMultivariateGaussian(BaseDistribution):
             self.cov = np.diag(np.var(scaled_profiles, axis=0))
 
     def score(self, profile):
-        """Calculate log probability of profile."""
+        """Calculate the log probability of a single profile.
+
+        Args:
+            profile (numpy.ndarray): A single ABR profile.
+
+        Returns:
+            float: Log probability under the fitted distribution, or ``-inf``
+            for invalid input or on numerical failure.
+        """
         if np.any(np.isnan(profile)) or np.any(np.isinf(profile)):
             return -np.inf
 
         # Scale the profile
-        scaled_profile = (profile - self.scaler['mean']) / self.scaler['std']
+        scaled_profile = (profile - self.scaler["mean"]) / self.scaler["std"]
 
         try:
             log_prob = stats.multivariate_normal.logpdf(
-                scaled_profile,
-                mean=self.mean,
-                cov=self.cov,
-                allow_singular=True
+                scaled_profile, mean=self.mean, cov=self.cov, allow_singular=True
             )
             return log_prob
-        except (ValueError, np.linalg.LinAlgError, RuntimeError,
-                OverflowError, ZeroDivisionError) as e:
+        except (
+            ValueError,
+            np.linalg.LinAlgError,
+            RuntimeError,
+            OverflowError,
+            ZeroDivisionError,
+        ) as e:
             print(f"Warning: Error calculating log probability: {e}")
             return -np.inf
 
     def mahalanobis(self, profile):
-        """Calculate Mahalanobis distance for a profile."""
+        """Calculate the Mahalanobis distance of a profile from the mean.
+
+        Args:
+            profile (numpy.ndarray): A single ABR profile.
+
+        Returns:
+            float: The Mahalanobis distance, or ``inf`` for invalid input or on
+            numerical failure.
+        """
         if np.any(np.isnan(profile)) or np.any(np.isinf(profile)):
             return np.inf
 
         # Scale the profile
-        scaled_profile = (profile - self.scaler['mean']) / self.scaler['std']
+        scaled_profile = (profile - self.scaler["mean"]) / self.scaler["std"]
 
         try:
             # Calculate Mahalanobis distance
@@ -136,7 +203,12 @@ class RobustMultivariateGaussian(BaseDistribution):
             inv_cov = np.linalg.pinv(self.cov)  # Use pseudoinverse for stability
             dist = np.sqrt(diff @ inv_cov @ diff)
             return dist
-        except (ValueError, np.linalg.LinAlgError, RuntimeError,
-                OverflowError, ZeroDivisionError) as e:
+        except (
+            ValueError,
+            np.linalg.LinAlgError,
+            RuntimeError,
+            OverflowError,
+            ZeroDivisionError,
+        ) as e:
             print(f"Warning: Error calculating Mahalanobis distance: {e}")
             return np.inf

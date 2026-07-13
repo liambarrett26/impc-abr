@@ -9,9 +9,10 @@ Usage:
     python scripts/abr_utils/plot_all_bootstrap_results.py results/bootstrap_incremental_Pank2
 """
 
-import sys
 import subprocess
+import sys
 from pathlib import Path
+
 
 def plot_all_models(bootstrap_dir):
     """Plot all models in a bootstrap results directory."""
@@ -34,9 +35,11 @@ def plot_all_models(bootstrap_dir):
 
         try:
             # Run enhanced plotter
-            result = subprocess.run([
-                "python", "scripts/abr_utils/enhanced_abr_plotter.py", str(model_dir)
-            ], capture_output=True, text=True)
+            result = subprocess.run(
+                ["python", "scripts/abr_utils/enhanced_abr_plotter.py", str(model_dir)],
+                capture_output=True,
+                text=True,
+            )
 
             if result.returncode == 0:
                 print(f"  ✅ SUCCESS: Plots created in {model_dir}/enhanced_plots/")
@@ -48,10 +51,15 @@ def plot_all_models(bootstrap_dir):
 
     print(f"\n🎨 Batch plotting complete! Processed {len(model_dirs)} models.")
 
+
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python scripts/plot_all_bootstrap_results.py <bootstrap_directory>")
-        print("Example: python scripts/plot_all_bootstrap_results.py results/bootstrap_incremental_Pank2")
+        print(
+            "Usage: python scripts/plot_all_bootstrap_results.py <bootstrap_directory>"
+        )
+        print(
+            "Example: python scripts/plot_all_bootstrap_results.py results/bootstrap_incremental_Pank2"
+        )
         sys.exit(1)
 
     plot_all_models(sys.argv[1])

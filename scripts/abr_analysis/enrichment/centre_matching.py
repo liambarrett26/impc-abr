@@ -51,6 +51,7 @@ def build_centre_matched_mappings(gp_df, gene_centres, term_level="top"):
         else:
             # Leaf and intermediate terms
             import pandas as pd
+
             leaf_id = row.get("mp_term_id")
             if pd.notna(leaf_id):
                 gene_to_terms[gene].add(leaf_id)
@@ -61,7 +62,9 @@ def build_centre_matched_mappings(gp_df, gene_centres, term_level="top"):
             if isinstance(int_ids, list):
                 gene_to_terms[gene].update(int_ids)
 
-    logger.info(f"Centre matching: {matched:,} matched, {unmatched:,} unmatched assertions")
+    logger.info(
+        f"Centre matching: {matched:,} matched, {unmatched:,} unmatched assertions"
+    )
     logger.info(f"Genes with centre-matched MP terms: {len(gene_to_terms)}")
 
     return dict(gene_to_terms)

@@ -29,6 +29,7 @@ import argparse
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
@@ -47,8 +48,16 @@ FREQ_LABELS = ["6", "12", "18", "24", "30"]
 # Colourblind-friendly qualitative palette (Paul Tol) extended to 11 entries
 # so every centre is visually distinguishable.
 CENTRE_PALETTE = [
-    "#4477AA", "#EE6677", "#228833", "#CCBB44", "#66CCEE",
-    "#AA3377", "#BBBBBB", "#EE8866", "#44BB99", "#AA4499",
+    "#4477AA",
+    "#EE6677",
+    "#228833",
+    "#CCBB44",
+    "#66CCEE",
+    "#AA3377",
+    "#BBBBBB",
+    "#EE8866",
+    "#44BB99",
+    "#AA4499",
     "#332288",
 ]
 
@@ -111,20 +120,34 @@ def plot_faceted(summaries, output_base, procedure=None, ncols=4):
     nrows = int(np.ceil(n / ncols))
 
     fig, axes = plt.subplots(
-        nrows, ncols, figsize=(3.0 * ncols, 2.6 * nrows),
-        sharex=True, sharey=True,
+        nrows,
+        ncols,
+        figsize=(3.0 * ncols, 2.6 * nrows),
+        sharex=True,
+        sharey=True,
     )
     axes = np.atleast_1d(axes).ravel()
 
     for ax, centre in zip(axes, centres):
         s = summaries[centre]
         ax.fill_between(
-            x, s["mean"] - s["ci"], s["mean"] + s["ci"],
-            color=GREY_LIGHT, alpha=0.5, linewidth=0, zorder=1,
+            x,
+            s["mean"] - s["ci"],
+            s["mean"] + s["ci"],
+            color=GREY_LIGHT,
+            alpha=0.5,
+            linewidth=0,
+            zorder=1,
         )
         ax.plot(
-            x, s["mean"], color="black", linewidth=1.6, marker="o",
-            markersize=4, markeredgecolor="white", markeredgewidth=0.5,
+            x,
+            s["mean"],
+            color="black",
+            linewidth=1.6,
+            marker="o",
+            markersize=4,
+            markeredgecolor="white",
+            markeredgewidth=0.5,
             zorder=3,
         )
         ax.set_title(f"{centre} (n={s['n']})", fontsize=10, color=TEXT_DARK)
@@ -167,13 +190,25 @@ def plot(summaries, output_base, procedure=None):
     for i, (centre, s) in enumerate(summaries.items()):
         colour = CENTRE_PALETTE[i % len(CENTRE_PALETTE)]
         ax.fill_between(
-            x, s["mean"] - s["ci"], s["mean"] + s["ci"],
-            color=colour, alpha=0.12, linewidth=0, zorder=1,
+            x,
+            s["mean"] - s["ci"],
+            s["mean"] + s["ci"],
+            color=colour,
+            alpha=0.12,
+            linewidth=0,
+            zorder=1,
         )
         ax.plot(
-            x, s["mean"], color=colour, linewidth=2.0, marker="o",
-            markersize=5, markeredgecolor="white", markeredgewidth=0.6,
-            label=f"{centre} (n={s['n']})", zorder=3,
+            x,
+            s["mean"],
+            color=colour,
+            linewidth=2.0,
+            marker="o",
+            markersize=5,
+            markeredgecolor="white",
+            markeredgewidth=0.6,
+            label=f"{centre} (n={s['n']})",
+            zorder=3,
         )
 
     ax.set_xticks(x)
@@ -190,8 +225,12 @@ def plot(summaries, output_base, procedure=None):
     ax.set_title(title, fontsize=13, color=TEXT_DARK, pad=12)
 
     ax.legend(
-        title="Centre", loc="center left", bbox_to_anchor=(1.02, 0.5),
-        frameon=False, fontsize=9, title_fontsize=10,
+        title="Centre",
+        loc="center left",
+        bbox_to_anchor=(1.02, 0.5),
+        frameon=False,
+        fontsize=9,
+        title_fontsize=10,
     )
     for spine in ("top", "right"):
         ax.spines[spine].set_visible(False)
@@ -211,29 +250,43 @@ def plot(summaries, output_base, procedure=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--data", default="data/processed/abr_full_data.csv",
-                        help="Path to ABR data CSV.")
-    parser.add_argument("--output",
-                        default="docs/figures/control_audiograms_by_centre",
-                        help="Output path base (no extension).")
-    parser.add_argument("--procedure", default=None,
-                        help="Restrict to one procedure_stable_id "
-                             "(e.g. IMPC_ABR_001). Default: all controls.")
-    parser.add_argument("--faceted", action="store_true",
-                        help="One subplot per centre (black/grey, no legend) "
-                             "instead of a single overlaid panel.")
+    parser.add_argument(
+        "--data",
+        default="data/processed/abr_full_data.csv",
+        help="Path to ABR data CSV.",
+    )
+    parser.add_argument(
+        "--output",
+        default="docs/figures/control_audiograms_by_centre",
+        help="Output path base (no extension).",
+    )
+    parser.add_argument(
+        "--procedure",
+        default=None,
+        help="Restrict to one procedure_stable_id "
+        "(e.g. IMPC_ABR_001). Default: all controls.",
+    )
+    parser.add_argument(
+        "--faceted",
+        action="store_true",
+        help="One subplot per centre (black/grey, no legend) "
+        "instead of a single overlaid panel.",
+    )
     args = parser.parse_args()
 
     ctrl = load_controls(args.data, procedure=args.procedure)
     summaries = summarise_by_centre(ctrl)
 
     total_n = sum(s["n"] for s in summaries.values())
-    print(f"Controls (complete 5-freq): {total_n} across "
-          f"{len(summaries)} centres"
-          + (f" [{args.procedure}]" if args.procedure else ""))
+    print(
+        f"Controls (complete 5-freq): {total_n} across "
+        f"{len(summaries)} centres" + (f" [{args.procedure}]" if args.procedure else "")
+    )
     for centre, s in summaries.items():
-        print(f"  {centre:14s} n={s['n']:5d}  "
-              f"mean={np.array2string(s['mean'], precision=1)}")
+        print(
+            f"  {centre:14s} n={s['n']:5d}  "
+            f"mean={np.array2string(s['mean'], precision=1)}"
+        )
 
     if args.faceted:
         plot_faceted(summaries, args.output, procedure=args.procedure)

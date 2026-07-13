@@ -23,4 +23,4 @@ version: 1.0.0
 from .dimensionality.pca import AudiogramPCA
 
 # Package metadata
-__version__ = '1.0.0'
+__version__ = "1.0.0"

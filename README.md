@@ -41,12 +41,11 @@ impc-abr/
 │   │   │   ├── data/       # Data loading and control matching
 │   │   │   ├── models/     # Bayesian and distribution models
 │   │   │   └── analysis/   # Batch processing and parallel execution
-│   │   └── tests/          # Gene-specific test cases
-│   └── abr_clustering/     # GMM clustering
-│       ├── gmm/            # GMM pipeline, analysis, and visualisation
-│       ├── clustering/     # Core GMM implementation
-│       ├── dimensionality/ # PCA for audiogram feature reduction
-│       └── utils/          # Data loading utilities
+│   │   ├── enrichment/     # Phenotype enrichment analysis
+│   │   └── tests/          # Unit tests
+│   ├── abr_clustering/     # GMM clustering
+│   │   └── gmm/            # GMM pipeline, analysis, and visualisation
+│   └── abr_utils/          # Plotting and utility scripts
 ├── docs/                   # Project documentation
 ├── environment.yml         # Conda environment specification
 └── README.md

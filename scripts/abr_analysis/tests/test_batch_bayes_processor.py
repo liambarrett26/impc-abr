@@ -29,12 +29,13 @@ Version: 1.0.1
 """
 
 import sys
-from pathlib import Path
-from datetime import datetime
 import traceback
-import pandas as pd
-import numpy as np
+from datetime import datetime
+from pathlib import Path
+
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
 # Add the package directory to the path
 PACKAGE_DIR = str(Path(__file__).parent.parent)
@@ -42,14 +43,16 @@ sys.path.insert(0, PACKAGE_DIR)
 
 from abr_analysis.analysis.batch_bayes_processor import GeneBayesianAnalyzer
 
+
 def format_gene_list(genes, columns=3):
     """Format a list of genes into columns for pretty printing."""
     genes = sorted(list(genes))
     rows = []
     for i in range(0, len(genes), columns):
-        row = genes[i:i + columns]
-        rows.append('\t'.join(str(g).ljust(20) for g in row))
-    return '\n'.join(rows)
+        row = genes[i : i + columns]
+        rows.append("\t".join(str(g).ljust(20) for g in row))
+    return "\n".join(rows)
+
 
 def run_batch_bayesian_analysis(data_path, output_dir="results/bayes", min_bf=3.0):
     """Run full batch Bayesian analysis and save results."""
@@ -74,18 +77,18 @@ def run_batch_bayesian_analysis(data_path, output_dir="results/bayes", min_bf=3.
     # Compare with confirmed and candidate genes
     if not confirmed_genes_path.exists() or not candidate_genes_path.exists():
         print(f"Warning: Gene list files not found at {data_dir}")
-        print("Expected files: multivariate_confirmed_deafness_genes.txt, multivariate_candidate_deafness_genes.txt")
+        print(
+            "Expected files: multivariate_confirmed_deafness_genes.txt, multivariate_candidate_deafness_genes.txt"
+        )
         comparisons = None
     else:
         comparisons = analyzer.compare_with_known_genes(
-            confirmed_genes_path,
-            candidate_genes_path,
-            min_bf=min_bf
+            confirmed_genes_path, candidate_genes_path, min_bf=min_bf
         )
 
     # Generate report
     report_path = output_dir / "analysis_report.txt"
-    with open(report_path, 'w', encoding='utf-8') as f:
+    with open(report_path, "w", encoding="utf-8") as f:
         f.write("ABR Bayesian Analysis Report\n")
         f.write("==========================\n\n")
 
@@ -97,8 +100,8 @@ def run_batch_bayesian_analysis(data_path, output_dir="results/bayes", min_bf=3.
         # Count experimental groups analyzed
         group_count = 0
         for _, row in analyzer.results.iterrows():
-            for analysis_type in ['all', 'male', 'female']:
-                if not pd.isna(row.get(f'{analysis_type}_bayes_factor')):
+            for analysis_type in ["all", "male", "female"]:
+                if not pd.isna(row.get(f"{analysis_type}_bayes_factor")):
                     group_count += 1
                     break
 
@@ -111,21 +114,21 @@ def run_batch_bayesian_analysis(data_path, output_dir="results/bayes", min_bf=3.
 
         if comparisons:
             # Load gene lists to get counts
-            with open(confirmed_genes_path, 'r', encoding='utf-8') as cf:
+            with open(confirmed_genes_path, "r", encoding="utf-8") as cf:
                 confirmed_count = sum(1 for line in cf if line.strip())
-            with open(candidate_genes_path, 'r', encoding='utf-8') as cf:
+            with open(candidate_genes_path, "r", encoding="utf-8") as cf:
                 candidate_count = sum(1 for line in cf if line.strip())
 
             f.write(f"Confirmed deafness genes: {confirmed_count}\n")
             f.write(f"Candidate deafness genes: {candidate_count}\n\n")
 
         # Resusts for each analysis type
-        for analysis_type in ['all', 'male', 'female']:
+        for analysis_type in ["all", "male", "female"]:
             f.write(f"\n{analysis_type.upper()} ANALYSIS\n")
             f.write("-" * (len(analysis_type) + 9) + "\n")
 
             # Count significant genes
-            sig_count = sum(results[f'{analysis_type}_bayes_factor'] > min_bf)
+            sig_count = sum(results[f"{analysis_type}_bayes_factor"] > min_bf)
             f.write(f"Total significant genes: {sig_count}\n\n")
 
             if comparisons:
@@ -133,24 +136,32 @@ def run_batch_bayesian_analysis(data_path, output_dir="results/bayes", min_bf=3.
 
                 # Write confirmed gene results
                 f.write("CONFIRMED GENES:\n")
-                f.write(f"Found: {len(comp['found_in_confirmed'])} of {confirmed_count} ({len(comp['found_in_confirmed'])/confirmed_count*100:.1f}%)\n")
-                f.write(f"Missed: {len(comp['missed_confirmed'])} of {confirmed_count} ({len(comp['missed_confirmed'])/confirmed_count*100:.1f}%)\n\n")
+                f.write(
+                    f"Found: {len(comp['found_in_confirmed'])} of {confirmed_count} ({len(comp['found_in_confirmed'])/confirmed_count*100:.1f}%)\n"
+                )
+                f.write(
+                    f"Missed: {len(comp['missed_confirmed'])} of {confirmed_count} ({len(comp['missed_confirmed'])/confirmed_count*100:.1f}%)\n\n"
+                )
 
                 f.write("Found confirmed genes:\n")
-                f.write(format_gene_list(comp['found_in_confirmed']))
+                f.write(format_gene_list(comp["found_in_confirmed"]))
                 f.write("\n\nMissed confirmed genes:\n")
-                f.write(format_gene_list(comp['missed_confirmed']))
+                f.write(format_gene_list(comp["missed_confirmed"]))
                 f.write("\n\n")
 
                 # Write candidate gene results
                 f.write("CANDIDATE GENES:\n")
-                f.write(f"Found: {len(comp['found_in_candidate'])} of {candidate_count} ({len(comp['found_in_candidate'])/candidate_count*100:.1f}%)\n")
-                f.write(f"Missed: {len(comp['missed_candidate'])} of {candidate_count} ({len(comp['missed_candidate'])/candidate_count*100:.1f}%)\n\n")
+                f.write(
+                    f"Found: {len(comp['found_in_candidate'])} of {candidate_count} ({len(comp['found_in_candidate'])/candidate_count*100:.1f}%)\n"
+                )
+                f.write(
+                    f"Missed: {len(comp['missed_candidate'])} of {candidate_count} ({len(comp['missed_candidate'])/candidate_count*100:.1f}%)\n\n"
+                )
 
                 f.write("Found candidate genes:\n")
-                f.write(format_gene_list(comp['found_in_candidate']))
+                f.write(format_gene_list(comp["found_in_candidate"]))
                 f.write("\n\nMissed candidate genes:\n")
-                f.write(format_gene_list(comp['missed_candidate']))
+                f.write(format_gene_list(comp["missed_candidate"]))
                 f.write("\n\n")
 
                 # Write novel gene results
@@ -159,34 +170,40 @@ def run_batch_bayesian_analysis(data_path, output_dir="results/bayes", min_bf=3.
 
                 f.write("Novel genes:\n")
                 f.write("Novel genes:\n")
-                f.write(format_gene_list(comp['novel']))
+                f.write(format_gene_list(comp["novel"]))
                 f.write("\n\n")
 
         # Evidence level breakdown
         f.write("\nEvidence Level Breakdown\n")
         f.write("----------------------\n")
-        evidence_counts = results['all_evidence'].value_counts()
+        evidence_counts = results["all_evidence"].value_counts()
         for evidence, count in evidence_counts.items():
             f.write(f"{evidence}: {count} genes ({count/len(results)*100:.1f}%)\n")
 
         # Sample size statistics
         f.write("\nSample Size Statistics\n")
         f.write("--------------------\n")
-        for analysis_type in ['all', 'male', 'female']:
+        for analysis_type in ["all", "male", "female"]:
             f.write(f"\n{analysis_type.upper()}:\n")
-            f.write(f"Mean mutants per gene: {results[f'{analysis_type}_n_mutants'].mean():.1f}\n")
-            f.write(f"Mean controls per gene: {results[f'{analysis_type}_n_controls'].mean():.1f}\n")
+            f.write(
+                f"Mean mutants per gene: {results[f'{analysis_type}_n_mutants'].mean():.1f}\n"
+            )
+            f.write(
+                f"Mean controls per gene: {results[f'{analysis_type}_n_controls'].mean():.1f}\n"
+            )
 
         # Center distribution
         f.write("\nCenter Distribution\n")
         f.write("-----------------\n")
         center_counts = {}
         for _, row in results.iterrows():
-            center = row.get('all_center')
+            center = row.get("all_center")
             if not pd.isna(center):
                 center_counts[center] = center_counts.get(center, 0) + 1
 
-        for center, count in sorted(center_counts.items(), key=lambda x: x[1], reverse=True):
+        for center, count in sorted(
+            center_counts.items(), key=lambda x: x[1], reverse=True
+        ):
             if count > 0:
                 f.write(f"{center}: {count} genes\n")
 
@@ -203,12 +220,18 @@ def run_batch_bayesian_analysis(data_path, output_dir="results/bayes", min_bf=3.
     print("-" * 50)
 
     if comparisons:
-        for analysis_type in ['all', 'male', 'female']:
+        for analysis_type in ["all", "male", "female"]:
             comp = comparisons[analysis_type]
             print(f"\n{analysis_type.upper()}:")
-            print(f"Total significant: {sum(results[f'{analysis_type}_bayes_factor'] > min_bf)}")
-            print(f"Found in confirmed: {len(comp['found_in_confirmed'])} of {confirmed_count} ({len(comp['found_in_confirmed'])/confirmed_count*100:.1f}%)")
-            print(f"Found in candidate: {len(comp['found_in_candidate'])} of {candidate_count} ({len(comp['found_in_candidate'])/candidate_count*100:.1f}%)")
+            print(
+                f"Total significant: {sum(results[f'{analysis_type}_bayes_factor'] > min_bf)}"
+            )
+            print(
+                f"Found in confirmed: {len(comp['found_in_confirmed'])} of {confirmed_count} ({len(comp['found_in_confirmed'])/confirmed_count*100:.1f}%)"
+            )
+            print(
+                f"Found in candidate: {len(comp['found_in_candidate'])} of {candidate_count} ({len(comp['found_in_candidate'])/candidate_count*100:.1f}%)"
+            )
             print(f"Novel: {len(comp['novel'])}")
 
     # Print evidence breakdown
@@ -219,12 +242,13 @@ def run_batch_bayesian_analysis(data_path, output_dir="results/bayes", min_bf=3.
     print(f"\nFull results saved to: {output_dir}")
     return results, comparisons, output_dir
 
+
 def test_on_sample_genes(data_path, gene_list=None, output_dir="results/bayes"):
     """Run Bayesian analysis on a small set of genes to verify the pipeline."""
     if gene_list is None:
         # Default to testing these three genes - known hearing loss (Adgrv1),
         # a gene with mild hearing loss (Nptn), and a gene with visually insufficient evidence (Abca2)
-        gene_list = ['Adgrv1', 'Nptn', 'Abca2']
+        gene_list = ["Adgrv1", "Nptn", "Abca2"]
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_dir = Path(output_dir) / f"sample_analysis_{timestamp}"
@@ -269,11 +293,13 @@ def test_on_sample_genes(data_path, gene_list=None, output_dir="results/bayes"):
             results_list.append(analysis)
 
             # Get analysis key for visualization
-            analysis_key = analysis['analysis_key']
-            print(f"  BF: {analysis['bayes_factor']:.2f}, P(HL): {analysis['p_hearing_loss']:.3f}")
+            analysis_key = analysis["analysis_key"]
+            print(
+                f"  BF: {analysis['bayes_factor']:.2f}, P(HL): {analysis['p_hearing_loss']:.3f}"
+            )
 
             # Create visualization for this gene
-            gene_dir = output_dir / 'visuals' / gene
+            gene_dir = output_dir / "visuals" / gene
             gene_dir.mkdir(parents=True, exist_ok=True)
 
             try:
@@ -283,47 +309,76 @@ def test_on_sample_genes(data_path, gene_list=None, output_dir="results/bayes"):
                 bayesian_model = analyzer.bayesian_models[analysis_key]
 
                 # Extract profiles
-                control_profiles = analyzer.matcher.get_control_profiles(control_data, analyzer.freq_cols)
-                group_info_for_extract = {'data': mutant_data}
+                control_profiles = analyzer.matcher.get_control_profiles(
+                    control_data, analyzer.freq_cols
+                )
+                group_info_for_extract = {"data": mutant_data}
                 mutant_profiles = analyzer.matcher.get_experimental_profiles(
                     group_info_for_extract, analyzer.freq_cols
                 )
 
                 # Remove NaN values
-                control_profiles = control_profiles[~np.any(np.isnan(control_profiles), axis=1)]
-                mutant_profiles = mutant_profiles[~np.any(np.isnan(mutant_profiles), axis=1)]
+                control_profiles = control_profiles[
+                    ~np.any(np.isnan(control_profiles), axis=1)
+                ]
+                mutant_profiles = mutant_profiles[
+                    ~np.any(np.isnan(mutant_profiles), axis=1)
+                ]
 
                 # Create visualization
-                fig = bayesian_model.plot_results(control_profiles, mutant_profiles, gene)
+                fig = bayesian_model.plot_results(
+                    control_profiles, mutant_profiles, gene
+                )
 
                 # Add group information to title
-                fig.suptitle(f"{gene} - {group['allele_symbol']} ({group['zygosity']}) - {group['phenotyping_center']}",
-                            fontsize=14)
+                fig.suptitle(
+                    f"{gene} - {group['allele_symbol']} ({group['zygosity']}) - {group['phenotyping_center']}",
+                    fontsize=14,
+                )
 
                 fig.tight_layout(rect=[0, 0, 1, 0.95])  # Make room for suptitle
-                safe_filename = f"{gene}_{group['allele_symbol'].replace('<', '').replace('>', '')}" \
-                               f"_{group['zygosity']}_{group['phenotyping_center']}_bayesian.png"
+                safe_filename = (
+                    f"{gene}_{group['allele_symbol'].replace('<', '').replace('>', '')}"
+                    f"_{group['zygosity']}_{group['phenotyping_center']}_bayesian.png"
+                )
                 fig.savefig(gene_dir / safe_filename)
                 plt.close(fig)
 
-            except (ValueError, IOError, KeyError, AttributeError,
-                    TypeError, IndexError, RuntimeError) as e:
+            except (
+                ValueError,
+                IOError,
+                KeyError,
+                AttributeError,
+                TypeError,
+                IndexError,
+                RuntimeError,
+            ) as e:
                 print(f"  Error creating visualisation: {str(e)}")
                 traceback.print_exc()
 
     # Save results to CSV
     if results_list:
         # Convert results to DataFrame
-        results_df = pd.DataFrame([
-            {k: v for k, v in r.items() if not callable(v) and k != 'effect_sizes'
-                                       and not isinstance(v, np.ndarray)}
-            for r in results_list
-        ])
+        results_df = pd.DataFrame(
+            [
+                {
+                    k: v
+                    for k, v in r.items()
+                    if not callable(v)
+                    and k != "effect_sizes"
+                    and not isinstance(v, np.ndarray)
+                }
+                for r in results_list
+            ]
+        )
 
         # Add effect sizes columns
         for i, freq in enumerate(analyzer.freq_cols):
             freq_name = freq.split()[0]
-            results_df[f'effect_{freq_name}'] = [r['effect_sizes'][i] if i < len(r['effect_sizes']) else np.nan for r in results_list]
+            results_df[f"effect_{freq_name}"] = [
+                r["effect_sizes"][i] if i < len(r["effect_sizes"]) else np.nan
+                for r in results_list
+            ]
 
         results_df.to_csv(output_dir / "sample_results.csv", index=False)
     else:
@@ -332,7 +387,7 @@ def test_on_sample_genes(data_path, gene_list=None, output_dir="results/bayes"):
 
     # Create simple report
     report_path = output_dir / "sample_report.txt"
-    with open(report_path, 'w', encoding='utf-8') as f:
+    with open(report_path, "w", encoding="utf-8") as f:
         f.write("Sample Test Results\n")
         f.write("==================\n\n")
 
@@ -345,24 +400,28 @@ def test_on_sample_genes(data_path, gene_list=None, output_dir="results/bayes"):
             f.write("-" * (len(gene) + 6) + "\n")
 
             # Get all results for this gene
-            gene_results = [r for r in results_list if r['gene_symbol'] == gene]
+            gene_results = [r for r in results_list if r["gene_symbol"] == gene]
 
             if gene_results:
                 f.write(f"Experimental groups: {len(gene_results)}\n\n")
 
                 for i, result in enumerate(gene_results):
-                    allele = result['allele_symbol']
-                    zygosity = result['zygosity']
-                    center = result['center']
+                    allele = result["allele_symbol"]
+                    zygosity = result["zygosity"]
+                    center = result["center"]
 
                     f.write(f"Group {i+1}: {allele} ({zygosity}) - {center}\n")
                     f.write(f"  Bayes Factor: {result['bayes_factor']:.2f}\n")
                     f.write(f"  P(Hearing Loss): {result['p_hearing_loss']:.3f}\n")
-                    f.write(f"  95% HDI: [{result['hdi_lower']:.3f}, {result['hdi_upper']:.3f}]\n")
-                    f.write(f"  Sample size: {result['n_mutants']} mutants, {result['n_controls']} controls\n\n")
+                    f.write(
+                        f"  95% HDI: [{result['hdi_lower']:.3f}, {result['hdi_upper']:.3f}]\n"
+                    )
+                    f.write(
+                        f"  Sample size: {result['n_mutants']} mutants, {result['n_controls']} controls\n\n"
+                    )
 
                     # Evidence interpretation
-                    bf = result['bayes_factor']
+                    bf = result["bayes_factor"]
                     if bf > 100:
                         evidence = "Extreme"
                     elif bf > 30:
@@ -381,15 +440,16 @@ def test_on_sample_genes(data_path, gene_list=None, output_dir="results/bayes"):
     print(f"\nSample test complete! Results saved to: {output_dir}")
     return results_df, output_dir
 
+
 if __name__ == "__main__":
     # Path to your data
     # If you want to trials on a few observations then use:
-    #DATA_PATH = "../../../data/processed/abr_1000_lines.csv"
+    # DATA_PATH = "../../../data/processed/abr_1000_lines.csv"
     # Else, use:
     DATA_PATH = "../../../data/processed/abr_full_data.csv"
 
     # To test on just a few genes:
-    #test_on_sample_genes(DATA_PATH)
+    # test_on_sample_genes(DATA_PATH)
 
     # Or run the full analysis:
     try:
