@@ -4,6 +4,7 @@
 ![PyMC](https://img.shields.io/badge/PyMC-5.20-green)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-1.6-orange)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+[![DOI](https://zenodo.org/badge/970717925.svg)](https://doi.org/10.5281/zenodo.21340212)
 
 Codebase for the multivariate, Bayesian, and clustering analysis of auditory brainstem response (ABR) data from the [International Mouse Phenotyping Consortium](https://www.mousephenotype.org/) (IMPC).
 
@@ -119,7 +120,11 @@ bash run_parallel_gmm.sh /path/to/abr_full_data.csv
 
 ## Citation
 
-Upcoming. In the meantime please cite this GitHub Repo.
+If you use this code, please cite the archived release:
+
+> Barrett, L. *IMPC ABR: Multivariate Analysis of Auditory Brainstem Response Data*. Zenodo. https://doi.org/10.5281/zenodo.21340212
+
+The accompanying manuscript citation will be added upon publication.
 
 ## License
 
