@@ -1,0 +1,861 @@
+gene_symbol,allele_symbol,zygosity,n_mutants_with_data,impc_mutant_n,impc_control_n,n_abr_params_in_stats,n_abr_params_processed,no_impc_abr_result,status
+1110059G10Rik,1110059G10Rik<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+1500011B03Rik,1500011B03Rik<tm2(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+1700008O03Rik,1700008O03Rik<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+1700123O20Rik,1700123O20Rik<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+3300002A11Rik,3300002A11Rik<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+4921536K21Rik,4921536K21Rik<tm1a(KOMP)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+4930449E01Rik,4930449E01Rik<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+4930591A17Rik,4930591A17Rik<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+4933402N03Rik,4933402N03Rik<tm2a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+A430005L14Rik,A430005L14Rik<tm1a(KOMP)Wtsi>,homozygote,7,7.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+A830019P07Rik,A830019P07Rik<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Abca4,Abca4<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Abcb6,Abcb6<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Abraxas2,Abraxas2<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Abtb2,Abtb2<tm1a(KOMP)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Acaa1a,Acaa1a<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Acer1,Acer1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Acot5,Acot5<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Actn4,Actn4<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Actr6,Actr6<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Adap1,Adap1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Adcy2,Adcy2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Adgrb1,Adgrb1<tm2a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Adgrb1,Adgrb1<tm2a(EUCOMM)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Aff3,Aff3<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Aff3,Aff3<tm1a(EUCOMM)Wtsi>,homozygote,10,10.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ago3,Ago3<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ahcyl1,Ahcyl1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Aldh16a1,Aldh16a1<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Alg13,Alg13<tm1a(KOMP)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Alg13,Alg13<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Amz2,Amz2<tm1e(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ankrd9,Ankrd9<tm1(KOMP)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Anks1b,Anks1b<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Apol7a,Apol7a<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Apool,Apool<tm1a(KOMP)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Apool,Apool<tm1a(KOMP)Wtsi>,homozygote,3,3.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Arhgap22,Arhgap22<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Arhgef38,Arhgef38<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Arhgef7,Arhgef7<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Arpc3,Arpc3<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Arsg,Arsg<tm1a(KOMP)Wtsi>,homozygote,7,7.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Art4,Art4<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Arvcf,Arvcf<tm1e(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Aspm,Aspm<tm1a(KOMP)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Atp8b2,Atp8b2<tm1a(KOMP)Wtsi>,heterozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+B9d2,B9d2<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Bpifb5,Bpifb5<tm2a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cabp1,Cabp1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Calcoco2,Calcoco2<tm1(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cand2,Cand2<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Casp12,Casp12<tm1a(KOMP)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cbx5,Cbx5<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cbx6,Cbx6<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ccdc122,Ccdc122<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ccdc134,Ccdc134<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ccdc159,Ccdc159<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ccdc160,Ccdc160<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ccdc24,Ccdc24<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ccdc77,Ccdc77<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ccl22,Ccl22<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cd300lg,Cd300lg<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cd55b,Cd55b<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cdh19,Cdh19<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cdk14,Cdk14<tm1a(KOMP)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cdkal1,Cdkal1<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cert1,Cert1<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ciao2a,Ciao2a<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cldn34b2,Cldn34b2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Clk1,Clk1<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cmip,Cmip<tm1a(EUCOMM)Wtsi>,heterozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cmtm4,Cmtm4<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cmtm6,Cmtm6<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cnot6,Cnot6<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Commd10,Commd10<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Coq4,Coq4<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Coro1c,Coro1c<tm1a(KOMP)Wtsi>,heterozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Coro1c,Coro1c<tm1a(KOMP)Wtsi>,homozygote,3,3.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Crb2,Crb2<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Creb3l1,Creb3l1<tm1e(EUCOMM)Wtsi>,heterozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ct45a,Ct45a<tm1e(KOMP)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cyba,Cyba<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cyfip2,Cyfip2<tm1a(EUCOMM)Wtsi>,heterozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cyp20a1,Cyp20a1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Cyp3a11,Cyp3a11<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Daam2,Daam2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dars2,Dars2<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dcdc2c,Dcdc2c<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dctn1,Dctn1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dcx,Dcx<tm1a(EUCOMM)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ddhd1,Ddhd1<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ddx55,Ddx55<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Def6,Def6<tm1a(EUCOMM)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Defb22,Defb22<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dennd1b,Dennd1b<tm1a(EUCOMM)Hmgu>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dhrs2,Dhrs2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dlg2,Dlg2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dmxl2,Dmxl2<tm1a(EUCOMM)Wtsi>,heterozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dnmt3a,Dnmt3a<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dop1b,Dop1b<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dph2,Dph2<tm2(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dppa1,Dppa1<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dpy30,Dpy30<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dsc2,Dsc2<tm1e(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dsg1b,Dsg1b<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dusp5,Dusp5<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dynll1,Dynll1<tm1(KOMP)Wtsi>,heterozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Dynlrb1,Dynlrb1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Edc4,Edc4<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Eef1akmt1,Eef1akmt1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ehbp1l1,Ehbp1l1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Elmo1,Elmo1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Entpd6,Entpd6<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Epcip,Epcip<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Erp44,Erp44<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ezr,Ezr<tm2a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Fanci,Fanci<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Farsa,Farsa<tm2a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Fbxl7,Fbxl7<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Fbxo47,Fbxo47<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Fbxo7,Fbxo7<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Fggy,Fggy<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Frmd7,Frmd7<tm1a(KOMP)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Frrs1,Frrs1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Fyn,Fyn<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+G3bp2,G3bp2<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Gbf1,Gbf1<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Gimap6,Gimap6<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Gldc,Gldc<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Gle1,Gle1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Glg1,Glg1<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Glt8d2,Glt8d2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Gm13547,Gm13547<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Gpc5,Gpc5<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Gpr107,Gpr107<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Gprc5b,Gprc5b<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Gsto2,Gsto2<tm2a(KOMP)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Gtf2a1,Gtf2a1<tm1a(KOMP)Wtsi>,heterozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+H2-Eb1,H2-Eb1<b-tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Hacl1,Hacl1<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Hecw2,Hecw2<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Hsp90aa1,Hsp90aa1<tm1(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ido2,Ido2<tm3a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ift80,Ift80<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ift80,Ift80<tm1a(KOMP)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Il10rb,Il10rb<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ildr1,Ildr1<tm1(KOMP)Wtsi>,homozygote,7,7.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ints2,Ints2<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Irf7,Irf7<tm1(KOMP)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Isg20,Isg20<tm1a(KOMP)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Jmjd1c,Jmjd1c<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Kcnip4,Kcnip4<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Kcnv2,Kcnv2<tm1Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Kdm4d,Kdm4d<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Kdm7a,Kdm7a<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Kifap3,Kifap3<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Klhl18,Klhl18<tm1a(KOMP)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Klhl21,Klhl21<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Klk9,Klk9<tm1a(KOMP)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Krt88,Krt88<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+L3mbtl2,L3mbtl2<tm2a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Lamc3,Lamc3<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Lyplal1,Lyplal1<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Lztr1,Lztr1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Magea9,Magea9<tm1a(KOMP)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Magea9,Magea9<tm1a(KOMP)Wtsi>,homozygote,3,3.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Map2k7,Map2k7<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Map3k1,Map3k1<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Mapk10,Mapk10<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Mast2,Mast2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Mcf2l,Mcf2l<tm1a(EUCOMM)Hmgu>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Mettl24,Mettl24<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Mlec,Mlec<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Mrap2,Mrap2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Mrm1,Mrm1<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Mtss2,Mtss2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Myh14,Myh14<tm1a(EUCOMM)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Myo10,Myo10<tm2(KOMP)Wtsi>,homozygote,11,11.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Myo7a,Myo7a<tm1a(EUCOMM)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Myrfl,Myrfl<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Myt1l,Myt1l<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Nacad,Nacad<tm1(KOMP)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Naga,Naga<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Nbeal2,Nbeal2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ngrn,Ngrn<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Nherf4,Nherf4<tm1a(KOMP)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Nhp2,Nhp2<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ninj2,Ninj2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Nme4,Nme4<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Nup85,Nup85<tm1a(KOMP)Wtsi>,heterozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Oas1g,Oas1g<tm3e(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ocm,Ocm<tm1e(EUCOMM)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ogdh,Ogdh<tm1e(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Orc3,Orc3<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Os9,Os9<tm1a(EUCOMM)Wtsi>,homozygote,7,7.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Osbpl3,Osbpl3<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Oxr1,Oxr1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pabpc4,Pabpc4<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pabpn1l,Pabpn1l<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pacsin3,Pacsin3<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pbdc1,Pbdc1<tm2a(KOMP)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pdk3,Pdk3<tm2a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pdxk,Pdxk<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pear1,Pear1<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pfkfb4,Pfkfb4<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Phtf2,Phtf2<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pias2,Pias2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pls3,Pls3<tm1a(EUCOMM)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Plxna2,Plxna2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Polr3f,Polr3f<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pop4,Pop4<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ppp1r42,Ppp1r42<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Praf2,Praf2<tm1e(EUCOMM)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Praf2,Praf2<tm1e(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pramex1,Pramex1<tm1a(KOMP)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Prps1,Prps1<tm1a(EUCOMM)Wtsi>,heterozygote,3,3.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pth,Pth<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pth2r,Pth2r<tm2a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Pthlh,Pthlh<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rab15,Rab15<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rab5c,Rab5c<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ralb,Ralb<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ralgapb,Ralgapb<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ralgps2,Ralgps2<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rasal2,Rasal2<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rasgrp4,Rasgrp4<tm2a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rbm47,Rbm47<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rbsn,Rbsn<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rdh16f2,Rdh16f2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Reg3g,Reg3g<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rnaseh2c,Rnaseh2c<tm1(KOMP)Wtsi>,heterozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rpgrip1l,Rpgrip1l<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rsad1,Rsad1<tm1(KOMP)Vlcg>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rtbdn,Rtbdn<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rufy2,Rufy2<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Rufy2,Rufy2<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Sag,Sag<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Scn3b,Scn3b<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Sec1,Sec1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Sec22b,Sec22b<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Secisbp2,Secisbp2<tm1c(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Seh1l,Seh1l<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Sel1l,Sel1l<tm1e(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Serpina3c,Serpina3c<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Sgms1,Sgms1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Sh2d5,Sh2d5<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Sirt3,Sirt3<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Skida1,Skida1<tm1(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Slc16a6,Slc16a6<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Slc1a4,Slc1a4<tm1e(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Slc25a30,Slc25a30<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Slc25a4,Slc25a4<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Slc38a10,Slc38a10<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Slc5a7,Slc5a7<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Slc66a3,Slc66a3<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Smyd5,Smyd5<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Snap47,Snap47<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Spink10,Spink10<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Spopl,Spopl<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Srrm4,Srrm4<tm1e(EUCOMM)Wtsi>,heterozygote,7,7.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Srrm4,Srrm4<tm1e(EUCOMM)Wtsi>,homozygote,3,3.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Srsf7,Srsf7<tm1a(EUCOMM)Wtsi>,heterozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ssbp1,Ssbp1<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Syt1,Syt1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Syt16,Syt16<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tceal9,Tceal9<tm1a(KOMP)Wtsi>,hemizygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tcf4,Tcf4<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tcf7l2,Tcf7l2<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tcte1,Tcte1<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tff1,Tff1<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tm9sf4,Tm9sf4<tm1a(KOMP)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tmem126a,Tmem126a<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tmem185a,Tmem185a<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tmem254,Tmem254<tm2a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tnik,Tnik<tm3a(EUCOMM)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Traf2,Traf2<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Traf6,Traf6<tm2a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tram2,Tram2<tm1a(KOMP)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Trem1,Trem1<tm1(KOMP)Vlcg>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Trim17,Trim17<tm1e(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Trp53rkb,Trp53rkb<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Tsfm,Tsfm<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ttll11,Ttll11<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ubash3a,Ubash3a<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Uri1,Uri1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ush1c,Ush1c<tm1a(KOMP)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ushbp1,Ushbp1<tm1a(EUCOMM)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Usp11,Usp11<tm1(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Usp21,Usp21<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Usp22,Usp22<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Usp24,Usp24<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Usp3,Usp3<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Virma,Virma<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Vps33b,Vps33b<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Vps51,Vps51<tm1a(KOMP)Wtsi>,heterozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Vps53,Vps53<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Wdr37,Wdr37<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Wdtc1,Wdtc1<tm1a(KOMP)Wtsi>,homozygote,7,7.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Wfdc18,Wfdc18<tm1a(KOMP)Wtsi>,homozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Wnt3,Wnt3<tm2a(EUCOMM)Wtsi>,heterozygote,6,6.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Xbp1,Xbp1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Xndc1,Xndc1<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Xxylt1,Xxylt1<tm1a(EUCOMM)Hmgu>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Ydjc,Ydjc<tm1(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Zcchc14,Zcchc14<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Zcchc14,Zcchc14<tm1a(KOMP)Wtsi>,homozygote,3,3.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Zfp791,Zfp791<tm1a(KOMP)Wtsi>,homozygote,8,8.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Zranb1,Zranb1<tm1a(EUCOMM)Hmgu>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Zscan10,Zscan10<tm2a(EUCOMM)Wtsi>,heterozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Zscan2,Zscan2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,98.0,6,0,True,"in stats but no result (>=3 mut, >=60 ctrl)"
+Acsl4,Acsl4<tm1a(EUCOMM)Wtsi>,homozygote,3,3.0,11.0,6,0,True,too few controls (<60)
+Crlf3,Crlf3<tm1b(KOMP)Wtsi>,homozygote,4,4.0,43.0,6,0,True,too few controls (<60)
+Fundc1,Fundc1<tm1c(KOMP)Wtsi>,hemizygote,4,4.0,11.0,6,0,True,too few controls (<60)
+Fundc1,Fundc1<tm1c(KOMP)Wtsi>,homozygote,4,4.0,11.0,6,0,True,too few controls (<60)
+Inpp1,Inpp1<tm1b(KOMP)Wtsi>,homozygote,8,8.0,43.0,6,0,True,too few controls (<60)
+Pld5,Pld5<tm1b(KOMP)Wtsi>,homozygote,4,4.0,43.0,6,0,True,too few controls (<60)
+Slc25a21,Slc25a21<tm1d(KOMP)Wtsi>,homozygote,5,5.0,11.0,6,0,True,too few controls (<60)
+Spns2,Spns2<tm1b(KOMP)Wtsi>,homozygote,8,8.0,43.0,6,0,True,too few controls (<60)
+Ccdc160,Ccdc160<tm1a(EUCOMM)Wtsi>,hemizygote,1,1.0,98.0,6,0,True,too few mutants (<3)
+Ccl22,Ccl22<tm1a(EUCOMM)Wtsi>,homozygote,2,2.0,98.0,6,0,True,too few mutants (<3)
+Dcx,Dcx<tm1a(EUCOMM)Wtsi>,homozygote,2,2.0,98.0,6,0,True,too few mutants (<3)
+Mybphl,Mybphl<tm1b(KOMP)Wtsi>,homozygote,1,1.0,807.0,6,0,True,too few mutants (<3)
+Pramex1,Pramex1<tm1a(KOMP)Wtsi>,homozygote,1,1.0,98.0,6,0,True,too few mutants (<3)
+Rnf114,Rnf114<em1(IMPC)Wtsi>,homozygote,2,2.0,807.0,6,0,True,too few mutants (<3)
+Tcf4,Tcf4<tm1a(EUCOMM)Wtsi>,homozygote,1,1.0,98.0,6,0,True,too few mutants (<3)
+Tet1,Tet1<tm1a(KOMP)Wtsi>,homozygote,2,2.0,807.0,6,0,True,too few mutants (<3)
+Tlr11,Tlr11<em1(IMPC)Wtsi>,homozygote,2,2.0,807.0,6,0,True,too few mutants (<3)
+Usp3,Usp3<tm1a(EUCOMM)Wtsi>,homozygote,1,1.0,98.0,6,0,True,too few mutants (<3)
+1700029H14Rik,1700029H14Rik<tm2b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+1700034J05Rik,1700034J05Rik<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+1700067K01Rik,1700067K01Rik<tm2a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+2610318N02Rik,2610318N02Rik<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+4930404H24Rik,4930404H24Rik<tm1a(KOMP)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+4930590J08Rik,4930590J08Rik<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+4931429L15Rik,4931429L15Rik<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+4933434E20Rik,4933434E20Rik<tm1a(EUCOMM)Wtsi>,heterozygote,9,9.0,807.0,6,6,False,analysed
+A930004D18Rik,A930004D18Rik<tm1a(EUCOMM)Wtsi>,homozygote,3,3.0,807.0,6,6,False,analysed
+Abhd14a,Abhd14a<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Abhd17a,Abhd17a<tm1a(KOMP)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Acbd5,Acbd5<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Actl10,Actl10<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Adal,Adal<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Adamts19,Adamts19<tm4a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Adamts3,Adamts3<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Adcy9,Adcy9<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Adgrd1,Adgrd1<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Adpgk,Adpgk<tm2a(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Agap1,Agap1<tm1a(EUCOMM)Wtsi>,homozygote,9,9.0,807.0,6,6,False,analysed
+Aicda,Aicda<tm1b(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Aldh1b1,Aldh1b1<tm2a(EUCOMM)Wtsi>,heterozygote,3,3.0,807.0,6,6,False,analysed
+Aldh1b1,Aldh1b1<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Aldh3b1,Aldh3b1<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Alox12e,Alox12e<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Alpk1,Alpk1<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ankhd1,Ankhd1<tm1a(KOMP)Wtsi>,homozygote,2,2.0,807.0,6,6,False,analysed
+Ankrd13d,Ankrd13d<tm2a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ankrd6,Ankrd6<tm1.1(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Anks6,Anks6<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Ano10,Ano10<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Anxa9,Anxa9<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ap2a2,Ap2a2<em1(IMPC)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Ap2a2,Ap2a2<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Ap2a2,Ap2a2<tm1b(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Ap4e1,Ap4e1<tm1b(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Ap4m1,Ap4m1<tm1b(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Apip,Apip<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Apol9b,Apol9b<tm2a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Apoo,Apoo<tm1b(KOMP)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Arap2,Arap2<tm2b(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Arhgap17,Arhgap17<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Arhgap30,Arhgap30<tm1a(EUCOMM)Wtsi>,homozygote,3,3.0,807.0,6,6,False,analysed
+Arhgef1,Arhgef1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Arhgef18,Arhgef18<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Arid1b,Arid1b<tm1b(EUCOMM)Hmgu>,heterozygote,5,5.0,807.0,6,6,False,analysed
+Armc7,Armc7<tm1.1(KOMP)Wtsi>,heterozygote,5,5.0,807.0,6,6,False,analysed
+Armh3,Armh3<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Arpc1b,Arpc1b<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Arpin,Arpin<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Arrdc5,Arrdc5<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Atad3a,Atad3a<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Atg16l2,Atg16l2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Atp11a,Atp11a<tm1e(KOMP)Wtsi>,heterozygote,6,6.0,807.0,6,6,False,analysed
+Atp5f1e,Atp5f1e<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Atp5pb,Atp5pb<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Atxn10,Atxn10<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Atxn3,Atxn3<tm1a(KOMP)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Bach2,Bach2<tm1a(EUCOMM)Wtsi>,homozygote,9,9.0,807.0,6,6,False,analysed
+Bap1,Bap1<tm1a(EUCOMM)Hmgu>,heterozygote,5,5.0,807.0,6,6,False,analysed
+Bhlhe40,Bhlhe40<tm1b(KOMP)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Bin2,Bin2<em1(IMPC)Wtsi>,homozygote,3,3.0,807.0,6,6,False,analysed
+Bivm,Bivm<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Bnip2,Bnip2<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Bpgm,Bpgm<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Bpifb1,Bpifb1<tm1e(KOMP)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Brd2,Brd2<em1(IMPC)Wtsi>,heterozygote,6,6.0,807.0,6,6,False,analysed
+Camkmt,Camkmt<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Camsap3,Camsap3<tm1a(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Capn11,Capn11<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Capza2,Capza2<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Card9,Card9<tm1a(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Catip,Catip<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Catspere2,Catspere2<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cbr2,Cbr2<tm1b(EUCOMM)Hmgu>,homozygote,5,5.0,807.0,6,6,False,analysed
+Ccdc127,Ccdc127<tm1b(EUCOMM)Wtsi>,homozygote,10,10.0,807.0,6,6,False,analysed
+Ccdc18,Ccdc18<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ccdc6,Ccdc6<em1(IMPC)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Ccdc69,Ccdc69<tm1b(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Cdkn2aipnl,Cdkn2aipnl<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Celf4,Celf4<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Cenpl,Cenpl<tm1b(EUCOMM)Wtsi>,heterozygote,10,10.0,807.0,6,6,False,analysed
+Cep15,Cep15<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cep250,Cep250<tm1a(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Cfap53,Cfap53<em1(IMPC)Wtsi>,heterozygote,6,6.0,807.0,6,6,False,analysed
+Cfap61,Cfap61<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cgrrf1,Cgrrf1<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Chd9,Chd9<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Chil4,Chil4<tm1b(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Chka,Chka<tm2a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Chmp6,Chmp6<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Chst11,Chst11<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Chtop,Chtop<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Cibar1,Cibar1<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cimip2c,Cimip2c<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cir1,Cir1<tm3a(KOMP)Wtsi>,heterozygote,6,6.0,807.0,6,6,False,analysed
+Clpp,Clpp<tm1a(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Cmbl,Cmbl<tm1b(KOMP)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Cmtm5,Cmtm5<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cnbd1,Cnbd1<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cnih3,Cnih3<tm1a(KOMP)Wtsi>,homozygote,3,3.0,807.0,6,6,False,analysed
+Cnot4,Cnot4<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Cog6,Cog6<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Col24a1,Col24a1<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Coro6,Coro6<tm1e(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cpgi81,Cpgi81<tm1.1(NCC)WCS>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cpsf3,Cpsf3<tm1a(EUCOMM)Wtsi>,heterozygote,5,5.0,807.0,6,6,False,analysed
+Cpsf3,Cpsf3<tm1b(EUCOMM)Wtsi>,heterozygote,7,7.0,807.0,6,6,False,analysed
+Cpt2,Cpt2<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Cracdl,Cracdl<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Crim1,Crim1<em1(IMPC)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Crlf3,Crlf3<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Crls1,Crls1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Csmd1,Csmd1<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Csnk1g3,Csnk1g3<tm1a(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Ctr9,Ctr9<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Cttnbp2,Cttnbp2<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cutal,Cutal<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cxcr1,Cxcr1<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Cxcr2,Cxcr2<tm1a(EUCOMM)Wtsi>,heterozygote,6,6.0,807.0,6,6,False,analysed
+Cxcr2,Cxcr2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cyp11a1,Cyp11a1<tm1b(EUCOMM)Hmgu>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Cyp2b13,Cyp2b13<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Cyp2r1,Cyp2r1<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+D630023F18Rik,D630023F18Rik<tm1b(KOMP)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+D6Wsu163e,D6Wsu163e<tm1b(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+D7Ertd443e,D7Ertd443e<tm2a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+D930028M14Rik,D930028M14Rik<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Dact3,Dact3<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dap,Dap<tm1a(KOMP)Mbp>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dapk2,Dapk2<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dbn1,Dbn1<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Dcaf11,Dcaf11<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dcbld2,Dcbld2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dcdc2b,Dcdc2b<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dclk1,Dclk1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Dclk1,Dclk1<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Dcn,Dcn<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dctn4,Dctn4<em1(IMPC)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Ddah1,Ddah1<tm2a(EUCOMM)Wtsi>,homozygote,9,9.0,807.0,6,6,False,analysed
+Ddx42,Ddx42<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Ddx51,Ddx51<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Defb14,Defb14<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Defb30,Defb30<tm2b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dennd1c,Dennd1c<tm1a(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Dennd1c,Dennd1c<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dennd4c,Dennd4c<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Denr,Denr<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Dffb,Dffb<em1(IMPC)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Dhodh,Dhodh<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Dhps,Dhps<tm2a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Dhx33,Dhx33<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Dhx35,Dhx35<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Dip2a,Dip2a<tm2b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dipk1a,Dipk1a<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Dlg3,Dlg3<tm1a(EUCOMM)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Dlg4,Dlg4<tm1e(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Dlk1,Dlk1<em1(IMPC)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Dmgdh,Dmgdh<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dnah17,Dnah17<tm1e(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dnajc8,Dnajc8<tm1b(KOMP)Wtsi>,heterozygote,7,7.0,807.0,6,6,False,analysed
+Dnase1l2,Dnase1l2<tm1.1(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dnpep,Dnpep<tm1e(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Dph6,Dph6<tm1a(KOMP)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Dpm1,Dpm1<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Duoxa2,Duoxa2<tm1b(KOMP)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Dynlrb2,Dynlrb2<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Dynlt2b,Dynlt2b<tm1e(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Eci3,Eci3<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Eif3h,Eif3h<tm1a(EUCOMM)Hmgu>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Elac2,Elac2<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Elapor2,Elapor2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ell2,Ell2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ell2,Ell2<tm1b(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Enc1,Enc1<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Endou,Endou<tm1(KOMP)Vlcg>,homozygote,4,4.0,807.0,6,6,False,analysed
+Erlin2,Erlin2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Evi5,Evi5<tm1a(KOMP)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Exoc3l2,Exoc3l2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Exoc3l2,Exoc3l2<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Exosc9,Exosc9<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Fads3,Fads3<tm1b(EUCOMM)Hmgu>,homozygote,9,9.0,807.0,6,6,False,analysed
+Fam163a,Fam163a<tm2b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Fam47e,Fam47e<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Fbf1,Fbf1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Fbxo33,Fbxo33<tm1b(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Fbxw26,Fbxw26<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Fdft1,Fdft1<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Fhip1a,Fhip1a<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Fkbp3,Fkbp3<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Fnip2,Fnip2<tm1a(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Fryl,Fryl<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Fxyd3,Fxyd3<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Fzd6,Fzd6<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Galnt18,Galnt18<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Galntl5,Galntl5<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Garin3,Garin3<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gas2l2,Gas2l2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gbp5,Gbp5<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gda,Gda<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gdpd2,Gdpd2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Glo1,Glo1<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Glyatl3,Glyatl3<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gm12253,Gm12253<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gm5544,Gm5544<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Gm6578,Gm6578<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gmds,Gmds<tm1a(KOMP)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Gmnc,Gmnc<tm1b(KOMP)Wtsi>,heterozygote,5,5.0,807.0,6,6,False,analysed
+Gnb3,Gnb3<tm1b(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Golm2,Golm2<tm2b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gpatch1,Gpatch1<em1(IMPC)Wtsi>,heterozygote,3,3.0,807.0,6,6,False,analysed
+Gpbp1l1,Gpbp1l1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gpr152,Gpr152<tm1b(EUCOMM)Wtsi>,homozygote,9,9.0,807.0,6,6,False,analysed
+Gpr35,Gpr35<tm1b(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Grb7,Grb7<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Grm8,Grm8<tm2a(KOMP)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Grsf1,Grsf1<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gsdme,Gsdme<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Gtf2h2,Gtf2h2<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+H13,H13<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+H2al2a,H2al2a<em1(IMPC)Wtsi>,homozygote,2,2.0,807.0,6,6,False,analysed
+H2bl1,H2bl1<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Hao2,Hao2<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Hbs1l,Hbs1l<tm1a(KOMP)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Herc1,Herc1<em1(IMPC)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Herc1,Herc1<em2(IMPC)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Herc1,Herc1<em3(IMPC)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Hibadh,Hibadh<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Hmgxb3,Hmgxb3<tm1a(EUCOMM)Wtsi>,heterozygote,7,7.0,807.0,6,6,False,analysed
+Homez,Homez<tm1e(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Hpf1,Hpf1<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Hrnr,Hrnr<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ifi27,Ifi27<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ifitm6,Ifitm6<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ifnar1,Ifnar1<tm2a(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Ifnlr1,Ifnlr1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ift140,Ift140<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Il18rap,Il18rap<em1(IMPC)Wtsi>,homozygote,3,3.0,807.0,6,6,False,analysed
+Il1r2,Il1r2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Il23r,Il23r<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Il27,Il27<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Inava,Inava<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Inka2,Inka2<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Irag2,Irag2<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Irak1,Irak1<tm1b(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Irf5,Irf5<tm1e(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Izumo1r,Izumo1r<tm2a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Josd1,Josd1<em1(IMPC)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Kat2b,Kat2b<em1(IMPC)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Kcnh4,Kcnh4<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Kdm8,Kdm8<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Kera,Kera<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Kif13b,Kif13b<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Kif18b,Kif18b<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Kif24,Kif24<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Kif3b,Kif3b<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Kifbp,Kifbp<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Klc2,Klc2<tm1e(EUCOMM)Wtsi>,homozygote,13,13.0,807.0,6,6,False,analysed
+Klf17,Klf17<tm1b(KOMP)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Klhl30,Klhl30<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Klk5,Klk5<tm2a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Klk6,Klk6<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Klrb1a,Klrb1a<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Krt31,Krt31<tm1e(KOMP)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Krt7,Krt7<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Krt83,Krt83<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Lars1,Lars1<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Lce1m,Lce1m<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Lce3c,Lce3c<tm2a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ldhb,Ldhb<tm1b(KOMP)Wtsi>,homozygote,10,10.0,807.0,6,6,False,analysed
+Ldlrad4,Ldlrad4<tm1b(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Leo1,Leo1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Leprot,Leprot<tm2a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Leprot,Leprot<tm2b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Lgals7,Lgals7<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Lgals7,Lgals7<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Lonrf3,Lonrf3<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Lonrf3,Lonrf3<tm1b(KOMP)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Lpxn,Lpxn<tm1b(EUCOMM)Hmgu>,homozygote,7,7.0,807.0,6,6,False,analysed
+Lrmda,Lrmda<tm1e(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Lrrc23,Lrrc23<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Lrrc71,Lrrc71<tm1a(KOMP)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Lrrc8d,Lrrc8d<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Lyrm9,Lyrm9<tm1a(KOMP)Mbp>,homozygote,4,4.0,807.0,6,6,False,analysed
+Macrod1,Macrod1<em1(IMPC)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Mamstr,Mamstr<tm1b(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Man2b2,Man2b2<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Mau2,Mau2<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Mbd1,Mbd1<em1(IMPC)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Mbl2,Mbl2<em1(IMPC)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Med22,Med22<tm1a(EUCOMM)Wtsi>,heterozygote,5,5.0,807.0,6,6,False,analysed
+Med23,Med23<em1(IMPC)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Medag,Medag<tm2b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Metrnl,Metrnl<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Mgat4c,Mgat4c<tm1a(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Micu2,Micu2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Minar2,Minar2<tm1b(KOMP)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Mir146,Mir146<tm1Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Mir96,Mir96<tm2.2(IMPC)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Mir96,Mir96<tm2.2(IMPC)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Mir96,Mir96<tm3.2(IMPC)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Mkrn2,Mkrn2<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Mkrn2,Mkrn2<tm1b(KOMP)Wtsi>,homozygote,10,10.0,807.0,6,6,False,analysed
+Mospd1,Mospd1<tm1a(KOMP)Wtsi>,hemizygote,5,5.0,807.0,6,6,False,analysed
+Mpg,Mpg<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Mroh4,Mroh4<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Mroh9,Mroh9<tm1a(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Mrps21,Mrps21<tm1e(EUCOMM)Wtsi>,heterozygote,5,5.0,807.0,6,6,False,analysed
+Mrps5,Mrps5<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Mybphl,Mybphl<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Mybphl,Mybphl<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Myh7b,Myh7b<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Myo9a,Myo9a<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Naaa,Naaa<tm1a(KOMP)Wtsi>,homozygote,9,10.0,807.0,6,6,False,analysed
+Nacc2,Nacc2<tm2b(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Nadk2,Nadk2<tm1b(EUCOMM)Wtsi>,heterozygote,8,8.0,807.0,6,6,False,analysed
+Nat10,Nat10<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Natd1,Natd1<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ncf2,Ncf2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ndufb8,Ndufb8<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Nebl,Nebl<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Nek3,Nek3<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Nek9,Nek9<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Nelfe,Nelfe<tm1a(EUCOMM)Wtsi>,heterozygote,7,7.0,807.0,6,6,False,analysed
+Nfkbil1,Nfkbil1<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Nherf2,Nherf2<tm2a(EUCOMM)Hmgu>,homozygote,6,6.0,807.0,6,6,False,analysed
+Nhlrc2,Nhlrc2<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Nipsnap3a,Nipsnap3a<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Nmrk1,Nmrk1<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Npat,Npat<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Nrbp1,Nrbp1<tm3b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Nrde2,Nrde2<tm2a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Nubpl,Nubpl<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Nudt12,Nudt12<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Nutm2,Nutm2<tm2b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Nxn,Nxn<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Oaf,Oaf<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Oog2,Oog2<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Orc1,Orc1<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Otud7b,Otud7b<tm1b(EUCOMM)Wtsi>,heterozygote,8,8.0,807.0,6,6,False,analysed
+Pabir3,Pabir3<tm1b(EUCOMM)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Pam16,Pam16<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Pced1a,Pced1a<tm1b(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Pclaf,Pclaf<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Pdcd2,Pdcd2<tm1b(EUCOMM)Wtsi>,heterozygote,6,6.0,807.0,6,6,False,analysed
+Pdia4,Pdia4<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Pdzk1,Pdzk1<tm2b(EUCOMM)Wtsi>,heterozygote,6,6.0,807.0,6,6,False,analysed
+Pepd,Pepd<tm1a(KOMP)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Pgap2,Pgap2<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Pierce1,Pierce1<tm2b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Pigf,Pigf<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Pigl,Pigl<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Pitrm1,Pitrm1<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Pitx1,Pitx1<em1(IMPC)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Pla2g6,Pla2g6<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Pld3,Pld3<tm1e(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Plet1,Plet1<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Plscr2,Plscr2<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Plxnb3,Plxnb3<tm1a(KOMP)Wtsi>,hemizygote,6,6.0,807.0,6,6,False,analysed
+Polb,Polb<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Pold3,Pold3<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Polr3g,Polr3g<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Ppil3,Ppil3<tm1b(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Pramel15,Pramel15<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Pramel31,Pramel31<tm2b(KOMP)Wtsi>,homozygote,9,9.0,807.0,6,6,False,analysed
+Prkab1,Prkab1<tm1b(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Prrc2b,Prrc2b<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Prrg2,Prrg2<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Prrt2,Prrt2<tm1a(KOMP)Wtsi>,homozygote,9,9.0,807.0,6,6,False,analysed
+Prss52,Prss52<tm2a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Prss53,Prss53<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Psph,Psph<tm1a(EUCOMM)Hmgu>,heterozygote,5,5.0,807.0,6,6,False,analysed
+Pth1r,Pth1r<tm1a(EUCOMM)Hmgu>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Ptprd,Ptprd<tm2a(KOMP)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Pus10,Pus10<tm1b(EUCOMM)Hmgu>,homozygote,3,3.0,807.0,6,6,False,analysed
+Pwp1,Pwp1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Pycr2,Pycr2<tm1a(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Rab17,Rab17<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Rab21,Rab21<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Rala,Rala<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Raph1,Raph1<tm1b(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Rbak,Rbak<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Rbm14,Rbm14<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Rbm33,Rbm33<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Rbmx,Rbmx<tm2a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Rbmx,Rbmx<tm2b(KOMP)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Reg3d,Reg3d<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Repin1,Repin1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Rhox13,Rhox13<tm1a(KOMP)Wtsi>,hemizygote,6,6.0,807.0,6,6,False,analysed
+Rhox13,Rhox13<tm1a(KOMP)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Rhox13,Rhox13<tm1b(KOMP)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Rida,Rida<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Rimbp2,Rimbp2<em1(IMPC)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Rnasek,Rnasek<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Rnf10,Rnf10<tm1b(KOMP)Wtsi>,homozygote,11,11.0,807.0,6,6,False,analysed
+Rnf125,Rnf125<tm1a(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Rnf138,Rnf138<tm1b(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Rnf157,Rnf157<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ropn1l,Ropn1l<tm1b(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Rpia,Rpia<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Rspo4,Rspo4<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Rundc1,Rundc1<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Rundc1,Rundc1<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Rwdd1,Rwdd1<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Sap130,Sap130<tm1a(KOMP)Mbp>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Scaf11,Scaf11<em1(IMPC)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Selenok,Selenok<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Selenok,Selenok<tm1b(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Selenow,Selenow<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Septin10,Septin10<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Septin10,Septin10<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Serinc3,Serinc3<tm1a(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Setd4,Setd4<tm1a(KOMP)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Setd5,Setd5<tm1a(EUCOMM)Wtsi>,heterozygote,9,9.0,807.0,6,6,False,analysed
+Sfxn3,Sfxn3<tm1b(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Sgsm1,Sgsm1<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Sh3bgrl3,Sh3bgrl3<tm2b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Sh3bp4,Sh3bp4<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Sh3pxd2a,Sh3pxd2a<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Sik3,Sik3<tm1a(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Slamf9,Slamf9<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Slc16a4,Slc16a4<tm2e(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Slc20a2,Slc20a2<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Slc20a2,Slc20a2<tm1a(EUCOMM)Wtsi>,homozygote,6,7.0,807.0,6,6,False,analysed
+Slc25a20,Slc25a20<tm1a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Slc25a28,Slc25a28<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Slc38a2,Slc38a2<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Slitrk4,Slitrk4<tm1b(KOMP)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Slu7,Slu7<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Slx4ip,Slx4ip<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Smg9,Smg9<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Smpd4,Smpd4<tm2b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Snx31,Snx31<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Snx8,Snx8<tm2a(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Spata25,Spata25<tm1(KOMP)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Spink14,Spink14<tm1e(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Sqle,Sqle<tm1a(EUCOMM)Wtsi>,heterozygote,6,6.0,807.0,6,6,False,analysed
+Ssr2,Ssr2<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Stard8,Stard8<tm1a(EUCOMM)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Stard8,Stard8<tm1b(EUCOMM)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Stau2,Stau2<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Stimate,Stimate<tm2b(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Stxbp4,Stxbp4<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Sult1c1,Sult1c1<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Supt3,Supt3<tm1a(EUCOMM)Hmgu>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Supt5,Supt5<tm2a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Tatdn3,Tatdn3<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Tatdn3,Tatdn3<tm1b(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Tbc1d22a,Tbc1d22a<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tceal5,Tceal5<tm1a(KOMP)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Tceal5,Tceal5<tm1b(KOMP)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Tchp,Tchp<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tcp11,Tcp11<tm1a(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Tead3,Tead3<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tent5c,Tent5c<tm1b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Tepsin,Tepsin<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tet1,Tet1<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Tex38,Tex38<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tgfb1i1,Tgfb1i1<tm1b(KOMP)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Tgm6,Tgm6<tm1a(KOMP)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Timeless,Timeless<tm1b(EUCOMM)Hmgu>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Timmdc1,Timmdc1<tm1b(EUCOMM)Wtsi>,heterozygote,5,5.0,807.0,6,6,False,analysed
+Tmc3,Tmc3<tm2b(KOMP)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Tmco2,Tmco2<tm1a(KOMP)Wtsi>,homozygote,2,2.0,807.0,6,6,False,analysed
+Tmem127,Tmem127<tm1(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tmem18,Tmem18<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tmem241,Tmem241<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tmem30a,Tmem30a<tm1a(KOMP)Wtsi>,heterozygote,5,5.0,807.0,6,6,False,analysed
+Tmem37,Tmem37<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tmem42,Tmem42<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tomm20l,Tomm20l<tm1a(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Tomm20l,Tomm20l<tm1b(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Trappc10,Trappc10<tm1b(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Trappc9,Trappc9<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Trim21,Trim21<em1(IMPC)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Trim25,Trim25<tm2b(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Trim29,Trim29<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Trim29,Trim29<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Trim56,Trim56<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Trim65,Trim65<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Trmt2a,Trmt2a<tm2b(EUCOMM)Wtsi>,homozygote,5,5.0,807.0,6,6,False,analysed
+Trub2,Trub2<tm2a(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Tsks,Tsks<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tuba3a,Tuba3a<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Tuft1,Tuft1<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ube2d1,Ube2d1<tm3e(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ubxn10,Ubxn10<tm1b(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Uevld,Uevld<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Umodl1,Umodl1<tm1a(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Unk,Unk<tm1a(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Upb1,Upb1<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Usp20,Usp20<tm1a(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Usp30,Usp30<tm2b(EUCOMM)Hmgu>,homozygote,4,4.0,807.0,6,6,False,analysed
+Usp37,Usp37<em1(IMPC)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Usp5,Usp5<tm1a(EUCOMM)Hmgu>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Vamp3,Vamp3<tm2b(EUCOMM)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Vps13a,Vps13a<tm1b(EUCOMM)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Vps72,Vps72<tm1a(EUCOMM)Wtsi>,heterozygote,6,6.0,807.0,6,6,False,analysed
+Vwa3a,Vwa3a<tm1b(KOMP)Wtsi>,homozygote,6,6.0,807.0,6,6,False,analysed
+Vxn,Vxn<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Vxn,Vxn<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Wac,Wac<tm2b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Washc2,Washc2<tm2b(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Wdr87-ps,Wdr87-ps<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Wdr89,Wdr89<tm1a(KOMP)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Wfikkn2,Wfikkn2<tm1b(EUCOMM)Wtsi>,homozygote,3,3.0,807.0,6,6,False,analysed
+Wnt16,Wnt16<tm2b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Wrap53,Wrap53<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Xkrx,Xkrx<tm1b(EUCOMM)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Xpnpep1,Xpnpep1<tm1a(KOMP)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed
+Xpnpep1,Xpnpep1<tm1a(KOMP)Wtsi>,homozygote,7,7.0,807.0,6,6,False,analysed
+Yipf7,Yipf7<tm1e(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Ypel4,Ypel4<tm1a(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zbed5,Zbed5<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zc3h14,Zc3h14<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfp175,Zfp175<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfp182,Zfp182<tm1a(KOMP)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Zfp182,Zfp182<tm1b(KOMP)Wtsi>,hemizygote,4,4.0,807.0,6,6,False,analysed
+Zfp239,Zfp239<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfp266,Zfp266<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfp287,Zfp287<tm1b(EUCOMM)Wtsi>,homozygote,8,8.0,807.0,6,6,False,analysed
+Zfp341,Zfp341<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfp365,Zfp365<tm1a(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfp408,Zfp408<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfp616,Zfp616<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfp719,Zfp719<tm1a(EUCOMM)Wtsi>,homozygote,10,10.0,807.0,6,6,False,analysed
+Zfp719,Zfp719<tm1b(EUCOMM)Wtsi>,homozygote,11,11.0,807.0,6,6,False,analysed
+Zfp763,Zfp763<em1(IMPC)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfp84,Zfp84<tm1b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfp879,Zfp879<tm2b(KOMP)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zfyve28,Zfyve28<tm1b(EUCOMM)Wtsi>,homozygote,4,4.0,807.0,6,6,False,analysed
+Zkscan17,Zkscan17<tm1b(EUCOMM)Wtsi>,heterozygote,4,4.0,807.0,6,6,False,analysed

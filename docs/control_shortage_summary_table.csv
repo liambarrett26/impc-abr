@@ -1,0 +1,18 @@
+Pipeline,Cause of drop-out,Centre,N genes,N alleles
+ABR_001,Time-based control-matching,WTSI,285,285
+,,HMGU,13,13
+,Subtotal,,297,298
+ABR_002,Stimulus/equipment config,MRC Harwell,51,51
+,,KMPC,6,6
+,,HMGU,4,4
+,,CCP-IMG,1,1
+,,MARC,1,1
+,Subtotal,,63,63
+,Time-based control-matching,TCP,41,41
+,Subtotal,,41,41
+,Genetic Background control-matching,RBRC,8,8
+,,JAX,2,2
+,,HMGU,1,1
+,Subtotal,,11,11
+,Pipeline total,,115,115
+TOTAL,,,412,413
